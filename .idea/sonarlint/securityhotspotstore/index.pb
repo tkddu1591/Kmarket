@@ -19,16 +19,6 @@ C
 HTML/css/common.css,b\d\bd1bcc3ca79fcdd41794fcc88d5e31bbb2f8e594
 L
 HTML/product/css/product.css,4\1\414910612b6d547751f28a51bc386e970af87513
-D
-JSP/product/cart.jsp,0\0\0090810225e02aa87962acd0ededc698809375ae
-H
-JSP/product/complete.jsp,8\7\873d295396956ae8cd55102994ff7ebfc116dd8e
-D
-JSP/product/list.jsp,8\d\8d4b576dc58278c7b504913c0277f36075b4a324
-E
-JSP/product/order.jsp,1\c\1c1c169813d6cdea4c3d8c8cce7f78cba259cb9c
-D
-JSP/product/view.jsp,9\6\963767f9530f6aa535ba5c53c468203c3fa1e2ad
 X
 (JSP/src/main/webapp/product/complete.jsp,b\6\b6b3a20ee88c4ff85e74e26fdcc3d7731c6493df
 T

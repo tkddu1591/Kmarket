@@ -19,14 +19,6 @@ C
 HTML/css/common.css,b\d\bd1bcc3ca79fcdd41794fcc88d5e31bbb2f8e594
 L
 HTML/product/css/product.css,4\1\414910612b6d547751f28a51bc386e970af87513
-D
-JSP/product/cart.jsp,0\0\0090810225e02aa87962acd0ededc698809375ae
-H
-JSP/product/complete.jsp,8\7\873d295396956ae8cd55102994ff7ebfc116dd8e
-D
-JSP/product/list.jsp,8\d\8d4b576dc58278c7b504913c0277f36075b4a324
-E
-JSP/product/order.jsp,1\c\1c1c169813d6cdea4c3d8c8cce7f78cba259cb9c
 O
 JSP/src/main/webapp/js/index.js,3\9\3984a350aa6e3b187c0696a6820a49ee8b41cde1
 [
@@ -41,7 +33,5 @@ T
 $JSP/src/main/webapp/product/list.jsp,9\7\97d2e5de401eaa7d753794f5d947c802da2e8d93
 R
 "JSP/src/main/webapp/css/common.css,c\4\c41641e5c5d74bd46f5d627865db6925c53bf00f
-D
-JSP/product/view.jsp,9\6\963767f9530f6aa535ba5c53c468203c3fa1e2ad
 T
 $JSP/src/main/webapp/product/cart.jsp,c\3\c3fa4286052a7551c24ac4fba2a60baa56d293ae
