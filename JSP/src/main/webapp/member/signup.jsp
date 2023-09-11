@@ -30,4 +30,4 @@
 				</div>
             </div>
         </main>        
-<%@ include file="_header.jsp" %>
+<%@ include file="_footer.jsp" %>
