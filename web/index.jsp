@@ -1,19 +1,19 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
-    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="../HTML/img/favicon.ico" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>
-    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="../HTML/css/common.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="../HTML/js/index.js"></script>
     <style>
       #bannerTop {
         display: none;
@@ -41,7 +41,7 @@
         top: 0px;
         width: 40px;
         height: 40px;
-        background-image: url('./img/ico_sprite.png');
+        background-image: url('../HTML/img/ico_sprite.png');
         background-position: -122px -142px;
         background-color: transparent;
         font-size: 0;
@@ -62,7 +62,7 @@
   <body>
     <div id="bannerTop" class="on" style="background: #e4dfdf;">
       <article>
-        <a href="#"><img src="./img/topBanner1.png"/></a>
+        <a href="#"><img src="../HTML/img/topBanner1.png"/></a>
         <button class="btnClose">close</button>
       </article>
     </div>
@@ -81,7 +81,7 @@
         </div>
         <div class="logo">
           <div>
-            <a href="#"><img src="./img/header_logo.png" alt="로고" /></a>
+            <a href="#"><img src="../HTML/img/header_logo.png" alt="로고" /></a>
             <form action="#">
               <input type="text" name="search" />
               <button><i class="fa fa-search"></i></button>
@@ -862,7 +862,7 @@
           <li><a href="#">전자금융거래약관</a></li>
         </ul>
         <div>
-          <p><img src="./img/footer_logo.png" alt="로고" /></p>
+          <p><img src="../HTML/img/footer_logo.png" alt="로고" /></p>
           <p>
             <strong>(주)KMARKET</strong><br />
             부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)<br />
