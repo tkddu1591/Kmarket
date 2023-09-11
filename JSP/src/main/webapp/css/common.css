@@ -335,10 +335,10 @@ main > aside > .best > ol > li > a h2 {
 main > aside > .best > ol > li > a .org_price {
 }
 main > aside > .best > ol > li > a .org_price > del::after {
-    content: "ì›";
+    content: "원";
 }
 main > aside > .best > ol > li > a .org_price > ins::after {
-    content: "ì›";
+    content: "원";
 }
 main > aside > .best > ol > li > a .org_price > del {
     font-size: 10px;
@@ -349,7 +349,7 @@ main > aside > .best > ol > li > a .org_price > span {
     font-size: 10px;
 }
 main > aside > .best > ol > li > a .org_price > span::after {
-    content: "â†“";
+    content: "↓";
 }
 main > aside > .best > ol > li > a .dis_price {
 }
@@ -358,7 +358,7 @@ main > aside > .best > ol > li > a .dis_price > ins {
     text-decoration: none;
 }
 main > aside > .best > ol > li > a .dis_price > ins::after {
-    content: "ì›";
+    content: "원";
 }
 main > aside > .best > ol > li > a .dis_price > span {
     display: inline-block;
@@ -434,10 +434,10 @@ main > section > section > article > a:hover > p {
 }
 
 main > section > section > article del::after {
-    content: "ì›";
+    content: "원";
 }
 main > section > section > article ins::after {
-    content: "ì›";
+    content: "원";
 }
 main > section > section > article .org_price > del {
     color: #aaa;
@@ -446,7 +446,7 @@ main > section > section > article .org_price > span {
     color: #eb000a;
 }
 main > section > section > article .org_price > span::after {
-    content: "â†“";
+    content: "↓";
 }
 main > section > section > article .dis_price {
     margin-top: 4px;
