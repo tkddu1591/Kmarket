@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>Kmarket</string>
+			<key>host</key>
+			<string>13.236.85.117</string>
+			<key>kcid</key>
+			<string>3456674788802436241</string>
+			<key>name</key>
+			<string>Kmarket</string>
+			<key>port</key>
+			<integer>3306</integer>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGoCwwXGBkaHiVVJG51bGzTDQ4PEBMWV05TLmtleXNaTlMu
+			b2JqZWN0c1YkY2xhc3OiERKAAoADohQVgASABYAHVHR5cGVUcm93
+			c18QHVNlbGVjdGlvbkRldGFpbFR5cGVOU0luZGV4U2V00hsPHB1c
+			TlNSYW5nZUNvdW50EACABtIfICEiWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNaTlNJbmRleFNldKIjJFpOU0luZGV4U2V0WE5TT2JqZWN00h8g
+			JidcTlNEaWN0aW9uYXJ5oiYkAAgAEQAaACQAKQAyADcASQBMAFEA
+			UwBcAGIAaQBxAHwAgwCGAIgAigCNAI8AkQCTAJgAnQC9AMIAzwDR
+			ANMA2ADjAOwA9wD6AQUBDgETASAAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {695, 477}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>189</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>select a.cate1, a.c1Name,b.cate2, b.c2Name from `km_product_cate1` AS a LEFT JOIN `km_product_cate2` AS b ON a.cate1 = b.cate1</string>
+		<string>select * from `km_product_cate1` AS a LEFT JOIN `km_product_cate2` AS b ON a.cate1 = b.cate1</string>
+		<string>select * from `km_product_cate2`</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(18, 10, '여행/항공권');
+INSERT INTO `km_product_cate2` VALUES(18, 11, '도서/음반/e교육');
+INSERT INTO `km_product_cate2` VALUES(18, 12, '공연티켓');
+INSERT INTO `km_product_cate2` VALUES(18, 13, 'e쿠폰');
+INSERT INTO `km_product_cate2` VALUES(18, 14, '상품권')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(17, 11, '공구/안전/산업용품')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(17, 10, '자동차용품')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(16, 10, '스포츠의류/운동화');
+INSERT INTO `km_product_cate2` VALUES(16, 11, '휘트니스/수영');
+INSERT INTO `km_product_cate2` VALUES(16, 12, '구기/라켓');
+INSERT INTO `km_product_cate2` VALUES(16, 13, '골프');
+INSERT INTO `km_product_cate2` VALUES(16, 14, '자전거/보드/기타레저');
+INSERT INTO `km_product_cate2` VALUES(16, 15, '캠핑/낚시');
+INSERT INTO `km_product_cate2` VALUES(16, 16, '등산/아웃도어');
+INSERT INTO `km_product_cate2` VALUES(16, 17, '건강/의료용품');
+INSERT INTO `km_product_cate2` VALUES(16, 18, '건강식품');
+INSERT INTO `km_product_cate2` VALUES(16, 19, '렌탈서비스')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(15, 10, '노트북/PC');
+INSERT INTO `km_product_cate2` VALUES(15, 11, '모니터/프린터');
+INSERT INTO `km_product_cate2` VALUES(15, 12, 'PC주변기기');
+INSERT INTO `km_product_cate2` VALUES(15, 13, '모바일/태블릿');
+INSERT INTO `km_product_cate2` VALUES(15, 14, '카메라');
+INSERT INTO `km_product_cate2` VALUES(15, 15, '게임');
+INSERT INTO `km_product_cate2` VALUES(15, 16, '영상가전');
+INSERT INTO `km_product_cate2` VALUES(15, 17, '주방가전');
+INSERT INTO `km_product_cate2` VALUES(15, 18, '계절가전');
+INSERT INTO `km_product_cate2` VALUES(15, 19, '생활/미용가전');
+INSERT INTO `km_product_cate2` VALUES(15, 20, '음향가전');
+INSERT INTO `km_product_cate2` VALUES(15, 21, '건강가전')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(14, 11, '침구/커튼');
+INSERT INTO `km_product_cate2` VALUES(14, 12, '조명/인테리어');
+INSERT INTO `km_product_cate2` VALUES(14, 13, '생활용품');
+INSERT INTO `km_product_cate2` VALUES(14, 14, '주방용품');
+INSERT INTO `km_product_cate2` VALUES(14, 15, '문구/사무용품');
+INSERT INTO `km_product_cate2` VALUES(14, 16, '사무기기');
+INSERT INTO `km_product_cate2` VALUES(14, 17, '악기/취미');
+INSERT INTO `km_product_cate2` VALUES(14, 18, '반려동물용품')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(14, 10, '가구/DIY')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(13, 10, '신선식품');
+INSERT INTO `km_product_cate2` VALUES(13, 11, '가공식품');
+INSERT INTO `km_product_cate2` VALUES(13, 12, '건강식품');
+INSERT INTO `km_product_cate2` VALUES(13, 13, '커피/음료');
+INSERT INTO `km_product_cate2` VALUES(13, 14, '생필품');
+INSERT INTO `km_product_cate2` VALUES(13, 15, '바디/헤어')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(12, 10, '출산/육아');
+INSERT INTO `km_product_cate2` VALUES(12, 11, '장난감/완구');
+INSERT INTO `km_product_cate2` VALUES(12, 12, '유아동 의류');
+INSERT INTO `km_product_cate2` VALUES(12, 13, '유아동 신발/잡화')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(11, 10, '여성의류');
+INSERT INTO `km_product_cate2` VALUES(11, 11, '남성의류');
+INSERT INTO `km_product_cate2` VALUES(11, 12, '언더웨어');
+INSERT INTO `km_product_cate2` VALUES(11, 13, '신발');
+INSERT INTO `km_product_cate2` VALUES(11, 14, '가방/잡화');
+INSERT INTO `km_product_cate2` VALUES(11, 15, '쥬얼리/시계');
+INSERT INTO `km_product_cate2` VALUES(11, 16, '화장품/향수');
+INSERT INTO `km_product_cate2` VALUES(11, 17, '바디/헤어')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(10, 10, '브랜드 여성의류');
+INSERT INTO `km_product_cate2` VALUES(10, 11, '브랜드 남성의류');
+INSERT INTO `km_product_cate2` VALUES(10, 12, '브랜드 진/캐쥬얼');
+INSERT INTO `km_product_cate2` VALUES(10, 13, '브랜드 신발/가방');
+INSERT INTO `km_product_cate2` VALUES(10, 14, '브랜드 쥬얼리/시계');
+INSERT INTO `km_product_cate2` VALUES(10, 15, '브랜드 아웃도어')</string>
+		<string>INSERT INTO `km_product_cate2` VALUES(10, 10, '브랜드 여성의류')</string>
+		<string>select * from km_product_cate1</string>
+		<string>INSERT INTO `km_product_cate1` VALUES(11, '패션의류/잡화/뷰티');
+INSERT INTO `km_product_cate1` VALUES(12, '유아동');
+INSERT INTO `km_product_cate1` VALUES(13, '식품/생필품');
+INSERT INTO `km_product_cate1` VALUES(14, '홈데코/취미/반려');
+INSERT INTO `km_product_cate1` VALUES(15, '컴퓨터/디지털/가전');
+INSERT INTO `km_product_cate1` VALUES(16, '스포츠/건강/렌탈');
+INSERT INTO `km_product_cate1` VALUES(17, '자동차/공구');
+INSERT INTO `km_product_cate1` VALUES(18, '여행/도서/티켓/쿠폰')</string>
+		<string>INSERT INTO `km_product_cate1` VALUES(10, '브랜드패션')</string>
+		<string>desc km_product_cate1</string>
+		<string>use `Kmarket`</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.34</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
