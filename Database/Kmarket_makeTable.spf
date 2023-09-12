@@ -333,6 +333,78 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_review` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+# cs 게시판 추가 
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_cate1`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_cate1` (
+  `cate1` INT NOT NULL,
+  `c1Name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`cate1`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_cate2`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_cate2` (
+  `cate1` INT NOT NULL,
+  `cate2` INT NOT NULL,
+  `c2Name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`cate2`, `cate1`),
+  INDEX `fk_km_cs_cate2_km_cs_cate11_idx` (`cate1` ASC) VISIBLE,
+  CONSTRAINT `fk_km_cs_cate2_km_cs_cate11`
+    FOREIGN KEY (`cate1`)
+    REFERENCES `Kmarket`.`km_cs_cate1` (`cate1`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_article`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_article` (
+  `articleNo` INT NOT NULL AUTO_INCREMENT,
+  `type` TINYINT NOT NULL,
+  `cate1` INT NOT NULL,
+  `cate2` INT NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  `file1` VARCHAR(255) NULL,
+  `file2` VARCHAR(255) NULL,
+  `file3` VARCHAR(255) NULL,
+  `file4` VARCHAR(255) NULL,
+  `writer` VARCHAR(20) NOT NULL,
+  `ordNo` INT NULL,
+  `prodNo` INT NULL,
+  `parent` INT NULL,
+  `answerComplete` TINYINT NULL,
+  `regip` VARCHAR(100) NULL,
+  `rdate` DATETIME NULL,
+  INDEX `fk_table1_km_cs_cate21_idx` (`cate2` ASC, `cate1` ASC) VISIBLE,
+  PRIMARY KEY (`articleNo`),
+  INDEX `fk_table1_km_member1_idx` (`writer` ASC) VISIBLE,
+  INDEX `fk_table1_km_product_order1_idx` (`ordNo` ASC) VISIBLE,
+  CONSTRAINT `fk_table1_km_cs_cate21`
+    FOREIGN KEY (`cate2` , `cate1`)
+    REFERENCES `Kmarket`.`km_cs_cate2` (`cate2` , `cate1`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_km_member1`
+    FOREIGN KEY (`writer`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_km_product_order1`
+    FOREIGN KEY (`ordNo`)
+    REFERENCES `Kmarket`.`km_product_order` (`ordNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 ALTER TABLE `km_product` auto_increment = 1000000;</string>
 			<key>view</key>
@@ -349,6 +421,72 @@ ALTER TABLE `km_product` auto_increment = 1000000;</string>
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string>show tables</string>
+		<string>show tabels</string>
+		<string>-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_cate1`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_cate1` (
+  `cate1` INT NOT NULL,
+  `c1Name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`cate1`))
+ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_cate2`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_cate2` (
+  `cate1` INT NOT NULL,
+  `cate2` INT NOT NULL,
+  `c2Name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`cate2`, `cate1`),
+  INDEX `fk_km_cs_cate2_km_cs_cate11_idx` (`cate1` ASC) VISIBLE,
+  CONSTRAINT `fk_km_cs_cate2_km_cs_cate11`
+    FOREIGN KEY (`cate1`)
+    REFERENCES `Kmarket`.`km_cs_cate1` (`cate1`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_article`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_article` (
+  `articleNo` INT NOT NULL AUTO_INCREMENT,
+  `type` TINYINT NOT NULL,
+  `cate1` INT NOT NULL,
+  `cate2` INT NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  `file1` VARCHAR(255) NULL,
+  `file2` VARCHAR(255) NULL,
+  `file3` VARCHAR(255) NULL,
+  `file4` VARCHAR(255) NULL,
+  `writer` VARCHAR(20) NOT NULL,
+  `ordNo` INT NULL,
+  `prodNo` INT NULL,
+  `parent` INT NULL,
+  `answerComplete` TINYINT NULL,
+  `regip` VARCHAR(100) NULL,
+  `rdate` DATETIME NULL,
+  INDEX `fk_table1_km_cs_cate21_idx` (`cate2` ASC, `cate1` ASC) VISIBLE,
+  PRIMARY KEY (`articleNo`),
+  INDEX `fk_table1_km_member1_idx` (`writer` ASC) VISIBLE,
+  INDEX `fk_table1_km_product_order1_idx` (`ordNo` ASC) VISIBLE,
+  CONSTRAINT `fk_table1_km_cs_cate21`
+    FOREIGN KEY (`cate2` , `cate1`)
+    REFERENCES `Kmarket`.`km_cs_cate2` (`cate2` , `cate1`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_km_member1`
+    FOREIGN KEY (`writer`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_km_product_order1`
+    FOREIGN KEY (`ordNo`)
+    REFERENCES `Kmarket`.`km_product_order` (`ordNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB</string>
 		<string>ALTER TABLE `km_product` auto_increment = 1000000</string>
 		<string>ALTER TABLE `km_product` auto_increment = 1,000,000</string>
 		<string>CREATE SCHEMA IF NOT EXISTS `Kmarket` DEFAULT CHARACTER SET utf8;
@@ -1083,9 +1221,6 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS</string>
 		<string>select * from user5</string>
 		<string>select * from User6</string>
 		<string>delete  from User6</string>
-		<string>delete * from User6</string>
-		<string>select * from user0</string>
-		<string>from</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>
