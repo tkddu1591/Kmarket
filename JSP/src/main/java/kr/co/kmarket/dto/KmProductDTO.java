@@ -34,6 +34,22 @@ public class KmProductDTO {
     private String etc4;
     private String etc5;
 
+    private String wDate;
+    private int total;
+
+    public void setTotal(String total) {
+        this.total = Integer.parseInt(total);
+    }
+    public void setTotal(int total) {
+        this.total = total;
+    }
+    public int getTotal() {
+        return total;
+    }
+    public String getTotalWithComma() {
+        return String.format("%,d", total);
+    }
+
     public int getProdNo() {
         return prodNo;
     }
@@ -93,6 +109,9 @@ public class KmProductDTO {
     public int getPrice() {
         return price;
     }
+    public String getPriceWithComma(){
+        return String.format("%,d", price);
+    }
 
     public void setPrice(int price) {
         this.price = price;
@@ -100,6 +119,9 @@ public class KmProductDTO {
 
     public int getDiscount() {
         return discount;
+    }
+    public String getDiscountWithPer() {
+        return discount+"%";
     }
 
     public void setDiscount(int discount) {
@@ -240,6 +262,14 @@ public class KmProductDTO {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getwDate() {
+        return wDate;
+    }
+
+    public void setwDate(String wDate) {
+        this.wDate = wDate;
     }
 
     public String getrDate() {
