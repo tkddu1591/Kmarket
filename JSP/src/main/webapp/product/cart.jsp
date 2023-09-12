@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="./_header.jsp"%>>
+<%@include file="./_header.jsp"%>
             <main id="product">
                 <aside>
                     <ul class="category">
