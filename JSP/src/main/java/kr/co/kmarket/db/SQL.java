@@ -22,15 +22,6 @@ public class SQL {
      * 1의자리 = 높은순(0), 낮은순(1)
      * */
     public static void changeSelectProductCateL10Condition(String condition, String cate2){
-        SELECT_PRODUCTS_CATE_L10.clear();
-        if(cate2==null || cate2.isEmpty()){
-            SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product WHERE prodCate1=? ORDER BY prodNo DESC LIMIT ?, 10;");
-            return;
-        }
-        if(condition==null || condition.isEmpty()){
-            SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 =? ORDER BY prodNo DESC LIMIT ?, 10;");
-            return;
-        }
 
         int conditionData1 = Integer.parseInt(condition)/10;
         int conditionData2 = Integer.parseInt(condition)%10;

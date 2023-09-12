@@ -26,6 +26,12 @@ public class ListController extends HttpServlet {
         kmProductCate2DTO.setCate2(req.getParameter("cate2"));
         String pg = req.getParameter("pg");
         String condition = req.getParameter("condition");
+        if(kmProductCate2DTO.getCate2()==null || kmProductCate2DTO.getCate2().equals("")) {
+            kmProductCate2DTO.setCate2("10");
+        }
+        if(condition==null || condition.equals("")) {
+            condition = "11";
+        }
 
         KmProductService kmProductService = KmProductService.getInstance();
         PageService pageService = PageService.getInstance();
