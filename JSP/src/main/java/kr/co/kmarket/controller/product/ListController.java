@@ -58,6 +58,7 @@ public class ListController extends HttpServlet {
 
         req.setAttribute("cate1", kmProductCate2DTO.getCate1());
         req.setAttribute("cate2", kmProductCate2DTO.getCate2());
+        req.setAttribute("condition", condition);
         req.setAttribute("KmProductDTOS", KmProducts);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("lastPageNum", lastPageNum);

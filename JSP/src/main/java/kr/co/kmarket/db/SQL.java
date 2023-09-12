@@ -21,9 +21,12 @@ public class SQL {
      * 10의자리= 조건(1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜
      * 1의자리 = 높은순(0), 낮은순(1)
      * */
-    public static void changeSelectProductCateL10Condition(String condition){
+    public static void changeSelectProductCateL10Condition(String condition, String cate2){
         SELECT_PRODUCTS_CATE_L10.clear();
-
+        if(cate2==null || cate2.isEmpty()){
+            SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product WHERE prodCate1=? ORDER BY prodNo DESC LIMIT ?, 10;");
+            return;
+        }
         if(condition==null || condition.isEmpty()){
             SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 =? ORDER BY prodNo DESC LIMIT ?, 10;");
             return;

@@ -1,3 +1,4 @@
+SELECT * FROM Kmarket.km_product WHERE prodCate1=? ORDER BY prodNo DESC LIMIT ?, 10;
 SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY prodNo DESC LIMIT ?, 10;
 SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY sold DESC ,prodNo DESC LIMIT ?, 10;
 SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY sold ASC ,prodNo DESC LIMIT ?, 10;
@@ -10,3 +11,5 @@ SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY re
 SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY rdate DESC, prodNo DESC LIMIT ?, 10;
 SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY rdate ASC, prodNo DESC LIMIT ?, 10;
 SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ?;
+
+ALTER TABLE `km_product` auto_increment = 1000000;

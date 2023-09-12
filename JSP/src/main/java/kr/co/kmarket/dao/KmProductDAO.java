@@ -33,13 +33,18 @@ public class KmProductDAO extends DBHelper {
 
             conn = getConnection();
             logger.info(condition);
-            SQL.changeSelectProductCateL10Condition(condition);
+            SQL.changeSelectProductCateL10Condition(condition, kmProductCate2DTO.getCate2());
             logger.info(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
             psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
 
-            psmt.setString(1, kmProductCate2DTO.getCate1());
-            psmt.setString(2, kmProductCate2DTO.getCate2());
-            psmt.setInt(3, start);
+            if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
+                psmt.setString(1, kmProductCate2DTO.getCate1());
+                psmt.setString(2, kmProductCate2DTO.getCate2());
+                psmt.setInt(3, start);
+            }else {
+                psmt.setString(1, kmProductCate2DTO.getCate1());
+                psmt.setInt(2, start);
+            }
 
             rs = psmt.executeQuery();
             while (rs.next()) {
