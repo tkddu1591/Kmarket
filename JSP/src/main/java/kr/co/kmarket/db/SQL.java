@@ -6,11 +6,13 @@ import java.util.List;
 public class SQL {
 
     //km_member
-
+	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
+	
     //km_member_point
 
     //km_member_terms
-
+	public static final String SELECT_TERMS = "SELECT * FROM `km_member_terms`";
+	
     //km_product
     public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
 
