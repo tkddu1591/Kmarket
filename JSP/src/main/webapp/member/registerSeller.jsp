@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="_header.jsp" %>
+<%@ include file="./_header.jsp" %>
         <main id="member">
             <div class="registerSeller">
 				<nav>
@@ -117,4 +117,4 @@
 				</form>
             </div>
         </main>        
-<%@ include file="_footer.jsp" %>
+<%@ include file="./_footer.jsp" %>
