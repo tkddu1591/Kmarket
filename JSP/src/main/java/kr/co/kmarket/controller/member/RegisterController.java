@@ -67,6 +67,6 @@ public class RegisterController extends HttpServlet{
 		
 		service.insertMember(dto);
 		
-		resp.sendRedirect("${ctxPath}/member/login.do"); // 로그인페이지로 가기
+		resp.sendRedirect("/JSP/member/login.do"); // 로그인페이지로 가기, 여기선 ctxPath 호출 안됨
 	}
 }
