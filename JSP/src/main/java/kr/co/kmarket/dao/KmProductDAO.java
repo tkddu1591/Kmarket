@@ -173,17 +173,21 @@ public class KmProductDAO extends DBHelper {
 		
 	}
 	public List<KmProductDTO> selectProducts(int start) {
-		
+		return null;
 	}
 	
 	public List<KmProductDTO> selectProducts(String cate, int start) {
-		
+		return null;
 	}
 	
 	public void updateProduct(KmProductDTO dto) {}
-	public void deleteProdut(int prodNo) {}
+	public void deleteProduct(int prodNo) {}
 	
-	public int selectCountProductsTotal() {}
-	public int selectCountProductsTotal(String cate) {}
+	public int selectCountProductsTotal() {
+		return 0;
+	}
+	public int selectCountProductsTotal(String cate) {
+		return 0;
+	}
   
 }

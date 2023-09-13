@@ -6,10 +6,13 @@ import kr.co.kmarket.dto.KmProductDTO;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class KmProductService {
   
   
-	  private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
   
     private static KmProductService INSTANCE = new KmProductService();
     private static KmProductDAO dao = KmProductDAO.getInstance();
@@ -33,7 +36,7 @@ public class KmProductService {
         dao.insertProduct(dto);
     }
     public KmProductDTO selectProduct(String prodNo) {
-        return dao.selectProduct(pNo);
+        return dao.selectProduct(prodNo);
     }
     public List<KmProductDTO> selectProducts(int start) {
         return dao.selectProducts(start);
@@ -49,8 +52,12 @@ public class KmProductService {
     }
 
 
-    public int selectCountProductsTotal() {}
-    public int selectCountProductsTotal(String cate) {}
+    public int selectCountProductsTotal() {
+    	return dao.selectCountProductsTotal();
+    }
+    public int selectCountProductsTotal(String cate) {
+    	return dao.selectCountProductsTotal(cate);
+    }
 
 
     // 파일명수정

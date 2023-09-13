@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.kmarket.dto.KmProductDTO;
 
-@WebServlet
+@WebServlet("/admin/product/list.do")
 public class ListController extends HttpServlet{
 	private static final long serialVersionUID = 5993656574541195493L;
 	
@@ -69,7 +69,7 @@ public class ListController extends HttpServlet{
 		//req.setAttribute(pg, pg);
 		
 	
-		RequestDispatcher dispatcher = req.getRequestDispatcher("productist.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("list.jsp");
 		dispatcher.forward(req, resp);
 	}
 	

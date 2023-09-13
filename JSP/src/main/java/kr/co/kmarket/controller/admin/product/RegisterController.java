@@ -40,7 +40,7 @@ public class RegisterController extends HttpServlet {
 		
 		String path = pService.
 		
-		String prodName 	= mr.getParameter(prodName);
+		String prodName 	= mr.getParameter("prodName");
 		String descript 	= mr.getParameter(descript);
 		String company 		= mr.getParameter(company);
 		String price 		= mr.getParameter(price);
@@ -59,5 +59,5 @@ public class RegisterController extends HttpServlet {
 		String origin 		= mr.getParameter(origin);
 		
 		
-}
+	}
 }
