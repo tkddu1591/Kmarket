@@ -1,5 +1,7 @@
 package kr.co.kmarket.service;
 
-public class KmCsCate2Service {
+import kr.co.kmarket.db.DBHelper;
+
+public class KmCsCate2Service extends DBHelper {
 
 }

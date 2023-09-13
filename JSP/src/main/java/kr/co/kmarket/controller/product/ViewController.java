@@ -2,8 +2,10 @@ package kr.co.kmarket.controller.product;
 
 import kr.co.kmarket.dao.KmProductDAO;
 import kr.co.kmarket.dao.KmProductReviewDAO;
+import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
 import kr.co.kmarket.dto.KmProductReviewDTO;
+import kr.co.kmarket.service.KmProductCate2Service;
 import kr.co.kmarket.service.KmProductService;
 import kr.co.kmarket.service.KmProductReviewService;
 import kr.co.kmarket.service.PageService;
@@ -25,17 +27,18 @@ public class ViewController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         String prodNo =req.getParameter("prodNo");
+        String c1Name =req.getParameter("c1Name");
+        String c2Name =req.getParameter("c2Name");
+
+
 
         PageService pageService = PageService.getInstance();
         KmProductService kmProductService = KmProductService.getInstance();
 
-        logger.info("prodNo : " + prodNo);
         KmProductDTO kmProductDTO = kmProductService.selectProduct(prodNo);
 
-        logger.info("prodNo : " + kmProductDTO.getProdNo());
-        logger.info("prodName : " + kmProductDTO.getProdName());
-        logger.info("prodPrice : " + kmProductDTO.getPrice());
-        logger.info("prodStock : " + kmProductDTO.getStock());
+
+
         req.setAttribute("kmProduct", kmProductDTO);
 
 
@@ -67,6 +70,8 @@ public class ViewController extends HttpServlet {
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
 
+        req.setAttribute("c1Name", c1Name);
+        req.setAttribute("c2Name", c2Name);
         req.setAttribute("prodNo", prodNo);
         req.setAttribute("kmProductReviews", kmProductReviews);
         req.setAttribute("currentPage", currentPage);
