@@ -26,6 +26,7 @@ public class RegisterController extends HttpServlet {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private KmProductService kpService = KmProductService.getInstance();
+	//private KmProductService kpService = KmProductService.getInstance();
 	
 	
 	@Override
@@ -44,51 +45,51 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String path = kpService.getFilePath(req);
-		MultipartRequest mr = aService.uploadFile(req, path);  //article 추가 후 수정할게요
-		
-		String prodCate1 	= mr.getParameter("prodCate1");
-		String prodCate2 	= mr.getParameter("prodCate2");
-		String prodName 	= mr.getParameter("prodName");
-		String descript 	= mr.getParameter("descript");
-		String company 		= mr.getParameter("company");
-		String price 		= mr.getParameter("price");
-		String discount 	= mr.getParameter("discount");
-		String point 		= mr.getParameter("point");
-		String stock 		= mr.getParameter("stock");
-		String delivery 	= mr.getParameter("delivery");
-		String thumb1 		= mr.getParameter("thumb1");
-		String thumb2 		= mr.getParameter("thumb2");
-		String thumb3 		= mr.getParameter("thumb3");
-		String detail 		= mr.getParameter("detail");
-		
-		String status 		= mr.getParameter("status");
-		String duty 		= mr.getParameter("duty");
-		String receipt 		= mr.getParameter("receipt");
-		String bizType 		= mr.getParameter("bizType");
-		String origin 		= mr.getParameter("origin");
-		
-		KmProductDTO dto = new KmProductDTO(path);
-		dto.setProdCate1(prodCate1);
-		dto.setProdCate2(prodCate2);
-		dto.setProdName(prodName);
-		dto.setDescript(descript);
-		dto.setCompany(company);
-		dto.setPrice(price);
-		dto.setDiscount(discount);
-		dto.setPoint(point);
-		dto.setDelivery(delivery);
-		dto.setThumb1(thumb1);
-		dto.setThumb2(thumb2);
-		dto.setThumb3(thumb3);
-		dto.setDetail(detail);
-		dto.setStatus(status);
-		dto.setDuty(duty);
-		dto.setReceipt(receipt);
-		dto.setBizType(bizType);
-		dto.setOrigin(origin);
-		
-		kpService.insertProduct(dto);
-		
+		//MultipartRequest mr = aService.uploadFile(req, path);  //article 추가 후 수정할게요
+//		
+//		String prodCate1 	= mr.getParameter("prodCate1");
+//		String prodCate2 	= mr.getParameter("prodCate2");
+//		String prodName 	= mr.getParameter("prodName");
+//		String descript 	= mr.getParameter("descript");
+//		String company 		= mr.getParameter("company");
+//		String price 		= mr.getParameter("price");
+//		String discount 	= mr.getParameter("discount");
+//		String point 		= mr.getParameter("point");
+//		String stock 		= mr.getParameter("stock");
+//		String delivery 	= mr.getParameter("delivery");
+//		String thumb1 		= mr.getParameter("thumb1");
+//		String thumb2 		= mr.getParameter("thumb2");
+//		String thumb3 		= mr.getParameter("thumb3");
+//		String detail 		= mr.getParameter("detail");
+//		
+//		String status 		= mr.getParameter("status");
+//		String duty 		= mr.getParameter("duty");
+//		String receipt 		= mr.getParameter("receipt");
+//		String bizType 		= mr.getParameter("bizType");
+//		String origin 		= mr.getParameter("origin");
+//		
+//		KmProductDTO dto = new KmProductDTO(path);
+//		dto.setProdCate1(prodCate1);
+//		dto.setProdCate2(prodCate2);
+//		dto.setProdName(prodName);
+//		dto.setDescript(descript);
+//		dto.setCompany(company);
+//		dto.setPrice(price);
+//		dto.setDiscount(discount);
+//		dto.setPoint(point);
+//		dto.setDelivery(delivery);
+//		dto.setThumb1(thumb1);
+//		dto.setThumb2(thumb2);
+//		dto.setThumb3(thumb3);
+//		dto.setDetail(detail);
+//		dto.setStatus(status);
+//		dto.setDuty(duty);
+//		dto.setReceipt(receipt);
+//		dto.setBizType(bizType);
+//		dto.setOrigin(origin);
+//		
+//		kpService.insertProduct(dto);
+//		
 		resp.sendRedirect("/admin/register.do?sucess=200"); 
 		
 	}
