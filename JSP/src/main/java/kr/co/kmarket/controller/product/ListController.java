@@ -4,6 +4,7 @@ import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
 import kr.co.kmarket.service.KmProductService;
 import kr.co.kmarket.service.PageService;
+import org.slf4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @WebServlet("/product/list.do")
 public class ListController extends HttpServlet {
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(ListController.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -60,12 +62,13 @@ public class ListController extends HttpServlet {
         int start = pageService.getStartNum(currentPage);
 
         // 현재 페이지 게시물 조회
-        List<KmProductDTO> KmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+        List<KmProductDTO> kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+
 
         req.setAttribute("cate1", kmProductCate2DTO.getCate1());
         req.setAttribute("cate2", kmProductCate2DTO.getCate2());
         req.setAttribute("condition", condition);
-        req.setAttribute("KmProductDTOS", KmProducts);
+        req.setAttribute("KmProductDTOS", kmProducts);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("lastPageNum", lastPageNum);
         req.setAttribute("pageGroupStart", result[0]);

@@ -17,8 +17,6 @@ P
  src/main/webapp/product/cart.jsp,0\0\00e652c15346599226d57eb2c9755a509686bc62
 `
 0src/main/java/kr/co/kmarket/dao/KmMemberDAO.java,3\a\3a05ff59726d868b96e4609f1a5f975dcdecfcef
-p
-@src/main/java/kr/co/kmarket/controller/admin/IndexControlle.java,5\8\583e22d73d67c8610350fb8c17350fbb57c78c58
 W
 'src/main/java/kr/co/kmarket/db/SQL.java,d\3\d30fd9ed10f6471e79b628c2473ba7546f999fc2
 V
@@ -46,3 +44,15 @@ r
 Bsrc/main/java/kr/co/kmarket/controller/product/ListController.java,7\8\780a534f66a2083dea38b754f8bda24f4b2af2cd
 P
  src/main/webapp/product/list.jsp,2\3\23e654edf5149461f70bfef80681146a92abe471
+T
+$src/main/webapp/product/complete.jsp,e\5\e52f05c94fb547d0810c448fe03eaa6d4a0a2823
+8
+.project,f\8\f8b41ce76d7b80d2b47e91b5f92c15f00eccf187
+R
+"src/main/webapp/product/_aside.jsp,3\2\324427d5a2f62dd1caa65624261ad55b7dea6ba9
+W
+'src/main/webapp/product/css/product.css,0\c\0cbde4bb1264f64257ce13773c3338e8e8585a5d
+m
+=src/main/java/kr/co/kmarket/service/KmMemberTermsService.java,8\5\85ca15bdb1bd7f7c488fd4ce2ec2db5fa81cc542
+h
+8src/main/java/kr/co/kmarket/service/KmMemberService.java,5\6\560c23cbabb838b47ec53febd844599ad55e06d5

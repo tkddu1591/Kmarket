@@ -33,10 +33,29 @@ public class KmProductDAO extends DBHelper {
         List<KmProductDTO> kmProducts = new ArrayList<KmProductDTO>();
         try {
 
+            int conditionData1 = Integer.parseInt(condition)/10;
+            int conditionData2 = Integer.parseInt(condition)%10;
+            String st1 = null;
+            String st2 = null;
+            if(conditionData1==1){
+                st1 = "sold";
+            }else if(conditionData1==2){
+                st1 = "price";
+            }else if(conditionData1==3){
+                st1 = "score";
+            }else if(conditionData1==4){
+                st1 = "review";
+            }else if(conditionData1==5){
+                st1 = "rDate";
+            }
+            if(conditionData2==1){
+                st2 = "desc";
+            }else if(conditionData2==2){
+                st2 = "asc";
+            }
+
             conn = getConnection();
-            logger.info(condition);
-            SQL.changeSelectProductCateL10Condition(condition, kmProductCate2DTO.getCate2());
-            logger.info(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
+            SQL.changeSelectProductCateL10(st1, st2);
             psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
 
             if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
@@ -53,6 +72,7 @@ public class KmProductDAO extends DBHelper {
                 KmProductDTO kmProduct = new KmProductDTO();
 
                 kmProduct = getInstance().SelectProductData();
+                kmProduct.setRating(rs.getInt("rating"));
 
                 kmProducts.add(kmProduct);
             }
@@ -118,7 +138,8 @@ public class KmProductDAO extends DBHelper {
         kmProduct.setEtc3(rs.getString("etc3"));
         kmProduct.setEtc4(rs.getString("etc4"));
         kmProduct.setEtc5(rs.getString("etc5"));
-        kmProduct.setTotal((kmProduct.getPrice()*(100-kmProduct.getDiscount()))/100);
+        kmProduct.setDiscountPrice((kmProduct.getPrice()*(100-kmProduct.getDiscount()))/100);
+        kmProduct.setTotal((kmProduct.getDiscountPrice()+kmProduct.getDelivery()));
         return kmProduct;
     }
 
@@ -164,8 +185,10 @@ public class KmProductDAO extends DBHelper {
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
-				
+				dto = getInstance().SelectProductData();
+                dto.setRating(rs.getInt("rating"));
 			}
+            close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
