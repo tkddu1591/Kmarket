@@ -61,6 +61,9 @@ public class KmMemberDTO {
     public void setGender(int gender) {
         this.gender = gender;
     }
+    public void setGender(String gender) {
+    	this.gender = Integer.parseInt(gender);
+    }
 
     public String getHp() {
         return hp;

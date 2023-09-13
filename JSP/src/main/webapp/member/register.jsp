@@ -5,7 +5,7 @@
                 <nav>
                     <h1>일반 회원가입</h1>
                 </nav>
-				<form action="#" method="POST">
+				<form action="${ctxPath}/member/register.do" method="POST"> <!-- registerController에서 post로 수신해야하기 때문에, signup에서 register.do 로 넘어갈 때 get 전송하자  -->
 					<section>
 						<table>
 							<caption>필수 정보입력</caption>
