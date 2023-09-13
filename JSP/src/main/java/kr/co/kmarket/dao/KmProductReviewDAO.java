@@ -22,12 +22,13 @@ public class KmProductReviewDAO extends DBHelper {
     }
 
 
-    public List<KmProductReviewDTO> selectProductReviews(String prodNo) {
+    public List<KmProductReviewDTO> selectProductReviews(String prodNo, int start) {
         List<KmProductReviewDTO> kmProductReviewDTOS = new ArrayList<>();
         try {
             conn = getConnection();
-            psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_REVIEWS);
+            psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_REVIEWS_L5);
             psmt.setString(1, prodNo);
+            psmt.setInt(2, start);
             rs= psmt.executeQuery();
             while (rs.next()){
                 KmProductReviewDTO kmProductReviewDTO = new KmProductReviewDTO();

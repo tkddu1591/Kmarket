@@ -17,6 +17,6 @@ SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ?
 
 ALTER TABLE `km_product` auto_increment = 1000000;
 
-SELECT * FROM km_product_review where prodNo=?;
+SELECT * FROM km_product_review where prodNo=? LIMIT ?,10;
 SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;
 SELECT a.*, AVG(b.rating) as rating FROM `km_product` as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE a.`prodNo` =?

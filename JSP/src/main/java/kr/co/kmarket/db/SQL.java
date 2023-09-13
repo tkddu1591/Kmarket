@@ -96,6 +96,6 @@ public class SQL {
 	//km_product_order_item
 
 	//km_product_review
-	public static final String SELECT_PRODUCT_REVIEWS = "SELECT * FROM km_product_review where prodNo=?;";
+	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? LIMIT ?,5;";
 	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
 }

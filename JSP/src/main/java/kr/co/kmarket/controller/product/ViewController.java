@@ -64,7 +64,7 @@ public class ViewController extends HttpServlet {
         int start = pageService.getStartNum(currentPage);
 
         // 현재 페이지 게시물 조회
-        List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo);
+        List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
 
         req.setAttribute("prodNo", prodNo);
@@ -75,10 +75,6 @@ public class ViewController extends HttpServlet {
         req.setAttribute("pageGroupEnd", result[1]);
         req.setAttribute("pageStartNum", pageStartNum+1);
         
-
-        List<KmProductReviewDTO> kmProductReviewReviewsDTO = KmProductReviewService.selectKmProductReviews(prodNo);
-
-
 
 
 

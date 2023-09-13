@@ -11,8 +11,8 @@ public enum KmProductReviewService {
 
     private static KmProductReviewDAO dao = KmProductReviewDAO.getInstance();
 
-    public static List<KmProductReviewDTO> selectKmProductReviews(String prodNo) {
-        return dao.selectProductReviews(prodNo);
+    public static List<KmProductReviewDTO> selectKmProductReviews(String prodNo,int start) {
+        return dao.selectProductReviews(prodNo, start);
     }
 
     public int selectKmProductReviewsCount(String prodNo) {

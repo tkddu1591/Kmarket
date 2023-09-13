@@ -196,18 +196,22 @@
                     <li>
                         <div>
                             <c:choose>
-                                <c:when test="${review.rating >= 4.5}"><h5 class="rating star5"></c:when>
-                                <c:when test="${review.rating >= 3.5}"><h5 class="rating star4"></c:when>
-                                <c:when test="${review.rating >= 2.5}"><h5 class="rating star3"></c:when>
-                                <c:when test="${review.rating >= 1.5}"><h5 class="rating star2"></c:when>
-                                <c:otherwise><h5 class="rating star1"></c:otherwise>
-                            </c:choose>
-                            상품평</h5>
-                            <span>${review.uidHidden} ${review.rDateYMD}</span>
+                            <c:when test="${review.rating >= 4.5}">
+                            <h5 class="rating star5"></c:when>
+                                <c:when test="${review.rating >= 3.5}">
+                                <h5 class="rating star4"></c:when>
+                                    <c:when test="${review.rating >= 2.5}">
+                                    <h5 class="rating star3"></c:when>
+                                        <c:when test="${review.rating >= 1.5}">
+                                        <h5 class="rating star2"></c:when>
+                                            <c:otherwise><h5 class="rating star1"></c:otherwise>
+                                                </c:choose>
+                                                상품평</h5>
+                                            <span>${review.uidHidden} ${review.rDateYMD}</span>
                         </div>
                         <h3>상품명1/BLUE/L</h3>
                         <p>
-                            ${review.content}
+                                ${review.content}
                         </p>
                     </li>
                 </c:forEach>
@@ -226,21 +230,28 @@
                 </li>
             </ul>
             <div class="paging">
-                        <span class="prev">
-                            <a href="#"><&nbsp;이전</a>
-                        </span>
+            <span class="prev">
+                <c:if test="${pageGroupStart > 1}">
+                    <a href="/JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}"
+                       class="start">처음으로</a>
+                    <a href="/JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}"
+                       class="prev">이전</a>
+                </c:if>
+            </span>
                 <span class="num">
-                            <a href="#" class="on">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                        </span>
+                <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
+                   <a href="/JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}"
+                      class="num ${currentPage == i?'current':'off'}">${i}</a>
+                </c:forEach>
+            </span>
                 <span class="next">
-                            <a href="#">다음&nbsp;></a>
-                        </span>
+                <c:if test="${pageGroupEnd < lastPageNum}">
+                    <a href="JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupEnd + 1}&prodNo=${kmProduct.prodNo}"
+                       class="next">다음</a>
+                    <a href="JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${lastPageNum}&prodNo=${kmProduct.prodNo}"
+                       class="last">마지막</a>
+                </c:if>
+            </span>
             </div>
 
         </article>
