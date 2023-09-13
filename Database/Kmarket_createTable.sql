@@ -286,12 +286,12 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_cate2` (
 ENGINE = InnoDB;
 
 
+
 -- -----------------------------------------------------
--- Table `Kmarket`.`km_cs_article`
+-- Table `Kmarket`.`km_cs_qna`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_article` (
-  `articleNo` INT NOT NULL AUTO_INCREMENT,
-  `type` TINYINT NOT NULL,
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_qna` (
+  `qnaNo` INT NOT NULL AUTO_INCREMENT,
   `cate1` INT NOT NULL,
   `cate2` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
@@ -305,10 +305,10 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_article` (
   `prodNo` INT NULL,
   `parent` INT NULL,
   `answerComplete` TINYINT NULL,
-  `regip` VARCHAR(100) NULL,
-  `rdate` DATETIME NULL,
+  `regip` VARCHAR(100) NOT NULL,
+  `rdate` DATETIME NOT NULL,
   INDEX `fk_table1_km_cs_cate21_idx` (`cate2` ASC, `cate1` ASC) VISIBLE,
-  PRIMARY KEY (`articleNo`),
+  PRIMARY KEY (`qnaNo`),
   INDEX `fk_table1_km_member1_idx` (`writer` ASC) VISIBLE,
   INDEX `fk_table1_km_product_order1_idx` (`ordNo` ASC) VISIBLE,
   CONSTRAINT `fk_table1_km_cs_cate21`
@@ -324,6 +324,92 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_article` (
   CONSTRAINT `fk_table1_km_product_order1`
     FOREIGN KEY (`ordNo`)
     REFERENCES `Kmarket`.`km_product_order` (`ordNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_faq`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_faq` (
+  `faqNo` INT NOT NULL AUTO_INCREMENT,
+  `cate1` INT NOT NULL,
+  `cate2` INT NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `content` LONGTEXT NOT NULL,
+  `relatedFaq` INT NULL,
+  `writer` VARCHAR(20) NOT NULL,
+  `regip` VARCHAR(100) NOT NULL,
+  `rdate` DATETIME NOT NULL,
+  PRIMARY KEY (`faqNo`),
+  INDEX `fk_km_cs_faq_km_cs_cate21_idx` (`cate2` ASC, `cate1` ASC) VISIBLE,
+  INDEX `fk_km_cs_faq_km_cs_faq1_idx` (`relatedFaq` ASC) VISIBLE,
+  INDEX `fk_km_cs_faq_km_member1_idx` (`writer` ASC) VISIBLE,
+  CONSTRAINT `fk_km_cs_faq_km_cs_cate21`
+    FOREIGN KEY (`cate2` , `cate1`)
+    REFERENCES `Kmarket`.`km_cs_cate2` (`cate2` , `cate1`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_km_cs_faq_km_cs_faq1`
+    FOREIGN KEY (`relatedFaq`)
+    REFERENCES `Kmarket`.`km_cs_faq` (`faqNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_km_cs_faq_km_member1`
+    FOREIGN KEY (`writer`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_faq_rate`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_faq_rate` (
+  `faqNo` INT NOT NULL,
+  `uid` VARCHAR(20) NOT NULL,
+  `rate` TINYINT NOT NULL,
+  INDEX `fk_table1_km_cs_faq1_idx` (`faqNo` ASC) VISIBLE,
+  PRIMARY KEY (`faqNo`, `uid`),
+  INDEX `fk_table1_km_member2_idx` (`uid` ASC) VISIBLE,
+  CONSTRAINT `fk_table1_km_cs_faq1`
+    FOREIGN KEY (`faqNo`)
+    REFERENCES `Kmarket`.`km_cs_faq` (`faqNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_km_member2`
+    FOREIGN KEY (`uid`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_cs_notice`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_notice` (
+  `noticeNo` INT NOT NULL AUTO_INCREMENT,
+  `cate1` INT NOT NULL,
+  `cate2` INT NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `content` LONGTEXT NOT NULL,
+  `writer` VARCHAR(20) NOT NULL,
+  `regip` VARCHAR(100) NOT NULL,
+  `rdate` DATETIME NOT NULL,
+  PRIMARY KEY (`noticeNo`),
+  INDEX `fk_km_cs_notice_km_cs_cate21_idx` (`cate2` ASC, `cate1` ASC) VISIBLE,
+  INDEX `fk_km_cs_notice_km_member1_idx` (`writer` ASC) VISIBLE,
+  CONSTRAINT `fk_km_cs_notice_km_cs_cate21`
+    FOREIGN KEY (`cate2` , `cate1`)
+    REFERENCES `Kmarket`.`km_cs_cate2` (`cate2` , `cate1`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_km_cs_notice_km_member1`
+    FOREIGN KEY (`writer`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
