@@ -12,8 +12,8 @@
         <li>
             <a href="/JSP/product/list.do?cate1=10&condition=11"><i class="fas fa-tshirt"></i>브랜드패션</a>
             <ol>
-                <li><a href="/JSP/product/list.do?cate1=10&cate2=10&condition=11">브랜드 남성의류</a></li>
-                <li><a href="/JSP/product/list.do?cate1=10&cate2=11&condition=11">브랜드 여성의류</a></li>
+                <li><a href="/JSP/product/list.do?cate1=10&cate2=10&condition=11">브랜드 여성의류</a></li>
+                <li><a href="/JSP/product/list.do?cate1=10&cate2=11&condition=11">브랜드 남성의류</a></li>
                 <li><a href="/JSP/product/list.do?cate1=10&cate2=12&condition=11">브랜드 진/캐쥬얼</a></li>
                 <li><a href="/JSP/product/list.do?cate1=10&cate2=13&condition=11">브랜드 신발/가방</a></li>
                 <li><a href="/JSP/product/list.do?cate1=10&cate2=14&condition=11">브랜드 쥬얼리/시계</a></li>

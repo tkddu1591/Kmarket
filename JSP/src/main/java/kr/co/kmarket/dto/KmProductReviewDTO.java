@@ -37,8 +37,8 @@ public class KmProductReviewDTO {
         return uid;
     }
     public String getUidHidden() {
-        String hidden = uid.substring(0,uid.length()/2);
-        for(int i = 0; i <uid.length()-uid.length()/2; i++) {
+        String hidden = uid.substring(0,3);
+        for(int i = 0; i <uid.length()-3; i++) {
             hidden += "*";
         }
         return hidden;

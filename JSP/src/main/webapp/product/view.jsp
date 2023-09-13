@@ -11,7 +11,7 @@
         <nav>
             <h1>상품보기</h1>
             <p>
-                HOME > <span>패션·의류·뷰티</span> > <strong>남성의류</strong>
+                HOME > <span>${c1Name}</span> <c:if test="${not empty c2Name}">> <strong>${c2Name}</strong></c:if>
             </p>
         </nav>
 

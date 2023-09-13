@@ -13,6 +13,25 @@ public class KmProductCartDTO {
     private int total;
     private String rDate;
 
+    private String prodName;
+    private String descript;
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
+
+    public String getDescript() {
+        return descript;
+    }
+
+    public void setDescript(String descript) {
+        this.descript = descript;
+    }
+
     public int getCartNo() {
         return cartNo;
     }
@@ -48,6 +67,9 @@ public class KmProductCartDTO {
     public int getPrice() {
         return price;
     }
+    public String getPriceWithComma() {
+        return String.format("%,d", price);
+    }
 
     public void setPrice(int price) {
         this.price = price;
@@ -55,6 +77,9 @@ public class KmProductCartDTO {
 
     public int getDiscount() {
         return discount;
+    }
+    public String getDiscountWithComma() {
+        return String.format("%,d", discount);
     }
 
     public void setDiscount(int discount) {
@@ -64,6 +89,9 @@ public class KmProductCartDTO {
     public int getPoint() {
         return point;
     }
+    public String getPointWithComma() {
+        return String.format("%,d", point);
+    }
 
     public void setPoint(int point) {
         this.point = point;
@@ -72,6 +100,9 @@ public class KmProductCartDTO {
     public int getDelivery() {
         return delivery;
     }
+    public String getDeliveryWithComma() {
+        return String.format("%,d", delivery);
+    }
 
     public void setDelivery(int delivery) {
         this.delivery = delivery;
@@ -79,6 +110,9 @@ public class KmProductCartDTO {
 
     public int getTotal() {
         return total;
+    }
+    public String getTotalWithComma() {
+        return String.format("%,d", total);
     }
 
     public void setTotal(int total) {
