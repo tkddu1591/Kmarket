@@ -1,5 +1,10 @@
 package kr.co.kmarket.dto;
 
+import java.io.File;
+import java.util.UUID;
+
+import com.oreilly.servlet.multipart.FileRenamePolicy;
+
 public class KmProductDTO {
     private int prodNo;
     private int prodCate1;
@@ -40,7 +45,13 @@ public class KmProductDTO {
 
     private int discountPrice;
 
-    public int getDiscountPrice() {
+    private String path;
+    
+    public KmProductDTO(String path) {
+		this.path = path;
+	}
+    public KmProductDTO() {}
+	public int getDiscountPrice() {
         return discountPrice;
     }
     public String getDiscountPriceWithComma() {
@@ -87,6 +98,9 @@ public class KmProductDTO {
     public void setProdCate1(int prodCate1) {
         this.prodCate1 = prodCate1;
     }
+    public void setProdCate1(String prodCate1) {
+    	this.prodCate1 = Integer.parseInt(prodCate1);
+    }
 
     public int getProdCate2() {
         return prodCate2;
@@ -94,6 +108,9 @@ public class KmProductDTO {
 
     public void setProdCate2(int prodCate2) {
         this.prodCate2 = prodCate2;
+    }
+    public void setProdCate2(String prodCate2) {
+    	this.prodCate2 = Integer.parseInt(prodCate2);
     }
 
     public String getProdName() {
@@ -138,6 +155,9 @@ public class KmProductDTO {
     public void setPrice(int price) {
         this.price = price;
     }
+    public void setPrice(String price) {
+    	this.price = Integer.parseInt(price);
+    }
 
     public int getDiscount() {
         return discount;
@@ -149,6 +169,9 @@ public class KmProductDTO {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
+    public void setDiscount(String discount) {
+    	this.discount = Integer.parseInt(discount);
+    }
 
     public int getPoint() {
         return point;
@@ -156,6 +179,9 @@ public class KmProductDTO {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+    public void setPoint(String point) {
+    	this.point = Integer.parseInt(point);
     }
 
     public int getStock() {
@@ -183,6 +209,9 @@ public class KmProductDTO {
 
     public void setDelivery(int delivery) {
         this.delivery = delivery;
+    }
+    public void setDelivery(String delivery) {
+    	this.delivery = Integer.parseInt(delivery);
     }
 
     public int getHit() {
@@ -216,13 +245,19 @@ public class KmProductDTO {
     public void setThumb1(String thumb1) {
         this.thumb1 = thumb1;
     }
-
-    public String getThumb2() {
+    public void setThumb1ForRename(String thumb1) {
+    	this.thumb1 = fileRename(thumb1);
+    }
+   
+	public String getThumb2() {
         return thumb2;
     }
 
     public void setThumb2(String thumb2) {
         this.thumb2 = thumb2;
+    }
+    public void setThumb2ForRename(String thumb2) {
+    	this.thumb2 = fileRename(thumb2);
     }
 
     public String getThumb3() {
@@ -231,6 +266,9 @@ public class KmProductDTO {
 
     public void setThumb3(String thumb3) {
         this.thumb3 = thumb3;
+    }
+    public void setThumb3ForRename(String thumb3) {
+    	this.thumb3 = fileRename(thumb3);
     }
 
     public String getDetail() {
@@ -344,4 +382,34 @@ public class KmProductDTO {
     public void setEtc5(String etc5) {
         this.etc5 = etc5;
     }
+    
+    public String fileRename(String thumb) {
+		int i = thumb.lastIndexOf(".");
+		String ext = thumb.substring(i);
+		
+		String uuid = UUID.randomUUID().toString();
+		String sName = uuid + ext;
+		
+		File f1 = new File(path + "/" + thumb);
+		File f2 = new File(path + "/" + sName);
+		f1.renameTo(f2);
+		
+		return sName;
+    }
+	@Override
+	public String toString() {
+		return "KmProductDTO [prodNo=" + prodNo + ", prodCate1=" + prodCate1 + ", prodCate2=" + prodCate2
+				+ ", prodName=" + prodName + ", descript=" + descript + ", company=" + company + ", seller=" + seller
+				+ ", price=" + price + ", discount=" + discount + ", point=" + point + ", stock=" + stock + ", sold="
+				+ sold + ", delivery=" + delivery + ", hit=" + hit + ", score=" + score + ", review=" + review
+				+ ", thumb1=" + thumb1 + ", thumb2=" + thumb2 + ", thumb3=" + thumb3 + ", detail=" + detail
+				+ ", status=" + status + ", duty=" + duty + ", receipt=" + receipt + ", bizType=" + bizType
+				+ ", origin=" + origin + ", ip=" + ip + ", rDate=" + rDate + ", etc1=" + etc1 + ", etc2=" + etc2
+				+ ", etc3=" + etc3 + ", etc4=" + etc4 + ", etc5=" + etc5 + ", wDate=" + wDate + ", total=" + total
+				+ ", rating=" + rating + ", discountPrice=" + discountPrice + ", path=" + path + "]";
+	}
+    
+   
+    
 }
+
