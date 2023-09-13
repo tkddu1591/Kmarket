@@ -45,7 +45,7 @@
                     </td>
                     <td>
                         <h4 class="seller"><i class="fas fa-home"></i>${dto.seller}</h4>
-                        <h5 class="badge power">판매자등급</h5>
+                        <h5 class="badge power" >판매자등급</h5>
                         <h6 class="rating star1">상품평</h6>
                     </td>
                 </tr>
