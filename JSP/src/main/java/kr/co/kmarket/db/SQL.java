@@ -6,6 +6,24 @@ import java.util.List;
 public class SQL {
 
     //km_member
+	public static final String INSERT_MEMBER = "INSERT INTO `km_member` SET " //판매자 SQL문 따로 만들 것
+												+ "`uid`=?,"
+												+ "`pass`=SHA2(?, 256),"
+												+ "`name`=?,"
+												+ "`gender`=?,"
+												+ "`hp`=?,"
+												+ "`email`=?,"
+												+ "`type`=?,"
+												+ "`point`=?,"
+												+ "`level`=?,"
+												+ "`zip`=?,"
+												+ "`addr1`=?,"
+												+ "`addr2`=?,"
+												+ "`regip`=?,"
+												+ "`rdate`=NOW()";
+												
+												
+			
 	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
 	
     //km_member_point

@@ -24,9 +24,14 @@ public class SignupController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String type = req.getParameter("type"); // join.jsp에서 type 파라미터 수신
+		
 		KmMemberTermsDTO dto = new KmMemberTermsDTO();
 		
 		dto = service.selectTerms();
+		
+		
+		req.setAttribute("type", type);
 		req.setAttribute("dto", dto);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/member/signup.jsp");
