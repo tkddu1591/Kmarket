@@ -2,7 +2,7 @@
 <%@ include file="_header.jsp" %>
 <main id="product">
 
-    <%@ include file="_aside.jsp"%>
+    <%@ include file="_aside.jsp" %>
 
     <!-- 상품 상세페이지 시작 -->
     <section class="view">
@@ -22,25 +22,38 @@
             </div>
             <div class="summary">
                 <nav>
-                    <h1>(주)판매자명</h1>
-                    <h2>상품번호&nbsp;:&nbsp;<span>10010118412</span></h2>
+                    <h1>${kmProduct.company}</h1>
+                    <h2>상품번호&nbsp;:&nbsp;<span>${kmProduct.prodNo}</span></h2>
                 </nav>
                 <nav>
-                    <h3>상품명</h3>
-                    <p>상품설명 출력</p>
-                    <h5 class="rating star4"><a href="#">상품평보기</a></h5>
+                    <h3>${kmProduct.prodName}</h3>
+                    <p>${kmProduct.descript}</p>
+
+                    <c:choose>
+                    <c:when test="${kmProduct.rating >= 4.5}">
+                    <h5 class="rating star5"></c:when>
+                        <c:when test="${kmProduct.rating >= 3.5}">
+                        <h5 class="rating star4"></c:when>
+                            <c:when test="${kmProduct.rating >= 2.5}">
+                            <h5 class="rating star3"></c:when>
+                                <c:when test="${kmProduct.rating >= 1.5}">
+                                <h5 class="rating star2"></c:when>
+                                    <c:otherwise><h5 class="rating star1"></c:otherwise>
+                                        </c:choose>
+                                        <a href="#">상품평보기</a></h5>
                 </nav>
+
                 <nav>
                     <div class="org_price">
-                        <del>30,000</del>
-                        <span>10%</span>
+                        <del>${kmProduct.priceWithComma}</del>
+                        <span>${kmProduct.discountWithPer}</span>
                     </div>
                     <div class="dis_price">
-                        <ins>27,000</ins>
+                        <ins>${kmProduct.discountPriceWithComma}</ins>
                     </div>
                 </nav>
                 <nav>
-                    <span class="delivery">무료배송</span>
+                    <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
                     <span class="arrival">모레(금) 7/8 도착예정</span>
                     <span class="desc">본 상품은 국내배송만 가능합니다.</span>
                 </nav>
@@ -60,7 +73,7 @@
                 </div>
 
                 <div class="total">
-                    <span>35,000</span>
+                    <span>${kmProduct.totalWithComma}</span>
                     <em>총 상품금액</em>
                 </div>
 
@@ -91,23 +104,23 @@
             <table border="0">
                 <tr>
                     <td>상품번호</td>
-                    <td>10110125435</td>
+                    <td>${kmProduct.prodNo}</td>
                 </tr>
                 <tr>
                     <td>상품상태</td>
-                    <td>새상품</td>
+                    <td>${kmProduct.status}</td>
                 </tr>
                 <tr>
                     <td>부가세 면세여부</td>
-                    <td>과세상품</td>
+                    <td>${kmProduct.duty}</td>
                 </tr>
                 <tr>
                     <td>영수증발행</td>
-                    <td>발행가능 - 신용카드 전표, 온라인 현금영수증</td>
+                    <td>${kmProduct.receipt}</td>
                 </tr>
                 <tr>
                     <td>사업자구분</td>
-                    <td>사업자 판매자</td>
+                    <td>${kmProduct.bizType}</td>
                 </tr>
                 <tr>
                     <td>브랜드</td>
@@ -115,7 +128,7 @@
                 </tr>
                 <tr>
                     <td>원산지</td>
-                    <td>국내생산</td>
+                    <td>${kmProduct.origin}</td>
                 </tr>
             </table>
             <table border="0">
@@ -179,54 +192,26 @@
                 <h1>상품리뷰</h1>
             </nav>
             <ul>
-                <li>
-                    <div>
-                        <h5 class="rating star4">상품평</h5>
-                        <span>seo******	2018-07-10</span>
-                    </div>
-                    <h3>상품명1/BLUE/L</h3>
-                    <p>
-                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                    </p>
-                </li>
-                <li>
-                    <div>
-                        <h5 class="rating star4">상품평</h5>
-                        <span>seo******	2018-07-10</span>
-                    </div>
-                    <h3>상품명1/BLUE/L</h3>
-                    <p>
-                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                    </p>
-                </li>
-                <li>
-                    <div>
-                        <h5 class="rating star4">상품평</h5>
-                        <span>seo******	2018-07-10</span>
-                    </div>
-                    <h3>상품명1/BLUE/L</h3>
-                    <p>
-                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                    </p>
-                </li>
-                <li>
-                    <div>
-                        <h5 class="rating star4">상품평</h5>
-                        <span>seo******	2018-07-10</span>
-                    </div>
-                    <h3>상품명1/BLUE/L</h3>
-                    <p>
-                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                    </p>
-                </li>
+                <c:forEach var="review" items="${kmProductReviews}">
+                    <li>
+                        <div>
+                            <c:choose>
+                                <c:when test="${review.rating >= 4.5}"><h5 class="rating star5"></c:when>
+                                <c:when test="${review.rating >= 3.5}"><h5 class="rating star4"></c:when>
+                                <c:when test="${review.rating >= 2.5}"><h5 class="rating star3"></c:when>
+                                <c:when test="${review.rating >= 1.5}"><h5 class="rating star2"></c:when>
+                                <c:otherwise><h5 class="rating star1"></c:otherwise>
+                            </c:choose>
+                            상품평</h5>
+                            <span>${review.uidHidden} ${review.rDateYMD}</span>
+                        </div>
+                        <h3>상품명1/BLUE/L</h3>
+                        <p>
+                            ${review.content}
+                        </p>
+                    </li>
+                </c:forEach>
+
                 <li>
                     <div>
                         <h5 class="rating star4">상품평</h5>

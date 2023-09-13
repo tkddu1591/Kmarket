@@ -36,6 +36,28 @@ public class KmProductDTO {
 
     private String wDate;
     private int total;
+    private int rating;
+
+    private int discountPrice;
+
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
+    public String getDiscountPriceWithComma() {
+        return String.format("%,d", discountPrice);
+    }
+
+    public void setDiscountPrice(int discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 
     public void setTotal(String total) {
         this.total = Integer.parseInt(total);
@@ -154,6 +176,9 @@ public class KmProductDTO {
 
     public int getDelivery() {
         return delivery;
+    }
+    public String getDeliveryWithComma() {
+        return String.format("%,d", delivery);
     }
 
     public void setDelivery(int delivery) {

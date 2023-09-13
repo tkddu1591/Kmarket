@@ -36,6 +36,13 @@ public class KmProductReviewDTO {
     public String getUid() {
         return uid;
     }
+    public String getUidHidden() {
+        String hidden = uid.substring(0,uid.length()/2);
+        for(int i = 0; i <uid.length()-uid.length()/2; i++) {
+            hidden += "*";
+        }
+        return hidden;
+    }
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -59,6 +66,10 @@ public class KmProductReviewDTO {
 
     public String getrDate() {
         return rDate;
+    }
+
+    public String getrDateYMD() {
+        return rDate.substring(0,10);
     }
 
     public void setrDate(String rDate) {

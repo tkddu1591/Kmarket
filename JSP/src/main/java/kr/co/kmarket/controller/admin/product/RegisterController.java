@@ -38,7 +38,7 @@ public class RegisterController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String path = pService.
+/*		String path = pService.
 		
 		String prodName 	= mr.getParameter("prodName");
 		String descript 	= mr.getParameter(descript);
@@ -56,7 +56,7 @@ public class RegisterController extends HttpServlet {
 		String duty 		= mr.getParameter(duty);
 		String receipt 		= mr.getParameter(receipt);
 		String bizType 		= mr.getParameter(bizType);
-		String origin 		= mr.getParameter(origin);
+		String origin 		= mr.getParameter(origin);*/
 		
 		
 	}
