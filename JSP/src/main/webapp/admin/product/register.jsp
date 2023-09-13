@@ -153,13 +153,13 @@
                             <td>상품 썸네일</td>
                             <td>
                                 <span>크기 190 x 190, 상품 목록에 출력될 이미지 입니다. </span>
-                                <input type="file" name="#"/>
+                                <input type="file" name="thumb1"/>
 
                                 <span>크기 230 x 230, 상품 메인에 출력될 이미지 입니다. </span>
-                                <input type="file" name="#"/>
+                                <input type="file" name="thumb2"/>
 
                                 <span>크기 456 x 456, 상품 상세에 출력될 이미지 입니다. </span>
-                                <input type="file" name="#"/>
+                                <input type="file" name="thumb3"/>
                             </td>
                         </tr>
                         <tr>
