@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 
 <%@ include file="./../_header.jsp" %>
+<%@ include file="./_aside.jsp" %>
+        
 
 <script type="text/javascript">
 
@@ -114,76 +116,65 @@ $(document).ready(function() {
 
 });
 </script>
-
-<section id="cs">
-  <div class="qna">
-    <nav>
-      <div>
-        <p>홈<span>></span>문의하기</p>
-      </div>
-    </nav>
-    <section class="write">
-      <aside>
-        <h2>문의하기</h2>
-        <ul>
-          <li class="on"><a href="#">회원</a></li>
-          <li><a href="#">쿠폰/이벤트</a></li>
-          <li><a href="#">주문/결제</a></li>
-          <li><a href="#">배송</a></li>
-          <li><a href="#">취소/반품/교환</a></li>
-          <li><a href="#">여행/숙박/항공</a></li>
-          <li><a href="#">안전거래</a></li>
-        </ul>
-      </aside>
-      <article>
-      //추후추가 -  submit 버튼 전에 file ext 검사 
-      //추후추가 - + 버튼 누르면 파일 입력 인풋이 1개 >> 최대 4개까지  
+     
+      [memo]추후추가 -  submit 버튼 전에 file ext 검사 <br>
+      [memo]추후추가 - + 버튼 누르면 파일 입력 인풋이 1개 >> 최대 4개까지  
+      
         <form action="${ctxPath}/cs/qna/write.do" method="post" enctype="multipart/form-data">
-          <table>
-            <tr>
-              <td>문의유형</td>
-              <td>
-                <select name="cate1" id="cate1">
-                  <option value="">문의유형 선택</option>
-                </select>
-                <select name="cate2" id="cate2">
-                  <option value="">상세유형 선택</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>문의제목</td>                  
-              <td>
-                <input type="text" name="title" placeholder="제목을 입력하세요."/>
-              </td>
-            </tr>                
-            <tr>
-              <td>문의내용</td>                  
-              <td>
-                <textarea name="content" placeholder="내용을 입력하세요."></textarea>
-              </td>
-            </tr>              
-            <tr>
-              <td>파일첨부</td>                  
-              <td class="fileInputList">
-              	<div>
-                	<input type="file" name="file1" accept="image/*,.pdf" class="fileUpload"/>
-                	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
-              	</div>
-                <input type="file" name="file2" accept="image/*,.pdf" class="fileUpload"/>
-                <input type="file" name="file3" accept="image/*,.pdf" class="fileUpload"/>
-                <input type="file" name="file4" accept="image/*,.pdf" class="fileUpload"/>
-                <p class="">파일첨부는 최대 4장까지 가능하며, 5MB이하의 GIF, JPG, JPEG, PNG, PDF 형태로 업로드해주세요</p>
-              </td>
-            </tr>
-          </table>
-          <div class="qnaBtnArea">
-            <a href="${ctxPath}/cs/qna/list.do" class="btnList">취소하기</a>
-            <input type="submit" class="btnSubmit" value="등록하기"/>
-          </div>
+        	<input type="hidden" name="writer" value="user">
+	        <table>
+	          <tr>
+	            <td>문의유형</td>
+	            <td>
+	              <select name="cate1" id="cate1">
+	                <option value="">문의유형 선택</option>
+	              </select>
+	              <select name="cate2" id="cate2">
+	                <option value="">상세유형 선택</option>
+	              </select>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>문의제목</td>                  
+	            <td>
+	              <input type="text" name="title" placeholder="제목을 입력하세요."/>
+	            </td>
+	          </tr>                
+	          <tr>
+	            <td>문의내용</td>                  
+	            <td>
+	              <textarea name="content" placeholder="내용을 입력하세요."></textarea>
+	            </td>
+	          </tr>              
+	          <tr>
+	            <td>파일첨부</td>                  
+	            <td class="fileInputList">
+	            	<div>
+	              	<input type="file" name="file1" accept="image/*,.pdf" class="fileUpload"/>
+	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+	            	</div>
+	            	<div>
+	              	<input type="file" name="file2" accept="image/*,.pdf" class="fileUpload"/>
+	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+	            	</div>
+	            	<div>
+	              	<input type="file" name="file3" accept="image/*,.pdf" class="fileUpload"/>
+	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+	            	</div>
+	            	<div>
+	              	<input type="file" name="file4" accept="image/*,.pdf" class="fileUpload"/>
+	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+	            	</div>
+	              <p class="">파일첨부는 최대 4장까지 가능하며, 5MB이하의 GIF, JPG, JPEG, PNG, PDF 형태로 업로드해주세요</p>
+	            </td>
+	          </tr>
+	        </table>
+	        <div class="qnaBtnArea">
+	          <a href="${ctxPath}/cs/qna/list.do" class="btnList">취소하기</a>
+	          <input type="submit" class="btnSubmit" value="등록하기"/>
+	        </div>
         </form>
       </article>
     </section>
   </div>
-</section>
 <%@ include file="./../_footer.jsp" %>

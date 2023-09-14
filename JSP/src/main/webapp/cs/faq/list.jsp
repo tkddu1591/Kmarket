@@ -22,7 +22,6 @@ $(function(){
   });
 });
 </script>
-<section id="cs">
   <div class="faq">
     <nav>
       <div>
@@ -96,6 +95,5 @@ $(function(){
       </article>
     </section>
   </div>
-</section>
      
 <%@ include file="./../_footer.jsp" %>

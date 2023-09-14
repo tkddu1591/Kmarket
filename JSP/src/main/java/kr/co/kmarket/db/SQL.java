@@ -135,7 +135,7 @@ public class SQL {
 	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
 
   
-  //--------------------------km_cs_review------------------------------
+  //--------------------------km_cs_qna------------------------------
   
 	
 	// km_cs_cate
@@ -156,8 +156,8 @@ public class SQL {
 																	+ "`writer` = ?, "
 																	+ "`ordNo` = ?, "
 																	+ "`prodNo` = ?, "
-																	+ "`parent` = 0, "
-																	+ "`answerComplete` = 0, "
+																	+ "`parent` = ?, "
+																	+ "`answerComplete` = ?, "
 																	+ "`regip`=?, "
 																	+ "`rdate`=NOW()";
 	public final static String INSERT_CSQNA_ANSWER 		= "INSERT INTO `km_cs_qna` SET "
@@ -173,6 +173,32 @@ public class SQL {
 																	+ "`parent` = 0, "
 																	+ "`regip`=?, "
 																	+ "`rdate`=NOW()";
+	public static final String SELECT_CSQNA = "SELECT "
+																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
+																+ "FROM `km_cs_qna` AS a "
+																+ "JOIN `km_member` AS b ON a.writer=b.uid "
+																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate2=d.cate2 "
+																+ "WHERE `qnaNo`=?";
+	public static final String SELECT_CSQNAS = "SELECT "
+																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
+																+ "FROM `km_cs_qna` AS a "
+																+ "JOIN `km_member` AS b ON a.writer=b.uid "
+																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate2=d.cate2 "
+																+ "WHERE `parent`=0 "
+																+ "ORDER BY `qnaNo` DESC "
+																+ "LIMIT ?, 10";
+	public static final String SELECT_CSQNAS_BY_CATE1 = "SELECT "
+																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
+																+ "FROM `km_cs_qna` AS a "
+																+ "JOIN `km_member` AS b ON a.writer=b.uid "
+																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate2=d.cate2 "
+																+ "WHERE `parent`=0 AND `cate`=? "
+																+ "ORDER BY `qnaNo` DESC "
+																+ "LIMIT ?, 10";
+	public final static String SELECT_CSQNA_MAX_NO = "SELECT MAX(`qnaNo`) FROM `km_cs_qna`";
 	
 	public final static String UPDATE_CSQNA_ANSWERCOMPLETE	= "UPDATE `km_cs_qna` SET `answerComplete` = ? WHERE `qnaNo` = ?";
 }

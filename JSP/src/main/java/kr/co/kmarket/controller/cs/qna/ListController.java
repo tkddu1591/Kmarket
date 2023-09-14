@@ -21,7 +21,8 @@ public class ListController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
+		req.setAttribute("group", "list");
 		RequestDispatcher dispatcher = req.getRequestDispatcher("list.jsp");
 		dispatcher.forward(req, resp);
 	}
