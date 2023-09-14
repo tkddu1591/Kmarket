@@ -1,12 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
-<script src="./js/checkUser.js"></script> <!-- script link가 아니라 src임 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 
+	ctxPath
+	 - Context Root 경로 전역변수 
+	 - _header.jsp 5줄 참고
+-->
+<script src="${ctxPath}/member/js/zipcode.js"></script> <!-- script link가 아니라 src임 -->
+<script src="${ctxPath}/member/js/validation.js"></script>
+<script src="${ctxPath}/member/js/checkUser.js"></script>
         <main id="member">
             <div class="register">
                 <nav>
                     <h1>일반 회원가입</h1>
                 </nav>
-				<form action="${ctxPath}/member/register.do" method="POST"> <!-- registerController에서 post로 수신해야하기 때문에, signup에서 register.do 로 넘어갈 때 get 전송하자  -->
+				<form id="formMember" action="${ctxPath}/member/register.do" method="POST"> <!-- registerController에서 post로 수신해야하기 때문에, signup에서 register.do 로 넘어갈 때 get 전송하자  -->
 					<section>
 						<table>
 							<caption>필수 정보입력</caption>
@@ -15,22 +23,22 @@
 								<td>
 									<input type="text" name="km_uid" placeholder="아이디를 입력" required /> 
 									<span class="msgId">영문, 숫자로 4~12자까지 설정해 주세요.</span>
-									<span class="uidResult"></span>
+									<span class="resultId"></span>
 								</td>
 							</tr>
 							<tr>
 								<th><span class="essential">*</span>비밀번호</th>
 								<td>
-									<input type="password" name="km_pass" placeholder="비밀번호를 입력" required /> 
+									<input type="password" name="km_pass1" placeholder="비밀번호를 입력" required /> 
 									<span class="msgPass">영문, 숫자, 특수문자를 조합하여 8~12자까지 설정해 주세요.</span>
 								</td>
 							</tr>
 							<tr>
 								<th><span class="essential">*</span>비밀번호확인</th>
 								<td>
-									<input type="password" name="km_pass" placeholder="비밀번호를 확인" required /> 
+									<input type="password" name="km_pass2" placeholder="비밀번호를 확인" required /> 
 									<span class="msgPass">비밀번호 재입력</span>
-									<span class="passResult"></span>
+									<span class="resultPass"></span>
 								</td>
 							</tr>
 						</table>
@@ -42,7 +50,7 @@
 								<th><span class="essential">*</span>이름</th>
 								<td>
 									<input type="text" name="km_name" placeholder="이름을 입력" required /> 
-									<span class="nameResult"></span>
+									<span class="resultName"></span>
 								</td>
 							</tr>
 							<tr>
@@ -56,7 +64,7 @@
 								<th><span class="essential">*</span>EMAIL</th>
 								<td>
 									<input type="email" name="km_email" placeholder="이메일 입력" required />
-									<span class="resultEmail"></span>
+									<span id="resultEmail"></span>
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +72,7 @@
 								<td>
 									<input type="text" name="km_hp" maxlength="13" placeholder="휴대폰번호 입력" required />
 									 <span class="msgHp"> - 포함 13자리를 입력하세요.</span>
-									 <span class="resultHp"></span>
+									 <span id="resultHp"></span>
 								</td>
 							</tr>
 							<tr class="addr">

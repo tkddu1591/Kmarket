@@ -33,16 +33,16 @@ public class RegisterSellerController extends HttpServlet{
 		
 		String uid = req.getParameter("km_uid");
 		String pass = req.getParameter("km_pass");
-		String company = req.getParameter("kms_company");
-		String ceo = req.getParameter("kms_ceo");
-		String comRegNum = req.getParameter("kms_corp_reg");
-		String bizRegNum = req.getParameter("kms_online_reg");
-		String tel = req.getParameter("kms_tel");
-		String fax = req.getParameter("kms_fax");
-		String email = req.getParameter("kms_email");
-		String zip = req.getParameter("kms_zip");
-		String addr1 = req.getParameter("kms_addr1");
-		String addr2 = req.getParameter("kms_addr2");
+		String company = req.getParameter("km_company");
+		String ceo = req.getParameter("km_ceo");
+		String comRegNum = req.getParameter("km_corp_reg");
+		String bizRegNum = req.getParameter("km_online_reg");
+		String tel = req.getParameter("km_tel");
+		String fax = req.getParameter("km_fax");
+		String email = req.getParameter("km_email");
+		String zip = req.getParameter("km_zip");
+		String addr1 = req.getParameter("km_addr1");
+		String addr2 = req.getParameter("km_addr2");
 		String name = req.getParameter("km_name");
 		String gender = req.getParameter("km_gender");
 		String hp = req.getParameter("km_hp");
