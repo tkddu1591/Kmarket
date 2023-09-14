@@ -42,6 +42,8 @@ public class RegisterController extends HttpServlet{
 		String addr2 = req.getParameter("km_addr2");
 		String regip = req.getRemoteAddr();
 		
+		// int type = 1; 이렇게 생성해서 밑에서 setType(type); 해도 되고!
+		
 		logger.debug(uid);
 		logger.debug(pass);
 		logger.debug(name);
@@ -60,6 +62,7 @@ public class RegisterController extends HttpServlet{
 		dto.setGender(gender);
 		dto.setHp(hp);
 		dto.setEmail(email);
+		dto.setType(1); // RegisterController와 RegisterSellerController와 구별되어 있기 때문에, type을 받을 필요없이 이렇게 지정만 해주면 된다. 일반회원:1, 판매회원:2
 		dto.setZip(zip);
 		dto.setAddr1(addr1);
 		dto.setAddr2(addr2);
