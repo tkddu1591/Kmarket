@@ -8,17 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="category">
     <li><i class="fa fa-bars" aria-hidden="true"></i>카테고리</li>
+
     <li>
-        <a href="${ctxPath}/product/list.do?cate1=10&condition=11"><i class="fas fa-tshirt"></i>브랜드패션</a>
+        <a href="${ctxPath}/product/list.do?cate1=${sessCate.cate1}&condition=11"><i
+                class="fas fa-tshirt"></i>브랜드의류</a>
         <ol>
-            <li><a href="${ctxPath}/product/list.do?cate1=10&cate2=10&condition=11">브랜드 여성의류</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=10&cate2=11&condition=11">브랜드 남성의류</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=10&cate2=12&condition=11">브랜드 진/캐쥬얼</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=10&cate2=13&condition=11">브랜드 신발/가방</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=10&cate2=14&condition=11">브랜드 쥬얼리/시계</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=10&cate2=15&condition=11">브랜드 아웃도어</a></li>
+            <c:forEach var="sessCate" items="${sessCoates}">
+                <c:if test="${sessCate.cate1 == 10}">
+                    <li>
+                        <a href="${ctxPath}/product/list.do?cate1=${sessCate.cate1}&cate2=${sessCate.cate2}&condition=11">${sessCate.c2Name}</a>
+                    </li>
+                </c:if>
+            </c:forEach>
         </ol>
     </li>
+
     <li>
         <a href="${ctxPath}/product/list.do?cate1=11"><i class="fas fa-tshirt"></i>패션의류/잡화/뷰티</a>
         <ol>

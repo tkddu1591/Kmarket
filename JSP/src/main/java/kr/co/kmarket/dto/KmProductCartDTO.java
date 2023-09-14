@@ -131,4 +131,32 @@ public class KmProductCartDTO {
     public String toString() {
         return cartNo+"|"+uid+"|"+prodNo+"|"+count+"|"+price+"|"+discount+"|"+delivery+"|"+point+"|"+total+"|"+rDate;
     }
+
+    public void setProdNo(String prodNo) {
+        this.prodNo = Integer.parseInt(prodNo);
+    }
+
+    public void setCount(String count) {
+        this.count = Integer.parseInt(count);
+    }
+
+    public void setPrice(String price) {
+        this.price = Integer.parseInt(price);
+    }
+
+    public void setTotal(String total) {
+        this.total = Integer.parseInt(total);
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = Integer.parseInt(delivery);
+    }
+
+    public void setPoint(String point) {
+        this.point = Integer.parseInt(point);
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = Integer.parseInt(discount);
+    }
 }

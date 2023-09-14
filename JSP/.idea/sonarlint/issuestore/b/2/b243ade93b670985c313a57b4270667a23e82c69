@@ -1,10 +1,5 @@
 
-v
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ëì¸8ëÀÁ¨1
-A
-java:S2629%"$Invoke method(s) only conditionally.(ñéÊ¶8ÁŸ£Á¨1
 u
-java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦›Èÿÿÿÿÿ8ñÀÁ¨1
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦›Èÿÿÿÿÿ8ÔŒ…é¨1
 »
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(¹¯‚Ÿøÿÿÿÿ8ñÀÁ¨1
-o	java:S100O"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÖÌùÿÿÿÿ8öÀÁ¨1
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(¹¯‚Ÿøÿÿÿÿ8ÔŒ…é¨1

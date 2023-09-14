@@ -23,6 +23,7 @@ public class ListController extends HttpServlet {
         
         req.setCharacterEncoding("UTF-8");
 
+
         KmProductCate2DTO kmProductCate2DTO = new KmProductCate2DTO();
 
         kmProductCate2DTO.setCate1(req.getParameter("cate1"));

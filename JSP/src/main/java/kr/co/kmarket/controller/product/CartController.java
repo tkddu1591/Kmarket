@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @WebServlet("/product/cart.do")
@@ -33,5 +35,19 @@ public class CartController extends HttpServlet {
         req.setAttribute("kmProductCartDTOS", kmProductCartDTOS);
 
         req.getRequestDispatcher("/product/cart.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /*<input type="hidden" name="prodNo" value="${kmProduct.prodNo}"/>
+                    <input type="hidden" name="uid" value="${sessUser.uid}"/>
+                    <input type="hidden" name="count" value="1"/>
+                    <input type="hidden" name="price" value="${kmProduct.price}"/>
+                    <input type="hidden" name="discount" value="${kmProduct.point}"/>
+                    <input type="hidden" name="delivery" value="${kmProduct.delivery}"/>
+                    <input type="hidden" name="total" value="${kmProduct.total}"/>
+            */
+
+
     }
 }
