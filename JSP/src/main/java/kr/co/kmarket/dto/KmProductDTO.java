@@ -46,9 +46,11 @@ public class KmProductDTO {
     private int discountPrice;
 
     private String path;
-    
+
     public KmProductDTO(String path) {
 		  this.path = path;
+	  }
+    public KmProductDTO() {
 	  }
     private String c1Name;
     private String c2Name;

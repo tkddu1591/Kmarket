@@ -62,7 +62,7 @@
         </nav>
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
-            <form action="#">
+            <form action="${ctxPath}/admin/product/register.do" method="post">
 
                 <!-- 상품분류 -->
                 <section>

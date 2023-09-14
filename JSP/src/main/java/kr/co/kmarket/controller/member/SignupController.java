@@ -29,7 +29,7 @@ public class SignupController extends HttpServlet {
 		KmMemberTermsDTO dto = new KmMemberTermsDTO();
 		
 		dto = service.selectTerms();
-		
+		logger.debug(type + "/" + dto.getPrivacy());
 		
 		req.setAttribute("type", type);
 		req.setAttribute("dto", dto);

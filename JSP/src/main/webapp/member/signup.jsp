@@ -40,16 +40,7 @@ $(function(){
 					<h1>약관동의</h1>
 				</nav>
 				<!-- signup.jsp에 수신된 type 파라미터가 normal or seller 인지에 따라 여기서 폼 전송을 register.do or registerSeller.do 로 나뉜다-->
-				
-				<c:choose>
-					<c:when test="${type eq 'normal'}"> <!-- 표현언어 어떻게 표현해야하지?? / ${} 바깥쪽에 "" 있으니까 문자열은 ''로 표시해야지 / eq로 표시해야지 == XX -->
-						<form action="${ctxPath}/member/register.do" method="post"> <!-- 노션 참고해서 작성하기 -->
-					</c:when>
-					<c:otherwise>
-						<form action="${ctxPath}/member/registerSeller.do" method="post">
-					</c:otherwise>
-				</c:choose>
-				
+				<form action="${ctxPath}/member/${type eq 'normal'? 'register' : 'regitsterSeller' }.do" method="post">	
 					<section>
 						<h3><span class="essential">(필수)</span>케이마켓 이용약관</h3>
 						<textarea class="terms" readonly>${dto.terms}</textarea>

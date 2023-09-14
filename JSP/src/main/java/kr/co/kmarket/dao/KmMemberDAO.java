@@ -29,7 +29,7 @@ public class KmMemberDAO extends DBHelper{
 			psmt.setString(11, dto.getAddr1());
 			psmt.setString(12, dto.getAddr2());
 			psmt.setString(13, dto.getRegIp());
-			psmt.executeQuery();
+			psmt.executeUpdate();
 			close();
 		}catch (Exception e) {
 			logger.error("insertMember() : " + e.getMessage());
