@@ -4,6 +4,15 @@ public class KmProductCate2DTO {
     private String cate1;
     private String cate2;
     private String c2Name;
+    private String c1Name;
+
+    public String getC1Name() {
+        return c1Name;
+    }
+
+    public void setC1Name(String c1Name) {
+        this.c1Name = c1Name;
+    }
 
     public String getCate1() {
         return cate1;

@@ -2,6 +2,7 @@ package kr.co.kmarket.controller.product;
 
 import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
+import kr.co.kmarket.service.KmProductCate2Service;
 import kr.co.kmarket.service.KmProductService;
 import kr.co.kmarket.service.PageService;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class ListController extends HttpServlet {
         String pg = req.getParameter("pg");
         String condition = req.getParameter("condition");
         if(kmProductCate2DTO.getCate2()==null || kmProductCate2DTO.getCate2().equals("")) {
-            kmProductCate2DTO.setCate2("10");
+            kmProductCate2DTO.setCate2("");
         }
         if(condition==null || condition.equals("")) {
             condition = "11";
@@ -74,8 +75,13 @@ public class ListController extends HttpServlet {
         req.setAttribute("pageGroupStart", result[0]);
         req.setAttribute("pageGroupEnd", result[1]);
         req.setAttribute("pageStartNum", pageStartNum+1);
-        
-        
+
+
+        KmProductCate2Service kmProductCate2Service = KmProductCate2Service.INSTANCE;
+        kmProductCate2DTO = kmProductCate2Service.selectCateName(kmProductCate2DTO);
+        req.setAttribute("kmProductCate2DTO", kmProductCate2DTO);
+
+
         req.getRequestDispatcher("/product/list.jsp").forward(req, resp);
     }
 

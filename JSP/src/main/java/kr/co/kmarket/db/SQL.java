@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SQL {
 
-    //km_member
+    //---------------------------km_member-------------------------
 	public static final String INSERT_MEMBER = "INSERT INTO `km_member` SET " //판매자 SQL문 따로 만들 것
 												+ "`uid`=?,"
 												+ "`pass`=SHA2(?, 256),"
@@ -21,20 +21,23 @@ public class SQL {
 												+ "`addr2`=?,"
 												+ "`regip`=?,"
 												+ "`rdate`=NOW()";
-												
-												
-			
-	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
-	
-    //km_member_point
 
-    //km_member_terms
+
+
+	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
+
+    //----------------------------km_member_point-----------------------
+
+    //----------------------------km_member_terms-----------------------
 	public static final String SELECT_TERMS = "SELECT * FROM `km_member_terms`";
-	
-    //km_product
+
+    //------------------------------km_product----------------------------
 
 
 	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
+
+
+
 	/*
      * 조회 쿼리 통합
      *
@@ -46,13 +49,17 @@ public class SQL {
      * 높은순(0), 낮은순(1), 
      * */
 
-	public static void changeSelectProductCateL10(String condition, String sort){
+	public static void changeSelectProductCateL10(String condition, String sort, String cate2){
         SELECT_PRODUCTS_CATE_L10.clear();
         if(!sort.isEmpty()&& sort!=null) {
         	SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
         }else {
         	SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product as a LEFT JOIN Kmarket.km_product_review WHERE "+condition+"=? and stock>0 ORDER BY prodNo DESC LIMIT ?, 10;");	
         }
+    }
+	public static void changeSelectProductCateL10(String condition, String sort){
+        SELECT_PRODUCTS_CATE_L10.clear();
+        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
     }
 	/*
 	조건 입력시 - 조건에 해당하는 상품만 조회함.
@@ -104,17 +111,25 @@ public class SQL {
 
 	public final static String DELETE_PRODUCT = "DELETE * FROM `km_product` WHERE `prodNo`=?";
 
-	//km_product_cart
+	//-----------------------------km_product_cart-----------------------
 
-	//km_product_cate1
+	public static final String INSERT_CART = "INSERT INTO `km_product_cart` SET uid = ?, prodNo =?, count=?, price =?, discount =?, point =?, delivery =?, total = ?, rdate=?;";
 
-	//km_product_cate2
+	public static final String DELETE_CART_UID = "DELETE FROM `km_product_cart` WHERE uid =?;";
+	public static final String SELECT_CARTS = "SELECT a.*, kp.prodName as prodName,kp.descript as descript  FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;";
 
-	//km_product_order
+	//--------------------------km_product_cate1------------------------------
 
-	//km_product_order_item
+	//--------------------------km_product_cate2------------------------------
 
-	//km_product_review
-	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? LIMIT ?,5;";
+	public final static String SELECT_PRODUCT_CATE12_NAME = "SELECT c1Name, c2Name FROM km_product_cate2 as c2 LEFT JOIN Kmarket.km_product_cate1 c1 on c1.cate1 = c2.cate1 where c2.cate1 = ? and c2.cate2 =?;";
+	public final static String SELECT_PRODUCT_CATE1_NAME = "SELECT c1Name from km_product_cate1 where cate1 = ?;";
+
+	//--------------------------km_product_order------------------------------
+
+	//--------------------------km_product_order_item------------------------------
+
+	//--------------------------km_product_review------------------------------
+	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? ORDER BY revNo DESC LIMIT ?,5;";
 	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
 }

@@ -71,7 +71,12 @@ public class KmProductDAO extends DBHelper {
             }
 
             conn = getConnection();
-            SQL.changeSelectProductCateL10(st1, st2);
+
+            if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
+                SQL.changeSelectProductCateL10(st1, st2, kmProductCate2DTO.getCate2());
+            }else {
+                SQL.changeSelectProductCateL10(st1, st2);
+            }
             psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
 
             if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {

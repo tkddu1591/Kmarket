@@ -48,11 +48,32 @@ public class KmProductDTO {
     private String path;
     
     public KmProductDTO(String path) {
-		this.path = path;
-	}
-    public KmProductDTO() {}
-	public int getDiscountPrice() {
+		  this.path = path;
+	  }
+    private String c1Name;
+    private String c2Name;
+
+    public String getC1Name() {
+        return c1Name;
+    }
+
+    public void setC1Name(String c1Name) {
+        this.c1Name = c1Name;
+    }
+
+    public String getC2Name() {
+        return c2Name;
+    }
+
+    public void setC2Name(String c2Name) {
+        this.c2Name = c2Name;
+    }
+
+    public int getDiscountPrice() {
         return discountPrice;
+    }
+    public int getDiscountPrice(int price, int discount) {
+        return (price*(100-discount))/100;
     }
     public String getDiscountPriceWithComma() {
         return String.format("%,d", discountPrice);
@@ -60,6 +81,9 @@ public class KmProductDTO {
 
     public void setDiscountPrice(int discountPrice) {
         this.discountPrice = discountPrice;
+    }
+    public void setDiscountPrice(int price, int discount) {
+        this.discountPrice = (price*(100-discount))/100;
     }
 
     public int getRating() {
@@ -76,8 +100,14 @@ public class KmProductDTO {
     public void setTotal(int total) {
         this.total = total;
     }
+    public void setTotal(int discountPrice, int delivery) {
+        this.total = (discountPrice+delivery);
+    }
     public int getTotal() {
         return total;
+    }
+    public int getTotal(int discountPrice, int delivery) {
+        return  (discountPrice+delivery);
     }
     public String getTotalWithComma() {
         return String.format("%,d", total);
