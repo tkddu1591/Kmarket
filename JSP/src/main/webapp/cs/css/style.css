@@ -779,6 +779,10 @@
     font-size: 16px;
   }
   
+  #cs > .qna > nav p a{
+    font-size: inherit;
+  }
+  
   #cs > .qna > nav p > span {
     font-size: 12px;
     margin-left: 10px;
@@ -813,6 +817,11 @@
     font-size: 24px;
     font-weight: bold;
     margin: 26px 0;
+  }
+  #cs > .qna > section > aside > h2 a{
+    font-size: inherit;
+    font-weight: inherit;
+    margin: inherit;
   }
   
   #cs > .qna > section > aside > ul {}
@@ -878,15 +887,25 @@
     font-weight: bold;        
     vertical-align: bottom;
   }
-  #cs > .qna > .list > article > .page > .prev {
+  #cs > .qna > .list > article > .page > .prevOn {
+    font-size: 0;
+    background-image: url('../images/cs_sprites.png');
+    background-position: -550px -652px;
+  }
+  #cs > .qna > .list > article > .page > .prevOff {
     font-size: 0;
     background-image: url('../images/cs_sprites.png');
     background-position: -706px -652px;
   }
-  #cs > .qna > .list > article > .page > .next {
+  #cs > .qna > .list > article > .page > .nextOn {
     font-size: 0;
     background-image: url('../images/cs_sprites.png');
     background-position: -628px -652px;
+  }
+  #cs > .qna > .list > article > .page > .nextOff {
+    font-size: 0;
+    background-image: url('../images/cs_sprites.png');
+    background-position: -784px -652px;
   }
   #cs > .qna > .list > article > .page > .num {}
   #cs > .qna > .list > article > .page > .on {
@@ -960,6 +979,21 @@
  	overflow:hidden;
   }
   #cs > .qna > .view > article > .file ul li div img{
+ 	width: 100%;
+  }
+  
+  /* modify */
+  
+
+  #cs > .qna .fileImg{
+  	display:inline-block;
+  	line-height:30px;
+ 	width:30px;
+ 	height:30px;
+ 	border: 1px solid #ccc;
+ 	overflow:hidden;
+  }
+  #cs > .qna .fileImg img{
  	width: 100%;
   }
   

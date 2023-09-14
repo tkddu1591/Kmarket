@@ -36,6 +36,10 @@
         </div>
         </c:if>
         <a href="${ctxPath}/cs/qna/list.do" class="btnList">목록보기</a>
+        <c:if test="${sessUser.uid eq dto.writer}">
+	        <a href="${ctxPath}/cs/qna/delete.do?no=${no}" class="btnList">문의 삭제</a>
+	        <a href="${ctxPath}/cs/qna/modify.do?no=${no}" class="btnList">문의 수정</a>
+        </c:if>
       </article>
     </section>
   </div>
