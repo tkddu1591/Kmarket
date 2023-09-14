@@ -3,7 +3,7 @@
 <main id="product">
     <aside>
         <!-- 카테고리 -->
-        <%@ include file="_category.jsp" %>
+        <%@ include file="../_category.jsp" %>
     </aside>
     <!-- 결제완료 페이지 시작 -->
     <section class="complete">

@@ -755,7 +755,7 @@
     width: 60px;
 }
 
-#product > .cart > form > table td:last-child {
+#product > .cart > form > table td:last-of-type {
     color:#ff006c;
     font-weight: bold;
 }

@@ -13,40 +13,112 @@
         // 8: total,
         // 9: rDate
 
+        //id 사용시 check 박스 사용
+
+
+        /*        let all = $('#all')
+                console.log($('all').is(':checked')) = 체크 판별
+                all.prop('checked', true); = 체크 변환
+                */
+
+        //class 사용시 check 박스 사용
+        /* cart.checked = 체크 판별
+        *
+        * */
+
+
         let cartDatas = $(".cartData")
         let termCartDatas = [];
         let totalCartDatas = [];
+        let isCheckAll =true;
+        let checkbox = $('input:checkbox')
+        let all = $('#all')
 
-        for(let i = 3; i <= 8; i++) {
-            totalCartDatas[i] =0;
-        }
-        for (let cart of cartDatas) {
-            termCartDatas = cart.value.split('|', 10)
-            console.log(cart.value)
-            for(let i = 4; i <= 8; i++) {
-              totalCartDatas[i] += parseInt(termCartDatas[i]);
+
+
+
+        setData()
+        all.prop('checked', true);
+
+        //개별 선택시
+        $('.cartData').change(function () {
+            //토탈 데이터 수정
+            setData()
+            isCheckAll=true;
+
+            //전체 체크박스 셀렉트 변경
+            for(cart of cartDatas) {
+                if (!cart.checked) {
+                    isCheckAll = false;
+                    break;
+                }
             }
-            totalCartDatas[3]++;
-        }
-        console.log(totalCartDatas)
-        const totalData = document.getElementsByClassName("totalData");
-        let no = 3;
-        for(let data of totalData){
-            if(no == 5){
-                data.innerText = '-'+(totalCartDatas[8]-totalCartDatas[4]).toLocaleString();
+            if(isCheckAll) {
+                all.prop('checked', true);
+            }else{
+                all.prop('checked', false);
+            }
+        })
+
+
+        //전체 선택
+        all.change(function () {
+            if ($(this).is(':checked')) {
+                let check = $('input:checkbox')
+                check.prop('checked', true);
+                setData();
+            } else {
+                let check = $('input:checkbox')
+                check.prop('checked', false);
+                setData();
+            }
+        })
+
+
+
+        //체크된 상품 데이터 수집 및 total으로 전송
+        function setData() {
+            for (let i = 3; i <= 8; i++) {
+                totalCartDatas[i] = 0;
+            }
+            for (let cart of cartDatas) {
+                if (cart.checked) {
+                    termCartDatas = cart.value.split('|', 10)
+                    console.log(cart.value)
+                    for (let i = 4; i <= 8; i++) {
+                        totalCartDatas[i] += parseInt(termCartDatas[i]);
+                    }
+                    totalCartDatas[3]++;
+                }
+            }
+            console.log(totalCartDatas)
+            const totalData = document.getElementsByClassName("totalData");
+            let no = 3;
+            for (let data of totalData) {
+                if (no == 5) {
+                    data.innerText = '-' + (totalCartDatas[4] + totalCartDatas[6]-totalCartDatas[8]).toLocaleString();
+                    no++;
+                    continue;
+                }
+                if(no == 7){
+
+                    data.innerText = totalCartDatas[no].toLocaleString()+' P';
+                    no++;
+                    continue;
+                }
+                data.innerText = totalCartDatas[no].toLocaleString();
                 no++;
-                continue;
             }
-            data.innerText = totalCartDatas[no].toLocaleString();
-            no++;
         }
+
+
     })
 </script>
 <main id="product">
 
     <aside>
         <!-- 카테고리 -->
-        <%@ include file="_category.jsp" %>
+        <%@ include file="../_category.jsp" %>
     </aside>
     <!-- 장바구니 페이지 시작 -->
     <section class="cart">
@@ -64,7 +136,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th><input type="checkbox" name="all"></th>
+                        <th><input type="checkbox" name="all" id="all"></th>
                         <th>상품명</th>
                         <th>총수량</th>
                         <th>판매가</th>
@@ -84,10 +156,10 @@
                         <c:otherwise>
                             <c:forEach var="dto" items="${kmProductCartDTOS}">
                                 <tr>
-                                    <td><input type="checkbox" name=""></td>
+                                    <td><input type="checkbox" class="cartData" value="${dto}" checked></td>
                                     <td>
                                         <article>
-                                            <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                                            <a href="#"> <img src="https://via.placeholder.com/80x80" alt=""></a>
                                             <div>
                                                 <h2><a href="#">${dto.prodName}</a></h2>
                                                 <p>${dto.descript}</p>
@@ -100,30 +172,10 @@
                                     <td>${dto.pointWithComma}</td>
                                     <td>${empty dto.delivery ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
                                     <td>${dto.totalWithComma}</td>
-                                    <input type="hidden" class="cartData" value="${dto}"/>
                                 </tr>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-
-                    <tr>
-                        <td><input type="checkbox" name=""></td>
-                        <td>
-                            <article>
-                                <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                <div>
-                                    <h2><a href="#">상품명</a></h2>
-                                    <p>상품설명</p>
-                                </div>
-                            </article>
-                        </td>
-                        <td>1</td>
-                        <td>27,000</td>
-                        <td>5%</td>
-                        <td>270</td>
-                        <td>무료배송</td>
-                        <td>27,000</td>
-                    </tr>
 
                 </tbody>
             </table>
@@ -150,7 +202,7 @@
                         <td class="totalData">0</td>
                     </tr>
                     <tr>
-                        <td>포인트</td>
+                        <td>포인트적립</td>
                         <td class="totalData">260</td>
                     </tr>
                     <tr>

@@ -2,6 +2,9 @@
 <%@include file="./_header.jsp" %>
 
       <main>
+<c:forEach var="sessCate" items="sessCoates">
+  ${sesscate.cate1}
+</c:forEach>
         <!-- 카테고리/베스트 상품 영역 -->
         <aside>
           <!-- 카테고리 -->

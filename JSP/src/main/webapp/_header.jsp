@@ -21,7 +21,7 @@
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-    <script src="${ctxPath}/js/index.js"></script>
+    <script src="${ctxPath}/js/index.do"></script>
     <style>
       #bannerTop {
         display: none;
