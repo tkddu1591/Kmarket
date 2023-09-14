@@ -31,6 +31,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 9.0.79" level="application_server_libraries" />
     <orderEntry type="library" exported="" name="activation-1.1.1" level="project" />
+    <orderEntry type="library" name="json-simple-1.1.1" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="a1267f5f-37ba-4376-bd90-d3e1d0cd6518" />
