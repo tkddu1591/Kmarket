@@ -930,6 +930,39 @@
     line-height: 32px;
   }
   
+  #cs > .qna > .view > article > .file {
+    width: 100%;
+    height: 100%;        
+    border-bottom: 1px solid #e9e9e9;
+    padding: 26px;
+    box-sizing: border-box;
+  }
+  
+  #cs > .qna > .view > article > .file  h3 {
+    font-size: 15px;
+    line-height: 32px;
+  }
+  #cs > .qna > .view > article > .file  ul {
+    list-style: square;
+    padding-left:30px;
+  }
+  
+  #cs > .qna > .view > article > .file  ul li {
+    font-size: 13px;
+  	line-height:30px;
+  }
+  #cs > .qna > .view > article > .file ul li div{
+  	display:inline-block;
+  	line-height:30px;
+ 	width:30px;
+ 	height:30px;
+ 	border: 1px solid #ccc;
+ 	overflow:hidden;
+  }
+  #cs > .qna > .view > article > .file ul li div img{
+ 	width: 100%;
+  }
+  
   /* qna - ê¸€ì“°ê¸° */
   #cs > .qna > .write > article table {
     width: 100%;
@@ -960,7 +993,7 @@
   }
   
   #cs > .qna > .write > article table select {
-    width: 100px;
+    width: 150px;
     height: 40px;
     font-size: 16px;
     box-sizing: border-box;

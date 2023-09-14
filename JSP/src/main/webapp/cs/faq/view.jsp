@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./../_header.jsp" %>
-<section id="cs">
   <div class="faq">
     <nav>
       <div>
@@ -42,5 +41,4 @@
       </article>
     </section>
   </div>
-</section>
 <%@ include file="./../_footer.jsp" %>
