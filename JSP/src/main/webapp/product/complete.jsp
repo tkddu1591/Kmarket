@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="_header.jsp" %>
+<%@ include file="../_header.jsp" %>
 <main id="product">
-    <%@ include file="_aside.jsp"%>
+    <aside>
+        <!-- 카테고리 -->
+        <%@ include file="_category.jsp" %>
+    </aside>
     <!-- 결제완료 페이지 시작 -->
     <section class="complete">
 

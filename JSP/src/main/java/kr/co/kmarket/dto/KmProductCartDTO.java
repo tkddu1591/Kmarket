@@ -126,4 +126,9 @@ public class KmProductCartDTO {
     public void setrDate(String rDate) {
         this.rDate = rDate;
     }
+
+    @Override
+    public String toString() {
+        return cartNo+"|"+uid+"|"+prodNo+"|"+count+"|"+price+"|"+discount+"|"+delivery+"|"+point+"|"+total+"|"+rDate;
+    }
 }

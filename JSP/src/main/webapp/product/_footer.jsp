@@ -1,14 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<script>
-    //상단 이동 버튼
-    window.onload = function () {
-        $('#top').click(()=>{
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        })
 
-
-    }
-</script>
 <footer>
     <ul>
         <li><a href="#">회사소개</a></li>

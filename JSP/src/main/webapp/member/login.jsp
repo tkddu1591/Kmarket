@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="./_header.jsp" %> 
+<%@ include file="./_header.jsp" %>
+<script>
+    $(document).ready(function(){
+        const success = ${success};
+        if(success == 200){
+            alert('정상적으로 로그아웃 되었습니다.');
+        }
+    });
+</script>
         <main id="member">
             <div class="login">
                 <nav>

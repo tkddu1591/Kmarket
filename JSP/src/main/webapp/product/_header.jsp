@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctxPath" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,8 +13,8 @@
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-        <link rel="stylesheet" href="../css/common.css"/>
-        <link rel="stylesheet" href="./css/product.css"/>
+        <link rel="stylesheet" href="${ctxPath}/css/common.css"/>
+        <link rel="stylesheet" href="${ctxPath}/product/css/product.css"/>
         <style></style>
     </head>
     <body>
@@ -21,15 +22,15 @@
             <header>
                 <div class="top">
                     <div>
-                        <a href="/JSP/member/login.jsp">로그인</a>
-                        <a href="/JSP/member/join.jsp">회원가입</a>
+                        <a href="${ctxPath}/member/login.jsp">로그인</a>
+                        <a href="${ctxPath}/member/join.jsp">회원가입</a>
                         <a href="#">마이페이지</a>
-                        <a href="/JSP/product/cart.jsp"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
+                        <a href="${ctxPath}/product/cart.do"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
                     </div>
                 </div>
                 <div class="logo">
                     <div>
-                        <a href="/JSP"><img src="../img/header_logo.png" alt="로고"/></a>
+                        <a href="${ctxPath}"><img src="${ctxPath}/img/header_logo.png" alt="로고"/></a>
                         <form action="#">
                             <input type="text" name="search"/>
                             <button><i class="fa fa-search"></i></button>
