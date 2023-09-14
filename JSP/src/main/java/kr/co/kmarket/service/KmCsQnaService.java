@@ -29,8 +29,8 @@ public enum KmCsQnaService {
 	private KmCsQnaDAO dao = KmCsQnaDAO.getInstance();
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public int insertQna(KmCsQnaDTO dto) {
-		return dao.insertQna(dto);
+	public int insertCsQna(KmCsQnaDTO dto) {
+		return dao.insertCsQna(dto);
 	}
 	public KmCsQnaDTO selectCsQna(String no) {
 		return dao.selectCsQna(no);
@@ -38,6 +38,18 @@ public enum KmCsQnaService {
 	public List<KmCsQnaDTO> selectCsQnaList(String cate1, int start) {
 		return dao.selectCsQnaList(cate1, start);
 	}
+	public int selectCsQnaCount(String cate1) {
+		return dao.selectCsQnaCount(cate1);
+	}
+
+	public void updateCsQna(KmCsQnaDTO dto) {
+		dao.updateCsQna(dto);
+	}
+	public void deleteCsQna(String no) {
+		dao.deleteCsQna(no);
+	}
+	
+	//추가
 	
 	// 업로드 경로 구하기 
 	public String getFilePath(HttpServletRequest req) {
@@ -63,6 +75,7 @@ public enum KmCsQnaService {
 									  "UTF-8", 	//인코딩(UTF-8)
 									  new DefaultFileRenamePolicy()); //defaultRename
 
+			logger.debug("path : " + path);
 			// 다중 파일 업로드 -모든 part들을 가져옴
 			Collection<Part> parts = req.getParts();
 			

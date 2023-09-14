@@ -1,76 +1,65 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./../_header.jsp" %>
 <%@ include file="./_aside.jsp" %>
-
+<script>
+	const success =  new URL(location.href).searchParams.get('success');
+	
+	if(success == 0){
+		alert('');
+	} else if(success == 100){
+		alert('정상적으로 글이 삭제되었습니다.');
+	} else if(success == 101){
+		alert('자신의 글만 삭제할 수 있습니다.');
+	} else if (success == 102) {
+		alert('자신의 글만 수정할 수 있습니다.');
+	}
+</script>
             <article>
               <nav>
-                <h1>회원</h1>
-                <h2>회원관련 문의 내용입니다.</h2>
+              	<c:if test="${cate1 eq null}">
+              		<h1>문의게시판</h1>
+              		<h2>전체 문의 내용입니다.</h2>
+              	</c:if>
+              	<c:if test="${cate1 ne null}">  		
+	                <h1>${c1Name}</h1>
+	                <h2>${c1Name}관련 문의 내용입니다.</h2>
+              	</c:if>
               </nav>
               <table>
-                <tr>
-                  <td><a href="./view.html">[가입] 가입 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="./view.html">[탈퇴] 탈퇴 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[로그인] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[회원정보] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[탈퇴] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
-                <tr>
-                  <td><a href="#">[탈퇴] 회원정보 문의내용</a></td>
-                  <td>chh**</td>
-                  <td>2022.11.21</td>
-                </tr>
+           		<c:forEach var="qna" items="${qnaList}">
+           		<tr>
+           			<td>
+           				<a href="${ctxPath}/cs/qna/view.do?no=${qna.qnaNo}">
+           					[${cate1 eq null ? qna.c1Name : qna.c2Name}]&nbsp;${qna.title}
+           				</a>
+           			</td>
+           			<td>
+           				${qna.writerMarking}
+           			</td>
+           			<td>
+           				${qna.rdate}
+           			</td>
+           		</tr>
+           		</c:forEach>
               </table>
 
               <div class="page">
-                <a href="#" class="prev">이전</a>
-                <a href="#" class="num on">1</a>
-                <a href="#" class="num">2</a>
-                <a href="#" class="num">3</a>
-                <a href="#" class="next">다음</a>
+                <c:if test="${pageGroupStart > 1}">
+                	<a href="${ctxPath}/cs/qna/list.do?cate1=${cate1}&pg=${pageGroupStart - 1}" class="prevOn">이전</a>
+                </c:if>
+                <c:if test="${pageGroupStart eq 1 }">
+                	<a href="${ctxPath}/cs/qna/list.do?cate1=${cate1}&pg=1" class="prevOff">이전</a>
+                </c:if>
+                <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
+                	<a href="${ctxPath}/cs/qna/list.do?cate1=${cate1}&pg${i}" 
+                	class="num ${currentPage == i?'on':'off'}">${i}</a>
+                </c:forEach>
+                <c:if test="${pageGroupEnd < lastPageNum}">
+                	<a href="${ctxPath}/cs/qna/list.do?cate1=${cate1}&pg=${pageGroupEnd + 1}" class="nextOn">다음</a>
+                </c:if>
+                <c:if test="${pageGroupStart eq lastPageNum }">
+                	<a href="${ctxPath}/cs/qna/list.do?cate1=${cate1}&pg=${pageGroupEnd}" class="nextOff">다음</a>
+                </c:if>
               </div>
 
-              <a href="./write.html" class="btnWrite">문의하기</a>
-
-            </article>
-          </section>
-        </div>
 <%@ include file="./../_footer.jsp" %>

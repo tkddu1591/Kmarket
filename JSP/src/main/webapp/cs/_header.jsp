@@ -19,19 +19,23 @@
         <div class="top">
           <div>
             <p>
-              <a href="${ctxPath}/member/login.do">로그인</a>
-              <a href="#">회원가입</a>
-              <a href="#">마이페이지</a>
-              <a href="#"
-                ><i class="fa fa-shopping-cart" aria-hidden="true"></i
-                >&nbsp;장바구니</a
-              >
+            	<c:if test="${sessUser eq null}">
+	              <a href="${ctxPath}/member/login.do">로그인</a>
+	              <a href="${ctxPath}/member/join.do">회원가입</a>
+            	</c:if>
+            	<c:if test="${sessUser ne null}">
+	              <a href="#">마이페이지</a>
+	              <a href="#"
+	                ><i class="fa fa-shopping-cart" aria-hidden="true"></i
+	                >&nbsp;장바구니</a
+	              >
+            	</c:if>
             </p>
           </div>
         </div>
         <div class="logo">
           <div>
-            <a href="#"><img src="${ctxPath}/cs/images/logo.png" alt="로고" />고객센터</a>
+            <a href="${ctxPath}/cs/"><img src="${ctxPath}/cs/images/logo.png" alt="로고" />고객센터</a>
           </div>
         </div>
       </header>

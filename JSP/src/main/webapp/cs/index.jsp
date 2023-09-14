@@ -3,7 +3,7 @@
         <div class="main">
           <h1 class="title"><strong>케이마켓</strong>이 도와드릴게요!</h1>              
           <section class="notice">
-            <h1>공지사항<a href="./notice/list.html">전체보기</a></h1>
+            <h1>공지사항<a href="${ctxPath}/cs/notice/list.do">전체보기</a></h1>
             <ul>
               <li>
                 <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
@@ -29,7 +29,7 @@
           </section>
         
           <section class="faq">
-            <h1>자주 묻는 질문<a href="./faq/list.html">전체보기</a>
+            <h1>자주 묻는 질문<a href="${ctxPath}/cs/faq/list.do">전체보기</a>
             </h1>
             <ol>
               <li>
@@ -59,7 +59,7 @@
           <section class="qna">
             <h1>
               문의하기
-              <a href="#">전체보기</a>
+              <a href="${ctxPath}/cs/qna/list.do">전체보기</a>
             </h1>
             <ul>
               <li>
@@ -98,7 +98,7 @@
                 </p>
               </li>
             </ul>
-            <a href="#" class="ask">문의글 작성 ></a>
+            <a href="${ctxPath}/cs/qna/write.do" class="ask">문의글 작성 ></a>
           </section>
 
           <section class="tel">
