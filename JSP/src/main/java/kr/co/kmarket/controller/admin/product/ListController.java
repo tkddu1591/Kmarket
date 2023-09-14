@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
+import kr.co.kmarket.service.KmProductCate2Service;
+import kr.co.kmarket.service.KmProductService;
+import kr.co.kmarket.service.PageService;
 
 @WebServlet("/admin/product/list.do")
 public class ListController extends HttpServlet{
@@ -24,52 +28,65 @@ public class ListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String pg = req.getParameter("pg");
-		
-		
-		int start = 0;
-		int currentPage = 1;
-		int total = 0;
-		int lastPageNum = 0;
-		int pageGroupCurrent = 1;
-		int pageGroupStart = 1;
-		int pageGroupEnd = 0;
-		int pageStartNum = 0;
-		
-		if(pg != null)  {
-				currentPage = Integer.parseInt(pg);
-		}
-		
-		start = (currentPage -1) * 7;
-		
-		if(total % 7 == 0) {
-				lastPageNum = (total / 7);
-		}else {
-				lastPageNum = (total / 7) + 1;
-		}
-		
-		pageGroupCurrent = (int) Math.ceil(currentPage / 7.0);
-		pageGroupStart = (pageGroupCurrent - 1) * 7 + 1;
-		pageGroupEnd = pageGroupCurrent * 7;
-		
-		if(pageGroupEnd > lastPageNum) {
-				pageGroupEnd = lastPageNum;
-		}
-		
-		
-		
-		logger.debug("currentPage : " + currentPage);
-		
-		req.setAttribute("currentPage", currentPage);
-		req.setAttribute("lasePageNum",lastPageNum);
-		req.setAttribute("pageGroupStart", pageGroupStart);
-		req.setAttribute("pageGroupEnd", pageGroupEnd);
-		req.setAttribute("pageStartNum", pageStartNum+1);
-		
-		//req.setAttribute(pg, pg);
-		
+		req.setCharacterEncoding("UTF-8");
+
+     
+
+       
+        String pg = req.getParameter("pg");
+        String condition = req.getParameter("condition");
+        
+        if(condition==null || condition.equals("")) {
+            condition = "71";
+        }
+
+        KmProductService kmProductService = KmProductService.getInstance();
+        PageService pageService = PageService.getInstance();
+
+
+       
+
+        // 현재 페이지 번호
+        int currentPage = pageService.getCurrentPage(pg);
+
+        // 전체 게시물 갯수
+        int total = kmProductService.selectKmProductsCountAll();
+
+        // 마지막 페이지 번호
+        int lastPageNum = pageService.getLastPageNum(total);
+
+        // 페이지 그룹 start, end 번호
+        int[] result = pageService.getPageGroupNum(currentPage, lastPageNum);
+
+        // 페이지 시작번호
+        int pageStartNum = pageService.getPageStartNum(total, currentPage);
+
+        // 시작 인덱스
+        int start = pageService.getStartNum(currentPage);
+
+        
+        KmProductCate2DTO kmProductCate2DTO = new KmProductCate2DTO();
+        // 현재 페이지 게시물 조회
+        List<KmProductDTO> kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+
+        logger.info(kmProducts.get(0).getProdNo()+"");
+
+        
+        req.setAttribute("condition", condition);
+        req.setAttribute("kmProductDTOS", kmProducts);
+        req.setAttribute("currentPage", currentPage);
+        req.setAttribute("lastPageNum", lastPageNum);
+        req.setAttribute("pageGroupStart", result[0]);
+        req.setAttribute("pageGroupEnd", result[1]);
+        req.setAttribute("pageStartNum", pageStartNum+1);
+
+
+        KmProductCate2Service kmProductCate2Service = KmProductCate2Service.INSTANCE;
+        
+
+
 	
-		RequestDispatcher dispatcher = req.getRequestDispatcher("list.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/admin/product/list.jsp");
 		dispatcher.forward(req, resp);
 	}
 	

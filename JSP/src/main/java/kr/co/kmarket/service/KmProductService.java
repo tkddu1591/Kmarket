@@ -34,8 +34,12 @@ public class KmProductService {
     public List<KmProductDTO> selectKmProductsCateL10(KmProductCate2DTO kmProductCate2DTO, int start, String condition){
         return dao.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
     }
+    
     public int selectKmProductsCountCate(String cate1, String cate2){
         return dao.selectKmProductsCountCate(cate1, cate2);
+    }
+    public int selectKmProductsCountAll(){
+    	return dao.selectKmProductsCountAll();
     }
   
   
@@ -75,7 +79,7 @@ public class KmProductService {
    		
    		ServletContext ctx = req.getServletContext();
    		String path = ctx.getRealPath("/thumb");
-		return null;
+		return path;
 	}
    	// 파일명수정
    	public String renameToFile(HttpServletRequest req, String path, String oName) {

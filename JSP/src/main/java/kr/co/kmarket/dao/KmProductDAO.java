@@ -28,7 +28,7 @@ public class KmProductDAO extends DBHelper {
     /*condition
      * 10의자리= 조건(1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜) 
      * 조건 검색 : 6:상품명, 7: 상품코드,8: 제조사, 9: 판매자
-     * 1의자리 = 높은순(0), 낮은순(1) 정렬 , 이외 조건검색방식
+     * 1의자리 = 높은순(1), 낮은순(2) 정렬 , 이외 조건검색방식
      * */
     public List<KmProductDTO> selectKmProductsCateL10(KmProductCate2DTO kmProductCate2DTO, int start, String condition) {
         List<KmProductDTO> kmProducts = new ArrayList<KmProductDTO>();
@@ -79,22 +79,29 @@ public class KmProductDAO extends DBHelper {
             }
             psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
 
+            logger.info(SQL.SELECT_PRODUCTS_CATE_L10+"");
             if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
                 psmt.setString(1, kmProductCate2DTO.getCate1());
                 psmt.setString(2, kmProductCate2DTO.getCate2());
                 psmt.setInt(3, start);
-            }else {
+            }else if(kmProductCate2DTO.getCate1()!= null&& !kmProductCate2DTO.getCate1().isEmpty()){
                 psmt.setString(1, kmProductCate2DTO.getCate1());
                 psmt.setInt(2, start);
+            }else {
+                psmt.setInt(1, start);
             }
 
             rs = psmt.executeQuery();
             while (rs.next()) {
                 KmProductDTO kmProduct = new KmProductDTO();
 
-                kmProduct = getInstance().SelectProductData();
+                kmProduct = getInstance().SelectProductData(); 
+                if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
+                    
                 kmProduct.setRating(rs.getInt("rating"));
+                }
 
+                logger.info(kmProduct.getProdNo()+"");
                 kmProducts.add(kmProduct);
             }
             close();
@@ -180,14 +187,14 @@ public class KmProductDAO extends DBHelper {
 			 psmt.setInt(9, dto.getStock());
 			 psmt.setInt(10, dto.getDelivery());
 			 psmt.setString(11, dto.getThumb1());
-			 psmt.setString(11, dto.getThumb2());
-			 psmt.setString(11, dto.getThumb3());
-			 psmt.setString(12, dto.getDetail());
-			 psmt.setString(13, dto.getStatus());
-			 psmt.setString(14, dto.getDuty());
-			 psmt.setString(15, dto.getReceipt());
-			 psmt.setString(16, dto.getBizType());
-			 psmt.setString(17, dto.getOrigin());
+			 psmt.setString(12, dto.getThumb2());
+			 psmt.setString(13, dto.getThumb3());
+			 psmt.setString(14, dto.getDetail());
+			 psmt.setString(15, dto.getStatus());
+			 psmt.setString(16, dto.getDuty());
+			 psmt.setString(17, dto.getReceipt());
+			 psmt.setString(18, dto.getBizType());
+			 psmt.setString(19, dto.getOrigin());
 			 psmt.executeUpdate();
 			 close();
 		} catch (Exception e) {
@@ -363,5 +370,24 @@ public class KmProductDAO extends DBHelper {
 		}
 		return 0;
 	}
+
+	public int selectKmProductsCountAll() {
+		
+		 int count = 0;
+	        try {
+	            conn = getConnection();
+	            psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_ALL);
+	           
+	            rs = psmt.executeQuery();
+	            while (rs.next()) {
+	                count = rs.getInt(1);
+	            }
+	            close();
+	        } catch (SQLException e) {
+	            logger.error("selectProductsCountCate error: %s".formatted(e.getMessage()));
+	        }
+	        return count;
+	    }
+
   
 }

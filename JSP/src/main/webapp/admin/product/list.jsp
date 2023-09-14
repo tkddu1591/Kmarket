@@ -86,23 +86,24 @@
                             <th>조회</th>
                             <th>관리</th>
                         </tr>
-
+						 <c:forEach var="dto" items="${kmProductDTOS}">
                         <tr>
                             <td><input type="checkbox" name="상품코드"/></td>
                             <td><img src="../img/sample_thumb.jpg" class="thumb"></td>
-                            <td>201603292</td>
-                            <td>FreeMovement BLUEFORCE</td>
-                            <td>36,000</td>
-                            <td>10</td>
-                            <td>360</td>
-                            <td>400</td>
-                            <td>홍길동</td>
-                            <td>126</td>
+                            <td>${dto.prodNo}</td>
+                            <td>${dto.prodName}</td>
+                            <td>${dto.priceWithComma}</td>
+                            <td>${dto.discount}</td>
+                            <td>${dto.point}</td>
+                            <td>${dto.stock}</td>
+                            <td>${dto.seller}</td>
+                            <td>${dto.hit}</td>
                             <td>
-                                <a href="productdelete.do?prodNo=">[삭제]</a>
-                                <a href="productmodify.do?">[수정]</a>
+                                <a href="/admin/product/list.jsp" class="productDelete">[삭제]</a>
+                                <a href="#" class="productRegister">[수정]</a>
                             </td>
                         </tr>
+                        </c:forEach>
                         <tr>
                             <td><input type="checkbox" name="상품코드"/></td>
                             <td><img src="../img/sample_thumb.jpg" class="thumb"></td>
