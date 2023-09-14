@@ -17,4 +17,9 @@ public class KmCsCate1DTO {
 	public void setC1Name(String c1Name) {
 		this.c1Name = c1Name;
 	}
+	@Override
+	public String toString() {
+		return "KmCsCate1DTO [cate1=" + cate1 + ", c1Name=" + c1Name + "]";
+	}
+	
 }

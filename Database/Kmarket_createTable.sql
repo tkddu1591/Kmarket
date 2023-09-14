@@ -148,7 +148,24 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cart` (
   `cartNo` INT NOT NULL AUTO_INCREMENT,
   `uid` VARCHAR(20) NOT NULL,
-  `prdNo` INT NOT NULL,
+  PRIMARY KEY (`cartNo`),
+  INDEX `fk_km_product_cart_km_member1_idx` (`uid` ASC) VISIBLE,
+  CONSTRAINT `fk_km_product_cart_km_member1`
+    FOREIGN KEY (`uid`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_product_cart_item`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cart_item` (
+  `cartNo` INT NOT NULL,
+  `uid` VARCHAR(20) NOT NULL,
+  `prodNo` INT NOT NULL,
   `count` INT NOT NULL,
   `price` INT NOT NULL,
   `discount` INT NOT NULL,
@@ -156,20 +173,26 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cart` (
   `delivery` INT NOT NULL,
   `total` INT NOT NULL,
   `rdate` DATETIME NOT NULL,
-  PRIMARY KEY (`cartNo`),
-  INDEX `fk_km_product_cart_km_member1_idx` (`uid` ASC) VISIBLE,
-  INDEX `fk_km_product_cart_km_product1_idx` (`prdNo` ASC) VISIBLE,
-  CONSTRAINT `fk_km_product_cart_km_member1`
+  INDEX `fk_table1_km_product_cart1_idx` (`cartNo` ASC) VISIBLE,
+  INDEX `fk_km_product_cart_item_km_member1_idx` (`uid` ASC) VISIBLE,
+  INDEX `fk_km_product_cart_item_km_product1_idx` (`prodNo` ASC) VISIBLE,
+  CONSTRAINT `fk_table1_km_product_cart1`
+    FOREIGN KEY (`cartNo`)
+    REFERENCES `Kmarket`.`km_product_cart` (`cartNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_km_product_cart_item_km_member1`
     FOREIGN KEY (`uid`)
     REFERENCES `Kmarket`.`km_member` (`uid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_km_product_cart_km_product1`
-    FOREIGN KEY (`prdNo`)
+  CONSTRAINT `fk_km_product_cart_item_km_product1`
+    FOREIGN KEY (`prodNo`)
     REFERENCES `Kmarket`.`km_product` (`prodNo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -413,7 +436,6 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_notice` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 
 ALTER TABLE `km_product` auto_increment = 1000000;

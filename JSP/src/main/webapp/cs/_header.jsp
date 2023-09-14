@@ -10,6 +10,7 @@
     <title>케이마켓 고객센터</title>
     <link rel="shortcut icon" type="image/x-icon" href="${ctxPath}/img/favicon.ico" />
     <link rel="stylesheet" href="${ctxPath}/cs/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
     <div id="wrapper">
