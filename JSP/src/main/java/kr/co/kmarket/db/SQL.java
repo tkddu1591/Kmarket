@@ -6,7 +6,7 @@ import java.util.List;
 public class SQL {
 
     //---------------------------km_member-------------------------
-	public static final String INSERT_MEMBER = "INSERT INTO `km_member` SET " //판매자 SQL문 따로 만들 것
+	public static final String INSERT_MEMBER = "INSERT INTO `km_member` SET " 
 												+ "`uid`=?,"
 												+ "`pass`=SHA2(?, 256),"
 												+ "`name`=?,"
@@ -19,12 +19,22 @@ public class SQL {
 												+ "`zip`=?,"
 												+ "`addr1`=?,"
 												+ "`addr2`=?,"
+												+ "`company`=?,"
+												+ "`ceo`=?,"
+												+ "`bizRegNum`=?,"
+												+ "`comRegNum`=?,"
+												+ "`tel`=?,"
+												+ "`manager`=?,"
+												+ "`managerHp`=?,"
+												+ "`fax`=?,"
 												+ "`regip`=?,"
 												+ "`rdate`=NOW()";
 
 
 
 	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
+	
+	public static final String SELECT_COUNT_UID = "SELECT COUNT(*) FROM `km_member` WHERE `uid`=?";
 
     //----------------------------km_member_point-----------------------
 

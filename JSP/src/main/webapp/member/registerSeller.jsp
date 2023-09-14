@@ -6,7 +6,7 @@
 					<h1>판매자 회원가입</h1>
 				</nav>
                 
-				<form action="#" method="POST">
+				<form action="${ctxPath}/member/registerSeller.do" method="POST">
 					<section>
 						<table>
 							<caption>필수 정보입력</caption>
@@ -101,6 +101,13 @@
 								<th><span class="essential">*</span>이름</th>
 								<td><input type="text" name="km_name" placeholder="이름을 입력"
 									required /></td>
+							</tr>
+							<tr>
+								<th><span class="essential">*</span>성별</th>
+								<td>
+									<label><input type="radio" name="km_gender" value="1" checked>&nbsp;남</label> 
+									<label><input type="radio" name="km_gender" value="2">&nbsp;여</label>
+								</td> <!-- name을 똑같은걸로해야 radio 효과가 적용됨, name이 다르니까 km_gender / gender 되있어서 안됨-->
 							</tr>
 							<tr>
 								<th><span class="essential">*</span>휴대폰</th>
