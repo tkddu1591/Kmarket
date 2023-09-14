@@ -5,48 +5,66 @@ import java.util.List;
 
 public class SQL {
 
-    //km_member
+    //---------------------------km_member-------------------------
+	public static final String INSERT_MEMBER = "INSERT INTO `km_member` SET " //판매자 SQL문 따로 만들 것
+												+ "`uid`=?,"
+												+ "`pass`=SHA2(?, 256),"
+												+ "`name`=?,"
+												+ "`gender`=?,"
+												+ "`hp`=?,"
+												+ "`email`=?,"
+												+ "`type`=?,"
+												+ "`point`=?,"
+												+ "`level`=?,"
+												+ "`zip`=?,"
+												+ "`addr1`=?,"
+												+ "`addr2`=?,"
+												+ "`regip`=?,"
+												+ "`rdate`=NOW()";
+
+
+
 	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
-	
-    //km_member_point
 
-    //km_member_terms
+    //----------------------------km_member_point-----------------------
+
+    //----------------------------km_member_terms-----------------------
 	public static final String SELECT_TERMS = "SELECT * FROM `km_member_terms`";
-	
-    //km_product
-    public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
+
+    //------------------------------km_product----------------------------
 
 
-    /*
+	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
+
+
+
+	/*
      * 조회 쿼리 통합
-     * condition
-     * 10의자리= 조건(1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜
-     * 1의자리 = 높은순(0), 낮은순(1)
+     *
+     * 조건 및 정렬방식 입력시 - 카테고리에 맞는 상품을 조건과 정렬방식을 활용해 DB에서 가져옴.
+     *
+     * condition = 어떤 조건으로 정렬할 것인지
+     * 조건(sold: 판매건수, price:상품가격, score:상품평점, review:상품리뷰, rDate:등록날짜)
+     * sort = 정렬 방식
+     * 높은순(0), 낮은순(1), 
      * */
-    public static void changeSelectProductCateL10Condition(String condition, String cate2){
 
-        int conditionData1 = Integer.parseInt(condition)/10;
-        int conditionData2 = Integer.parseInt(condition)%10;
-        String st1 = null;
-        String st2 = null;
-        if(conditionData1==1){
-            st1 = "sold";
-        }else if(conditionData1==2){
-            st1 = "price";
-        }else if(conditionData1==3){
-            st1 = "score";
-        }else if(conditionData1==4){
-            st1 = "review";
-        }else if(conditionData1==5){
-            st1 = "rDate";
+	public static void changeSelectProductCateL10(String condition, String sort, String cate2){
+        SELECT_PRODUCTS_CATE_L10.clear();
+        if(!sort.isEmpty()&& sort!=null) {
+        	SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+        }else {
+        	SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product as a LEFT JOIN Kmarket.km_product_review WHERE "+condition+"=? and stock>0 ORDER BY prodNo DESC LIMIT ?, 10;");	
         }
-        if(conditionData2==1){
-            st2 = "desc";
-        }else if(conditionData2==2){
-            st2 = "asc";
-        }
-        SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY "+st1+" "+st2+" ,prodNo DESC LIMIT ?, 10;");
     }
+	public static void changeSelectProductCateL10(String condition, String sort){
+        SELECT_PRODUCTS_CATE_L10.clear();
+        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+    }
+	/*
+	조건 입력시 - 조건에 해당하는 상품만 조회함.
+	condition = 검색조건
+	 */
     /*
     SELECT_PRODUCT_CATE_L10="SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY sold DESC ,prodNo DESC LIMIT ?, 10;";
     SELECT_PRODUCT_CATE_L10="SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY sold ASC ,prodNo DESC LIMIT ?, 10;";
@@ -59,47 +77,66 @@ public class SQL {
     SELECT_PRODUCT_CATE_L10="SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY rdate DESC, prodNo DESC LIMIT ?, 10;";
     SELECT_PRODUCT_CATE_L10="SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY rdate ASC, prodNo DESC LIMIT ?, 10;";*/
 
-    public static final String SELECT_PRODUCTS_COUNT_CATE = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ?;";
 
-    //km_product_cart
 
-    //km_product_cate1
+	public static final String SELECT_PRODUCTS_COUNT_CATE = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
 
-    //km_product_cate2
 
-    //km_product_order
-
-    //km_product_order_item
-
-    //km_product_review
-
-	//km_product_register
 	public final static String INSERT_PRODUCT = "INSERT INTO `km_product` SET  "
-																					+ "`prodCate1`=?,"
-																					+ "`prodCate2`=?,"
-																					+ "`prodName`=?,"
-																					+ "`descript`=?,"
-																					+ "`company`=?,"
-																					+ "`price`=?,"
-																					+ "`discount`=?,"
-																					+ "`point`=?,"
-																					+ "`stock`=?,"
-																					+ "`delivery`=?,"
-																					+ "`thumb1`=?,"
-																					+ "`thumb2`=?,"
-																					+ "`thumb3`=?,"
-																					+ "`detail`=?,"
-																					+ "`status`=?,"
-																					+ "`duty`=?,"
-																					+ "`receipt`=?,"
-																					+ "`bizType`=?,"
-																					+ "`origin`=?";
-			
-	public final static String SELECT_PRODUCT				= "SELECT * FROM `km_product` WHERE `prodNo` =?";
+			+ "`prodCate1`=?,"
+			+ "`prodCate2`=?,"
+			+ "`prodName`=?,"
+			+ "`descript`=?,"
+			+ "`company`=?,"
+			+ "`price`=?,"
+			+ "`discount`=?,"
+			+ "`point`=?,"
+			+ "`stock`=?,"
+			+ "`delivery`=?,"
+			+ "`thumb1`=?,"
+			+ "`thumb2`=?,"
+			+ "`thumb3`=?,"
+			+ "`detail`=?,"
+			+ "`status`=?,"
+			+ "`duty`=?,"
+			+ "`receipt`=?,"
+			+ "`bizType`=?,"
+			+ "`origin`=?";
+
+	public final static String SELECT_PRODUCT				= "SELECT a.*, AVG(b.rating) as rating FROM `km_product` as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE a.`prodNo` =?";
 	public final static String SELECT_PRODUCTS_ALL_L10 			= "SELECT * FROM `km_product` WHERE `stock` > 0 LIMIT ?,10";
 	public final static String SELECT_PRODUCTS_CATE_L10_ADMIN 		= "SELECT * FROM `km_product` WHERE `stock` > 0 AND `cate`=? LIMIT ?,10";
 	public final static String SELECT_COUNT_PRODUCTS_ALL 	= "SELECT COUNT(*) `km_product` WHERE `stock` > 0";
 	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=?";
+
+
+	public final static String DELETE_PRODUCT = "DELETE * FROM `km_product` WHERE `prodNo`=?";
+
+	//-----------------------------km_product_cart-----------------------
+
+	public static final String INSERT_CART = "INSERT INTO `km_product_cart` SET uid = ?, prodNo =?, count=?, price =?, discount =?, point =?, delivery =?, total = ?, rdate=?;";
+
+	public static final String DELETE_CART_UID = "DELETE FROM `km_product_cart` WHERE uid =?;";
+	public static final String SELECT_CARTS = "SELECT a.*, kp.prodName as prodName,kp.descript as descript  FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;";
+
+	//--------------------------km_product_cate1------------------------------
+
+	//--------------------------km_product_cate2------------------------------
+
+	public final static String SELECT_PRODUCT_CATE12_NAME = "SELECT c1Name, c2Name FROM km_product_cate2 as c2 LEFT JOIN Kmarket.km_product_cate1 c1 on c1.cate1 = c2.cate1 where c2.cate1 = ? and c2.cate2 =?;";
+	public final static String SELECT_PRODUCT_CATE1_NAME = "SELECT c1Name from km_product_cate1 where cate1 = ?;";
+
+	//--------------------------km_product_order------------------------------
+
+	//--------------------------km_product_order_item------------------------------
+
+	//--------------------------km_product_review------------------------------
+	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? ORDER BY revNo DESC LIMIT ?,5;";
+	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
+
+  
+  //--------------------------km_cs_review------------------------------
+  
 	
 	// km_cs_cate
 	public final static String SELECT_CSCATE1S_BY_TYPE1 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`<20";

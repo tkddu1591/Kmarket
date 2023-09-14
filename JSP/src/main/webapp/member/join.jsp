@@ -8,7 +8,7 @@
                         <img src="./img/member_join_tit_normal.gif" alt="구매회원 가입">
                         <div class="txt">
                             <img src="./img/member_join_txt_normal.gif" alt="개인 구매회원">
-                            <a href="${ctxPath}/member/signup.do?type=normal"><img src="./img/member_join_btn1.gif" alt="회원가입"></a>
+                            <a href="${ctxPath}/member/signup.do?type=normal"><img src="./img/member_join_btn1.gif" alt="회원가입"></a> <!-- type 파라미터 전송하는데 나중에 어떻게 처리할지 생각할 것 -->
                         </div>
                     </div>
                     <div class="seller">

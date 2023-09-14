@@ -2,8 +2,10 @@ package kr.co.kmarket.controller.product;
 
 import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
+import kr.co.kmarket.service.KmProductCate2Service;
 import kr.co.kmarket.service.KmProductService;
 import kr.co.kmarket.service.PageService;
+import org.slf4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @WebServlet("/product/list.do")
 public class ListController extends HttpServlet {
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(ListController.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -27,7 +30,7 @@ public class ListController extends HttpServlet {
         String pg = req.getParameter("pg");
         String condition = req.getParameter("condition");
         if(kmProductCate2DTO.getCate2()==null || kmProductCate2DTO.getCate2().equals("")) {
-            kmProductCate2DTO.setCate2("10");
+            kmProductCate2DTO.setCate2("");
         }
         if(condition==null || condition.equals("")) {
             condition = "11";
@@ -60,19 +63,25 @@ public class ListController extends HttpServlet {
         int start = pageService.getStartNum(currentPage);
 
         // 현재 페이지 게시물 조회
-        List<KmProductDTO> KmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+        List<KmProductDTO> kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+
 
         req.setAttribute("cate1", kmProductCate2DTO.getCate1());
         req.setAttribute("cate2", kmProductCate2DTO.getCate2());
         req.setAttribute("condition", condition);
-        req.setAttribute("KmProductDTOS", KmProducts);
+        req.setAttribute("KmProductDTOS", kmProducts);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("lastPageNum", lastPageNum);
         req.setAttribute("pageGroupStart", result[0]);
         req.setAttribute("pageGroupEnd", result[1]);
         req.setAttribute("pageStartNum", pageStartNum+1);
-        
-        
+
+
+        KmProductCate2Service kmProductCate2Service = KmProductCate2Service.INSTANCE;
+        kmProductCate2DTO = kmProductCate2Service.selectCateName(kmProductCate2DTO);
+        req.setAttribute("kmProductCate2DTO", kmProductCate2DTO);
+
+
         req.getRequestDispatcher("/product/list.jsp").forward(req, resp);
     }
 

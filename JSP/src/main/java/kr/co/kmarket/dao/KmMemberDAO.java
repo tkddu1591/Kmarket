@@ -13,7 +13,27 @@ public class KmMemberDAO extends DBHelper{
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public void insertMember(KmMemberDTO dto) {
-		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.INSERT_MEMBER);
+			psmt.setString(1, dto.getUid());
+			psmt.setString(2, dto.getPass());
+			psmt.setString(3, dto.getName());
+			psmt.setInt(4, dto.getGender());
+			psmt.setString(5, dto.getHp());
+			psmt.setString(6, dto.getEmail());
+			psmt.setInt(7, dto.getType());
+			psmt.setInt(8, dto.getPoint());
+			psmt.setInt(9, dto.getLevel());
+			psmt.setString(10, dto.getZip());
+			psmt.setString(11, dto.getAddr1());
+			psmt.setString(12, dto.getAddr2());
+			psmt.setString(13, dto.getRegIp());
+			psmt.executeQuery();
+			close();
+		}catch (Exception e) {
+			logger.error("insertMember() : " + e.getMessage());
+		}
 	}
 	
 	public KmMemberDTO selectMember(String uid, String pass) {
