@@ -35,4 +35,12 @@ public void insertMember(KmMemberDTO dto) {
 	public int selectCountUid(String uid) {
 		return dao.selectCountUid(uid);
 	}
+	
+	public int selectCountHp(String hp) {
+		return dao.selectCountUid(hp);
+	}
+	
+	public int selectCountEmail(String email) {
+		return dao.selectCountEmail(email);
+	}
 }
