@@ -8,7 +8,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	
+	/*
 	//Main 카테고리를 선택 할때 마다 AJAX를 호출할 수 있지만 DB접속을 매번 해야 하기 때문에 main, sub카테고리 전체을 들고온다.
     //Main 카테고리 data
     var mainCategoryArray = new Array();
@@ -80,7 +80,7 @@ $(document).ready(function() {
     	});
 	       
 	});
-
+*/
 	$(".fileUpload").on("change", function(e){
 		var str = $(this).val();
 		var fileName = str.split('\\').pop().toLowerCase();
@@ -118,45 +118,69 @@ $(document).ready(function() {
 </script>
      
       <article>
-      
-      [memo]추후추가 -  submit 버튼 전에 file ext 검사 <br>
-      [memo]추후추가 - + 버튼 누르면 파일 입력 인풋이 1개 >> 최대 4개까지  
-        <form action="${ctxPath}/cs/qna/write.do" method="post" enctype="multipart/form-data">
+        <form action="${ctxPath}/cs/qna/modify.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="writer" value="${sessUser.uid}">
+        	<input type="hidden" name="no" value="${no}">
 	        <table>
 	          <tr>
 	            <td>문의유형</td>
 	            <td>
-	              <select name="cate1" id="cate1">
-	                <option value="">문의유형 선택</option>
+	              <select name="cate1" id="cate1" readonly>
+	                <option value="${dto.cate1}">${dto.c1Name}</option>
 	              </select>
-	              <select name="cate2" id="cate2">
-	                <option value="">상세유형 선택</option>
+	              <select name="cate2" id="cate2" readonly>
+	                <option value="${dto.cate2}">${dto.c2Name}</option>
 	              </select>
 	            </td>
 	          </tr>
 	          <tr>
 	            <td>문의제목</td>                  
 	            <td>
-	              <input type="text" name="title" placeholder="제목을 입력하세요."/>
+	              <input type="text" name="title" value="${dto.title}"/>
 	            </td>
 	          </tr>                
 	          <tr>
 	            <td>문의내용</td>                  
 	            <td>
-	              <textarea name="content" placeholder="내용을 입력하세요."></textarea>
+	              <textarea name="content" value="${dto.content}"></textarea>
 	            </td>
 	          </tr>              
 	          <tr>
 	            <td>파일첨부</td>                  
 	            <td class="fileInputList">
 	            	<div>
-	              	<input type="file" name="file1" accept="image/*,.pdf" class="fileUpload"/>
-	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+		              	<input type="file" name="file1" accept="image/*,.pdf" class="fileUpload"/>
+		              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+				        <c:if test="${dto.file[0] ne null}">
+				        	<div>
+								<span> 기존 첨부 파일1 :: </span>
+		        				<div class="fileImg">
+				        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${dto.file[0]}" id="downloadFile" data-fno="${dto.file[0]}">
+				        				 <img src="${ctxPath}/upload/${dto.file[0]}">
+			        				 </a>
+		        				 </div>
+		        				 
+ 				 				 <a href="#" class="file-delete"> [기존 첨부 파일1 삭제 ] </a>
+			                	 <input type="hidden" name="existedFile2" value="${article.fileDto.fno}">
+			                </div>
+				        </c:if>
 	            	</div>
 	            	<div>
-	              	<input type="file" name="file2" accept="image/*,.pdf" class="fileUpload"/>
-	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+		              	<input type="file" name="file2" accept="image/*,.pdf" class="fileUpload"/>
+		              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+				        <c:if test="${dto.file[1] ne null}">
+				        	<div>
+								<span> 기존 첨부 파일2 :: </span>
+		        				<div class="fileImg">
+				        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${dto.file[1]}" id="downloadFile" data-fno="${dto.file[1]}">
+				        				 <img src="${ctxPath}/upload/${dto.file[1]}">
+			        				 </a>
+		        				 </div>
+		        				 
+ 				 				 <a href="#" class="file-delete"> [기존 첨부 파일 삭제 ] </a>
+			                	 <input type="hidden" name="existedFile2" value="${article.fileDto.fno}">
+			                </div>
+				        </c:if>
 	            	</div>
 	            	<div>
 	              	<input type="file" name="file3" accept="image/*,.pdf" class="fileUpload"/>

@@ -33,9 +33,10 @@ public class SQL {
 
 
 	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
-	
 	public static final String SELECT_COUNT_UID = "SELECT COUNT(*) FROM `km_member` WHERE `uid`=?";
-
+	public static final String SELECT_COUNT_HP = "SELECT COUNT(*) FROM `km_member` WHERE `hp`=?";
+	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `email`=?";
+	
     //----------------------------km_member_point-----------------------
 
     //----------------------------km_member_terms-----------------------
@@ -89,6 +90,7 @@ public class SQL {
 
 
 
+	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` ";
 	public static final String SELECT_PRODUCTS_COUNT_CATE = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
 
 
@@ -137,6 +139,7 @@ public class SQL {
 	//--------------------------km_product_cate2------------------------------
 
 	public final static String SELECT_PRODUCT_CATE12_NAME = "SELECT c1Name, c2Name FROM km_product_cate2 as c2 LEFT JOIN Kmarket.km_product_cate1 c1 on c1.cate1 = c2.cate1 where c2.cate1 = ? and c2.cate2 =?;";
+	public final static String SELECT_PRODUCT_CATE12 = "select c1.*, c2.cate2, c2Name from km_product_cate1 as c1 join km_product_cate2 as c2 on c1.cate1 = c2.cate1;";
 	public final static String SELECT_PRODUCT_CATE1_NAME = "SELECT c1Name from km_product_cate1 where cate1 = ?;";
 
 	//--------------------------km_product_order------------------------------
@@ -155,6 +158,8 @@ public class SQL {
 	public final static String SELECT_CSCATE1S_BY_TYPE1 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`<20";
 	public final static String SELECT_CSCATE1S_BY_TYPE2 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`>=20";
 	public final static String SELECT_CSCATE2S_BY_CATE1 	= "SELECT * FROM `km_cs_cate2` WHERE `cate1`=?";
+	public static final String SELECT_CSCATE1_C1NAME = "SELECT `c1Name` FROM `km_cs_cate1 WHERE `cate1`=?";
+	public static final String SELECT_CSCATE2_C2NAME = "SELECT `c1Name` FROM `km_cs_cate2 WHERE `cate1`=? AND `cate2`=?";
 	
 	// km_cs_qna
 	public final static String INSERT_CSQNA_QUESTION 		= "INSERT INTO `km_cs_qna` SET "
@@ -191,31 +196,45 @@ public class SQL {
 																+ "FROM `km_cs_qna` AS a "
 																+ "JOIN `km_member` AS b ON a.writer=b.uid "
 																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
-																+ "JOIN `km_cs_cate2` AS d ON a.cate2=d.cate2 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 "
 																+ "WHERE `qnaNo`=?";
 	public static final String SELECT_CSQNAS = "SELECT "
 																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
 																+ "FROM `km_cs_qna` AS a "
 																+ "JOIN `km_member` AS b ON a.writer=b.uid "
 																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
-																+ "JOIN `km_cs_cate2` AS d ON a.cate2=d.cate2 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 "
 																+ "WHERE `parent`=0 "
 																+ "ORDER BY `qnaNo` DESC "
 																+ "LIMIT ?, 10";
 	public static final String SELECT_CSQNAS_BY_CATE1 = "SELECT "
-																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
+																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name`"
 																+ "FROM `km_cs_qna` AS a "
 																+ "JOIN `km_member` AS b ON a.writer=b.uid "
 																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
-																+ "JOIN `km_cs_cate2` AS d ON a.cate2=d.cate2 "
-																+ "WHERE `parent`=0 AND `cate`=? "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 "
+																+ "WHERE `parent`=0 AND a.cate1=? "
 																+ "ORDER BY `qnaNo` DESC "
 																+ "LIMIT ?, 10";
 	public final static String SELECT_CSQNA_MAX_NO = "SELECT MAX(`qnaNo`) FROM `km_cs_qna`";
+	public final static String SELECT_CSQNA_COUNT = "SELECT count(*) FROM `km_cs_qna`";
+	public final static String SELECT_CSQNA_COUNT_BY_CATE1 = "SELECT count(*) FROM `km_cs_qna` WHERE `cate1`=?";
 	
+
+	public final static String UPDATE_CSQNA		= "UPDATE `km_cs_qna` SET "
+																	+ "`title` = ?, "
+																	+ "`content` = ?, "
+																	+ "`file1` = ?, "
+																	+ "`file2` = ?, "
+																	+ "`file3` = ?, "
+																	+ "`file4` = ?, "
+																	+ "`ordNo` = ?, "
+																	+ "`prodNo` = ? "
+																	+ "WHERE `qnaNo` = ?";
 	public final static String UPDATE_CSQNA_ANSWERCOMPLETE	= "UPDATE `km_cs_qna` SET `answerComplete` = ? WHERE `qnaNo` = ?";
 
+	public static final String DELETE_CSQNA = "DELETE FROM `km_cs_qna` WHERE `qnaNo`=?";
 
 
-	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` ";
+
 }

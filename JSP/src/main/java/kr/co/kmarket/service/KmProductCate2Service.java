@@ -3,6 +3,8 @@ package kr.co.kmarket.service;
 import kr.co.kmarket.dao.KmProductCate2DAO;
 import kr.co.kmarket.dto.KmProductCate2DTO;
 
+import java.util.List;
+
 public enum KmProductCate2Service {
     INSTANCE;
     private KmProductCate2DAO dao= KmProductCate2DAO.getInstance();
@@ -11,4 +13,7 @@ public enum KmProductCate2Service {
         return dao.selectCateName(kmProductCate2DTO);
     }
 
+    public List<KmProductCate2DTO> selectCoates() {
+        return dao.selectCoates();
+    }
 }

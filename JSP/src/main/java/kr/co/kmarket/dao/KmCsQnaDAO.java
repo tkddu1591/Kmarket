@@ -19,7 +19,7 @@ public class KmCsQnaDAO extends DBHelper{
 	}
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public int insertQna(KmCsQnaDTO dto) {
+	public int insertCsQna(KmCsQnaDTO dto) {
 		int no = 0;
 		try {
 			// 트랜잭션을 묶어두니 [ Lock wait timeout exceeded; try restarting transaction ] 오류가 뜬다... 
@@ -108,7 +108,7 @@ public class KmCsQnaDAO extends DBHelper{
 			}
 			rs = psmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				KmCsQnaDTO dto = new KmCsQnaDTO();
 				dto.setQnaNo(rs.getInt("qnaNo"));
 				dto.setCate1(rs.getInt("cate1"));
@@ -130,11 +130,69 @@ public class KmCsQnaDAO extends DBHelper{
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
 				qnaList.add(dto);
+				logger.debug("qnaDTO : " + dto.toString());
 			}
 			close();
 		} catch (Exception e) {
 			logger.error("selectCsQnaDTO() error : " + e.getMessage());
 		}
 		return qnaList;
+	}
+	
+	public int selectCsQnaCount(String cate1) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			if(cate1 == null) {
+				psmt = conn.prepareStatement(SQL.SELECT_CSQNA_COUNT);
+			}else {
+				psmt = conn.prepareStatement(SQL.SELECT_CSQNA_COUNT_BY_CATE1);
+				psmt.setString(1, cate1);
+			}
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsQnaCount() error : " + e.getMessage() );
+		}
+		return count;
+	}
+
+	public void updateCsQna(KmCsQnaDTO dto) {
+		try { 
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_CSQNA);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getFile1());
+			psmt.setString(4, dto.getFile2());
+			psmt.setString(5, dto.getFile3());
+			psmt.setString(6, dto.getFile4());
+			psmt.setString(7, dto.getOrdNo());
+			psmt.setString(8, dto.getProdNo());
+			psmt.setInt(9, dto.getQnaNo());
+			psmt.executeUpdate();
+			logger.debug("수정 글 내용 : " + dto.toString());
+			
+			close();
+		}catch(Exception e){
+			logger.error("insertQna() updateCsQna : " + e.getMessage());
+		}
+	}
+	public void deleteCsQna(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.DELETE_CSQNA);
+			psmt.setString(1, no);
+			
+			psmt.executeUpdate();
+			
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsQnaCount() error : " + e.getMessage() );
+		}
 	}
 }

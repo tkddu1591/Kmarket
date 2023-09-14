@@ -1,14 +1,15 @@
 
 h
-java:S1192"FDefine a constant instead of duplicating this literal "cate1" 3 times.(µä€ùÿÿÿÿ8Ûè…¿¨1
+java:S1192"FDefine a constant instead of duplicating this literal "cate1" 3 times.(µä€ùÿÿÿÿ8…£Øí¨1
 h
-java:S1192"FDefine a constant instead of duplicating this literal "cate2" 3 times.(À‰Âÿûÿÿÿÿ8ş‰¿¨1
-m	java:S1179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÅÇ8Ûè…¿¨1
+java:S1192"FDefine a constant instead of duplicating this literal "cate2" 3 times.(À‰Âÿûÿÿÿÿ8Š£Øí¨1
 ‰
-java:S1989"lHandle the following exception that could be thrown by "setCharacterEncoding": UnsupportedEncodingException.(±Œ©À8àè…¿¨1
+java:S1989"lHandle the following exception that could be thrown by "setCharacterEncoding": UnsupportedEncodingException.(±Œ©À8££Øí¨1
 ƒ
-java:S1989E"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßäÙ—ùÿÿÿÿ8áè…¿¨1
+java:S1989U"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßäÙ—ùÿÿÿÿ8Ú‹¡é¨1
 E
-java:S1185I"(Remove this method to simply inherit it.(üª¼í8áè…¿¨1
+java:S1185Y"(Remove this method to simply inherit it.(üª¼í8Û‹¡é¨1
 ‚
-java:S1989J"`Handle the following exceptions that could be thrown by "doPost": ServletException, IOException.(Í†»Öúÿÿÿÿ8âè…¿¨1
+java:S1989Z"`Handle the following exceptions that could be thrown by "doPost": ServletException, IOException.(Í†»Öúÿÿÿÿ8Û‹¡é¨1
+L
+java:S1068"*Remove this unused "logger" private field.(­Áúúÿÿÿÿ8ª£Øí¨1

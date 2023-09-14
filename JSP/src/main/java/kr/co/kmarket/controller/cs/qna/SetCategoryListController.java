@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import kr.co.kmarket.dto.KmCsCate1DTO;
 import kr.co.kmarket.dto.KmCsCate2DTO;
 import kr.co.kmarket.service.CsCateService;
+import kr.co.kmarket.service.KmCsCateService;
 
 
 @WebServlet("/cs/setCategoryList.do")
@@ -28,7 +29,7 @@ public class SetCategoryListController extends HttpServlet{
 	private static final long serialVersionUID = -7801074301995661710L;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private CsCateService service = CsCateService.INSTANCE;
+	private KmCsCateService service = KmCsCateService.INSTANCE;
 	
 	
 	@Override

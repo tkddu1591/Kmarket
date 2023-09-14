@@ -27,7 +27,7 @@ public class CheckUidController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uid = req.getParameter("uid");
 		
-		logger.debug(uid);
+		logger.debug(uid); 
 		
 		int result = service.selectCountUid(uid);
 		

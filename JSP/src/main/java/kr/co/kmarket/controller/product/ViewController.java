@@ -2,13 +2,11 @@ package kr.co.kmarket.controller.product;
 
 import kr.co.kmarket.dao.KmProductDAO;
 import kr.co.kmarket.dao.KmProductReviewDAO;
+import kr.co.kmarket.dto.KmProductCartDTO;
 import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
 import kr.co.kmarket.dto.KmProductReviewDTO;
-import kr.co.kmarket.service.KmProductCate2Service;
-import kr.co.kmarket.service.KmProductService;
-import kr.co.kmarket.service.KmProductReviewService;
-import kr.co.kmarket.service.PageService;
+import kr.co.kmarket.service.*;
 import org.slf4j.Logger;
 
 import javax.servlet.ServletException;
@@ -17,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/product/view.do")
@@ -27,8 +29,8 @@ public class ViewController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         String prodNo =req.getParameter("prodNo");
-        String c1Name =req.getParameter("c1Name");
-        String c2Name =req.getParameter("c2Name");
+        String c1 =req.getParameter("c1");
+        String c2 =req.getParameter("c2");
 
 
 
@@ -70,8 +72,8 @@ public class ViewController extends HttpServlet {
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
 
-        req.setAttribute("c1Name", c1Name);
-        req.setAttribute("c2Name", c2Name);
+        req.setAttribute("c1", c1);
+        req.setAttribute("c2", c2);
         req.setAttribute("prodNo", prodNo);
         req.setAttribute("kmProductReviews", kmProductReviews);
         req.setAttribute("currentPage", currentPage);
@@ -88,6 +90,36 @@ public class ViewController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        String c1 =req.getParameter("c1");
+        String c2 =req.getParameter("c2");
+
+        // 현재 날짜/시간
+        Date rDate = Calendar.getInstance().getTime();
+
+        // 포맷팅 정의
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // 포맷팅 적용
+        String formatedNow = formatter.format(rDate);
+
+        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
+        kmProductCartDTO.setUid( req.getParameter("uid"));
+        kmProductCartDTO.setProdNo( req.getParameter("prodNo"));
+        kmProductCartDTO.setCount( req.getParameter("count"));
+        kmProductCartDTO.setPrice( req.getParameter("price"));
+        kmProductCartDTO.setDiscount( req.getParameter("discount"));
+        kmProductCartDTO.setPoint( req.getParameter("point"));
+        kmProductCartDTO.setDelivery( req.getParameter("delivery"));
+        kmProductCartDTO.setTotal( req.getParameter("total"));
+        kmProductCartDTO.setrDate(formatedNow);
+
+
+        KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
+
+        kmProductCartService.insertCart(kmProductCartDTO);
+
+
+        resp.sendRedirect("/product/view.do?prodNo="+kmProductCartDTO.getProdNo()+"&c1="+c1+"&c2="+c2);
     }
 }

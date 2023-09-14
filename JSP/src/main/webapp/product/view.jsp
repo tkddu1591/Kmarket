@@ -5,6 +5,53 @@
 
         const num = $('input[name=num]')
 
+        const minus = $('.decrease')[0]
+        const plus = $('.increase')[0]
+
+        const price =${kmProduct.discountPrice}
+        const delivery =${kmProduct.delivery}
+        const totalPrice = $('.totalPrice')[0]
+
+
+        const count = $('input[name=count]')
+        const total = $('input[name=total]')
+
+        const formAction = $('#formAction')
+
+        let newTotalPrice = 0;
+
+        //수량 변경시 formAction의 데이터 및 화면의 데이터 수정
+        minus.addEventListener('click', function () {
+            if (num.val() > 1) {
+                num.val(parseInt(num.val()) - 1)
+            }
+            newTotalPrice = (delivery + num.val() * price)
+            totalPrice.innerText = newTotalPrice.toLocaleString();
+
+            count.val(parseInt(num.val()))
+            total.val(newTotalPrice)
+        })
+        plus.addEventListener('click', function () {
+            num.val(parseInt(num.val()) + 1)
+
+            newTotalPrice = (delivery + num.val() * price)
+            totalPrice.innerText = newTotalPrice.toLocaleString();
+
+            count.val(parseInt(num.val()))
+            total.val(newTotalPrice)
+        })
+
+        $('.cart').on('click', function (e) {
+            alert('dd')
+            e.preventDefault();
+            formAction.action = "${ctxPath}/product/view.do";
+            formAction.submit();
+        })
+        $('.order').on('click', function (e) {
+            e.preventDefault()
+            formAction.action = "${ctxPath}/product/order.do";
+            formAction.submit();
+        })
 
     })
 </script>
@@ -12,7 +59,7 @@
 
     <aside>
         <!-- 카테고리 -->
-        <%@ include file="_category.jsp" %>
+        <%@ include file="../_category.jsp" %>
     </aside>
 
     <!-- 상품 상세페이지 시작 -->
@@ -22,82 +69,95 @@
         <nav>
             <h1>상품보기</h1>
             <p>
-                HOME > <span>${c1Name}</span> <c:if test="${not empty c2Name}">> <strong>${c2Name}</strong></c:if>
+                HOME > <span>${c1}</span> <c:if test="${not empty c2}">> <strong>${c2}</strong></c:if>
             </p>
         </nav>
 
         <!-- 상품 전체 정보 내용 -->
-            <article class="info">
-                <div class="image">
-                    <img src="https://via.placeholder.com/460x460" alt="상품이미지"/>
+        <article class="info">
+            <div class="image">
+                <img src="https://via.placeholder.com/460x460" alt="상품이미지"/>
+            </div>
+            <div class="summary">
+                <nav>
+                    <h1>${kmProduct.company}</h1>
+                    <h2>상품번호&nbsp;:&nbsp;<span>${kmProduct.prodNo}</span></h2>
+                </nav>
+                <nav>
+                    <h3>${kmProduct.prodName}</h3>
+                    <p>${kmProduct.descript}</p>
+
+                    <c:choose>
+                        <c:when test="${kmProduct.rating >= 4.5}"><h5 class="rating star5"><a href="#">상품평보기</a>
+                        </h5></c:when>
+                        <c:when test="${kmProduct.rating >= 3.5}"><h5 class="rating star4"><a href="#">상품평보기</a>
+                        </h5></c:when>
+                        <c:when test="${kmProduct.rating >= 2.5}"><h5 class="rating star3"><a href="#">상품평보기</a>
+                        </h5></c:when>
+                        <c:when test="${kmProduct.rating >= 1.5}"><h5 class="rating star2"><a href="#">상품평보기</a>
+                        </h5></c:when>
+                        <c:when test="${kmProduct.rating >= 0.5}"><h5 class="rating star1"><a href="#">상품평보기</a>
+                        </h5></c:when>
+                        <c:otherwise>
+                            <h6>상품평이 없습니다.</h6>
+                        </c:otherwise>
+                    </c:choose>
+                </nav>
+
+                <nav>
+                    <div class="org_price">
+                        <del>${kmProduct.priceWithComma}</del>
+                        <span>${kmProduct.discountWithPer}</span>
+                    </div>
+                    <div class="dis_price">
+                        <ins>${kmProduct.discountPriceWithComma}</ins>
+                    </div>
+                </nav>
+                <nav>
+                    <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
+                    <span class="arrival">모레(금) 7/8 도착예정</span>
+                    <span class="desc">본 상품은 국내배송만 가능합니다.</span>
+                </nav>
+                <nav>
+                    <span class="card cardfree"><i>아이콘</i>무이자할부</span>&nbsp;&nbsp;
+                    <span class="card cardadd"><i>아이콘</i>카드추가혜택</span>
+                </nav>
+                <nav>
+                    <span class="origin">원산지-상세설명 참조</span>
+                </nav>
+                <img src="../img/vip_plcc_banner.png" alt="100원만 결제해도 1만원 적립!" class="banner"/>
+
+                <div class="count">
+                    <button class="decrease">-</button>
+                    <input type="text" name="num" value="1" readonly/>
+                    <button class="increase">+</button>
                 </div>
-                <div class="summary">
-                    <nav>
-                        <h1>${kmProduct.company}</h1>
-                        <h2>상품번호&nbsp;:&nbsp;<span>${kmProduct.prodNo}</span></h2>
-                    </nav>
-                    <nav>
-                        <h3>${kmProduct.prodName}</h3>
-                        <p>${kmProduct.descript}</p>
 
-                        <c:choose>
-                            <c:when test="${kmProduct.rating >= 4.5}"><h5 class="rating star5"><a href="#">상품평보기</a>
-                            </h5></c:when>
-                            <c:when test="${kmProduct.rating >= 3.5}"><h5 class="rating star4"><a href="#">상품평보기</a>
-                            </h5></c:when>
-                            <c:when test="${kmProduct.rating >= 2.5}"><h5 class="rating star3"><a href="#">상품평보기</a>
-                            </h5></c:when>
-                            <c:when test="${kmProduct.rating >= 1.5}"><h5 class="rating star2"><a href="#">상품평보기</a>
-                            </h5></c:when>
-                            <c:when test="${kmProduct.rating >= 0.5}"><h5 class="rating star1"><a href="#">상품평보기</a>
-                            </h5></c:when>
-                            <c:otherwise>
-                                <h6>상품평이 없습니다.</h6>
-                            </c:otherwise>
-                        </c:choose>
-                    </nav>
-
-                    <nav>
-                        <div class="org_price">
-                            <del>${kmProduct.priceWithComma}</del>
-                            <span>${kmProduct.discountWithPer}</span>
-                        </div>
-                        <div class="dis_price">
-                            <ins>${kmProduct.discountPriceWithComma}</ins>
-                        </div>
-                    </nav>
-                    <nav>
-                        <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
-                        <span class="arrival">모레(금) 7/8 도착예정</span>
-                        <span class="desc">본 상품은 국내배송만 가능합니다.</span>
-                    </nav>
-                    <nav>
-                        <span class="card cardfree"><i>아이콘</i>무이자할부</span>&nbsp;&nbsp;
-                        <span class="card cardadd"><i>아이콘</i>카드추가혜택</span>
-                    </nav>
-                    <nav>
-                        <span class="origin">원산지-상세설명 참조</span>
-                    </nav>
-                    <img src="../img/vip_plcc_banner.png" alt="100원만 결제해도 1만원 적립!" class="banner"/>
-
-                    <div class="count">
-                        <button onclick="minus" class="decrease">-</button>
-                        <input type="text" name="num" value="1" readonly/>
-                        <button onclick="up" class="increase">+</button>
-                    </div>
-
-                    <div class="total">
-                        <span>${kmProduct.totalWithComma}</span>
-                        <em>총 상품금액</em>
-                    </div>
-
-                    <div class="button">
-                        <input type="button" class="cart" value="장바구니"/>
-                        <input type="button" class="order" value="구매하기"/>
-                    </div>
-
+                <div class="total">
+                    <span class="totalPrice">${kmProduct.totalWithComma}</span>
+                    <em>총 상품금액</em>
                 </div>
-            </article>
+
+                <div class="button">
+                    <input type="button" class="cart" value="장바구니"/>
+                    <input type="button" class="order" value="구매하기"/>
+                </div>
+                <form method="post" id="formAction">
+                    <input type="hidden" name="prodNo" value="${kmProduct.prodNo}"/>
+                    <input type="hidden" name="uid" value="${sessUser.uid}"/>
+                    <input type="hidden" name="count" value="1"/>
+                    <input type="hidden" name="price" value="${kmProduct.price}"/>
+                    <input type="hidden" name="discount" value="${kmProduct.discount}"/>
+                    <input type="hidden" name="delivery" value="${kmProduct.delivery}"/>
+                    <input type="hidden" name="total" value="${kmProduct.total}"/>
+                    <input type="hidden" name="point" value="${kmProduct.point}">
+                    <input type="hidden" name="type" value="view"/>
+                    <input type="hidden" name="c1Name" value="${c1Name}">
+                    <input type="hidden" name="c2Name" value="${c2Name}">
+                </form>
+            </div>
+
+        </article>
         <!-- 상품 정보 내용 -->
         <article class="detail">
             <nav>

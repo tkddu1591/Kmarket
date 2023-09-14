@@ -108,7 +108,7 @@ public class KmMemberDAO extends DBHelper{
 			conn = getConnection();
 			psmt = conn.prepareStatement(SQL.SELECT_COUNT_UID);
 			psmt.setString(1, uid);
-			psmt.executeQuery();
+			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
 				result = rs.getInt(1);
@@ -117,6 +117,46 @@ public class KmMemberDAO extends DBHelper{
 			
 		}catch (Exception e) {
 			logger.error("selectCountUid() : " + e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public int selectCountHp(String hp) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COUNT_HP);
+			psmt.setString(1, hp);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			close();
+		}catch (Exception e) {
+			logger.error("selectCountHp() : " + e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	public int selectCountEmail(String email) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COUNT_EMAIL);
+			psmt.setString(1, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			close();
+		}catch (Exception e) {
+			logger.error("selectCountEmail() : " + e.getMessage());
 		}
 		
 		return result;

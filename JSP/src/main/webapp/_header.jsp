@@ -21,7 +21,7 @@
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-    <script src="${ctxPath}/js/index.js"></script>
+    <script src="${ctxPath}/js/index.do"></script>
     <style>
       #bannerTop {
         display: none;
@@ -126,7 +126,7 @@
               <li><a href="#">쿠폰존</a></li>
               <li><a href="#">사용후기</a></li>
               <li><a href="#">개인결제</a></li>
-              <li><a href="#">고객센터</a></li>
+              <li><a href="${ctxPath}/cs/">고객센터</a></li>
               <li><a href="#">FAQ</a></li>
             </ul>
           </div>
