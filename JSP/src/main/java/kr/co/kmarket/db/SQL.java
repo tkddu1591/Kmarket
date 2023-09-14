@@ -109,6 +109,7 @@ public class SQL {
 	public final static String SELECT_COUNT_PRODUCTS_ALL 	= "SELECT COUNT(*) `km_product` WHERE `stock` > 0";
 	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=?";
 
+
 	public final static String DELETE_PRODUCT = "DELETE * FROM `km_product` WHERE `prodNo`=?";
 
 	//-----------------------------km_product_cart-----------------------
@@ -132,4 +133,46 @@ public class SQL {
 	//--------------------------km_product_review------------------------------
 	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? ORDER BY revNo DESC LIMIT ?,5;";
 	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
+
+  
+  //--------------------------km_cs_review------------------------------
+  
+	
+	// km_cs_cate
+	public final static String SELECT_CSCATE1S_BY_TYPE1 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`<20";
+	public final static String SELECT_CSCATE1S_BY_TYPE2 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`>=20";
+	public final static String SELECT_CSCATE2S_BY_CATE1 	= "SELECT * FROM `km_cs_cate2` WHERE `cate1`=?";
+	
+	// km_cs_qna
+	public final static String INSERT_CSQNA_QUESTION 		= "INSERT INTO `km_cs_qna` SET "
+																	+ "`cate1` = ?, "
+																	+ "`cate2` = ?, "
+																	+ "`title` = ?, "
+																	+ "`content` = ?, "
+																	+ "`file1` = ?, "
+																	+ "`file2` = ?, "
+																	+ "`file3` = ?, "
+																	+ "`file4` = ?, "
+																	+ "`writer` = ?, "
+																	+ "`ordNo` = ?, "
+																	+ "`prodNo` = ?, "
+																	+ "`parent` = 0, "
+																	+ "`answerComplete` = 0, "
+																	+ "`regip`=?, "
+																	+ "`rdate`=NOW()";
+	public final static String INSERT_CSQNA_ANSWER 		= "INSERT INTO `km_cs_qna` SET "
+																	+ "`cate1` = ?, "
+																	+ "`cate2` = ?, "
+																	+ "`title` = ?, "
+																	+ "`content` = ?, "
+																	+ "`file1` = ?, "
+																	+ "`file2` = ?, "
+																	+ "`file3` = ?, "
+																	+ "`file4` = ?, "
+																	+ "`writer` = ?, "
+																	+ "`parent` = 0, "
+																	+ "`regip`=?, "
+																	+ "`rdate`=NOW()";
+	
+	public final static String UPDATE_CSQNA_ANSWERCOMPLETE	= "UPDATE `km_cs_qna` SET `answerComplete` = ? WHERE `qnaNo` = ?";
 }

@@ -978,3 +978,15 @@
     padding: 10px;
     box-sizing: border-box;
   }
+  #cs > .qna > .write > article .qnaBtnArea {
+    text-align: center;
+  }
+  #cs > .qna > .write > article .fileInputList > div > input{
+   	width : 80%;
+  }
+  #cs > .qna > .write > article .fileInputList > div > a{
+   	width : 20%;
+  }
+  #cs > .qna > .write > article .fileInputList > div > a > span{
+   	font-size:15px;
+  }

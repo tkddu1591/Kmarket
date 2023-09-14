@@ -1,9 +1,8 @@
 package kr.co.kmarket.dto;
 
-public class KmCsArticleDTO {
+public class KmCsQnaDTO {
 	
-	private int articleNo;
-	private int type;
+	private int qnaNo;
 	private int cate1;
 	private int cate2;
 	private String title;
@@ -19,18 +18,11 @@ public class KmCsArticleDTO {
 	private int answerComplete;
 	private String regip;
 	private String rdate;
-	
-	public int getArticleNo() {
-		return articleNo;
+	public int getQnaNo() {
+		return qnaNo;
 	}
-	public void setArticleNo(int articleNo) {
-		this.articleNo = articleNo;
-	}
-	public int getType() {
-		return type;
-	}
-	public void setType(int type) {
-		this.type = type;
+	public void setQnaNo(int qnaNo) {
+		this.qnaNo = qnaNo;
 	}
 	public int getCate1() {
 		return cate1;
@@ -122,6 +114,5 @@ public class KmCsArticleDTO {
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
 	}
-	
 	
 }
