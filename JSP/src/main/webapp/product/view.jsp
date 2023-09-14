@@ -1,8 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="_header.jsp" %>
+<%@ include file="../_header.jsp" %>
+<script>
+    $(document).ready(function () {
+
+        const num = $('input[name=num]')
+
+
+    })
+</script>
 <main id="product">
 
-    <%@ include file="_aside.jsp" %>
+    <aside>
+        <!-- 카테고리 -->
+        <%@ include file="_category.jsp" %>
+    </aside>
 
     <!-- 상품 상세페이지 시작 -->
     <section class="view">
@@ -16,74 +27,77 @@
         </nav>
 
         <!-- 상품 전체 정보 내용 -->
-        <article class="info">
-            <div class="image">
-                <img src="https://via.placeholder.com/460x460" alt="상품이미지"/>
-            </div>
-            <div class="summary">
-                <nav>
-                    <h1>${kmProduct.company}</h1>
-                    <h2>상품번호&nbsp;:&nbsp;<span>${kmProduct.prodNo}</span></h2>
-                </nav>
-                <nav>
-                    <h3>${kmProduct.prodName}</h3>
-                    <p>${kmProduct.descript}</p>
+            <article class="info">
+                <div class="image">
+                    <img src="https://via.placeholder.com/460x460" alt="상품이미지"/>
+                </div>
+                <div class="summary">
+                    <nav>
+                        <h1>${kmProduct.company}</h1>
+                        <h2>상품번호&nbsp;:&nbsp;<span>${kmProduct.prodNo}</span></h2>
+                    </nav>
+                    <nav>
+                        <h3>${kmProduct.prodName}</h3>
+                        <p>${kmProduct.descript}</p>
 
-                    <c:choose>
-                    <c:when test="${kmProduct.rating >= 4.5}">
-                    <h5 class="rating star5"></c:when>
-                        <c:when test="${kmProduct.rating >= 3.5}">
-                        <h5 class="rating star4"></c:when>
-                            <c:when test="${kmProduct.rating >= 2.5}">
-                            <h5 class="rating star3"></c:when>
-                                <c:when test="${kmProduct.rating >= 1.5}">
-                                <h5 class="rating star2"></c:when>
-                                    <c:otherwise><h5 class="rating star1"></c:otherwise>
-                                        </c:choose>
-                                        <a href="#">상품평보기</a></h5>
-                </nav>
+                        <c:choose>
+                            <c:when test="${kmProduct.rating >= 4.5}"><h5 class="rating star5"><a href="#">상품평보기</a>
+                            </h5></c:when>
+                            <c:when test="${kmProduct.rating >= 3.5}"><h5 class="rating star4"><a href="#">상품평보기</a>
+                            </h5></c:when>
+                            <c:when test="${kmProduct.rating >= 2.5}"><h5 class="rating star3"><a href="#">상품평보기</a>
+                            </h5></c:when>
+                            <c:when test="${kmProduct.rating >= 1.5}"><h5 class="rating star2"><a href="#">상품평보기</a>
+                            </h5></c:when>
+                            <c:when test="${kmProduct.rating >= 0.5}"><h5 class="rating star1"><a href="#">상품평보기</a>
+                            </h5></c:when>
+                            <c:otherwise>
+                                <h6>상품평이 없습니다.</h6>
+                            </c:otherwise>
+                        </c:choose>
+                    </nav>
 
-                <nav>
-                    <div class="org_price">
-                        <del>${kmProduct.priceWithComma}</del>
-                        <span>${kmProduct.discountWithPer}</span>
+                    <nav>
+                        <div class="org_price">
+                            <del>${kmProduct.priceWithComma}</del>
+                            <span>${kmProduct.discountWithPer}</span>
+                        </div>
+                        <div class="dis_price">
+                            <ins>${kmProduct.discountPriceWithComma}</ins>
+                        </div>
+                    </nav>
+                    <nav>
+                        <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
+                        <span class="arrival">모레(금) 7/8 도착예정</span>
+                        <span class="desc">본 상품은 국내배송만 가능합니다.</span>
+                    </nav>
+                    <nav>
+                        <span class="card cardfree"><i>아이콘</i>무이자할부</span>&nbsp;&nbsp;
+                        <span class="card cardadd"><i>아이콘</i>카드추가혜택</span>
+                    </nav>
+                    <nav>
+                        <span class="origin">원산지-상세설명 참조</span>
+                    </nav>
+                    <img src="../img/vip_plcc_banner.png" alt="100원만 결제해도 1만원 적립!" class="banner"/>
+
+                    <div class="count">
+                        <button onclick="minus" class="decrease">-</button>
+                        <input type="text" name="num" value="1" readonly/>
+                        <button onclick="up" class="increase">+</button>
                     </div>
-                    <div class="dis_price">
-                        <ins>${kmProduct.discountPriceWithComma}</ins>
+
+                    <div class="total">
+                        <span>${kmProduct.totalWithComma}</span>
+                        <em>총 상품금액</em>
                     </div>
-                </nav>
-                <nav>
-                    <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
-                    <span class="arrival">모레(금) 7/8 도착예정</span>
-                    <span class="desc">본 상품은 국내배송만 가능합니다.</span>
-                </nav>
-                <nav>
-                    <span class="card cardfree"><i>아이콘</i>무이자할부</span>&nbsp;&nbsp;
-                    <span class="card cardadd"><i>아이콘</i>카드추가혜택</span>
-                </nav>
-                <nav>
-                    <span class="origin">원산지-상세설명 참조</span>
-                </nav>
-                <img src="../img/vip_plcc_banner.png" alt="100원만 결제해도 1만원 적립!" class="banner"/>
 
-                <div class="count">
-                    <button class="decrease">-</button>
-                    <input type="text" name="num" value="1" readonly/>
-                    <button class="increase">+</button>
+                    <div class="button">
+                        <input type="button" class="cart" value="장바구니"/>
+                        <input type="button" class="order" value="구매하기"/>
+                    </div>
+
                 </div>
-
-                <div class="total">
-                    <span>${kmProduct.totalWithComma}</span>
-                    <em>총 상품금액</em>
-                </div>
-
-                <div class="button">
-                    <input type="button" class="cart" value="장바구니"/>
-                    <input type="button" class="order" value="구매하기"/>
-                </div>
-            </div>
-        </article>
-
+            </article>
         <!-- 상품 정보 내용 -->
         <article class="detail">
             <nav>
@@ -196,20 +210,23 @@
                     <li>
                         <div>
                             <c:choose>
-                            <c:when test="${review.rating >= 4.5}">
-                            <h5 class="rating star5"></c:when>
-                                <c:when test="${review.rating >= 3.5}">
-                                <h5 class="rating star4"></c:when>
-                                    <c:when test="${review.rating >= 2.5}">
-                                    <h5 class="rating star3"></c:when>
-                                        <c:when test="${review.rating >= 1.5}">
-                                        <h5 class="rating star2"></c:when>
-                                            <c:otherwise><h5 class="rating star1"></c:otherwise>
-                                                </c:choose>
-                                                상품평</h5>
-                                            <span>${review.uidHidden} ${review.rDateYMD}</span>
+                                <c:when test="${review.rating >= 4.5}"><h5 class="rating star5"><a href="#">상품평</a>
+                                </h5></c:when>
+                                <c:when test="${review.rating >= 3.5}"><h5 class="rating star4"><a href="#">상품평</a>
+                                </h5></c:when>
+                                <c:when test="${review.rating >= 2.5}"><h5 class="rating star3"><a href="#">상품평</a>
+                                </h5></c:when>
+                                <c:when test="${review.rating >= 1.5}"><h5 class="rating star2"><a href="#">상품평</a>
+                                </h5></c:when>
+                                <c:when test="${review.rating >= 0.5}"><h5 class="rating star1"><a href="#">상품평</a>
+                                </h5></c:when>
+                                <c:otherwise>
+                                    <h6>상품평이 없습니다.</h6>
+                                </c:otherwise>
+                            </c:choose>
+                            <span>${review.uidHidden} ${review.rDateYMD}</span>
                         </div>
-                        <h3>상품명1/BLUE/L</h3>
+                        <h3>${kmProduct.prodName}/BLUE/L</h3>
                         <p>
                                 ${review.content}
                         </p>
@@ -232,23 +249,23 @@
             <div class="paging">
             <span class="prev">
                 <c:if test="${pageGroupStart > 1}">
-                    <a href="/JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}"
                        class="start">처음으로</a>
-                    <a href="/JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}"
                        class="prev">이전</a>
                 </c:if>
             </span>
                 <span class="num">
                 <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
-                   <a href="/JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}"
+                   <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}"
                       class="num ${currentPage == i?'current':'off'}">${i}</a>
                 </c:forEach>
             </span>
                 <span class="next">
                 <c:if test="${pageGroupEnd < lastPageNum}">
-                    <a href="JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupEnd + 1}&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupEnd + 1}&prodNo=${kmProduct.prodNo}"
                        class="next">다음</a>
-                    <a href="JSP/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${lastPageNum}&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${lastPageNum}&prodNo=${kmProduct.prodNo}"
                        class="last">마지막</a>
                 </c:if>
             </span>
@@ -259,4 +276,4 @@
     </section>
     <!-- 상품 상세페이지 끝 -->
 </main>
-<%@ include file="_footer.jsp" %>
+<%@ include file="../_footer.jsp" %>

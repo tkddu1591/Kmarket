@@ -1,113 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="./_header.jsp" %>
-    <script src="${ctxPath}/js/index.js"></script>
-    <style>
-      #bannerTop {
-        display: none;
-        width: 100%;
-        height: 80px;
-        border-bottom: 1px solid #e9e9e9;        
-        box-sizing: border-box;
-      }
 
-      #bannerTop.on {
-        display: block;
-      }
-
-      #bannerTop > article {
-        position: relative;
-        width: 1200px;
-        height: 100%;        
-        margin: 0 auto;
-        overflow: hidden;
-      }
-
-      #bannerTop > article > .btnClose {
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        width: 40px;
-        height: 40px;
-        background-image: url('./img/ico_sprite.png');
-        background-position: -122px -142px;
-        background-color: transparent;
-        font-size: 0;
-        border: none;
-        cursor: pointer;
-      }
-
-    </style>
-    <script>
-      $(function(){
-
-         $('#bannerTop .btnClose').closest('#bannerTop').addClass('on');
-        $('#bannerTop .btnClose').click(function(){
-          $(this).closest('#bannerTop').removeClass('on');
-        });
-      });
-
-    </script>
-    
       <main>
         <!-- 카테고리/베스트 상품 영역 -->
         <aside>
           <!-- 카테고리 -->
-          <ul class="category">
-            <li><i class="fa fa-bars" aria-hidden="true"></i>카테고리</li>
-            <li>
-              <a href="#"
-                ><i class="fas fa-tshirt"></i>패션·의류·뷰티<i
-                  class="fas fa-angle-right"
-                ></i
-              ></a>
-              <ol>
-                <li><a href="#">남성의류</a></li>
-                <li><a href="#">여성의류</a></li>
-                <li><a href="#">잡화</a></li>
-                <li><a href="#">뷰티</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#"
-                ><i class="fas fa-laptop"></i>가전·디지털<i
-                  class="fas fa-angle-right"
-                ></i
-              ></a>
-              <ol>
-                <li><a href="#">노트북/PC</a></li>
-                <li><a href="#">가전</a></li>
-                <li><a href="#">휴대폰</a></li>
-                <li><a href="#">기타</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#"
-                ><i class="fas fa-utensils"></i>식품·생필품<i
-                  class="fas fa-angle-right"
-                ></i
-              ></a>
-              <ol>
-                <li><a href="#">신선식품</a></li>
-                <li><a href="#">가공식품</a></li>
-                <li><a href="#">건강식품</a></li>
-                <li><a href="#">생필품</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#"
-                ><i class="fas fa-home"></i>홈·문구·취미<i
-                  class="fas fa-angle-right"
-                ></i
-              ></a>
-              <ol>
-                <li><a href="#">가구/DIY</a></li>
-                <li><a href="#">침구·커튼</a></li>
-                <li><a href="#">생활용품</a></li>
-                <li><a href="#">사무용품</a></li>
-              </ol>
-            </li>
-          </ul>
-
+            <%@ include file="_category.jsp" %>
           <!-- 베스트상품 배너 -->
           <article class="best">
             <h1><i class="fas fa-crown"></i>베스트상품</h1>

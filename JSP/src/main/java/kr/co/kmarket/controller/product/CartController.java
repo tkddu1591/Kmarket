@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.product;
 
+import kr.co.kmarket.dto.KmMemberDTO;
 import kr.co.kmarket.dto.KmProductCartDTO;
 import kr.co.kmarket.service.KmProductCartService;
 import org.slf4j.Logger;
@@ -20,14 +21,13 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-/*        HttpServletRequest httpRequest = (HttpServletRequest) req;
+        HttpServletRequest httpRequest = (HttpServletRequest) req;
         HttpSession session = httpRequest.getSession();
-        String uid = (String) session.getAttribute("user");*/
+        KmMemberDTO sessUser= (KmMemberDTO) session.getAttribute("sessUser");
 
-        String uid = "user";
 
         KmProductCartService kmProductCartService= KmProductCartService.INSTANCE;
-        List<KmProductCartDTO> kmProductCartDTOS = kmProductCartService.selectCarts(uid);
+        List<KmProductCartDTO> kmProductCartDTOS = kmProductCartService.selectCarts(sessUser.getUid());
 
         logger.info(String.valueOf(kmProductCartDTOS.get(0).getProdNo()));
         req.setAttribute("kmProductCartDTOS", kmProductCartDTOS);
