@@ -30,4 +30,9 @@ public void insertMember(KmMemberDTO dto) {
 	public void deleteMember(String uid) {
 		dao.deleteMember(uid);
 	}
+	
+	// 추가
+	public int selectCountUid(String uid) {
+		return dao.selectCountUid(uid);
+	}
 }

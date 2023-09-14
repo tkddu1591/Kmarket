@@ -15,10 +15,10 @@ public class KmMemberDAO extends DBHelper{
 	public void insertMember(KmMemberDTO dto) {
 		try {
 			conn = getConnection();
-			psmt = conn.prepareStatement(SQL.INSERT_MEMBER);
+			psmt = conn.prepareStatement(SQL.INSERT_MEMBER); // 테이블의 모든 칼럼을 파라미터로 생성하고, SQL에 있는 파라미터는 전부 지정해줘야 한다!  
 			psmt.setString(1, dto.getUid());
 			psmt.setString(2, dto.getPass());
-			psmt.setString(3, dto.getName());
+			psmt.setString(3, dto.getName()); // name, gender, hp는 null이면 안되므로 registerSellerController에서 속성 정해줘야함
 			psmt.setInt(4, dto.getGender());
 			psmt.setString(5, dto.getHp());
 			psmt.setString(6, dto.getEmail());
@@ -28,8 +28,16 @@ public class KmMemberDAO extends DBHelper{
 			psmt.setString(10, dto.getZip());
 			psmt.setString(11, dto.getAddr1());
 			psmt.setString(12, dto.getAddr2());
-			psmt.setString(13, dto.getRegIp());
-			psmt.executeUpdate();
+			psmt.setString(13, dto.getCompany());
+			psmt.setString(14, dto.getCeo());
+			psmt.setString(15, dto.getBizRegNum());
+			psmt.setString(16, dto.getComRegNum());
+			psmt.setString(17, dto.getTel());
+			psmt.setString(18, dto.getManager());
+			psmt.setString(19, dto.getManagerHp());
+			psmt.setString(20, dto.getFax());
+			psmt.setString(21, dto.getRegIp ());
+			psmt.executeUpdate(); // executequery XX 정신챙기자
 			close();
 		}catch (Exception e) {
 			logger.error("insertMember() : " + e.getMessage());
@@ -91,4 +99,27 @@ public class KmMemberDAO extends DBHelper{
 	public void updateMember(KmMemberDTO dto) {}
 	
 	public void deleteMember(String uid) {}
+	
+	// 추가
+	public int selectCountUid(String uid) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COUNT_UID);
+			psmt.setString(1, uid);
+			psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			close();
+			
+		}catch (Exception e) {
+			logger.error("selectCountUid() : " + e.getMessage());
+		}
+		
+		return result;
+	}
+	
 }

@@ -40,10 +40,10 @@ $(function(){
 					<h1>약관동의</h1>
 				</nav>
 				<!-- signup.jsp에 수신된 type 파라미터가 normal or seller 인지에 따라 여기서 폼 전송을 register.do or registerSeller.do 로 나뉜다-->
-				<form action="${ctxPath}/member/${type eq 'normal'? 'register' : 'regitsterSeller' }.do" method="post">	
+				<form action="${ctxPath}/member/${type eq 'normal'? 'register' : 'registerSeller' }.do" method="get">	<!-- 삼항연산자 -->
 					<section>
 						<h3><span class="essential">(필수)</span>케이마켓 이용약관</h3>
-						<textarea class="terms" readonly>${dto.terms}</textarea>
+						<textarea class="terms" readonly>${type eq 'normal' ? dto.terms : dto.tax}</textarea> <!-- 삼항연산자 -->
 						<label><input type="checkbox" name="agree1" />동의합니다.</label>
 	
 						<h3><span class="essential">(필수)</span>전자금융거래 이용약관</h3>
@@ -57,12 +57,12 @@ $(function(){
 	
 					<section>
 						<h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
-						<textarea class="location" readonly>${dto.location}</textarea>
+						<textarea class="location" readonly>${type eq 'normal' ? dto.location : ''}</textarea>
 						<label><input type="checkbox" name="agree4" />동의합니다.</label>
 					</section>
 	
 					<div>
-						<input type="submit" class="agree" value="동의하기" /> <!-- register로 어떻게 전송해야하지??? type=button이었는데 submit으로 수정함 -->
+						<input type="submit" class="agree" value="동의하기" /> <!-- register로 어떻게 전송해야하지??? type=button이었는데 submit으로 수정함, button은 전송안됨! -->
 					</div>
 				</form>
             </div>

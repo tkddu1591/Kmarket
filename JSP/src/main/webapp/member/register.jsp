@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
+<script src="./js/checkUser.js"></script> <!-- script link가 아니라 src임 -->
         <main id="member">
             <div class="register">
                 <nav>
