@@ -46,12 +46,16 @@ public class SQL {
      * condition = 어떤 조건으로 정렬할 것인지
      * 조건(sold: 판매건수, price:상품가격, score:상품평점, review:상품리뷰, rDate:등록날짜)
      * sort = 정렬 방식
-     * 높은순(0), 낮은순(1)
+     * 높은순(0), 낮은순(1), 
      * */
 
 	public static void changeSelectProductCateL10(String condition, String sort, String cate2){
         SELECT_PRODUCTS_CATE_L10.clear();
-        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+        if(!sort.isEmpty()&& sort!=null) {
+        	SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+        }else {
+        	SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product as a LEFT JOIN Kmarket.km_product_review WHERE "+condition+"=? and stock>0 ORDER BY prodNo DESC LIMIT ?, 10;");	
+        }
     }
 	public static void changeSelectProductCateL10(String condition, String sort){
         SELECT_PRODUCTS_CATE_L10.clear();
@@ -61,10 +65,6 @@ public class SQL {
 	조건 입력시 - 조건에 해당하는 상품만 조회함.
 	condition = 검색조건
 	 */
-	public static void changeSelectProductCateL10(String condition){
-        SELECT_PRODUCTS_CATE_L10.clear();
-        SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product as a LEFT JOIN Kmarket.km_product_review WHERE "+condition+"=? and stock>0 ORDER BY prodNo DESC LIMIT ?, 10;");
-    }
     /*
     SELECT_PRODUCT_CATE_L10="SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY sold DESC ,prodNo DESC LIMIT ?, 10;";
     SELECT_PRODUCT_CATE_L10="SELECT * FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? ORDER BY sold ASC ,prodNo DESC LIMIT ?, 10;";
@@ -109,6 +109,7 @@ public class SQL {
 	public final static String SELECT_COUNT_PRODUCTS_ALL 	= "SELECT COUNT(*) `km_product` WHERE `stock` > 0";
 	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=?";
 
+	public final static String DELETE_PRODUCT = "DELETE * FROM `km_product` WHERE `prodNo`=?";
 
 	//-----------------------------km_product_cart-----------------------
 
