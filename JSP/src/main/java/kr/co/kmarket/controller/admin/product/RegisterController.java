@@ -15,16 +15,16 @@ import org.slf4j.LoggerFactory;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import kr.co.kmarket.dao.KmProductDAO;
 import kr.co.kmarket.dto.KmProductDTO;
 import kr.co.kmarket.service.KmProductService;
 
-@WebServlet("/admin/register.do")
+@WebServlet("/admin/product/register.do")
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 2934084334974500821L;
 	
 	private String ctxPath;
-	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(KmProductDAO.class);
 	private KmProductService kpService = KmProductService.getInstance();
 	//private KmProductService kpService = KmProductService.getInstance();
 	
@@ -37,7 +37,7 @@ public class RegisterController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/admin/Register.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/admin/product/register.jsp");
 		dispatcher.forward(req, resp);
 	}
 	
@@ -47,7 +47,7 @@ public class RegisterController extends HttpServlet {
 		String path = kpService.getFilePath(req);
 		MultipartRequest mr = kpService.uploadFile(req, path);  
 	
-		String prodCate1 	= mr.getParameter("prodCate1");
+		String prodCate1 	= mr.getParameter("prodCate1"); //cate12
 		String prodCate2 	= mr.getParameter("prodCate2");
 		String prodName 	= mr.getParameter("prodName");
 		String descript 	= mr.getParameter("descript");
@@ -61,12 +61,13 @@ public class RegisterController extends HttpServlet {
 		String thumb2 		= mr.getParameter("thumb2");
 		String thumb3 		= mr.getParameter("thumb3");
 		String detail 		= mr.getParameter("detail");
-		
+	
 		String status 		= mr.getParameter("status");
 		String duty 		= mr.getParameter("duty");
 		String receipt 		= mr.getParameter("receipt");
 		String bizType 		= mr.getParameter("bizType");
 		String origin 		= mr.getParameter("origin");
+		String ip = req.getLocalAddr();
 		
 		KmProductDTO dto = new KmProductDTO(path);
 		dto.setProdCate1(prodCate1);
@@ -87,10 +88,10 @@ public class RegisterController extends HttpServlet {
 		dto.setReceipt(receipt);
 		dto.setBizType(bizType);
 		dto.setOrigin(origin);
-		
+		logger.info(dto.getC1Name());
 		kpService.insertProduct(dto);
 		
-		resp.sendRedirect("/admin/register.do?sucess=200"); 
+		resp.sendRedirect(ctxPath+"/admin/product/list.do?sucess=200"); 
 		
 	}
 }

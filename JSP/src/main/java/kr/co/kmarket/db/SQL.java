@@ -69,7 +69,7 @@ public class SQL {
     }
 	public static void changeSelectProductCateL10(String condition, String sort){
         SELECT_PRODUCTS_CATE_L10.clear();
-        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
     }
 	/*
 	조건 입력시 - 조건에 해당하는 상품만 조회함.
@@ -92,27 +92,30 @@ public class SQL {
 	public static final String SELECT_PRODUCTS_COUNT_CATE = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
 
 
-	public final static String INSERT_PRODUCT = "INSERT INTO `km_product` SET  "
-			+ "`prodCate1`=?,"
-			+ "`prodCate2`=?,"
-			+ "`prodName`=?,"
-			+ "`descript`=?,"
-			+ "`company`=?,"
-			+ "`price`=?,"
-			+ "`discount`=?,"
-			+ "`point`=?,"
-			+ "`stock`=?,"
-			+ "`delivery`=?,"
-			+ "`thumb1`=?,"
-			+ "`thumb2`=?,"
-			+ "`thumb3`=?,"
-			+ "`detail`=?,"
-			+ "`status`=?,"
-			+ "`duty`=?,"
-			+ "`receipt`=?,"
-			+ "`bizType`=?,"
-			+ "`origin`=?";
-
+	public final static String INSERT_PRODUCT = """
+			INSERT INTO `km_product` SET  
+			`prodCate1`=?,
+			`prodCate2`=?,
+			`prodName`=?,
+			`descript`=?,
+			`company`=?,
+			`price`=?,
+			`discount`=?,
+			`point`=?,
+			`stock`=?,
+			`seller`=?,
+			`delivery`=?,
+			`thumb1`=?,
+			`thumb2`=?,
+			`thumb3`=?,
+			`detail`=?,
+			`status`=?,
+			`duty`=?,
+			`receipt`=?,
+			`bizType`=?,
+			`origin`=?,
+			`ip` =?,
+			`rdate` = NOW()""";
 	public final static String SELECT_PRODUCT				= "SELECT a.*, AVG(b.rating) as rating FROM `km_product` as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE a.`prodNo` =?";
 	public final static String SELECT_PRODUCTS_ALL_L10 			= "SELECT * FROM `km_product` WHERE `stock` > 0 LIMIT ?,10";
 	public final static String SELECT_PRODUCTS_CATE_L10_ADMIN 		= "SELECT * FROM `km_product` WHERE `stock` > 0 AND `cate`=? LIMIT ?,10";
@@ -211,4 +214,8 @@ public class SQL {
 	public final static String SELECT_CSQNA_MAX_NO = "SELECT MAX(`qnaNo`) FROM `km_cs_qna`";
 	
 	public final static String UPDATE_CSQNA_ANSWERCOMPLETE	= "UPDATE `km_cs_qna` SET `answerComplete` = ? WHERE `qnaNo` = ?";
+
+
+
+	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` ";
 }
