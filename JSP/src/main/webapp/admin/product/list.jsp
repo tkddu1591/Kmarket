@@ -60,6 +60,7 @@
                         HOME > 상품관리 > <strong>상품목록</strong>
                     </p>
                 </nav>
+               
                 <!-- 상품목록 컨텐츠 시작 -->                                
                 <section>
                     <div>
@@ -98,8 +99,8 @@
                             <td>홍길동</td>
                             <td>126</td>
                             <td>
-                                <a href="#">[삭제]</a>
-                                <a href="#">[수정]</a>
+                                <a href="productdelete.do?prodNo=">[삭제]</a>
+                                <a href="productmodify.do?">[수정]</a>
                             </td>
                         </tr>
                         <tr>
@@ -114,8 +115,8 @@
                             <td>홍길동</td>
                             <td>126</td>
                             <td>
-                                <a href="#">[삭제]</a>
-                                <a href="#">[수정]</a>
+                                <a href="productdelete.do?">[삭제]</a>
+                                <a href="productmodify.do?">[수정]</a>
                             </td>
                         </tr>
                         <tr>
@@ -130,18 +131,43 @@
                             <td>홍길동</td>
                             <td>126</td>
                             <td>
-                                <a href="#">[삭제]</a>
-                                <a href="#">[수정]</a>
+                                <a href="${ctxPath}/list/productdelete.do?group=${group}&cate={cate}" class="btnDelete">[삭제]</a>
+                                <a href="${ctxPath}/list/productmodify.do?group=${group}&cate={cate}" class="btnModify">[수정]</a>
                             </td>
                         </tr>
-                        
+                         <c:forEach var="list" items="${product}">                    
+				            <tr>
+				                <td>${pageStartNum = pageStartNum - 1}</td>
+				                <td><a href="./list.do?group=${group}&cate=${cate}&no=${list.prodNo}">${list.prodName}[${article.comment}]</a></td>
+				                <td>${list.thumb1}</td>
+				                <td>${list.prodNo}</td>
+				                <td>${list.prodName}</td>
+				                <td>${list.price}</td>
+				                <td>${list.discount}</td>
+				                <td>${list.point}</td>
+				                <td>${list.stock}</td>
+				                <td>${list.seller}</td>
+				                <td>${list.hit}</td>
+				            </tr>
+			            </c:forEach>
                     </table>
 
-                    
-                    <input type="button" value="선택삭제" />                          
-
+                  
+                    	<input type="button" value="선택삭제" method="post" />                          
+                    	
 
                     <div class="paging">
+                    
+		        	<c:if test="${pageGroupStart > 1}">
+		            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupStart - 1}" class="prev">이전</a>
+		            </c:if>
+		            <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
+		            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${i}&" class="num ${currentPage == i?'current':'off'}">${i}</a>
+		            </c:forEach>
+		            <c:if test="${pageGroupEnd < lastPageNum}">
+		            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupEnd + 1}" class="next">다음</a>
+		            </c:if>
+		        	
                         <span class="prev">
                             <a href="#"><&nbsp;이전</a>
                         </span>
