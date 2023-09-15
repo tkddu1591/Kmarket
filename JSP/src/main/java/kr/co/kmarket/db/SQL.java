@@ -33,11 +33,13 @@ public class SQL {
 
 
 	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
+	public static final String SELECT_MEMBER_BY_NAME_AND_EMAIL = "SELECT * FROM `km_member` WHERE `name`=? AND `email`=?";
+	
 	public static final String SELECT_COUNT_UID = "SELECT COUNT(*) FROM `km_member` WHERE `uid`=?";
 	public static final String SELECT_COUNT_HP = "SELECT COUNT(*) FROM `km_member` WHERE `hp`=?";
 	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `email`=?";
+	public static final String SELECT_COUNT_NAME_AND_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `name`=? AND `email`=?";
 	
-	public static final String SELECT_MEMBER_BY_NAME_AND_EMAIL = "SELECT * FROM `km_member` WHERE `name`=? AND `email`=?";
 	
     //----------------------------km_member_point-----------------------
 
