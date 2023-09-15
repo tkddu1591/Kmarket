@@ -1,6 +1,19 @@
 package kr.co.kmarket.service;
 
+import java.net.Authenticator;
 import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.co.kmarket.dao.KmMemberDAO;
 import kr.co.kmarket.db.SQL;
@@ -9,7 +22,11 @@ import kr.co.kmarket.dto.KmMemberDTO;
 public enum KmMemberService {
 	instance;
 	
+	
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private KmMemberDAO dao = new KmMemberDAO();
+	private static String generatedCode; // 인증코드 생성시 필요
 	
 public void insertMember(KmMemberDTO dto) {
 		dao.insertMember(dto);
@@ -47,5 +64,59 @@ public void insertMember(KmMemberDTO dto) {
 	public KmMemberDTO selectMemberByNameAndEmail(String name, String email) {
 		return dao.selectMemberByNameAndEmail(name, email);
 	}
+	
+	public int selectCountNameAndEmail(String name, String email) {
+		return dao.selectCountNameAndEmail(name, email);
+	}
+	
+	public int sendCodeByEmail(String receiver) {
+		
+		// 인증코드 생성
+		int code = ThreadLocalRandom.current().nextInt(100000, 1000000);		
+		generatedCode = String.valueOf(code);
+		
+		// 기본정보
+		String sender = "hansan9611@gmail.com";
+		String password = "cdcelknzyvxywzqb";
+		String title = "Kmarket 인증코드 입니다.";
+		String content = "<h1>인증코드는 " + code + "</h1>";
+		
+		// Gmail SMTP 서버 설정
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		
+		// Gmail STMP 세션 생성
+		Session gmailSession = Session.getInstance(props, new javax.mail.Authenticator() {
+			
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(sender, password);
+			}
+		});
+		
+		// 메일 발송
+		int status = 0;
+		Message message = new MimeMessage(gmailSession);
+		
+		try{
+			logger.info("here1...");
+			message.setFrom(new InternetAddress(sender, "보내는 사람", "UTF-8"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
+			message.setSubject(title);
+			message.setContent(content, "text/html;charset=UTF-8");
+			Transport.send(message);
+			status = 1; // 메일 발송하면 status 1로 하네
+			
+		}catch(Exception e){
+			status = 0;
+			logger.error("sendCodeByEmail() error : " + e.getMessage());
+		}
+		
+		return status;
+	}// sendCodeByEmail end
 	
 }

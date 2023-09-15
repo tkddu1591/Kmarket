@@ -12,13 +12,17 @@
         const minus = $('.decrease')[0]
         const plus = $('.increase')[0]
 
-        const price =${kmProduct.discountPrice}
+        const discountPrice =${kmProduct.discountPrice}
+        const price =${kmProduct.price}
+        const point =${kmProduct.point}
         const delivery =${kmProduct.delivery}
         const totalPrice = $('.totalPrice')[0]
 
 
         const count = $('input[name=count]')
         const total = $('input[name=total]')
+        const newPrice = $('input[name=price]')
+        const newPoint = $('input[name=point]')
 
 
         let newTotalPrice = 0;
@@ -28,20 +32,24 @@
             if (num.val() > 1) {
                 num.val(parseInt(num.val()) - 1)
             }
-            newTotalPrice = (delivery + num.val() * price)
+            newTotalPrice = (delivery + num.val() * discountPrice)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
             total.val(newTotalPrice)
+            newPrice.val(parseInt(num.val())*parseInt(price))
+            newPoint.val(parseInt(num.val())*parseInt(point))
         })
         plus.addEventListener('click', function () {
             num.val(parseInt(num.val()) + 1)
 
-            newTotalPrice = (delivery + num.val() * price)
+            newTotalPrice = (delivery + num.val() * discountPrice)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
             total.val(newTotalPrice)
+            newPrice.val(parseInt(num.val())*parseInt(price))
+            newPoint.val(parseInt(num.val())*parseInt(point))
         })
 
 
@@ -57,7 +65,7 @@
 
         $('.cart').on('click', function (e) {
             e.preventDefault();
-            formAction.attr("action","${ctxPath}/product/cart.do");
+            formAction.attr("action","${ctxPath}/product/view.do");
             formAction.submit();
         })
     })
@@ -149,7 +157,7 @@
                     <input type="button" class="cart" value="장바구니"/>
                     <input type="button" class="order" value="구매하기"/>
                 </div>
-                <form action = "${ctxPath}/product/cart.do" method="post" id="formAction">
+                <form action = "${ctxPath}/product/view.do" method="post" id="formAction">
                     <input type="hidden" name="prodNo" value="${kmProduct.prodNo}"/>
                     <input type="hidden" name="uid" value="${sessUser.uid}"/>
                     <input type="hidden" name="count" value="1"/>

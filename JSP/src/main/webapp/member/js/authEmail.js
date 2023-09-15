@@ -8,7 +8,7 @@ $(function(){
 	
 	$('#btnEmailCode').click(function(){
 		
-		const type  = $('input[name=type]').val();
+		const type  = $('input[name=type]').val(); // findId.jsp의 input이 name="type" value="FIND_ID"
 		const uid   = $('input[name=uid]').val();
 		const name  = $('input[name=name]').val();
 		const email = $('input[name=email]').val();
@@ -32,7 +32,7 @@ $(function(){
 		}
 		
 		preventDoubleClick = true;
-		$('.resultEmail').text('인증코드 전송 중 입니다. 잠시만 기다리세요...'); // .resultEmail은 회원가입페이지에서 class 넣을 때
+		$('.resultEmail').text('인증코드 전송 중 입니다. 잠시만 기다리세요...'); // .resultEmail은 회원가입페이지에서 class 지정하는 경우에 있고, Kmarket에는 없음
 		$('.resultEmailForId').text('인증코드 전송 중 입니다. 잠시만 기다리세요...');
 		$('.resultEmailForPass').text('인증코드 전송 중 입니다. 잠시만 기다리세요...');
 		
@@ -43,11 +43,11 @@ $(function(){
 				type: 'GET',
 				data: jsonData,
 				dataType: 'json',
-				success: function(data){
+				success: function(data){ // success로 json data 수신한다, AuthEmailController에 속성으로 지정된 result, status를 조회한다.
 					console.log(data);
 					
 					if(data.result > 0){						
-						$('.resultEmail').css('color', 'red').text('이미 사용중인 이메일 입니다.');
+						$('.resultEmail').css('color', 'red').text('이미 사용중인 이메일 입니다.'); // .resultEmail은 회원가입페이지에서 class 지정하는 경우에 있고, Kmarket에는 없음
 						isEmailOk = false;
 						
 						if(data.status > 0){

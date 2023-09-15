@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import kr.co.kmarket.dto.KmCsQnaDTO;
 import kr.co.kmarket.service.KmCsQnaService;
 
+@WebServlet("/cs/qna/write3.do")
 public class WriteController3 extends HttpServlet{
 
 	private static final long serialVersionUID = 7313779117121587822L;
@@ -45,7 +46,7 @@ public class WriteController3 extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setAttribute("group", "write");
-		RequestDispatcher dispatcher = req.getRequestDispatcher("write.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("write3.jsp");
 		dispatcher.forward(req, resp);
 	}
 	
@@ -58,10 +59,12 @@ public class WriteController3 extends HttpServlet{
 		ArrayList saveFiles = new ArrayList();
 		ArrayList origFiles = new ArrayList();
 		
-		Map<String, String> inputValues = new HashMap<>();
+		Map<String, String> inputs = new HashMap<>();
+		List<String> files = new ArrayList<>();
 
 
 			try {
+				
 				DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
 				diskFileItemFactory.setRepository(new File(realPath));
 				diskFileItemFactory.setSizeThreshold(maxSize);
@@ -73,6 +76,7 @@ public class WriteController3 extends HttpServlet{
 				for (FileItem item : items) {
 					if (item.isFormField()) {
 						logger.debug(String.format("[파일형식이 아닌 파라미터] 파라미터명: %s, 파일 명: %s, 파일크기: %s bytes <br>", item.getFieldName(), item.getString(), item.getSize()));
+						inputs.put(item.getFieldName(), item.getString());
 					} else {
 						logger.debug(String.format("[파일형식 파라미터] 파라미터명: %s, 파일 명: %s, 파일 크기: %s bytes <br>", item.getFieldName(), item.getName(), item.getSize()));
 						if (item.getSize() > 0) {
@@ -81,6 +85,8 @@ public class WriteController3 extends HttpServlet{
 							String fileName = item.getName().substring(index + 1);
 							File uploadFile = new File(realPath + separator + fileName);
 							item.write(uploadFile);
+							files.add(item.getName());
+							logger.debug(item.getName());
 						}
 					}
 
@@ -91,5 +97,40 @@ public class WriteController3 extends HttpServlet{
 				e.printStackTrace();
 			}
 
+			// 파일 수정 
+			for(int i=0; i<4; i++) {
+				if(files.size() > i) {
+					files.set(i,service.renameToFile(req, files.get(i)));
+					logger.debug(files.get(i) + "/" + i +"번째 파일");
+				} else {
+					files.add(null);
+				}
+				
+			}
+			String regip = req.getRemoteAddr();
+			// 글 DTO 생성
+			KmCsQnaDTO dto = new KmCsQnaDTO();
+			dto.setCate1(inputs.get("cate1"));
+			dto.setCate2(inputs.get("cate2"));
+			dto.setTitle(inputs.get("title"));
+			dto.setContent(inputs.get("content"));
+			dto.setFile1(files.get(0));
+			dto.setFile2(files.get(1));
+			dto.setFile3(files.get(2));
+			dto.setFile4(files.get(3));
+			dto.setWriter(inputs.get("writer"));
+			dto.setOrdNo(inputs.get("ordNo"));
+			dto.setProdNo(inputs.get("prodNo"));
+			dto.setParent(inputs.get("parent"));
+			dto.setAnswerComplete(inputs.get("answerComplete"));
+			dto.setRegip(regip);
+			
+			
+			// qna Insert 
+			int qnaNo = service.insertCsQna(dto);
+		
+			logger.info("WriteController write INFO : " + dto.toString());
+			resp.sendRedirect(ctxPath + "/cs/qna/view.do?no="+qnaNo);		
+			
 	}
 }

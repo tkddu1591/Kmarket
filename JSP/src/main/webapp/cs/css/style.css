@@ -1076,3 +1076,34 @@
   #cs > .qna > .write > article .fileInputList > div > a > span{
    	font-size:15px;
   }
+  
+   #cs > .qna > .write > article .insert {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    /*margin: 5vh auto;*/
+    height: 100%;
+    border: 1px solid #dbdbdb;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ #cs > .qna > .write > article .insert .file-list {
+    height: 100px;
+    overflow: auto;
+    border: 1px solid #989898;
+    padding: 10px;
+}
+ #cs > .qna > .write > article .insert .file-list .filebox p {
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+}
+ #cs > .qna > .write > article .insert .file-list .filebox .delete i{
+    color: #ff5353;
+    margin-left: 5px;
+}
+
+ #cs > .qna > .write > article .insert .file-list .filebox .delete .fa-minus-square:before {
+    content: "\f146";
+}

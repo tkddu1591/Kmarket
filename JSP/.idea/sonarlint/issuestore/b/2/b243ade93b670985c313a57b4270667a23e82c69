@@ -1,20 +1,18 @@
 
 v
 java:S2293""YReplace the type specification in this constructor call with the diamond operator ("<>").(ëì¸8—Ó‰·©1
+d
+java:S1192B"GDefine a constant instead of duplicating this literal "rating" 3 times.(¬¶³8¬§»©1
 x
 java:S1192*"[Define a constant instead of duplicating this literal ", prodNo DESC LIMIT ?, 10;" 3 times.(ÁŠ°å8˜Ó‰·©1
 u
 java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦›Èÿÿÿÿÿ8ÁÓ‰·©1
 
-java:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å8ÁÓ‰·©1
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å8ÁÓ‰·©1
 »
 java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(¹¯‚Ÿøÿÿÿÿ8ÂÓ‰·©1
-^
-java:S34571"AFormat specifiers should be used instead of string concatenation.(—šº‘8ÅÓ‰·©1
-]
-java:S3457G"AFormat specifiers should be used instead of string concatenation.(Š£™n8ÆÓ‰·©1
-o	java:S100k"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÖÌùÿÿÿÿ8ÇÓ‰·©1
+o	java:S100h"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÖÌùÿÿÿÿ8ÇÓ‰·©1
 d
-java:S3457«"AFormat specifiers should be used instead of string concatenation.(„éµ£ıÿÿÿÿ8ÎÓ‰·©1
+java:S3457¨"AFormat specifiers should be used instead of string concatenation.(„éµ£ıÿÿÿÿ8ÎÓ‰·©1
 M
-java:S1481Å"*Remove this unused "total" local variable.(óË üÿÿÿÿ8ÎÓ‰·©1
+java:S1481Â"*Remove this unused "total" local variable.(óË üÿÿÿÿ8ÎÓ‰·©1

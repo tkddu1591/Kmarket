@@ -1,6 +1,74 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="./../_header.jsp" %>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	//Main 카테고리를 선택 할때 마다 AJAX를 호출할 수 있지만 DB접속을 매번 해야 하기 때문에 main, sub카테고리 전체을 들고온다.
+  	//Sub 카테고리 data
+    var subCategoryArray = new Array();
+    var subCategoryObject = new Object();
+
+  	//메인 카테고리
+    var mainCategorySelectBox = document.getElementById("prodCate1");;
+
+  	//서브 카테고리
+    var subCategorySelectBox = document.getElementById("prodCate2");;
+    
+	$.ajax({
+		url: '${ctxPath}/admin/product/setCate2List.do',
+		type: 'GET',
+		dataType: 'json',
+		success: function(data){
+			const depth2 = data;
+			const depth2keys = Object.keys(data);
+			//alert(Object.keys(data[depth2keys[0]])[0]); //첫번째 map 첫번째 key
+			for(let i=0; i<depth2keys.length; i++){
+				for(let j=0; j<Object.keys(data[depth2keys[i]]).length; j++){
+
+			    	subCategoryObject = new Object();
+			    	let mainId = depth2keys[i];
+			    	let subId = Object.keys(data[mainId])[j];
+					let subName = data[mainId][subId];
+			        subCategoryObject.main_category_id = mainId;
+			        subCategoryObject.sub_category_id = subId;
+			        subCategoryObject.sub_category_name = subName;
+			        subCategoryArray.push(subCategoryObject);
+
+			        console.log('c2Name : ' + subCategoryObject.sub_category_name);
+				}
+			    
+			}
+
+		
+		}
+	});
+	
+	// depth1 선택값에 따른 depth2 옵션 수정 
+	$(document).on("change","select[name='prodCate1']",function(){
+	       
+	    //두번째 셀렉트 박스를 삭제 시킨다.
+	    var subCategorySelectBox = $("select[name='prodCate2']");
+	    subCategorySelectBox.children().remove(); //기존 리스트 삭제
+	    
+	    //선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
+	    $("option:selected", this).each(function(){
+	        var selectValue = $(this).val(); //main category 에서 선택한 값
+	        subCategorySelectBox.append("<option value=''>2차 분류 선택</option>");
+	        for(var i=0;i<subCategoryArray.length;i++){
+	            if(selectValue == subCategoryArray[i].main_category_id){
+	                subCategorySelectBox.append("<option value='"+subCategoryArray[i].sub_category_id+"'>"+subCategoryArray[i].sub_category_name+"</option>");
+	                
+	            }
+        	}
+    	});
+	       
+	});
+
+});
+</script>
 <main>
     <aside>
         <!-- Global Navigation Bar -->
@@ -75,19 +143,18 @@
                         <tr>
                             <td>1차 분류</td>
                             <td>
-                                <select name="prodCate1">
-                                    <option value="10">1차 분류 선택</option>
-                                    <option value="11">패션·의류·뷰티</option>
-                                    <option value="12">가전·디지털</option>
-                                    <option value="13">식품·생필품</option>
-                                    <option value="14">홈·문구·취미</option>                                                
+                                <select name="prodCate1" id="prodCate1">
+                                    <option value="">1차 분류 선택</option>
+   									<c:forEach var="sessCate1" items="${sessCoates1}">
+                                    	<option value="${sessCate1.cate1}">${sessCate1.c1Name}</option> 
+                                    </c:forEach>                                            
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>2차 분류</td>
                             <td>
-                                <select name="prodCate2">
+                                <select name="prodCate2" id="prodCate2">
                                     <option value="10">2차 분류 선택</option>
                                     <option value="11">남성의류</option>
                                     <option value="12">여성의류</option>

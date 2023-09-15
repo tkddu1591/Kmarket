@@ -907,7 +907,7 @@
 #product > .order > form > .final {
     float: right;
     width: 360px;
-    height: 412px;
+    height: 450px;
     padding: 20px;
     margin-top: 12px;
     background: #fff;
@@ -926,12 +926,14 @@
 }
 #product > .order > form > .final > table {width: 100%;}
 #product > .order > form > .final > table tr {}
-#product > .order > form > .final > table tr:nth-last-child(2) {}
 #product > .order > form > .final > table tr:nth-last-child(1) td {font-size: 20px;}
 #product > .order > form > .final > table tr:nth-last-child(1) td:last-child {
     color: #ff006c;
     font-size: 20px;
     font-weight: bold;
+}
+#product > .order > form > .final > table tr:nth-last-child(2) td:last-child {
+    color: #009dff;
 }
 
 #product > .order > form > .final > table td {

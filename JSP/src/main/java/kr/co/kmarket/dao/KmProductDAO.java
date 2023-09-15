@@ -46,7 +46,6 @@ public class KmProductDAO extends DBHelper {
 				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
 			}
 
-            logger.info(SQL.SELECT_PRODUCTS_CATE_L10+"");
             if(kmProductCate2DTO.getCate2()!= 0) {
                 psmt.setInt(1, kmProductCate2DTO.getCate1());
                 psmt.setInt(2, kmProductCate2DTO.getCate2());
@@ -63,12 +62,10 @@ public class KmProductDAO extends DBHelper {
                 KmProductDTO kmProduct = new KmProductDTO();
 
                 kmProduct = getInstance().SelectProductData(); 
-                if(kmProductCate2DTO.getCate2()!= 0) {
-                    
+                if(kmProductCate2DTO.getCate1()!= 0) {
                 kmProduct.setRating(rs.getInt("rating"));
                 }
 
-                logger.info(kmProduct.getProdNo()+"");
                 kmProducts.add(kmProduct);
             }
             close();
@@ -375,7 +372,7 @@ public class KmProductDAO extends DBHelper {
 			}else if(conditionData1==2){
 				st1 = "price";
 			}else if(conditionData1==3){
-				st1 = "score";
+				st1 = "rating";
 			}else if(conditionData1==4){
 				st1 = "review";
 			}

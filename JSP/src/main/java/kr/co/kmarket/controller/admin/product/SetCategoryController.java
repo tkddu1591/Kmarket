@@ -24,7 +24,7 @@ import kr.co.kmarket.dto.KmProductCate1DTO;
 import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.service.KmProductCartService;
 
-@WebServlet("/admin/product/setCategoryList.do")
+@WebServlet("/admin/product/setCategory.do")
 public class SetCategoryController extends HttpServlet{	
 	private static final long serialVersionUID = -5367443255964157672L;
 	
