@@ -155,7 +155,7 @@ public class KmProductDAO extends DBHelper {
 			 psmt.setInt(7, dto.getDiscount());
 			 psmt.setInt(8, dto.getPoint());
 			 psmt.setInt(9, dto.getStock());
-			 psmt.setInt(10, dto.getStock());
+			 psmt.setString(10, dto.getSeller());
 			 psmt.setInt(11, dto.getDelivery());
 			 psmt.setString(12, dto.getThumb1());
 			 psmt.setString(13, dto.getThumb2());
