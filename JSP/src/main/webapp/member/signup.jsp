@@ -21,15 +21,10 @@ $(function(){
 		
 		if(!chk3){
 			alert('개인정보 취급방침 약관에 동의체크 하시기 바랍니다.');
-			return false;
+			return false; // .agree click 할 때 false이니까 submit 실행 안됨
 		}
 		
-		if(!chk4){
-			alert('위치정보 이용약관에 동의체크 하시기 바랍니다.');
-			return false;
-		}
-		
-		return true;
+		return true; // .agree click 할 때 true이면 submit 기능이 실행된다
 	});
 });
 
