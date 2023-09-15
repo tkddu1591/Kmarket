@@ -868,6 +868,15 @@
     text-align: center;
     font-size: 14px;
   }
+  #cs > .qna > .list > article > table td > .answer0 {
+    color: #aaa;
+  }
+  #cs > .qna > .list > article > table td > .answer1 {
+    color: red;
+  }
+  #cs > .qna > .list > article > table td > .answer2 {
+    color: blue;
+  }
   #cs > .qna > .list > article > table a {
     font-size: 16px;
   }
@@ -917,7 +926,7 @@
   /* qna - ê¸€ë³´ê¸° */
   #cs > .qna > .view {}
   #cs > .qna > .view > article {}
-  #cs > .qna > .view > article > nav {
+  #cs > .qna > .view > article > .qnaView  > nav {
     width: 100%;
     height: auto;
     padding: 26px;
@@ -925,18 +934,19 @@
     border-bottom: 1px solid #e9e9e9;
     box-sizing: border-box;
   }
-  #cs > .qna > .view > article > nav > .title {
+  #cs > .qna > .view > article > .qnaView  > nav > .title {
     margin-bottom: 6px;
     font-size: 32px;
     font-weight: bold;
   }
   
-  #cs > .qna > .view > article > nav > .date {        
+  #cs > .qna > .view > article > .qnaView  > nav > p > .date {        
     font-size: 14px;
     color: #777;        
+    margin-left:2px;
   }
   
-  #cs > .qna > .view > article > .content {
+  #cs > .qna > .view > article > .qnaView  > .content {
     width: 100%;
     height: 100%;        
     border-bottom: 1px solid #e9e9e9;
@@ -944,12 +954,12 @@
     box-sizing: border-box;
   }
   
-  #cs > .qna > .view > article > .content * {
+  #cs > .qna > .view > article > .qnaView  > .content * {
     font-size: 16px;
     line-height: 32px;
   }
   
-  #cs > .qna > .view > article > .file {
+  #cs > .qna > .view > article > .qnaView  > .file {
     width: 100%;
     height: 100%;        
     border-bottom: 1px solid #e9e9e9;
@@ -957,20 +967,20 @@
     box-sizing: border-box;
   }
   
-  #cs > .qna > .view > article > .file  h3 {
+  #cs > .qna > .view > article > .qnaView  > .file  h3 {
     font-size: 15px;
     line-height: 32px;
   }
-  #cs > .qna > .view > article > .file  ul {
+  #cs > .qna > .view > article > .qnaView  > .file  ul {
     list-style: square;
     padding-left:30px;
   }
   
-  #cs > .qna > .view > article > .file  ul li {
+  #cs > .qna > .view > article > .qnaView  > .file  ul li {
     font-size: 13px;
   	line-height:30px;
   }
-  #cs > .qna > .view > article > .file ul li div{
+  #cs > .qna > .view > article > .qnaView  > .file ul li div{
   	display:inline-block;
   	line-height:30px;
  	width:30px;
@@ -978,9 +988,18 @@
  	border: 1px solid #ccc;
  	overflow:hidden;
   }
-  #cs > .qna > .view > article > .file ul li div img{
+  #cs > .qna > .view > article > .qnaView  > .file ul li div img{
  	width: 100%;
   }
+  
+  #cs > .qna > .view > article > .qnaView .answerTitle{
+    border-top: 2px solid #949595!important;
+  }
+  
+  #cs > .qna > .view > article > .qnaView  > div:last-child{
+    border-bottom: 2px solid #111 !important;
+  }
+  
   
   /* modify */
   

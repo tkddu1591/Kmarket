@@ -24,7 +24,7 @@ public class KmCsQnaDAO extends DBHelper{
 		try {
 			// 트랜잭션을 묶어두니 [ Lock wait timeout exceeded; try restarting transaction ] 오류가 뜬다... 
 			conn = getConnection();
-			//conn.setAutoCommit(false); // 트랜잭션 시작  
+			conn.setAutoCommit(false); // 트랜잭션 시작  
 			
 			stmt = conn.createStatement();
 			psmt = conn.prepareStatement(SQL.INSERT_CSQNA_QUESTION);
@@ -42,14 +42,16 @@ public class KmCsQnaDAO extends DBHelper{
 			psmt.setInt(12, dto.getParent());
 			psmt.setInt(13, dto.getAnswerComplete());
 			psmt.setString(14, dto.getRegip());
-			no = psmt.executeUpdate();
-			//rs = stmt.executeQuery(SQL.SELECT_CSQNA_MAX_NO);
+			psmt.executeUpdate();
+			rs = stmt.executeQuery(SQL.SELECT_CSQNA_MAX_NO);
 			
-			//conn.commit();
+			conn.commit();
 			
-			//if(rs.next()) {
-			//	no = rs.getInt(1);
-			//}
+			if(rs.next()) {
+				no = rs.getInt(1);
+			}
+
+			conn.setAutoCommit(true); 
 			close();
 		}catch(Exception e){
 			logger.error("insertQna() error : " + e.getMessage());
@@ -86,6 +88,39 @@ public class KmCsQnaDAO extends DBHelper{
 				dto.setWriterName(rs.getString("name"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsQnaDTO() error : " + e.getMessage());
+		}
+		return dto;
+	}
+	public KmCsQnaDTO selectCsQnaAnswer(String parent) {
+		KmCsQnaDTO dto = null;
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_CSQNA_ANSWER);
+			psmt.setString(1, parent);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto = new KmCsQnaDTO();
+				dto.setQnaNo(rs.getInt("qnaNo"));
+				dto.setCate1(rs.getInt("cate1"));
+				dto.setCate2(rs.getInt("cate2"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFile1(rs.getString("file1"));
+				dto.setFile2(rs.getString("file2"));
+				dto.setFile3(rs.getString("file3"));
+				dto.setFile4(rs.getString("file4"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setOrdNo(rs.getString("ordNo"));
+				dto.setProdNo(rs.getString("prodNo"));
+				dto.setParent(rs.getString("parent"));
+				dto.setAnswerComplete(rs.getString("answerComplete"));
+				dto.setRegip(rs.getString("regip"));
+				dto.setRdate(rs.getString("rdate"));
+				dto.setWriterName(rs.getString("name"));
 			}
 			close();
 		} catch (Exception e) {

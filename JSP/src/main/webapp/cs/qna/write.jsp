@@ -122,7 +122,7 @@ $(document).ready(function() {
       [memo]추후추가 -  submit 버튼 전에 file ext 검사 <br>
       [memo]추후추가 - + 버튼 누르면 파일 입력 인풋이 1개 >> 최대 4개까지  
         <form action="${ctxPath}/cs/qna/write.do" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="writer" value="${sessUser.uid}">
+        	<input type="hidden" name="writer" value="user">
 	        <table>
 	          <tr>
 	            <td>문의유형</td>
@@ -166,6 +166,14 @@ $(document).ready(function() {
 	              	<input type="file" name="file4" accept="image/*,.pdf" class="fileUpload"/>
 	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
 	            	</div>
+	            	
+	            	<!--
+	            	<div>
+	              	<input type="file"  name="fileUpload" accept="image/*,.pdf" multiple class="fileUpload"/>
+	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
+	            	</div>
+	            	
+	            	-->
 	              <p class="">파일첨부는 최대 4장까지 가능하며, 5MB이하의 GIF, JPG, JPEG, PNG, PDF 형태로 업로드해주세요</p>
 	            </td>
 	          </tr>
