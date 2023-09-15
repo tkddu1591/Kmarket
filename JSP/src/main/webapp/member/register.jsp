@@ -79,11 +79,11 @@
 								<th>주소</th>
 								<td>
 									<div>
-										<input type="text" name="km_zip" id="zip" placeholder="우편번호 입력 클릭" readonly />
+										<input type="text" name="km_zip" id="zip" placeholder="우편번호 입력 클릭" onclick="zipcode()" readonly/> <!-- onclick="zipcode()" 이것만 추가해주면 된다. zipcode.js에서 function zipcode() -->
 									</div>
 									<div>
 										<input type="text" name="km_addr1" id="addr1" size="50"
-											placeholder="주소를 검색하세요." readonly />
+											placeholder="주소를 검색하세요." readonly/>
 									</div>
 									<div>
 										<input type="text" name="km_addr2" id="addr2" size="50" placeholder="상세주소를 입력하세요." />

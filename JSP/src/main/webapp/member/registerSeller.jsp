@@ -96,7 +96,7 @@
 								<td>
 									<div>
 										<input type="text" name="km_zip" id="zip"
-											placeholder="우편번호 입력 클릭" readonly />
+											placeholder="우편번호 입력 클릭" onclick="zipcode()" readonly />
 									</div>
 									<div>
 										<input type="text" name="km_addr1" id="addr1" size="50"
