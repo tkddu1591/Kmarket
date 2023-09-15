@@ -64,7 +64,8 @@
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
             <form action="${ctxPath}/admin/product/register.do" method="post" enctype="multipart/form-data">
-		    
+		    	<input type="hidden" name="seller" value="seller">
+		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
                 <!-- 상품분류 -->
                 <section>
                     <h4>상품분류</h4>
@@ -190,7 +191,7 @@
                         </tr>
                         <tr>
                             <td>영수증발행</td>
-                            <td><input type="text" name="receipt" value="발행가능 - 신용카드 전표, 온라인 현금영수증"/></td>
+                            <td><input type="text" name="receipt" value="신용카드 전표, 온라인 현금영수증"/></td>
                         </tr>
                         <tr>
                             <td>사업자구분</td>

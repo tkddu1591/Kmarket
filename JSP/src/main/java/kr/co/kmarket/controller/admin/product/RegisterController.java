@@ -73,12 +73,13 @@ public class RegisterController extends HttpServlet {
 		String discount 	= mr.getParameter("discount");
 		String point 		= mr.getParameter("point");
 		String stock 		= mr.getParameter("stock");
+		String seller 		= mr.getParameter("seller");
 		String delivery 	= mr.getParameter("delivery");
 		String thumb1 		= mr.getOriginalFileName("thumb1");
 		String thumb2 		= mr.getOriginalFileName("thumb2");
 		String thumb3 		= mr.getOriginalFileName("thumb3");
 		String detail 		= mr.getOriginalFileName("detail");
-	
+		
 		String status 		= mr.getParameter("status");
 		String duty 		= mr.getParameter("duty");
 		String receipt 		= mr.getParameter("receipt");
@@ -102,6 +103,8 @@ public class RegisterController extends HttpServlet {
 		dto.setPrice(price);
 		dto.setDiscount(discount);
 		dto.setPoint(point);
+		dto.setStock(stock);
+		dto.setSeller(seller);
 		dto.setDelivery(delivery);
 		dto.setThumb1(thumb1);
 		dto.setThumb2(thumb2);
