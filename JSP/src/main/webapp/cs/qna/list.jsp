@@ -34,6 +34,11 @@
            				</a>
            			</td>
            			<td>
+           				<span class="answer${qna.answerComplete}">
+           					${qna.answerComplete eq '0' ? '미확인' : qna.answerComplete eq 1 ? '검토중' : '답변완료'}
+           				</span>
+           			</td>
+           			<td>
            				${qna.writerMarking}
            			</td>
            			<td>

@@ -1,6 +1,9 @@
 package kr.co.kmarket.controller.cs.qna;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -21,8 +24,8 @@ import kr.co.kmarket.service.KmCsQnaService;
 @WebServlet("/cs/qna/write.do")
 public class WriteController extends HttpServlet{
 
-	private static final long serialVersionUID = 7313779117121587822L;
 	
+	private static final long serialVersionUID = -8964899863629850508L;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private KmCsQnaService service = KmCsQnaService.INSTANCE;
 
@@ -53,16 +56,18 @@ public class WriteController extends HttpServlet{
 		String title = mr.getParameter("title");
 		String content = mr.getParameter("content");
 		String[] fileName = new String[4];
+		
 		fileName[0] = mr.getOriginalFileName("file1");
 		fileName[1] = mr.getOriginalFileName("file2");
 		fileName[2] = mr.getOriginalFileName("file3");
 		fileName[3] = mr.getOriginalFileName("file4");
+		
 		String ordNo = mr.getParameter("ordNo");
 		String prodNo = mr.getParameter("prodNo");
 		String parent = null;
 		String answerComplete = null;
 		String regip = req.getRemoteAddr();
-		
+		/*
 
 		logger.debug("title : " + title);
 		logger.debug("content : " + content);
@@ -71,7 +76,7 @@ public class WriteController extends HttpServlet{
 		logger.debug("file2 : " + fileName[1]);
 		logger.debug("file3 : " + fileName[2]);
 		logger.debug("file4 : " + fileName[3]);
-
+*/
 		// 파일 수정 
 		for(int i=0; i<fileName.length; i++) {
 			if(fileName[i] != null) {

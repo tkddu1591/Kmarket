@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +35,9 @@ public enum KmCsQnaService {
 	}
 	public KmCsQnaDTO selectCsQna(String no) {
 		return dao.selectCsQna(no);
+	}
+	public KmCsQnaDTO selectCsQnaAnswer(String parent) {
+		return dao.selectCsQnaAnswer(parent);
 	}
 	public List<KmCsQnaDTO> selectCsQnaList(String cate1, int start) {
 		return dao.selectCsQnaList(cate1, start);
@@ -76,17 +80,23 @@ public enum KmCsQnaService {
 									  new DefaultFileRenamePolicy()); //defaultRename
 
 			logger.debug("path : " + path);
+			
+			/*
 			// 다중 파일 업로드 -모든 part들을 가져옴
 			Collection<Part> parts = req.getParts();
-			
+		
 			for(Part part : parts) {
-				
 				//파일에 저장하기 
 				if(StringUtils.hasWildcards(part.getSubmittedFileName())) {
 					String fullPath = path + part.getSubmittedFileName();
 					part.write(fullPath);
+					logger.debug("fullPath : " + fullPath);
 				}
 			}
+			*/
+			/*
+		    String[] params = mr.getParameterValues("fileUpload");
+			*/
 		} catch (Exception e) {
 			logger.error("error qna - uploadFile() : " + e.getMessage());
 		}

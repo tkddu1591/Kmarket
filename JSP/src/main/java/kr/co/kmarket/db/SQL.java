@@ -191,22 +191,34 @@ public class SQL {
 																	+ "`parent` = 0, "
 																	+ "`regip`=?, "
 																	+ "`rdate`=NOW()";
-	public static final String SELECT_CSQNA = "SELECT "
-																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
-																+ "FROM `km_cs_qna` AS a "
-																+ "JOIN `km_member` AS b ON a.writer=b.uid "
-																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
-																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 "
-																+ "WHERE `qnaNo`=?";
-	public static final String SELECT_CSQNAS = "SELECT "
-																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name` "
-																+ "FROM `km_cs_qna` AS a "
-																+ "JOIN `km_member` AS b ON a.writer=b.uid "
-																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
-																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 "
-																+ "WHERE `parent`=0 "
-																+ "ORDER BY `qnaNo` DESC "
-																+ "LIMIT ?, 10";
+	public static final String SELECT_CSQNA = """
+			SELECT 
+			 a.*, b.`name`, c.`c1Name`, d.`c2Name` 
+			 FROM `km_cs_qna` AS a 
+			 JOIN `km_member` AS b ON a.writer=b.uid 
+			 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+			 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 
+			 WHERE `qnaNo`=?
+			""";
+	public static final String SELECT_CSQNA_ANSWER = """
+															SELECT 
+																 a.*, b.`name` 
+																 FROM `km_cs_qna` AS a 
+																 JOIN `km_member` AS b ON a.writer=b.uid 
+																 WHERE `parent`=?
+																""";
+			
+	public static final String SELECT_CSQNAS = """
+																SELECT 
+																 a.*, b.`name`, c.`c1Name`, d.`c2Name` 
+																 FROM `km_cs_qna` AS a 
+																 JOIN `km_member` AS b ON a.writer=b.uid 
+																 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+																 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+																 WHERE `parent`=0 
+																 ORDER BY `qnaNo` DESC 
+																 LIMIT ?, 10
+																 """;
 	public static final String SELECT_CSQNAS_BY_CATE1 = "SELECT "
 																+ "a.*, b.`name`, c.`c1Name`, d.`c2Name`"
 																+ "FROM `km_cs_qna` AS a "
