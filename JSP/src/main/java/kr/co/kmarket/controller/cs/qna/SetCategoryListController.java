@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.kmarket.dto.KmCsCate1DTO;
 import kr.co.kmarket.dto.KmCsCate2DTO;
-import kr.co.kmarket.service.CsCateService;
 import kr.co.kmarket.service.KmCsCateService;
 
 
@@ -72,11 +71,10 @@ public class SetCategoryListController extends HttpServlet{
 		JSONObject jsonObject = new JSONObject(map);
 		
 		resp.setContentType("text/html; charset=UTF-8");
-		//JSON 출력 
+
+		//JSON 출력
 		PrintWriter writer = resp.getWriter();
 		writer.print(jsonObject.toString());
-		
-		
 		
 		
 	}

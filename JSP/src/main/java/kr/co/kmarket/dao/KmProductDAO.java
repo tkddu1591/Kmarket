@@ -33,59 +33,26 @@ public class KmProductDAO extends DBHelper {
     public List<KmProductDTO> selectKmProductsCateL10(KmProductCate2DTO kmProductCate2DTO, int start, String condition) {
         List<KmProductDTO> kmProducts = new ArrayList<KmProductDTO>();
         try {
+			String[] conditionName= new String[2];
 
-            int conditionData1 = Integer.parseInt(condition)/10;
-            int conditionData2 = Integer.parseInt(condition)%10;
-            String st1 = null;
-            String st2 = null;
-            if(conditionData1==1){
-                st1 = "sold";
-            }else if(conditionData1==2){
-                st1 = "price";
-            }else if(conditionData1==3){
-                st1 = "score";
-            }else if(conditionData1==4){
-                st1 = "review";
-            }
-            else if(conditionData1==5){
-                st1 = "rDate";
-            }
-            else if(conditionData1==6){
-            	st1 = "prodName";
-            }
-            else if(conditionData1==7){
-            	st1 = "prodNo"; 
-            }
-            else if(conditionData1==8){
-            	st1 = "company";
-            }
-            else if(conditionData1==9){
-            	st1 = "seller";
-            }
-            if(conditionData2==1){
-                st2 = "desc";
-            }else if(conditionData2==2){
-                st2 = "asc";
-            }else if(conditionData2>2) {
-            	st2="";
-            }
-
+			conditionName = changeCondition(condition);
             conn = getConnection();
 
-            if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
-                SQL.changeSelectProductCateL10(st1, st2, kmProductCate2DTO.getCate2());
-            }else {
-                SQL.changeSelectProductCateL10(st1, st2);
-            }
-            psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_CATE_L10.get(0));
+            if(kmProductCate2DTO.getCate2()!= 0) {
+				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+            }else if(kmProductCate2DTO.getCate1()!= 0){
+				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE  prodCate1 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+			}else {
+				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+			}
 
             logger.info(SQL.SELECT_PRODUCTS_CATE_L10+"");
-            if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
-                psmt.setString(1, kmProductCate2DTO.getCate1());
-                psmt.setString(2, kmProductCate2DTO.getCate2());
+            if(kmProductCate2DTO.getCate2()!= 0) {
+                psmt.setInt(1, kmProductCate2DTO.getCate1());
+                psmt.setInt(2, kmProductCate2DTO.getCate2());
                 psmt.setInt(3, start);
-            }else if(kmProductCate2DTO.getCate1()!= null&& !kmProductCate2DTO.getCate1().isEmpty()){
-                psmt.setString(1, kmProductCate2DTO.getCate1());
+            }else if(kmProductCate2DTO.getCate1()!= 0){
+                psmt.setInt(1, kmProductCate2DTO.getCate1());
                 psmt.setInt(2, start);
             }else {
                 psmt.setInt(1, start);
@@ -96,7 +63,7 @@ public class KmProductDAO extends DBHelper {
                 KmProductDTO kmProduct = new KmProductDTO();
 
                 kmProduct = getInstance().SelectProductData(); 
-                if(kmProductCate2DTO.getCate2()!= null&& !kmProductCate2DTO.getCate2().isEmpty()) {
+                if(kmProductCate2DTO.getCate2()!= 0) {
                     
                 kmProduct.setRating(rs.getInt("rating"));
                 }
@@ -113,13 +80,19 @@ public class KmProductDAO extends DBHelper {
     }
 
 
-    public int selectKmProductsCountCate(String cate1, String cate2) {
+    public int selectKmProductsCountCate(int cate1, int cate2) {
         int count = 0;
         try {
             conn = getConnection();
-            psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_CATE);
-            psmt.setString(1, cate1);
-            psmt.setString(2, cate2);
+			if(cate2 !=0) {
+				psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_CATE12);
+				psmt.setInt(1, cate1);
+				psmt.setInt(2, cate2);
+			}else {
+				psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_CATE1);
+				psmt.setInt(1, cate1);
+			}
+
             rs = psmt.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -389,5 +362,48 @@ public class KmProductDAO extends DBHelper {
 	        return count;
 	    }
 
-  
+
+		public String[] changeCondition(String condition){
+			int conditionData1 = Integer.parseInt(condition)/10;
+			int conditionData2 = Integer.parseInt(condition)%10;
+			String st1 = null;
+			String st2 = null;
+			if(conditionData1==1){
+				st1 = "sold";
+			}else if(conditionData1==2){
+				st1 = "price";
+			}else if(conditionData1==3){
+				st1 = "score";
+			}else if(conditionData1==4){
+				st1 = "review";
+			}
+			else if(conditionData1==5){
+				st1 = "rDate";
+			}
+			else if(conditionData1==6){
+				st1 = "prodName";
+			}
+			else if(conditionData1==7){
+				st1 = "prodNo";
+			}
+			else if(conditionData1==8){
+				st1 = "company";
+			}
+			else if(conditionData1==9){
+				st1 = "seller";
+			}
+			if(conditionData2==1){
+				st2 = "desc";
+			}else if(conditionData2==2){
+				st2 = "asc";
+			}else if(conditionData2>2) {
+				st2="";
+			}
+			/*condition
+			 * st1= 조건(1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜)
+			 * 조건 검색 : 6:상품명, 7: 상품코드,8: 제조사, 9: 판매자
+			 * st2 = 높은순(1), 낮은순(2) 정렬 , 이외 조건검색방식
+			 * */
+			return new String[]{st1, st2};
+		}
 }

@@ -14,24 +14,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/product/view.do")
 public class ViewController extends HttpServlet {
 
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(ViewController.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
-        String prodNo =req.getParameter("prodNo");
-        String c1 =req.getParameter("c1");
-        String c2 =req.getParameter("c2");
+        String prodNo = req.getParameter("prodNo");
+        req.setCharacterEncoding("UTF-8");
+        HttpSession session = req.getSession();
+        int cate1 = Integer.parseInt(req.getParameter("cate1"));
+        int cate2 = Integer.parseInt(req.getParameter("cate2"));
+        Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
+        Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
+
+        req.setAttribute("cate1", cate1);
+        req.setAttribute("cate2", cate2);
+
+        req.setAttribute("c1Name", sessCoates1Map.get(cate1));
+        if (cate2 != 0) {
+            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
+        }
 
 
         PageService pageService = PageService.getInstance();
@@ -40,12 +55,10 @@ public class ViewController extends HttpServlet {
         KmProductDTO kmProductDTO = kmProductService.selectProduct(prodNo);
 
 
-
         req.setAttribute("kmProduct", kmProductDTO);
 
 
         String pg = req.getParameter("pg");
-
 
 
         KmProductReviewService kmProductReviewService = KmProductReviewService.INSTANCE;
@@ -54,7 +67,7 @@ public class ViewController extends HttpServlet {
         int currentPage = pageService.getCurrentPage(pg);
 
         // 전체 게시물 갯수
-        int total = kmProductReviewService.selectKmProductReviewsCount(prodNo);
+        int total = kmProductReviewService.selectKmProductReviewsCount(Integer.parseInt(prodNo));
 
         // 마지막 페이지 번호
         int lastPageNum = pageService.getLastPageNum(total);
@@ -72,17 +85,20 @@ public class ViewController extends HttpServlet {
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
 
-        req.setAttribute("c1", c1);
-        req.setAttribute("c2", c2);
+        req.setAttribute("cate1", cate1);
+        req.setAttribute("cate2", cate2);
         req.setAttribute("prodNo", prodNo);
         req.setAttribute("kmProductReviews", kmProductReviews);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("lastPageNum", lastPageNum);
         req.setAttribute("pageGroupStart", result[0]);
         req.setAttribute("pageGroupEnd", result[1]);
-        req.setAttribute("pageStartNum", pageStartNum+1);
-        
-
+        req.setAttribute("pageStartNum", pageStartNum + 1);
+        String success = req.getParameter("success");
+        if (success == null) {
+            success = "0";
+        }
+        req.setAttribute("success", success);
 
 
         req.getRequestDispatcher("/product/view.jsp").forward(req, resp);
@@ -90,36 +106,5 @@ public class ViewController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        String c1 =req.getParameter("c1");
-        String c2 =req.getParameter("c2");
-
-        // 현재 날짜/시간
-        Date rDate = Calendar.getInstance().getTime();
-
-        // 포맷팅 정의
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        // 포맷팅 적용
-        String formatedNow = formatter.format(rDate);
-
-        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
-        kmProductCartDTO.setUid( req.getParameter("uid"));
-        kmProductCartDTO.setProdNo( req.getParameter("prodNo"));
-        kmProductCartDTO.setCount( req.getParameter("count"));
-        kmProductCartDTO.setPrice( req.getParameter("price"));
-        kmProductCartDTO.setDiscount( req.getParameter("discount"));
-        kmProductCartDTO.setPoint( req.getParameter("point"));
-        kmProductCartDTO.setDelivery( req.getParameter("delivery"));
-        kmProductCartDTO.setTotal( req.getParameter("total"));
-        kmProductCartDTO.setrDate(formatedNow);
-
-
-        KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
-
-        kmProductCartService.insertCart(kmProductCartDTO);
-
-
-        resp.sendRedirect("/product/view.do?prodNo="+kmProductCartDTO.getProdNo()+"&c1="+c1+"&c2="+c2);
     }
 }

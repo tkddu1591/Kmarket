@@ -12,12 +12,12 @@
         <nav>
             <h1>상품목록</h1>
             <c:choose>
-                <c:when test="${kmProductCate2DTO.c2Name!= null}">
-                    <p>HOME > <span>${kmProductCate2DTO.c1Name}</span> > <strong>${kmProductCate2DTO.c2Name}</strong>
+                <c:when test="${cate2!= 0}">
+                    <p>HOME > <span>${c1Name}</span> > <strong>${c2Name}</strong>
                     </p>
                 </c:when>
                 <c:otherwise>
-                    <p>HOME > <span>${kmProductCate2DTO.c1Name}</span></strong>
+                    <p>HOME > <span>${c1Name}</span></strong>
                     </p>
                 </c:otherwise>
 
@@ -45,12 +45,12 @@
             <c:forEach var="dto" items="${KmProductDTOS}">
                 <tr>
                     <td>
-                        <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&c1Name=${kmProductCate2DTO.c1Name}&c2Name=${kmProductCate2DTO.c2Name}"
+                        <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}"
                            class="thumb"><img src="https://via.placeholder.com/120x120"
                                               alt="상품이미지"/></a></td>
                     <td>
                         <h3 class="name">${dto.prodName}</h3>
-                        <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&c1Name=${kmProductCate2DTO.c1Name}&c2Name=${kmProductCate2DTO.c2Name}"
+                        <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}"
                            class="desc">${dto.descript}</a>
                     </td>
                     <td>

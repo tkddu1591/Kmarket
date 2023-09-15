@@ -1,42 +1,78 @@
 
+n
+java:S1192­"PDefine a constant instead of duplicating this literal "`content` = ?, " 3 times.(ÇÅêĞ8ı´×²©1
+f
+java:S1192Æ"HDefine a constant instead of duplicating this literal "SELECT " 3 times.(«ÄÇî8ı´×²©1
+q
+java:S1192¬"NDefine a constant instead of duplicating this literal "`title` = ?, " 3 times.(Ú¨µßúÿÿÿÿ8ş´×²©1
 p
-java:S1192"NDefine a constant instead of duplicating this literal "`rdate`=NOW()" 3 times.(¯¼üÌıÿÿÿÿ8ö´·‰©1
+java:S1192"NDefine a constant instead of duplicating this literal "`rdate`=NOW()" 3 times.(¯¼üÌıÿÿÿÿ8ş´×²©1
+
+java:S1192Ê"lDefine a constant instead of duplicating this literal "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 " 3 times.(µñÄ‰ùÿÿÿÿ8ş´×²©1
+Œ
+java:S1192É"iDefine a constant instead of duplicating this literal "JOIN `km_member` AS b ON a.writer=b.uid " 3 times.(Ú­Íüÿÿÿÿ8ş´×²©1
+q
+java:S1192¯"NDefine a constant instead of duplicating this literal "`file2` = ?, " 3 times.(ñ¸ÒÙıÿÿÿÿ8ş´×²©1
+l
+java:S1192±"NDefine a constant instead of duplicating this literal "`file4` = ?, " 3 times.(²Ôéµ8ş´×²©1
+z
+java:S1192È"WDefine a constant instead of duplicating this literal "FROM `km_cs_qna` AS a " 3 times.(¬–ëòÿÿÿÿÿ8ş´×²©1
+q
+java:S1192°"NDefine a constant instead of duplicating this literal "`file3` = ?, " 3 times.(¥½ÌÙùÿÿÿÿ8ş´×²©1
+l
+java:S1192®"NDefine a constant instead of duplicating this literal "`file1` = ?, " 3 times.(ñî×·8ş´×²©1
 T
-java:S25896"7Remove this expression which always evaluates to "true"(æß”Õ8ş´·‰©1
+java:S2589A"7Remove this expression which always evaluates to "true"(æß”Õ8…µ×²©1
 :
-java:S2386%"Make this member "protected".(‘˜”8·Ñ×í¨1
+java:S23860"Make this member "protected".(‘˜”8†µ×²©1
 W
-java:S1118":Add a private constructor to hide the implicit public one.(²şœÜ8¬¥ì¨1
+java:S1118":Add a private constructor to hide the implicit public one.(²şœÜ8¶£¼“©1
 I
-java:S11724",Remove this unused method parameter "cate2".(­àİ8‚µ·‰©1
-W	java:S125E"<This block of commented-out lines of code should be removed.(…º¢8„µ·‰©1
-g
-java:S1124U"EReorder the modifiers to comply with the Java Language Specification.(ÒÍéÄÿÿÿÿÿ8„µ·‰©1
-g
-java:S1124j"EReorder the modifiers to comply with the Java Language Specification.(¾¤â©øÿÿÿÿ8„µ·‰©1
+java:S1172?",Remove this unused method parameter "cate2".(­àİ8‰µ×²©1
+W	java:S125P"<This block of commented-out lines of code should be removed.(…º¢8Šµ×²©1
+\
+java:S2479]":Remove the non-escaped \u0009 character from this literal.(ü’áäüÿÿÿÿ8Šµ×²©1
 b
-java:S1124k"EReorder the modifiers to comply with the Java Language Specification.(ïÅ€8„µ·‰©1
+java:S1124b"EReorder the modifiers to comply with the Java Language Specification.(ËÎóê8Šµ×²©1
 g
-java:S1124l"EReorder the modifiers to comply with the Java Language Specification.(Ù¡ùúÿÿÿÿÿ8„µ·‰©1
+java:S1124z"EReorder the modifiers to comply with the Java Language Specification.(¾¤â©øÿÿÿÿ8Šµ×²©1
 b
-java:S1124m"EReorder the modifiers to comply with the Java Language Specification.(Ä›Æ•8…µ·‰©1
-b
-java:S1124n"EReorder the modifiers to comply with the Java Language Specification.(ÿ˜ª8…µ·‰©1
+java:S1124{"EReorder the modifiers to comply with the Java Language Specification.(ïÅ€8Šµ×²©1
 g
-java:S1124q"EReorder the modifiers to comply with the Java Language Specification.(Œ‚´êúÿÿÿÿ8…µ·‰©1
-g
-java:S1124~"EReorder the modifiers to comply with the Java Language Specification.(ƒ“ş¸øÿÿÿÿ8…µ·‰©1
+java:S1124|"EReorder the modifiers to comply with the Java Language Specification.(Ù¡ùúÿÿÿÿÿ8Šµ×²©1
 b
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(èƒÕË8…µ·‰©1
+java:S1124}"EReorder the modifiers to comply with the Java Language Specification.(Ä›Æ•8‹µ×²©1
+b
+java:S1124~"EReorder the modifiers to comply with the Java Language Specification.(ÿ˜ª8‹µ×²©1
 h
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.( Ù™Úûÿÿÿÿ8†µ·‰©1
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Œ‚´êúÿÿÿÿ8‹µ×²©1
 c
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(‡çË³8†µ·‰©1
-c
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(–“îƒ8†µ·‰©1
+java:S1124Œ"EReorder the modifiers to comply with the Java Language Specification.(èƒÕË8‹µ×²©1
 h
-java:S1124“"EReorder the modifiers to comply with the Java Language Specification.(ò¥¶Šûÿÿÿÿ8†µ·‰©1
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ÕşÃæÿÿÿÿÿ8‹µ×²©1
+h
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ƒ“ş¸øÿÿÿÿ8‹µ×²©1
 b
-java:S1124£"EReorder the modifiers to comply with the Java Language Specification.(Èéã{8†µ·‰©1
+java:S1124‘"EReorder the modifiers to comply with the Java Language Specification.(«ÉĞ#8‹µ×²©1
 h
-java:S1124±"EReorder the modifiers to comply with the Java Language Specification.(Î€å¸øÿÿÿÿ8†µ·‰©1
+java:S1124’"EReorder the modifiers to comply with the Java Language Specification.(úÀĞ€ÿÿÿÿÿ8‹µ×²©1
+h
+java:S1124¢"EReorder the modifiers to comply with the Java Language Specification.( Ù™Úûÿÿÿÿ8‹µ×²©1
+c
+java:S1124£"EReorder the modifiers to comply with the Java Language Specification.(‡çË³8‹µ×²©1
+c
+java:S1124¤"EReorder the modifiers to comply with the Java Language Specification.(–“îƒ8‹µ×²©1
+h
+java:S1124©"EReorder the modifiers to comply with the Java Language Specification.(ò¥¶Šûÿÿÿÿ8‹µ×²©1
+b
+java:S1124¹"EReorder the modifiers to comply with the Java Language Specification.(Èéã{8‹µ×²©1
+c
+java:S1124ß"EReorder the modifiers to comply with the Java Language Specification.(‚áüİ8Œµ×²©1
+c
+java:S1124à"EReorder the modifiers to comply with the Java Language Specification.(Âöšñ8Œµ×²©1
+h
+java:S1124á"EReorder the modifiers to comply with the Java Language Specification.(îíôúùÿÿÿÿ8Œµ×²©1
+c
+java:S1124ä"EReorder the modifiers to comply with the Java Language Specification.(¼¼·Ÿ8Œµ×²©1
+h
+java:S1124î"EReorder the modifiers to comply with the Java Language Specification.(Î€å¸øÿÿÿÿ8Œµ×²©1

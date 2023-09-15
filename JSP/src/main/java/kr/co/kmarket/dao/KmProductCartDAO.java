@@ -30,6 +30,9 @@ public class KmProductCartDAO extends DBHelper {
             psmt.setInt(7, dto.getDelivery());
             psmt.setInt(8, dto.getTotal());
             psmt.setString(9, dto.getrDate());
+            logger.info(SQL.INSERT_CART);
+            logger.info(dto.getUid());
+            logger.info(dto.getrDate());
             psmt.executeUpdate();
             close();
         } catch (SQLException e) {

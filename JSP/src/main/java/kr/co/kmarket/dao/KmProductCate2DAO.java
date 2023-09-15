@@ -23,17 +23,17 @@ public class KmProductCate2DAO extends DBHelper {
         KmProductCate2DTO dto = new KmProductCate2DTO();
         try {
             conn = getConnection();
-            if (kmProductCate2DTO.getCate2() == null || kmProductCate2DTO.getCate2().equals("")) {
+            if ((kmProductCate2DTO.getCate2()) == 0) {
                 psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_CATE1_NAME);
             }else {
                 psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_CATE12_NAME);
-                psmt.setString(2, kmProductCate2DTO.getCate2());
+                psmt.setInt(2, kmProductCate2DTO.getCate2());
             }
-            psmt.setString(1, kmProductCate2DTO.getCate1());
+            psmt.setInt(1, kmProductCate2DTO.getCate1());
             rs = psmt.executeQuery();
             while (rs.next()) {
                 dto.setC1Name(rs.getString("c1Name"));
-                if (kmProductCate2DTO.getCate2() != null && !kmProductCate2DTO.getCate2().equals("")) {
+                if (kmProductCate2DTO.getCate2() != 0) {
                     dto.setC2Name(rs.getString("c2Name"));
                 }
             }
@@ -44,16 +44,15 @@ public class KmProductCate2DAO extends DBHelper {
         return dto;
     }
 
-    public List<KmProductCate2DTO> selectCoates(){
+    public List<KmProductCate2DTO> selectCoates2(){
         List<KmProductCate2DTO> kmProductCate2DTOS = new ArrayList<>();
         try {
             conn = getConnection();
-            psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_CATE12);
+            psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_CATE2S);
             rs = psmt.executeQuery();
             while (rs.next()) {
                 KmProductCate2DTO kmProductCate2DTO = new KmProductCate2DTO();
                 kmProductCate2DTO.setCate1(rs.getString("cate1"));
-                kmProductCate2DTO.setC1Name(rs.getString("c1Name"));
                 kmProductCate2DTO.setCate2(rs.getString("cate2"));
                 kmProductCate2DTO.setC2Name(rs.getString("c2Name"));
                 kmProductCate2DTOS.add(kmProductCate2DTO);

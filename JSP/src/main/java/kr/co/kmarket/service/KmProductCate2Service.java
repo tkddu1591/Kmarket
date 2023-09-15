@@ -13,7 +13,7 @@ public enum KmProductCate2Service {
         return dao.selectCateName(kmProductCate2DTO);
     }
 
-    public List<KmProductCate2DTO> selectCoates() {
-        return dao.selectCoates();
+    public List<KmProductCate2DTO> selectCoates2() {
+        return dao.selectCoates2();
     }
 }
