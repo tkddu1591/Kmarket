@@ -1,9 +1,17 @@
 
+‰
+java:S1989"lHandle the following exception that could be thrown by "setCharacterEncoding": UnsupportedEncodingException.(±Œ©À8‰´¨¶©1
 J
-java:S1481"-Remove this unused "sessUser" local variable.(ŸË‡á8óÂÏŠ©1
+java:S1481"-Remove this unused "sessUser" local variable.(ŸË‡á8Š´¨¶©1
+o
+java:S24416"MMake "List" and its parameters serializable or don't store it in the session.(½Ù™øÿÿÿÿ8‹´¨¶©1
+o
+java:S24417"MMake "List" and its parameters serializable or don't store it in the session.(„öÔõşÿÿÿÿ8‹´¨¶©1
 }
-java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÈŒÊ8ññÏŠ©1
+java:S1989;"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÈŒÊ8‹´¨¶©1
 E
-java:S1185"(Remove this method to simply inherit it.(üª¼í8 ÌŠ©1
+java:S1185@"(Remove this method to simply inherit it.(üª¼í8‹´¨¶©1
 ‚
-java:S1989"`Handle the following exceptions that could be thrown by "doPost": ServletException, IOException.(Í†»Öúÿÿÿÿ8 ÌŠ©1
+java:S1989A"`Handle the following exceptions that could be thrown by "doPost": ServletException, IOException.(Í†»Öúÿÿÿÿ8Œ´¨¶©1
+L
+java:S1068"*Remove this unused "logger" private field.(”ç›Üûÿÿÿÿ8—Öª¶©1

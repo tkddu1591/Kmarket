@@ -2,6 +2,10 @@
 <%@ include file="../_header.jsp" %>
 <script>
     $(document).ready(function () {
+        const success = ${success};
+        if(success==100){
+            alert('장바구니에 물건을 담았습니다.');
+        }
 
         const num = $('input[name=num]')
 
@@ -16,7 +20,6 @@
         const count = $('input[name=count]')
         const total = $('input[name=total]')
 
-        const formAction = $('#formAction')
 
         let newTotalPrice = 0;
 
@@ -41,18 +44,22 @@
             total.val(newTotalPrice)
         })
 
-        $('.cart').on('click', function (e) {
-            alert('dd')
-            e.preventDefault();
-            formAction.action = "${ctxPath}/product/view.do";
-            formAction.submit();
-        })
+
+
+        const formAction = $('#formAction')
+
         $('.order').on('click', function (e) {
             e.preventDefault()
-            formAction.action = "${ctxPath}/product/order.do";
+            formAction.attr("action","${ctxPath}/product/order.do");
             formAction.submit();
         })
 
+
+        $('.cart').on('click', function (e) {
+            e.preventDefault();
+            formAction.attr("action","${ctxPath}/product/cart.do");
+            formAction.submit();
+        })
     })
 </script>
 <main id="product">
@@ -69,7 +76,7 @@
         <nav>
             <h1>상품보기</h1>
             <p>
-                HOME > <span>${c1}</span> <c:if test="${not empty c2}">> <strong>${c2}</strong></c:if>
+                HOME > <span>${c1Name}</span> <c:if test="${not empty c2}">> <strong>${c2Name}</strong></c:if>
             </p>
         </nav>
 
@@ -142,7 +149,7 @@
                     <input type="button" class="cart" value="장바구니"/>
                     <input type="button" class="order" value="구매하기"/>
                 </div>
-                <form method="post" id="formAction">
+                <form action = "${ctxPath}/product/cart.do" method="post" id="formAction">
                     <input type="hidden" name="prodNo" value="${kmProduct.prodNo}"/>
                     <input type="hidden" name="uid" value="${sessUser.uid}"/>
                     <input type="hidden" name="count" value="1"/>
@@ -152,8 +159,8 @@
                     <input type="hidden" name="total" value="${kmProduct.total}"/>
                     <input type="hidden" name="point" value="${kmProduct.point}">
                     <input type="hidden" name="type" value="view"/>
-                    <input type="hidden" name="c1Name" value="${c1Name}">
-                    <input type="hidden" name="c2Name" value="${c2Name}">
+                    <input type="hidden" name="cate1" value="${cate1}">
+                    <input type="hidden" name="cate2" value="${cate2}">
                 </form>
             </div>
 
@@ -281,7 +288,7 @@
                                 <c:when test="${review.rating >= 0.5}"><h5 class="rating star1"><a href="#">상품평</a>
                                 </h5></c:when>
                                 <c:otherwise>
-                                    <h6>상품평이 없습니다.</h6>
+                                    <h6>별점이 없습니다.</h6>
                                 </c:otherwise>
                             </c:choose>
                             <span>${review.uidHidden} ${review.rDateYMD}</span>
@@ -292,7 +299,10 @@
                         </p>
                     </li>
                 </c:forEach>
-
+                <c:if test="${empty kmProductReviews}">
+                    상품평이 없습니다.
+                </c:if>
+<%--
                 <li>
                     <div>
                         <h5 class="rating star4">상품평</h5>
@@ -304,7 +314,7 @@
                         아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
                         제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
                     </p>
-                </li>
+                </li>--%>
             </ul>
             <div class="paging">
             <span class="prev">

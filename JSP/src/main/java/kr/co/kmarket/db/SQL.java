@@ -93,7 +93,8 @@ public class SQL {
 
 
 	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` ";
-	public static final String SELECT_PRODUCTS_COUNT_CATE = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
+	public static final String SELECT_PRODUCTS_COUNT_CATE12 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
+	public static final String SELECT_PRODUCTS_COUNT_CATE1 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate2 = ? and stock>0;";
 
 
 	public final static String INSERT_PRODUCT = """
@@ -138,11 +139,14 @@ public class SQL {
 
 	//--------------------------km_product_cate1------------------------------
 
+	public final static String SELECT_PRODUCT_CATE1_NAME = "SELECT c1Name from km_product_cate1 where cate1 = ?;";
+	public final static String SELECT_PRODUCT_CATE1S = "select * FROM Kmarket.km_product_cate1";
 	//--------------------------km_product_cate2------------------------------
 
 	public final static String SELECT_PRODUCT_CATE12_NAME = "SELECT c1Name, c2Name FROM km_product_cate2 as c2 LEFT JOIN Kmarket.km_product_cate1 c1 on c1.cate1 = c2.cate1 where c2.cate1 = ? and c2.cate2 =?;";
 	public final static String SELECT_PRODUCT_CATE12 = "select c1.*, c2.cate2, c2Name from km_product_cate1 as c1 join km_product_cate2 as c2 on c1.cate1 = c2.cate1;";
-	public final static String SELECT_PRODUCT_CATE1_NAME = "SELECT c1Name from km_product_cate1 where cate1 = ?;";
+	public final static String SELECT_PRODUCT_CATE2S = "select * FROM Kmarket.km_product_cate2";
+
 
 	//--------------------------km_product_order------------------------------
 

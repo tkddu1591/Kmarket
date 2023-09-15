@@ -1,6 +1,16 @@
 
+~
+java:S1488Q"\Immediately return this expression instead of assigning it to the temporary variable "path".(·òÒğüÿÿÿÿ8ĞÌŒ¶©1
 p
-java:S3008
-"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ĞıÉÄ8„è‘¿¨1
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ĞıÉÄ8„è‘¿¨1
 »
-java:S6548	"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(ç÷èûıÿÿÿÿ8„è‘¿¨1
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(ç÷èûıÿÿÿÿ8„è‘¿¨1
+L
+java:S1172U"*Remove this unused method parameter "req".(Öÿƒšúÿÿÿÿ8ÚÌŒ¶©1
+C
+java:S1075]"&Remove this hard-coded path-delimiter.(ôç˜î8ŞÌŒ¶©1
+C
+java:S1075^"&Remove this hard-coded path-delimiter.(î–àñ8ßÌŒ¶©1
+Y	java:S899`"=Do something with the "boolean" value returned by "renameTo".(Ş®Üï8ßÌŒ¶©1
+c
+java:S3457t"AFormat specifiers should be used instead of string concatenation.(´Ïìÿÿÿÿÿ8àÌŒ¶©1

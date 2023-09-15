@@ -15,7 +15,7 @@ public enum KmProductReviewService {
         return dao.selectProductReviews(prodNo, start);
     }
 
-    public int selectKmProductReviewsCount(String prodNo) {
+    public int selectKmProductReviewsCount(int prodNo) {
         return dao.selectProductReviewsCount(prodNo);
     }
 }

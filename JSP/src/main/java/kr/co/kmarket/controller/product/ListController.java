@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.product;
 
+import kr.co.kmarket.dto.KmMemberDTO;
 import kr.co.kmarket.dto.KmProductCate2DTO;
 import kr.co.kmarket.dto.KmProductDTO;
 import kr.co.kmarket.service.KmProductCate2Service;
@@ -12,8 +13,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/product/list.do")
 public class ListController extends HttpServlet {
@@ -23,15 +27,18 @@ public class ListController extends HttpServlet {
         
         req.setCharacterEncoding("UTF-8");
 
+        HttpSession session = req.getSession();
 
         KmProductCate2DTO kmProductCate2DTO = new KmProductCate2DTO();
+        int cate1 = Integer.parseInt(req.getParameter("cate1"));
+        int cate2 = Integer.parseInt(req.getParameter("cate2"));
 
-        kmProductCate2DTO.setCate1(req.getParameter("cate1"));
-        kmProductCate2DTO.setCate2(req.getParameter("cate2"));
+        kmProductCate2DTO.setCate1(cate1);
+        kmProductCate2DTO.setCate2(cate2);
         String pg = req.getParameter("pg");
         String condition = req.getParameter("condition");
-        if(kmProductCate2DTO.getCate2()==null || kmProductCate2DTO.getCate2().equals("")) {
-            kmProductCate2DTO.setCate2("");
+        if(cate2==0) {
+            kmProductCate2DTO.setCate2(0);
         }
         if(condition==null || condition.equals("")) {
             condition = "11";
@@ -40,16 +47,24 @@ public class ListController extends HttpServlet {
         KmProductService kmProductService = KmProductService.getInstance();
         PageService pageService = PageService.getInstance();
 
+        //카테고리 1, 2 받아오기
+        Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
+        Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
-        req.setAttribute("cate1", kmProductCate2DTO.getCate1());
-        req.setAttribute("cate2", kmProductCate2DTO.getCate2());
 
+        req.setAttribute("cate1",cate1);
+        req.setAttribute("cate2",cate2);
+
+        req.setAttribute("c1Name",sessCoates1Map.get(cate1));
+        if(cate2!=0) {
+            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
+        }
 
         // 현재 페이지 번호
         int currentPage = pageService.getCurrentPage(pg);
 
         // 전체 게시물 갯수
-        int total = kmProductService.selectKmProductsCountCate(kmProductCate2DTO.getCate1(), kmProductCate2DTO.getCate2());
+        int total = kmProductService.selectKmProductsCountCate(kmProductCate2DTO.getCate1(), (kmProductCate2DTO.getCate2()));
 
         // 마지막 페이지 번호
         int lastPageNum = pageService.getLastPageNum(total);

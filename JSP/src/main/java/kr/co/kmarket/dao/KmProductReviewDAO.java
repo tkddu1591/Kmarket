@@ -54,12 +54,12 @@ public class KmProductReviewDAO extends DBHelper {
         return kmProductReviewDTO;
     }
 
-    public int selectProductReviewsCount(String prodNo) {
+    public int selectProductReviewsCount(int prodNo) {
         int count = 0;
         try {
             conn = getConnection();
             psmt = conn.prepareStatement(SQL.SELECT_COUNT_REVIEWS_PNO);
-            psmt.setString(1, prodNo);
+            psmt.setInt(1, prodNo);
             rs= psmt.executeQuery();
             while (rs.next()){
                 count = rs.getInt(1);

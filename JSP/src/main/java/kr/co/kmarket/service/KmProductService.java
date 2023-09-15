@@ -35,7 +35,7 @@ public class KmProductService {
         return dao.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
     }
     
-    public int selectKmProductsCountCate(String cate1, String cate2){
+    public int selectKmProductsCountCate(int cate1, int cate2){
         return dao.selectKmProductsCountCate(cate1, cate2);
     }
     public int selectKmProductsCountAll(){
