@@ -53,7 +53,8 @@ public class SQL {
 
 
 
-	/*
+
+    /*
      * 조회 쿼리 통합
      *
      * 조건 및 정렬방식 입력시 - 카테고리에 맞는 상품을 조건과 정렬방식을 활용해 DB에서 가져옴.
@@ -135,7 +136,7 @@ public class SQL {
 	//-----------------------------km_product_cart-----------------------
 
 	public static final String INSERT_CART = "INSERT INTO `km_product_cart` SET uid = ?, prodNo =?, count=?, price =?, discount =?, point =?, delivery =?, total = ?, rdate=?;";
-
+	public static final String DELETE_CART = "DELETE FROM `km_product_cart` WHERE cartNo =?;";
 	public static final String DELETE_CART_UID = "DELETE FROM `km_product_cart` WHERE uid =?;";
 	public static final String SELECT_CARTS = "SELECT a.*, kp.prodName as prodName,kp.descript as descript  FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;";
 
@@ -159,7 +160,7 @@ public class SQL {
 	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
 
   
-  //--------------------------km_cs_qna------------------------------
+   //--------------------------km_cs_qna------------------------------
   
 	
 	// km_cs_cate

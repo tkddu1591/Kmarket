@@ -1,6 +1,10 @@
 package kr.co.kmarket.dto;
 
+import java.text.DecimalFormat;
+
 public class KmProductOrderItemDTO {
+    private String descript;
+    private String ProdName;
     private int ordNo;
     private int prodNo;
     private int count;
@@ -9,6 +13,22 @@ public class KmProductOrderItemDTO {
     private int point;
     private int delivery;
     private int total;
+
+    public String getDescript() {
+        return descript;
+    }
+
+    public void setDescript(String descript) {
+        this.descript = descript;
+    }
+
+    public String getProdName() {
+        return ProdName;
+    }
+
+    public void setProdName(String prodName) {
+        ProdName = prodName;
+    }
 
     public int getOrdNo() {
         return ordNo;
@@ -37,6 +57,10 @@ public class KmProductOrderItemDTO {
     public int getPrice() {
         return price;
     }
+    public String  getPriceWithComma() {
+        DecimalFormat df = new DecimalFormat("###,###");
+        return df.format(price);
+    }
 
     public void setPrice(int price) {
         this.price = price;
@@ -61,6 +85,11 @@ public class KmProductOrderItemDTO {
     public int getDelivery() {
         return delivery;
     }
+    public String getDeliveryWithComma() {
+
+        DecimalFormat df = new DecimalFormat("###,###");
+        return df.format(delivery);
+    }
 
     public void setDelivery(int delivery) {
         this.delivery = delivery;
@@ -68,6 +97,13 @@ public class KmProductOrderItemDTO {
 
     public int getTotal() {
         return total;
+    }
+
+    public String getTotalWithComma() {
+
+        DecimalFormat df = new DecimalFormat("###,###");
+        return df.format(total);
+
     }
 
     public void setTotal(int total) {

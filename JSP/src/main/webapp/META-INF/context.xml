@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/">
+<Context allowCasualMultipartParsing="true" path="/">
 
     <!--커넥션 풀 설정-->
     <Resource
@@ -13,4 +13,5 @@
             maxActive="13"
             maxIdle="13"
             maxWaitMillis="3000"/>
+
 </Context>

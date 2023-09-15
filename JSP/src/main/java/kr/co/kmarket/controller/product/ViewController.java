@@ -30,23 +30,12 @@ public class ViewController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
-        String prodNo = req.getParameter("prodNo");
         req.setCharacterEncoding("UTF-8");
+        String prodNo = req.getParameter("prodNo");
         HttpSession session = req.getSession();
-        int cate1 = Integer.parseInt(req.getParameter("cate1"));
-        int cate2 = Integer.parseInt(req.getParameter("cate2"));
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
-
-        req.setAttribute("cate1", cate1);
-        req.setAttribute("cate2", cate2);
-
-        req.setAttribute("c1Name", sessCoates1Map.get(cate1));
-        if (cate2 != 0) {
-            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
-        }
 
 
         PageService pageService = PageService.getInstance();
@@ -85,8 +74,8 @@ public class ViewController extends HttpServlet {
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
 
-        req.setAttribute("cate1", cate1);
-        req.setAttribute("cate2", cate2);
+        req.setAttribute("cate1", kmProductDTO.getProdCate1());
+        req.setAttribute("cate2", kmProductDTO.getProdCate2());
         req.setAttribute("prodNo", prodNo);
         req.setAttribute("kmProductReviews", kmProductReviews);
         req.setAttribute("currentPage", currentPage);
@@ -106,5 +95,47 @@ public class ViewController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        HttpSession session = req.getSession();
+        int cate1 = Integer.parseInt(req.getParameter("cate1"));
+        int cate2 = Integer.parseInt(req.getParameter("cate2"));
+        Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
+        Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
+
+
+        req.setAttribute("cate1",cate1);
+        req.setAttribute("cate2",cate2);
+
+        req.setAttribute("cate1Name",sessCoates1Map.get(cate1));
+        if(cate2!=0) {
+            req.setAttribute("cate2Name", sessCoates2Map.get(cate1).get(cate2));
+        }
+        // 현재 날짜/시간
+        Date rDate = Calendar.getInstance().getTime();
+
+        // 포맷팅 정의
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // 포맷팅 적용
+        String formatedNow = formatter.format(rDate);
+
+        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
+        kmProductCartDTO.setUid(req.getParameter("uid"));
+        kmProductCartDTO.setProdNo(req.getParameter("prodNo"));
+        kmProductCartDTO.setCount(req.getParameter("count"));
+        kmProductCartDTO.setPrice(req.getParameter("price"));
+        kmProductCartDTO.setDiscount(req.getParameter("discount"));
+        kmProductCartDTO.setPoint(req.getParameter("point"));
+        kmProductCartDTO.setDelivery(req.getParameter("delivery"));
+        kmProductCartDTO.setTotal(req.getParameter("total"));
+        kmProductCartDTO.setrDate(formatedNow);
+
+
+        KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
+
+        kmProductCartService.insertCart(kmProductCartDTO);
+
+
+        resp.sendRedirect("/JSP/product/view.do?success=100&prodNo=" + kmProductCartDTO.getProdNo() + "&cate1=" + cate1 + "&cate2=" + cate2);
     }
 }
