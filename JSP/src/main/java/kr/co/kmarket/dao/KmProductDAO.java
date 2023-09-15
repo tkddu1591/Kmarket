@@ -155,16 +155,18 @@ public class KmProductDAO extends DBHelper {
 			 psmt.setInt(7, dto.getDiscount());
 			 psmt.setInt(8, dto.getPoint());
 			 psmt.setInt(9, dto.getStock());
-			 psmt.setInt(10, dto.getDelivery());
-			 psmt.setString(11, dto.getThumb1());
-			 psmt.setString(12, dto.getThumb2());
-			 psmt.setString(13, dto.getThumb3());
-			 psmt.setString(14, dto.getDetail());
-			 psmt.setString(15, dto.getStatus());
-			 psmt.setString(16, dto.getDuty());
-			 psmt.setString(17, dto.getReceipt());
-			 psmt.setString(18, dto.getBizType());
-			 psmt.setString(19, dto.getOrigin());
+			 psmt.setInt(10, dto.getStock());
+			 psmt.setInt(11, dto.getDelivery());
+			 psmt.setString(12, dto.getThumb1());
+			 psmt.setString(13, dto.getThumb2());
+			 psmt.setString(14, dto.getThumb3());
+			 psmt.setString(15, dto.getDetail());
+			 psmt.setString(16, dto.getStatus());
+			 psmt.setString(17, dto.getDuty());
+			 psmt.setString(18, dto.getReceipt());
+			 psmt.setString(19, dto.getBizType());
+			 psmt.setString(20, dto.getOrigin());
+			 psmt.setString(21, dto.getIp());
 			 psmt.executeUpdate();
 			 close();
 		} catch (Exception e) {
