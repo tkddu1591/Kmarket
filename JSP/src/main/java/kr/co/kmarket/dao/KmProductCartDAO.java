@@ -66,6 +66,7 @@ public class KmProductCartDAO extends DBHelper {
                 dto.setDescript(rs.getString("descript"));
                 list.add(dto);
             }
+            close();
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
@@ -84,5 +85,17 @@ public class KmProductCartDAO extends DBHelper {
         dto.setTotal(rs.getInt("total"));
         dto.setrDate(rs.getString("rDate"));
         return dto;
+    }
+
+    public void deleteCart(String cartNo) {
+        try {
+            conn=getConnection();
+            psmt=conn.prepareStatement(SQL.DELETE_CART);
+            psmt.setString(1, cartNo);
+            psmt.executeUpdate();
+            close();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
     }
 }

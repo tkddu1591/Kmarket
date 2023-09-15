@@ -86,7 +86,7 @@
             <c:if test="${sessUser.type eq 2}">
               <a href="#">판매자 ${sessUser.uid}</a>
             </c:if>
-            <c:if test="${sessUser.type eq 3}">
+            <c:if test="${sessUser.type eq 9}">
               <a href="#">관리자 ${sessUser.uid}</a>
             </c:if>
             <c:if test="${sessUser.uid eq null}">
