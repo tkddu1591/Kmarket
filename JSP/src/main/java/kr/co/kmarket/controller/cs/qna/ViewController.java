@@ -42,7 +42,7 @@ public class ViewController extends HttpServlet{
 		KmCsQnaDTO answer = service.selectCsQnaAnswer(no);//}
 		
 		logger.debug("qna 글 : " + dto.toString());
-		if(answer != null) {
+		if(dto.getAnswerComplete() == 2) {
 			logger.debug("qna 답변 : " + answer.toString());
 			
 		}
