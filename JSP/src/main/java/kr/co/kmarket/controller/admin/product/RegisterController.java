@@ -91,6 +91,9 @@ public class RegisterController extends HttpServlet {
 		logger.info(dto.getC1Name());
 		kpService.insertProduct(dto);
 		
+		
+		
+		
 		resp.sendRedirect(ctxPath+"/admin/product/list.do?sucess=200"); 
 		
 	}
