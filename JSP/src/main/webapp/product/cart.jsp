@@ -30,11 +30,9 @@
         let cartDatas = $(".cartData")
         let termCartDatas = [];
         let totalCartDatas = [];
-        let isCheckAll =true;
+        let isCheckAll = true;
         let checkbox = $('input:checkbox')
         let all = $('#all')
-
-
 
 
         setData()
@@ -44,18 +42,18 @@
         $('.cartData').change(function () {
             //토탈 데이터 수정
             setData()
-            isCheckAll=true;
+            isCheckAll = true;
 
             //전체 체크박스 셀렉트 변경
-            for(cart of cartDatas) {
+            for (cart of cartDatas) {
                 if (!cart.checked) {
                     isCheckAll = false;
                     break;
                 }
             }
-            if(isCheckAll) {
+            if (isCheckAll) {
                 all.prop('checked', true);
-            }else{
+            } else {
                 all.prop('checked', false);
             }
         })
@@ -75,7 +73,6 @@
         })
 
 
-
         //체크된 상품 데이터 수집 및 total으로 전송
         function setData() {
             for (let i = 3; i <= 8; i++) {
@@ -83,7 +80,7 @@
             }
             for (let cart of cartDatas) {
                 if (cart.checked) {
-                    termCartDatas = cart.value.split('|', 10)
+                    termCartDatas = cart.value.split(',', 10)
                     console.log(cart.value)
                     for (let i = 4; i <= 8; i++) {
                         totalCartDatas[i] += parseInt(termCartDatas[i]);
@@ -93,24 +90,51 @@
             }
             console.log(totalCartDatas)
             const totalData = document.getElementsByClassName("totalData");
+            const finalData = document.getElementsByClassName("finalData")
             let no = 3;
+            let number =0;
             for (let data of totalData) {
                 if (no == 5) {
-                    data.innerText = '-' + (totalCartDatas[4] + totalCartDatas[6]-totalCartDatas[8]).toLocaleString();
+                    data.innerText = '-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
+                    finalData[number].value ='-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
+                    number++;
                     no++;
                     continue;
                 }
-                if(no == 7){
+                if (no == 7) {
 
-                    data.innerText = totalCartDatas[no].toLocaleString()+' P';
+                    data.innerText = totalCartDatas[no].toLocaleString() + ' P';
+                    finalData[number].value = totalCartDatas[no].toLocaleString() +' P';
+                    number++;
                     no++;
                     continue;
                 }
                 data.innerText = totalCartDatas[no].toLocaleString();
+                finalData[number].value = totalCartDatas[no].toLocaleString();
                 no++;
+                number++;
             }
         }
 
+        //삭제
+
+
+        let delBut = document.getElementsByName('del')[0];
+
+        const cartDeleteForm = $('#cartDeleteForm')
+        delBut.addEventListener('click', function (e) {
+            if (confirm('삭제하시겠습니까?')) {
+
+                // form 액션 구현하기
+                e.preventDefault();
+                cartDeleteForm.attr("action", "${ctxPath}/product/cart.do");
+                cartDeleteForm.submit();
+
+                /*let check = $('input:checkbox')
+                check.prop('checked', false).val(0);
+                alert('삭제되었습니다.')*/
+            }
+        })
 
     })
 </script>
@@ -131,7 +155,7 @@
             </p>
         </nav>
 
-        <form action="#">
+        <form action="${ctxPath}/product/order.do" method="GET" id="cartDeleteForm">
             <!-- 장바구니 목록 -->
             <table>
                 <thead>
@@ -153,15 +177,18 @@
                                 <td colspan="7">장바구니에 상품이 없습니다.</td>
                             </tr>
                         </c:when>
+
                         <c:otherwise>
                             <c:forEach var="dto" items="${kmProductCartDTOS}">
                                 <tr>
-                                    <td><input type="checkbox" class="cartData" value="${dto}" checked></td>
+                                    <td><input type="checkbox" class="cartData" value="${dto}" name="dto" checked></td>
+                                    <input type="hidden" name="prodName" value="${dto.prodName}">
+                                    <input type="hidden" name="descript" value="${dto.descript}">
                                     <td>
                                         <article>
-                                            <a href="#"> <img src="https://via.placeholder.com/80x80" alt=""></a>
+                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img src="https://via.placeholder.com/80x80" alt=""></a>
                                             <div>
-                                                <h2><a href="#">${dto.prodName}</a></h2>
+                                                <h2><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}">${dto.prodName}</a></h2>
                                                 <p>${dto.descript}</p>
                                             </div>
                                         </article>
@@ -176,7 +203,6 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-
                 </tbody>
             </table>
             <input type="button" name="del" value="선택삭제">
@@ -210,7 +236,14 @@
                         <td class="totalData">26,000</td>
                     </tr>
                 </table>
-                <input type="submit" name="" value="주문하기">
+                <input class="final" type="submit" name="" value="주문하기">
+                <input class="finalData" type="hidden" name="finalCount" value="0"/>
+                <input class="finalData" type="hidden" name="finalPrice" value="0"/>
+                <input class="finalData" type="hidden" name="finalDiscount" value="0"/>
+                <input class="finalData" type="hidden" name="finalPoint" value="0"/>
+                <input class="finalData" type="hidden" name="finalDelivery" value="0"/>
+                <input class="finalData" type="hidden" name="finalTotal" value="0"/>
+
             </div>
 
         </form>

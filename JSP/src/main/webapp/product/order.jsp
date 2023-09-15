@@ -32,51 +32,23 @@
                     <tr class="empty">
                         <td colspan="7">장바구니에 상품이 없습니다.</td>
                     </tr>
+                    <c:forEach var="item" items="${kmProductOrderItemDTOS}">
                     <tr>
                         <td>
                             <article>
-                                <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                                <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img src="https://via.placeholder.com/80x80" alt=""></a>
                                 <div>
-                                    <h2><a href="#">상품명</a></h2>
-                                    <p>상품설명</p>
+                                    <h2><a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}">${item.prodName}</a></h2>
+                                    <p>${item.descript}</p>
                                 </div>
                             </article>
                         </td>
-                        <td>1</td>
-                        <td>27,000</td>
-                        <td>무료배송</td>
-                        <td>27,000</td>
+                        <td>${item.count}</td>
+                        <td>${item.priceWithComma}</td>
+                        <td>${item.deliveryWithComma}</td>
+                        <td>${item.totalWithComma}</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <article>
-                                <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                <div>
-                                    <h2><a href="#">상품명</a></h2>
-                                    <p>상품설명</p>
-                                </div>
-                            </article>
-                        </td>
-                        <td>1</td>
-                        <td>27,000</td>
-                        <td>무료배송</td>
-                        <td>27,000</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <article>
-                                <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                <div>
-                                    <h2><a href="#">상품명</a></h2>
-                                    <p>상품설명</p>
-                                </div>
-                            </article>
-                        </td>
-                        <td>1</td>
-                        <td>27,000</td>
-                        <td>무료배송</td>
-                        <td>27,000</td>
-                    </tr>
+                    </c:forEach>
                 </tbody>
             </table>
 
@@ -86,27 +58,31 @@
                 <table border="0">
                     <tr>
                         <td>총</td>
-                        <td>2 건</td>
+                        <td>${finalCount} 건</td>
                     </tr>
                     <tr>
                         <td>상품금액</td>
-                        <td>27,000</td>
+                        <td>${finalPrice}</td>
                     </tr>
                     <tr>
                         <td>할인금액</td>
-                        <td>-1,000</td>
+                        <td>${finalDiscount}</td>
                     </tr>
                     <tr>
                         <td>배송비</td>
-                        <td>0</td>
+                        <td>${finalDelivery}</td>
                     </tr>
                     <tr>
                         <td>포인트 할인</td>
                         <td>-1000</td>
                     </tr>
                     <tr>
+                        <td>포인트 적립</td>
+                        <td>${finalPoint}</td>
+                    </tr>
+                    <tr>
                         <td>전체주문금액</td>
-                        <td>25,000</td>
+                        <td>${finalTotal}</td>
                     </tr>
                 </table>
                 <input type="button" name="" value="결제하기">

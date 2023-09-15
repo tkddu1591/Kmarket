@@ -33,3 +33,5 @@ SELECT a.*, kp.prodName as prodName,kp.descript as descript  FROM `km_product_ca
 select c1.*, c2.cate2, c2Name from km_product_cate1 as c1 join km_product_cate2 as c2 on c1.cate1 = c2.cate1;
 
 SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY  prodNo DESC LIMIT ?, 10;
+
+

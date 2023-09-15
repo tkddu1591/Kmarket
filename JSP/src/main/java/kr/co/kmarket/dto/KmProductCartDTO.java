@@ -129,7 +129,7 @@ public class KmProductCartDTO {
 
     @Override
     public String toString() {
-        return cartNo+"|"+uid+"|"+prodNo+"|"+count+"|"+price+"|"+discount+"|"+delivery+"|"+point+"|"+total+"|"+rDate;
+        return cartNo+","+uid+","+prodNo+","+count+","+price+","+discount+","+delivery+","+point+","+total+","+rDate;
     }
 
     public void setProdNo(String prodNo) {
