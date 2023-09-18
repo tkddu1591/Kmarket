@@ -38,10 +38,10 @@ public class SetCategoryListController extends HttpServlet{
 		Map<Integer, List> depth2 = new HashMap<>();
 		
 		//1차 카테고리 data 
-		List<KmCsCate1DTO> cate1item = service.selectCSCate1s(2);
+		List<KmCsCate1DTO> cate1item = service.selectCSCate1s(0);
 		
 		for(KmCsCate1DTO dto1 : cate1item) {
-			
+			logger.debug("cate1 : " + dto1.getCate1());
 			//1차 카테고리 List에 MapObject로 저장 
 			Map<String, String> depth1_temp = new HashMap<>();
 			depth1_temp.put("cate1", dto1.getCate1()+"");

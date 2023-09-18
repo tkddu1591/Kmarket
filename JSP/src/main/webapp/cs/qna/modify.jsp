@@ -3,51 +3,21 @@
 
 <%@ include file="./../_header.jsp" %>
 <%@ include file="./_aside.jsp" %>
-        
 
-<script type="text/javascript">
-
-$(document).ready(function() {
-	$(".fileUpload").on("change", function(e){
-		var str = $(this).val();
-		var fileName = str.split('\\').pop().toLowerCase();
-		//alert(fileName);
-		
-		checkFileName(fileName);
-	});
-
-	$(".fileRemove").on("click", function(e){
-		var inputFile = $(this).prev();
-		var inputFileName = inputFile.attr('name');
-		if(inputFile.val != null && confirm(inputFileName + '파일을 삭제하시겠습니까?')){
-			inputFile.val('');
-		}
-	});
-	
-	// 파일명 검사 
-	function checkFileName(str){
-	    //1. 확장자 체크
-	    var ext =  str.split('.').pop().toLowerCase();
-	    if($.inArray(ext, [ 'jpg', 'pdf', 'png', 'jpeg', 'gif']) == -1) {
-	 
-	        alert(ext+'파일은 업로드 하실 수 없습니다.');
-	    }
-	    //2. 파일명에 특수문자 체크
-	    var pattern =   /[\{\}\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi;
-	    if(pattern.test(str) ){
-	        //alert("파일명에 허용된 특수문자는 '-', '_', '(', ')', '[', ']', '.' 입니다.");
-	        alert('파일명에 특수문자를 제거해주세요.');
-	    }
-	}
-
-
-});
+<script>
+const existedFileCntOnLoad = ${fn:length(dto.file)};
 </script>
+<script src="${ctxPath}/cs/js/fileModifyController.js"></script>
      
       <article>
         <form action="${ctxPath}/cs/qna/modify.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="writer" value="${sessUser.uid}">
         	<input type="hidden" name="no" value="${no}">
+            <input type="hidden" name="existedFile1_1" value="${dto.file[0]}">
+            <input type="hidden" name="existedFile2_1" value="${dto.file[1]}">
+            <input type="hidden" name="existedFile3_1" value="${dto.file[2]}">
+            <input type="hidden" name="existedFile4_1" value="${dto.file[3]}">
+        	
 	        <table>
 	          <tr>
 	            <td>문의유형</td>
@@ -75,6 +45,22 @@ $(document).ready(function() {
 	          <tr>
 	            <td>파일첨부</td>                  
 	            <td class="fileInputList">
+	            	<div  class="insert">
+		              	<input type="file" id="fileInputBtn"  onchange="addFiles(this);"  name="fileUpload" accept="image/*,.pdf" multiple/>
+		              	<div class="file-list">
+		              		<c:set var="idx" value="0" />
+			              	<c:forEach var="file" items="${dto.file}">
+			              		<div class="filebox" id="existedFile${idx = idx+1}">
+			              			<p class="name">${file}</p>
+			              			<a class="delete" onclick="deleteExistedFile(${idx})">
+			              				<i class="far fa-minus-square"></i>
+			              			</a>
+			                	 	<input type="hidden" name="existedFile${idx}_2" value="${file}" class="existedFile">
+			              		</div>
+			              	</c:forEach>
+		              	</div>
+	            	</div>
+	            
 	            	<div>
 		              	<input type="file" name="file1" accept="image/*,.pdf" class="fileUpload" value="${dto.file[0]}"/>
 		              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
