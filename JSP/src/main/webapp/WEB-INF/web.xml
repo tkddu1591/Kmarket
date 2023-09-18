@@ -17,7 +17,6 @@
         <filter-name>SetCharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <filter>
         <filter-name>CateFilter</filter-name>
         <filter-class>kr.co.kmarket.filter.CateFilter</filter-class>
@@ -35,4 +34,5 @@
         <filter-name>CsCateFilter</filter-name>
         <url-pattern>/cs/*</url-pattern>
     </filter-mapping>
+
 </web-app>
