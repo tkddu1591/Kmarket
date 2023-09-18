@@ -166,6 +166,7 @@ public class SQL {
 	// km_cs_cate
 	public final static String SELECT_CSCATE1S_BY_TYPE1 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`<20";
 	public final static String SELECT_CSCATE1S_BY_TYPE2 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`>=20";
+	public final static String SELECT_CSCATE1S_ALL	= "SELECT * FROM `km_cs_cate1`";
 	public final static String SELECT_CSCATE2S_BY_CATE1 	= "SELECT * FROM `km_cs_cate2` WHERE `cate1`=?";
 	public static final String SELECT_CSCATE1_C1NAME = "SELECT `c1Name` FROM `km_cs_cate1 WHERE `cate1`=?";
 	public static final String SELECT_CSCATE2_C2NAME = "SELECT `c1Name` FROM `km_cs_cate2 WHERE `cate1`=? AND `cate2`=?";
