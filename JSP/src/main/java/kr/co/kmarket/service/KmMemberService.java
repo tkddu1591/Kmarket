@@ -54,7 +54,7 @@ public void insertMember(KmMemberDTO dto) {
 	}
 	
 	public int selectCountHp(String hp) {
-		return dao.selectCountHp(hp);
+		return dao.selectCountHp(hp); // selectCountUid 되 있어서 휴대폰 중복체크 안 됐던 것
 	}
 	
 	public int selectCountEmail(String email) {
