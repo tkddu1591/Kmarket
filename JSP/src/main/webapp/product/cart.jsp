@@ -83,6 +83,10 @@
                     termCartDatas = cart.value.split(',', 10)
                     console.log(cart.value)
                     for (let i = 4; i <= 8; i++) {
+                        if(i == 4 || i== 7){
+                            totalCartDatas[i] += parseInt(termCartDatas[i])*parseInt(termCartDatas[3]);
+                            continue
+                        }
                         totalCartDatas[i] += parseInt(termCartDatas[i]);
                     }
                     totalCartDatas[3]++;
@@ -93,6 +97,7 @@
             const finalData = document.getElementsByClassName("finalData")
             let no = 3;
             let number =0;
+            let count = 0;
             for (let data of totalData) {
                 if (no == 5) {
                     data.innerText = '-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
@@ -128,6 +133,7 @@
                 // form 액션 구현하기
                 e.preventDefault();
                 cartDeleteForm.attr("action", "${ctxPath}/product/cart.do");
+                cartDeleteForm.attr("method", "POST");
                 cartDeleteForm.submit();
 
                 /*let check = $('input:checkbox')
@@ -155,7 +161,7 @@
             </p>
         </nav>
 
-        <form action="${ctxPath}/product/order.do" method="GET" id="cartDeleteForm">
+        <form action="${ctxPath}/product/order.do" method="POST" id="cartDeleteForm">
             <!-- 장바구니 목록 -->
             <table>
                 <thead>
@@ -198,7 +204,7 @@
                                     <td>${dto.discount}%</td>
                                     <td>${dto.pointWithComma}</td>
                                     <td>${empty dto.delivery ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
-                                    <td>${dto.totalWithComma}</td>
+                                    <td><p>${dto.totalWithComma}</p><p>${dto.point*dto.count} P</p></td>
                                 </tr>
                             </c:forEach>
                         </c:otherwise>
@@ -240,12 +246,11 @@
                 <input class="finalData" type="hidden" name="finalCount" value="0"/>
                 <input class="finalData" type="hidden" name="finalPrice" value="0"/>
                 <input class="finalData" type="hidden" name="finalDiscount" value="0"/>
-                <input class="finalData" type="hidden" name="finalPoint" value="0"/>
                 <input class="finalData" type="hidden" name="finalDelivery" value="0"/>
+                <input class="finalData" type="hidden" name="finalPoint" value="0"/>
                 <input class="finalData" type="hidden" name="finalTotal" value="0"/>
 
             </div>
-
         </form>
 
     </section>

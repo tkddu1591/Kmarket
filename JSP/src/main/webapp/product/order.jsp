@@ -1,5 +1,60 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../_header.jsp" %>
+
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="${ctxPath}/js/zipCode.js"></script>
+<script>
+    /*휴대폰 번호 자동 하이픈*/
+    const hypenTel = (target) => {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+    }
+
+
+    //max point 넘겨서 사용 하려 할 시 변환
+    const point = parseInt(${sessUser.point})
+    const maxPoint = (target) => {
+
+        usePoint = parseInt(target.value)
+        if (point <= usePoint) {
+            target.value = point
+        }
+    }
+
+    window.onload = () => {
+
+        //토탈 값 쉼표 제거
+
+        total= $('input[name=ordTotPrice]').val()
+        total = total.replace(",","");
+        total = parseInt(total);
+
+
+        const discountPoint = document.getElementsByClassName('discountPoint')[0]
+        const discountPointBut = document.getElementsByClassName('discountPointBut')[0]
+        let usePoint = 0;
+        const newTotal = document.getElementsByClassName('total')[0]
+
+        discountPointBut.addEventListener('click', (e) => {
+            usePoint = parseInt($('input[name=usedPoint]').val());
+            if (usePoint >= 5000) {
+
+                discountPoint.innerText = '-'+usePoint.toLocaleString()
+                console.log(total-usePoint)
+                newTotal.innerText = (total-usePoint).toLocaleString()
+                $('input[name=ordTotPrice]').val(total - usePoint);
+
+            }
+            else {
+                alert('최소 5,000원 이상의 금액을 입력해주세요.')
+            }
+        })
+    }
+
+</script>
 <main id="product">
     <aside>
         <!-- 카테고리 -->
@@ -24,6 +79,7 @@
                         <th>상품명</th>
                         <th>총수량</th>
                         <th>판매가</th>
+                        <th>할인</th>
                         <th>배송비</th>
                         <th>소계</th>
                     </tr>
@@ -33,21 +89,26 @@
                         <td colspan="7">장바구니에 상품이 없습니다.</td>
                     </tr>
                     <c:forEach var="item" items="${kmProductOrderItemDTOS}">
-                    <tr>
-                        <td>
-                            <article>
-                                <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                                <div>
-                                    <h2><a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}">${item.prodName}</a></h2>
-                                    <p>${item.descript}</p>
-                                </div>
-                            </article>
-                        </td>
-                        <td>${item.count}</td>
-                        <td>${item.priceWithComma}</td>
-                        <td>${item.deliveryWithComma}</td>
-                        <td>${item.totalWithComma}</td>
-                    </tr>
+                        <tr>
+                            <td>
+                            <input type="hidden" class="orderData" value="${dto}" name="dto">
+                                <article>
+                                    <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img
+                                            src="https://via.placeholder.com/80x80" alt=""></a>
+                                    <div>
+                                        <h2>
+                                            <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}">${item.prodName}</a>
+                                        </h2>
+                                        <p>${item.descript}</p>
+                                    </div>
+                                </article>
+                            </td>
+                            <td>${item.count}</td>
+                            <td>${item.priceWithComma}</td>
+                            <td>${item.discount}%</td>
+                            <td>${item.deliveryWithComma}</td>
+                            <td>${item.totalWithComma}</td>
+                        </tr>
                     </c:forEach>
                 </tbody>
             </table>
@@ -74,7 +135,7 @@
                     </tr>
                     <tr>
                         <td>포인트 할인</td>
-                        <td>-1000</td>
+                        <td class="discountPoint">0</td>
                     </tr>
                     <tr>
                         <td>포인트 적립</td>
@@ -82,9 +143,15 @@
                     </tr>
                     <tr>
                         <td>전체주문금액</td>
-                        <td>${finalTotal}</td>
+                        <td class="total">${finalTotal}</td>
                     </tr>
                 </table>
+                <input type="hidden" name="ordTotPrice" value="${finalTotal}">
+                <input type="hidden" name="ordCount" value="${finalCount}">
+                <input type="hidden" name="ordDelivery" value="${finalDelivery}">
+                <input type="hidden" name="ordDiscount" value="${finalDiscount}">
+                <input type="hidden" name="savePoint" value="${finalPoint}">
+                <input type="hidden" name="ordPrice" value="${finalPrice}">
                 <input type="button" name="" value="결제하기">
             </div>
 
@@ -94,32 +161,37 @@
                 <table>
                     <tr>
                         <td>주문자</td>
-                        <td><input type="text" name="orderer"/></td>
+                        <td><input type="text" name="orderer" value="${sessUser.name}" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>수령인</td>
+                        <td><input type="text" name="recipName"/></td>
                     </tr>
                     <tr>
                         <td>휴대폰</td>
                         <td>
-                            <input type="text" name="hp"/>
-                            <span>- 포함 입력</span>
+                            <input type="recipHp" oninput="hypenTel(this)" name="hp"
+                                   minlength="13" maxlength="13"/>
+                            <span class="resultHp"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>우편번호</td>
                         <td>
-                            <input type="text" name="zip"/>
-                            <input type="button" value="검색"/>
+                            <input type="text" name="reciptZip" readonly value="주소를 검색해주세요."/>
+                            <input type="button" value="검색" onclick="zipcode()"/>
                         </td>
                     </tr>
                     <tr>
                         <td>기본주소</td>
                         <td>
-                            <input type="text" name="addr1"/>
+                            <input type="text" name="recipAddr1" readonly/>
                         </td>
                     </tr>
                     <tr>
                         <td>상세주소</td>
                         <td>
-                            <input type="text" name="addr2"/>
+                            <input type="text" name="recipAddr2"/>
                         </td>
                     </tr>
                 </table>
@@ -130,10 +202,11 @@
                 <h1>할인정보</h1>
 
                 <div>
-                    <p>현재 포인트 : <span>7200</span>점</p>
+                    <p>현재 포인트 : <span>${sessUser.pointWithComma}</span>점</p>
                     <label>
-                        <input type="text" name="point"/>점
-                        <input type="button" value="적용"/>
+                        <input type="text" name="usedPoint" onkeyup="maxPoint(this)"
+                               maxlength="${fn:length(sessUser.pointWithComma)}"/>점
+                        <input type="button" value="적용" class="discountPointBut"/>
                     </label>
                     <span>포인트 5,000점 이상이면 현금처럼 사용 가능합니다.</span>
                 </div>
@@ -145,23 +218,23 @@
                 <div>
                     <span>신용카드</span>
                     <p>
-                        <label><input type="radio" name="payment" value="type1"/>신용카드 결제</label>
-                        <label><input type="radio" name="payment" value="type2"/>체크카드 결제</label>
+                        <label><input type="radio" name="ordPayment" value="type1"/>신용카드 결제</label>
+                        <label><input type="radio" name="ordPayment" value="type2"/>체크카드 결제</label>
                     </p>
                 </div>
                 <div>
                     <span>계좌이체</span>
                     <p>
-                        <label><input type="radio" name="payment" value="type3"/>실시간 계좌이체</label>
-                        <label><input type="radio" name="payment" value="type4"/>무통장 입금</label>
+                        <label><input type="radio" name="ordPayment" value="type3"/>실시간 계좌이체</label>
+                        <label><input type="radio" name="ordPayment" value="type4"/>무통장 입금</label>
                     </p>
                 </div>
                 <div>
                     <span>기타</span>
                     <p>
-                        <label><input type="radio" name="payment" value="type3"/>휴대폰결제</label>
+                        <label><input type="radio" name="ordPayment" value="type3"/>휴대폰결제</label>
                         <label>
-                            <input type="radio" name="payment" value="type4"/>카카오페이
+                            <input type="radio" name="ordPayment" value="type4"/>카카오페이
                             <img src="../img/ico_kakaopay.gif" alt="카카오페이"/>
                         </label>
                     </p>
