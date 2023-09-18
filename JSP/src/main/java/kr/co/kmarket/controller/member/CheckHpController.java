@@ -29,7 +29,7 @@ public class CheckHpController extends HttpServlet{
 		
 		logger.debug(hp);
 		
-		int result = service.selectCountHp(hp); // 사용중인 휴대폰 왜 확인 못하지???
+		int result = service.selectCountHp(hp); 
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();
