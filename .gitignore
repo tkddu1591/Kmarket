@@ -1,4 +1,5 @@
 /build/
 /.metadata/
 /.idea/
-/JSP/.idea/
+/JSP/.idea/sonarlint
+/JSP/.idea/shelf
