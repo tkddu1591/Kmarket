@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Kmarket.iml" filepath="$PROJECT_DIR$/.idea/Kmarket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JSP/JSP.iml" filepath="$PROJECT_DIR$/JSP/JSP.iml" />
     </modules>
   </component>
 </project>

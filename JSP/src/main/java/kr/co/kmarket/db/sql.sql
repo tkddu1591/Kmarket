@@ -34,4 +34,5 @@ select c1.*, c2.cate2, c2Name from km_product_cate1 as c1 join km_product_cate2 
 
 SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY  prodNo DESC LIMIT ?, 10;
 
-
+SELECT COUNT(a.prodNo) FROM km_product_cart as a WHERE prodNo = ? ;
+UPDATE `km_product_cart` SET count = count+?, total = price*count + delivery WHERE prodNo =?;
