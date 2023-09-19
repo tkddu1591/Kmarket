@@ -84,7 +84,6 @@ public enum KmCsQnaService {
 		int maxSize = 10*1024*1024; // 10mb
 		String realPath = getQnaFilePath(req);
 		String ctxPath = getCtxPath(req);
-		
 		Map<String, String> inputs = new HashMap<>();
 		List<String> files = new ArrayList<>();
 
@@ -123,7 +122,6 @@ public enum KmCsQnaService {
 			e.printStackTrace();
 		}
 
-		// 파일 수정 
 		// 파일 리스트 업데이트 & 삭제  
 		List<String> existedFileList = new ArrayList<>();
 		List<String> deletedFileList = new ArrayList<>();
@@ -142,6 +140,7 @@ public enum KmCsQnaService {
 			}
 			logger.debug("existedFileList " + i + " : " + existedFileList.get(i));
 			logger.debug("deletedFileList " + i + " : " + deletedFileList.get(i));
+			
 			if(files.size() > i) {
 				files.set(i,renameToFile(req, files.get(i)));
 				logger.debug(files.get(i) + "/" + i +"번째 파일");

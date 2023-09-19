@@ -9,7 +9,7 @@ const dataTransfer = new DataTransfer();
 /* 첨부파일 추가 */
 
 function addFiles(obj){
-	existedFileCnt = document.querySelectorAll('.existedFile').length;;
+	existedFileCnt = document.querySelectorAll('.existedFile').length;
     let fileArr = document.getElementById("fileInputBtn").files; 
   	// =====DataTransfer 파일 관리========
     if(fileArr != null && fileArr.length > 0){

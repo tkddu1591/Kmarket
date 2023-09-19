@@ -59,11 +59,11 @@ const existedFileCntOnLoad = ${fn:length(dto.file)};
 			              			</a>
 			                	 	<input type="hidden" name="existedFile${idx}_2" value="${file}" class="existedFile">
 			              		</div>
+
             					<input type="hidden" name="existedFile${idx}_1" value="${file}">
 			              	</c:forEach>
 		              	</div>
 	            	</div>
-	            
 	              <p class="">파일첨부는 최대 4장까지 가능하며, 5MB이하의 GIF, JPG, JPEG, PNG, PDF 형태로 업로드해주세요</p>
 	            </td>
 	          </tr>

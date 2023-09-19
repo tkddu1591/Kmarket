@@ -56,7 +56,6 @@ public class DeleteController extends HttpServlet{
 		// 파일 삭제(디렉터리) 
 		if(file.size() != 0) {
 			String path = qnaService.getCtxPath(req);
-			
 			for(String fileName : file) {
 				qnaService.deletefile(path, fileName);
 			}
