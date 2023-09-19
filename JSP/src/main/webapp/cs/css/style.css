@@ -1105,5 +1105,6 @@
 }
 
  #cs > .qna > .write > article .insert .file-list .filebox .delete .fa-minus-square:before {
-    content: "\f146";
+   /* content: "\f146"; */
+   content: "[ 삭제 ]";
 }

@@ -9,8 +9,7 @@ const dataTransfer = new DataTransfer();
 /* 첨부파일 추가 */
 
 function addFiles(obj){
-	existedFileCnt = document.querySelectorAll('.existedFile').length;;
-	alert(existedFileCnt);
+	existedFileCnt = document.querySelectorAll('.existedFile').length;
     let fileArr = document.getElementById("fileInputBtn").files; 
   	// =====DataTransfer 파일 관리========
     if(fileArr != null && fileArr.length > 0){
@@ -58,7 +57,6 @@ function addFiles(obj){
 	            continue;
 	        }
 	    }
-	    
 	  	// =====DataTransfer 파일 관리========
 	    document.getElementById("fileInputBtn").files = dataTransfer.files;
         console.log("dataTransfer =>",dataTransfer.files);
@@ -114,7 +112,6 @@ function deleteFile(num) {
 /* 기존 첨부파일 삭제 */
 function deleteExistedFile(num) {
 	existedFileCnt --;
-	alert("existedFileCnt : " + existedFileCnt);
 	
 	//html 삭제 
     document.querySelector("#existedFile" + num).remove();

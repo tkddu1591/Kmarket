@@ -62,16 +62,13 @@ public class ModifyController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		
-		KmCsQnaDTO dto = null;
-		
-		
+
 		// 글 DTO 생성
-		dto = new KmCsQnaDTO();
+		KmCsQnaDTO dto = service.uploadFile(req);
+		
 		// qnaUpdate 
 		service.updateCsQna(dto);
 	
-		logger.info("WriteController write INFO : " + dto.toString());
 		resp.sendRedirect(ctxPath + "/cs/qna/view.do?no="+dto.getQnaNo());		
 		
 	}

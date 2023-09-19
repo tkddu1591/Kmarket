@@ -83,7 +83,7 @@ public enum KmCsQnaService {
 	public KmCsQnaDTO uploadFile(HttpServletRequest req) {
 		int maxSize = 10*1024*1024; // 10mb
 		String realPath = getQnaFilePath(req);
-		
+		String ctxPath = getCtxPath(req);
 		Map<String, String> inputs = new HashMap<>();
 		List<String> files = new ArrayList<>();
 
@@ -122,19 +122,44 @@ public enum KmCsQnaService {
 			e.printStackTrace();
 		}
 
-		// 파일 수정 
+		// 파일 리스트 업데이트 & 삭제  
+		List<String> existedFileList = new ArrayList<>();
+		List<String> deletedFileList = new ArrayList<>();
+		List<String> modifiedFinalFileList = new ArrayList<>();
+ 		
 		for(int i=0; i<4; i++) {
+			existedFileList.add(inputs.get("existedFile"+(i+1)+"_1"));
+			deletedFileList.add(inputs.get("existedFile"+(i+1)+"_2"));
+			
+			if(existedFileList.get(i) !=null &&  deletedFileList.get(i) != null) {
+				// 기존 첨부된 파일이 삭제되지 않음 
+				modifiedFinalFileList.add(existedFileList.get(i));
+			} else if(existedFileList.get(i) !=null &&  deletedFileList.get(i) == null){
+				// 기존 첨부된 파일이 삭제됨 -> 파일 삭제
+				deletefile(ctxPath,  existedFileList.get(i));
+			}
+			logger.debug("existedFileList " + i + " : " + existedFileList.get(i));
+			logger.debug("deletedFileList " + i + " : " + deletedFileList.get(i));
+			
 			if(files.size() > i) {
 				files.set(i,renameToFile(req, files.get(i)));
 				logger.debug(files.get(i) + "/" + i +"번째 파일");
 			} else {
 				files.add(null);
 			}
-			
 		}
+
+		// modify 
+		if(inputs.get("type").equals("modify")){
+			modifiedFinalFileList.addAll(files);
+			logger.debug("deletedFileList  " + deletedFileList.toString());
+			files = modifiedFinalFileList;
+		}
+		
 		String regip = req.getRemoteAddr();
 		// 글 DTO 생성
 		KmCsQnaDTO dto = new KmCsQnaDTO();
+		dto.setQnaNo(inputs.get("no"));
 		dto.setCate1(inputs.get("cate1"));
 		dto.setCate2(inputs.get("cate2"));
 		dto.setTitle(inputs.get("title"));
@@ -170,6 +195,14 @@ public enum KmCsQnaService {
 		f1.renameTo(f2); //f2로 파일명 수정
 		
 		return qnaUploadPath + "/" + sName;
+	}
+	//파일 삭제 
+	public void deletefile(String path, String fileName) {
+		File f = new File(path + "/" + fileName);
+		if(f.exists()) {
+			f.delete();
+			logger.debug("파일 삭제 : " + fileName);
+		}
 	}
 
 	// 파일 다운로드 

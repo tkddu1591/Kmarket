@@ -13,10 +13,7 @@ const existedFileCntOnLoad = ${fn:length(dto.file)};
         <form action="${ctxPath}/cs/qna/modify.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="writer" value="${sessUser.uid}">
         	<input type="hidden" name="no" value="${no}">
-            <input type="hidden" name="existedFile1_1" value="${dto.file[0]}">
-            <input type="hidden" name="existedFile2_1" value="${dto.file[1]}">
-            <input type="hidden" name="existedFile3_1" value="${dto.file[2]}">
-            <input type="hidden" name="existedFile4_1" value="${dto.file[3]}">
+        	<input type="hidden" name="type" value="modify">
         	
 	        <table>
 	          <tr>
@@ -51,57 +48,21 @@ const existedFileCntOnLoad = ${fn:length(dto.file)};
 		              		<c:set var="idx" value="0" />
 			              	<c:forEach var="file" items="${dto.file}">
 			              		<div class="filebox" id="existedFile${idx = idx+1}">
-			              			<p class="name">${file}</p>
+			              			<p class="name"> [ 기존 첨부파일 ${idx} ] ${file}</p>
+			        				<div class="fileImg">
+					        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${dto.file[idx-1]}" id="downloadFile" data-fno="${dto.file[idx-1]}">
+					        				 <img src="${ctxPath += dto.file[idx-1]}">
+				        				 </a>
+			        				 </div>
 			              			<a class="delete" onclick="deleteExistedFile(${idx})">
 			              				<i class="far fa-minus-square"></i>
 			              			</a>
 			                	 	<input type="hidden" name="existedFile${idx}_2" value="${file}" class="existedFile">
 			              		</div>
+
+            					<input type="hidden" name="existedFile${idx}_1" value="${file}">
 			              	</c:forEach>
 		              	</div>
-	            	</div>
-	            
-	            	<div>
-		              	<input type="file" name="file1" accept="image/*,.pdf" class="fileUpload" value="${dto.file[0]}"/>
-		              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
-				        <c:if test="${dto.file[0] ne null}">
-				        	<div>
-								<span> 기존 첨부 파일1 :: </span>
-		        				<div class="fileImg">
-				        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${dto.file[0]}" id="downloadFile" data-fno="${dto.file[0]}">
-				        				 <img src="${ctxPath}/upload/${dto.file[0]}">
-			        				 </a>
-		        				 </div>
-		        				 
- 				 				 <a href="#" class="file-delete"> [기존 첨부 파일1 삭제 ] </a>
-			                	 <input type="hidden" name="existedFile2" value="${article.fileDto.fno}">
-			                </div>
-				        </c:if>
-	            	</div>
-	            	<div>
-		              	<input type="file" name="file2" accept="image/*,.pdf" class="fileUpload"/>
-		              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
-				        <c:if test="${dto.file[1] ne null}">
-				        	<div>
-								<span> 기존 첨부 파일2 :: </span>
-		        				<div class="fileImg">
-				        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${dto.file[1]}" id="downloadFile" data-fno="${dto.file[1]}">
-				        				 <img src="${ctxPath}/upload/${dto.file[1]}">
-			        				 </a>
-		        				 </div>
-		        				 
- 				 				 <a href="#" class="file-delete"> [기존 첨부 파일 삭제 ] </a>
-			                	 <input type="hidden" name="existedFile2" value="${article.fileDto.fno}">
-			                </div>
-				        </c:if>
-	            	</div>
-	            	<div>
-	              	<input type="file" name="file3" accept="image/*,.pdf" class="fileUpload"/>
-	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
-	            	</div>
-	            	<div>
-	              	<input type="file" name="file4" accept="image/*,.pdf" class="fileUpload"/>
-	              	<a class="fileRemove"><span> [ 파일 삭제 ] </span></a>
 	            	</div>
 	              <p class="">파일첨부는 최대 4장까지 가능하며, 5MB이하의 GIF, JPG, JPEG, PNG, PDF 형태로 업로드해주세요</p>
 	            </td>
