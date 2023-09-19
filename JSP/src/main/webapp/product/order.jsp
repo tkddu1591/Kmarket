@@ -39,6 +39,11 @@
                 alert('최소 5,000원 이상의 금액을 입력해주세요.')
             }
         })
+
+        const payment = document.getElementsByName('payment')[0]
+        payment.addEventListener('click', (e) => {
+            document.getElementById('orderForm').submit();
+        })
     }
 </script>
 <main id="product">
@@ -55,7 +60,7 @@
                 HOME > 장바구니 > <strong>주문결제</strong>
             </p>
         </nav>
-        <form action="#">
+        <form action="${ctxPath}/product/complete.do" method="post" id="orderForm">
             <!-- 주문 상품 목록 -->
             <table>
                 <thead>
@@ -130,12 +135,13 @@
                     </tr>
                 </table>
                 <input type="hidden" name="ordTotPrice" value="${finalTotal}">
+                <input type="hidden" name="ordUid" value="${sessUser.uid}">
                 <input type="hidden" name="ordCount" value="${finalCount}">
                 <input type="hidden" name="ordDelivery" value="${finalDelivery}">
                 <input type="hidden" name="ordDiscount" value="${finalDiscount}">
                 <input type="hidden" name="savePoint" value="${finalPoint}">
                 <input type="hidden" name="ordPrice" value="${finalPrice}">
-                <input type="button" name="" value="결제하기">
+                <input type="button" name="payment" value="결제하기">
             </div>
             <!-- 배송정보 -->
             <article class="delivery">
@@ -147,12 +153,12 @@
                     </tr>
                     <tr>
                         <td>수령인</td>
-                        <td><input type="text" name="recipName"/></td>
+                        <td><input type="text" name="recipName" value="${sessUser.name}"/></td>
                     </tr>
                     <tr>
                         <td>휴대폰</td>
                         <td>
-                            <input type="recipHp" oninput="hypenTel(this)" name="hp"
+                            <input type="text" oninput="hypenTel(this)" name="recipHp"
                                    minlength="13" maxlength="13"/>
                             <span class="resultHp"></span>
                         </td>
@@ -160,7 +166,7 @@
                     <tr>
                         <td>우편번호</td>
                         <td>
-                            <input type="text" name="reciptZip" readonly value="주소를 검색해주세요."/>
+                            <input type="text" name="recipZip" readonly value="주소를 검색해주세요."/>
                             <input type="button" value="검색" onclick="zipcode()"/>
                         </td>
                     </tr>
@@ -197,23 +203,23 @@
                 <div>
                     <span>신용카드</span>
                     <p>
-                        <label><input type="radio" name="ordPayment" value="type1"/>신용카드 결제</label>
-                        <label><input type="radio" name="ordPayment" value="type2"/>체크카드 결제</label>
+                        <label><input type="radio" name="ordPayment" value="1"/>신용카드 결제</label>
+                        <label><input type="radio" name="ordPayment" value="2"/>체크카드 결제</label>
                     </p>
                 </div>
                 <div>
                     <span>계좌이체</span>
                     <p>
-                        <label><input type="radio" name="ordPayment" value="type3"/>실시간 계좌이체</label>
-                        <label><input type="radio" name="ordPayment" value="type4"/>무통장 입금</label>
+                        <label><input type="radio" name="ordPayment" value="3"/>실시간 계좌이체</label>
+                        <label><input type="radio" name="ordPayment" value="4"/>무통장 입금</label>
                     </p>
                 </div>
                 <div>
                     <span>기타</span>
                     <p>
-                        <label><input type="radio" name="ordPayment" value="type3"/>휴대폰결제</label>
+                        <label><input type="radio" name="ordPayment" value="5"/>휴대폰결제</label>
                         <label>
-                            <input type="radio" name="ordPayment" value="type4"/>카카오페이
+                            <input type="radio" name="ordPayment" value="6"/>카카오페이
                             <img src="../img/ico_kakaopay.gif" alt="카카오페이"/>
                         </label>
                     </p>
