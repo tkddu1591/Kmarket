@@ -1,6 +1,8 @@
 package kr.co.kmarket.controller.admin.product;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Response;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +33,6 @@ public class RegisterController extends HttpServlet {
 	private KmProductService kpService = KmProductService.getInstance();
 	//private KmProductService kpService = KmProductService.getInstance();
 	
-	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		ctxPath = config.getServletContext().getContextPath();
@@ -43,9 +47,22 @@ public class RegisterController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		/*
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
 		
-		String path = kpService.getFilePath(req);
-		MultipartRequest mr = kpService.uploadFile(req, path);  
+		String uploadPath = getServletContext().getRealPath("/") + File.separator + "uploads";
+		
+		File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+		
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        */
+		String uploadPath = kpService.getFilePath(req);
+		MultipartRequest mr = kpService.uploadFile(req, uploadPath);  
 	
 		String prodCate1 	= mr.getParameter("prodCate1"); //cate12
 		String prodCate2 	= mr.getParameter("prodCate2");
@@ -56,20 +73,28 @@ public class RegisterController extends HttpServlet {
 		String discount 	= mr.getParameter("discount");
 		String point 		= mr.getParameter("point");
 		String stock 		= mr.getParameter("stock");
+		String seller 		= mr.getParameter("seller");
 		String delivery 	= mr.getParameter("delivery");
-		String thumb1 		= mr.getParameter("thumb1");
-		String thumb2 		= mr.getParameter("thumb2");
-		String thumb3 		= mr.getParameter("thumb3");
-		String detail 		= mr.getParameter("detail");
-	
+		String thumb1 		= mr.getOriginalFileName("thumb1");
+		String thumb2 		= mr.getOriginalFileName("thumb2");
+		String thumb3 		= mr.getOriginalFileName("thumb3");
+		String detail 		= mr.getOriginalFileName("detail");
+		
 		String status 		= mr.getParameter("status");
 		String duty 		= mr.getParameter("duty");
 		String receipt 		= mr.getParameter("receipt");
 		String bizType 		= mr.getParameter("bizType");
 		String origin 		= mr.getParameter("origin");
-		String ip = req.getLocalAddr();
+		String ip = req.getRemoteAddr();
 		
-		KmProductDTO dto = new KmProductDTO(path);
+
+		thumb1 =  kpService.renameToFile(req, uploadPath, thumb1, prodCate1, prodCate2);
+		thumb2 =  kpService.renameToFile(req, uploadPath, thumb2, prodCate1, prodCate2);
+		thumb3 =  kpService.renameToFile(req, uploadPath, thumb3, prodCate1, prodCate2);
+		detail =  kpService.renameToFile(req, uploadPath, detail, prodCate1, prodCate2);
+		
+		
+		KmProductDTO dto = new KmProductDTO(uploadPath);
 		dto.setProdCate1(prodCate1);
 		dto.setProdCate2(prodCate2);
 		dto.setProdName(prodName);
@@ -78,6 +103,8 @@ public class RegisterController extends HttpServlet {
 		dto.setPrice(price);
 		dto.setDiscount(discount);
 		dto.setPoint(point);
+		dto.setStock(stock);
+		dto.setSeller(seller);
 		dto.setDelivery(delivery);
 		dto.setThumb1(thumb1);
 		dto.setThumb2(thumb2);
@@ -88,13 +115,14 @@ public class RegisterController extends HttpServlet {
 		dto.setReceipt(receipt);
 		dto.setBizType(bizType);
 		dto.setOrigin(origin);
+		dto.setIp(ip);
 		logger.info(dto.getC1Name());
 		kpService.insertProduct(dto);
 		
+		logger.debug("ip : " + ip);
+			
 		
-		
-		
-		resp.sendRedirect(ctxPath+"/admin/product/list.do?sucess=200"); 
+		resp.sendRedirect(ctxPath+"/admin/product/list.do?sucess=200");
 		
 	}
 }

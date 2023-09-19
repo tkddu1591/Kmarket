@@ -157,34 +157,23 @@
                     	<input type="button" value="선택삭제" method="post" />                          
                     	
 
-                    <div class="paging">
-                    
-		        	<c:if test="${pageGroupStart > 1}">
-		            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupStart - 1}" class="prev">이전</a>
-		            </c:if>
-		            <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
-		            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${i}&" class="num ${currentPage == i?'current':'off'}">${i}</a>
-		            </c:forEach>
-		            <c:if test="${pageGroupEnd < lastPageNum}">
-		            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupEnd + 1}" class="next">다음</a>
-		            </c:if>
-		        	
-                        <span class="prev">
-                            <a href="#"><&nbsp;이전</a>
-                        </span>
-                        <span class="num">
-                            <a href="#" class="on">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                        </span>
-                        <span class="next">
-                            <a href="#">다음&nbsp;></a>
-                        </span>
-                        </div>
+                    <div class="paging">              
+			        	<c:if test="${pageGroupStart > 1}">
+			        	<span class="prev">
+			            	<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupStart - 1}"><&nbsp;이전</a>
+		            	</span>
+			            </c:if>
+			            <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
+			            	<span class="num ${currentPage == i?'on':'off'}">
+			            		<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${i}&">${i}</a>
+			            	</span>
+			            </c:forEach>
+			            <c:if test="${pageGroupEnd < lastPageNum}">
+	                        <span class="next">
+			            		<a href="${ctxPath}/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupEnd + 1}" >다음&nbsp;></a>
+			            	</span>
+			            </c:if>
+                    </div>
 
                 </section>                
 
@@ -192,7 +181,7 @@
                 <p class="ico info">
                     <strong>Tip!</strong>
                     전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
-                </p>
+                </p>    
 
                 
 

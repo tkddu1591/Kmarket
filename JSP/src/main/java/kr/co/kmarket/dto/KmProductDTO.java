@@ -223,6 +223,9 @@ public class KmProductDTO {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    public void setStock(String stock) {
+        this.stock = Integer.parseInt(stock);
+    }
 
     public int getSold() {
         return sold;

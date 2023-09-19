@@ -5,9 +5,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -15,6 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +34,9 @@ import kr.co.kmarket.dto.KmCsQnaDTO;
 public enum KmCsQnaService {
 	
 	INSTANCE;
+	
+	private String qnaUploadPath = "/upload/qna";
+	
 	private KmCsQnaDAO dao = KmCsQnaDAO.getInstance();
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -54,58 +64,98 @@ public enum KmCsQnaService {
 	}
 	
 	//추가
-	
+
 	// 업로드 경로 구하기 
-	public String getFilePath(HttpServletRequest req) {
+	public String getQnaFilePath(HttpServletRequest req) {
 		// 파일 업로드 경로 구하기
 		ServletContext ctx = req.getServletContext();
-		String path = ctx.getRealPath("/upload");		
+		String path = ctx.getRealPath(qnaUploadPath);		
+		return path;
+	}
+	// 업로드 경로 구하기 
+	public String getCtxPath(HttpServletRequest req) {
+		// 파일 업로드 경로 구하기
+		ServletContext ctx = req.getServletContext();
+		String path = ctx.getRealPath("/");		
 		return path;
 	}
 
-	public MultipartRequest uploadFile(HttpServletRequest req) {
-		//파일 경로 구하기 
-		String path = getFilePath(req);
-
-		// 최대 업로드 파일 크기
-		int maxSize = 1024 * 1024 * 5; //5MB 
-		MultipartRequest mr = null;
+	public KmCsQnaDTO uploadFile(HttpServletRequest req) {
+		int maxSize = 10*1024*1024; // 10mb
+		String realPath = getQnaFilePath(req);
 		
+		Map<String, String> inputs = new HashMap<>();
+		List<String> files = new ArrayList<>();
+
+
 		try {
-			// 파일 업로드 및 Multipart 객체 생성   (스트림 처리)
-			mr = new MultipartRequest(req,  	//request 객체
-									  path, 	//파일경로
-									  maxSize, 	//파일Max크기
-									  "UTF-8", 	//인코딩(UTF-8)
-									  new DefaultFileRenamePolicy()); //defaultRename
-
-			logger.debug("path : " + path);
 			
-			/*
-			// 다중 파일 업로드 -모든 part들을 가져옴
-			Collection<Part> parts = req.getParts();
-		
-			for(Part part : parts) {
-				//파일에 저장하기 
-				if(StringUtils.hasWildcards(part.getSubmittedFileName())) {
-					String fullPath = path + part.getSubmittedFileName();
-					part.write(fullPath);
-					logger.debug("fullPath : " + fullPath);
+			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+			diskFileItemFactory.setRepository(new File(realPath));
+			diskFileItemFactory.setSizeThreshold(maxSize);
+			diskFileItemFactory.setDefaultCharset("utf-8");
+			ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
+
+
+			List<FileItem> items = fileUpload.parseRequest(req);
+			for (FileItem item : items) {
+				if (item.isFormField()) {
+					logger.debug(String.format("[파일형식이 아닌 파라미터] 파라미터명: %s, 파일 명: %s, 파일크기: %s bytes <br>", item.getFieldName(), item.getString(), item.getSize()));
+					inputs.put(item.getFieldName(), item.getString());
+				} else {
+					logger.debug(String.format("[파일형식 파라미터] 파라미터명: %s, 파일 명: %s, 파일 크기: %s bytes <br>", item.getFieldName(), item.getName(), item.getSize()));
+					if (item.getSize() > 0) {
+						String separator = File.separator;
+						int index = item.getName().lastIndexOf(separator);
+						String fileName = item.getName().substring(index + 1);
+						File uploadFile = new File(realPath + separator + fileName);
+						item.write(uploadFile);
+						files.add(item.getName());
+						logger.debug(item.getName());
+					}
 				}
+
 			}
-			*/
-			/*
-		    String[] params = mr.getParameterValues("fileUpload");
-			*/
+		} catch (FileUploadException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
-			logger.error("error qna - uploadFile() : " + e.getMessage());
+			e.printStackTrace();
 		}
-		return mr;
+
+		// 파일 수정 
+		for(int i=0; i<4; i++) {
+			if(files.size() > i) {
+				files.set(i,renameToFile(req, files.get(i)));
+				logger.debug(files.get(i) + "/" + i +"번째 파일");
+			} else {
+				files.add(null);
+			}
+			
+		}
+		String regip = req.getRemoteAddr();
+		// 글 DTO 생성
+		KmCsQnaDTO dto = new KmCsQnaDTO();
+		dto.setCate1(inputs.get("cate1"));
+		dto.setCate2(inputs.get("cate2"));
+		dto.setTitle(inputs.get("title"));
+		dto.setContent(inputs.get("content"));
+		dto.setFile1(files.get(0));
+		dto.setFile2(files.get(1));
+		dto.setFile3(files.get(2));
+		dto.setFile4(files.get(3));
+		dto.setWriter(inputs.get("writer"));
+		dto.setOrdNo(inputs.get("ordNo"));
+		dto.setProdNo(inputs.get("prodNo"));
+		dto.setParent(inputs.get("parent"));
+		dto.setAnswerComplete(inputs.get("answerComplete"));
+		dto.setRegip(regip);
+		
+		return dto;
 	}
 	// 파일명 수정 
 	public String renameToFile(HttpServletRequest req, String oName) {
 		
-		String path = getFilePath(req);
+		String path = getQnaFilePath(req);
 		
 		int i = oName.lastIndexOf(".");
 		String ext = oName.substring(i); //확장자 (.포함)
@@ -119,7 +169,7 @@ public enum KmCsQnaService {
 		// 파일명 수정 
 		f1.renameTo(f2); //f2로 파일명 수정
 		
-		return sName;
+		return qnaUploadPath + "/" + sName;
 	}
 
 	// 파일 다운로드 
@@ -136,7 +186,7 @@ public enum KmCsQnaService {
 			resp.setHeader("Cache-Control", "private");
 			
 			//resp 파일 스트림 작업 
-			String path = getFilePath(req);
+			String path = getCtxPath(req);
 			
 			File file = new File(path+"/"+ fileName);
 			

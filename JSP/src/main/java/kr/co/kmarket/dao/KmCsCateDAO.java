@@ -32,6 +32,8 @@ public class KmCsCateDAO extends DBHelper{
 				rs = stmt.executeQuery(SQL.SELECT_CSCATE1S_BY_TYPE1);
 			} else if(type==2){
 				rs = stmt.executeQuery(SQL.SELECT_CSCATE1S_BY_TYPE2);
+			} else if(type == 0){
+				rs = stmt.executeQuery(SQL.SELECT_CSCATE1S_ALL);
 			}
 			
 			while(rs.next()) {

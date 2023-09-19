@@ -32,7 +32,7 @@ public class RegisterSellerController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String uid = req.getParameter("km_uid");
-		String pass = req.getParameter("km_pass");
+		String pass = req.getParameter("km_pass1");
 		String company = req.getParameter("km_company");
 		String ceo = req.getParameter("km_ceo");
 		String comRegNum = req.getParameter("km_corp_reg");
@@ -44,7 +44,6 @@ public class RegisterSellerController extends HttpServlet{
 		String addr1 = req.getParameter("km_addr1");
 		String addr2 = req.getParameter("km_addr2");
 		String name = req.getParameter("km_name");
-		String gender = req.getParameter("km_gender");
 		String hp = req.getParameter("km_hp");
 		String regip = req.getRemoteAddr();
 		
@@ -61,15 +60,13 @@ public class RegisterSellerController extends HttpServlet{
 		logger.debug(addr1);
 		logger.debug(addr2);
 		logger.debug(name);
-		logger.debug(gender);
 		logger.debug(hp);
 		logger.debug(regip);
 		
 		KmMemberDTO dto = new KmMemberDTO();
 		dto.setUid(uid);
 		dto.setPass(pass);
-		dto.setName(name); // name, gender, hp NOT NULL 이라 속성 지정해줘야함
-		dto.setGender(gender);
+		dto.setName(name); // name, gender, hp NOT NULL 이라 속성 지정해줘야함 / gender NULL 속성으로 변경
 		dto.setHp(hp);
 		dto.setEmail(email);
 		dto.setType(2); //type 직접 지정해주기, 판매자회원 : 2
@@ -88,6 +85,6 @@ public class RegisterSellerController extends HttpServlet{
 		
 		service.insertMember(dto);
 		
-		resp.sendRedirect("JSP/member/login.do"); // ${ctxPath} 참조 못한다고!! 절대경로
+		resp.sendRedirect("/JSP/member/login.do"); // ${ctxPath} 참조 못한다고!! 절대경로
 	}
 }
