@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context allowCasualMultipartParsing="true" path="/">
+
+    <!--커넥션 풀 설정-->
+    <Resource
+            name="jdbc/Kmarket"
+            auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://13.236.85.117:3306/Kmarket"
+            username="kmarket"
+            password="Kmarket01!"
+            maxActive="13"
+            maxIdle="13"
+            maxWaitMillis="3000"/>
+
+</Context>
