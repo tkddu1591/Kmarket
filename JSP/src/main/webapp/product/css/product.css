@@ -1012,6 +1012,7 @@
 
 #product > .order > form > .delivery > table input[name=recipAddr1] {width: 400px;}
 #product > .order > form > .delivery > table input[name=recipAddr2] {width: 400px;}
+#product > .order > form > .delivery > table input[name=orderer] {color: black;}
 #product > .order > form > .delivery > table input[type=button] {
     padding: 4px 6px;
     border: 1px solid #ccc;
