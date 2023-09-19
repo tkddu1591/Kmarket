@@ -98,34 +98,4 @@ public class KmProductCartDAO extends DBHelper {
             logger.error(e.getMessage());
         }
     }
-
-    public int selectCartCountProd(int prodNo) {
-        int count = 0;
-        try {
-            conn = getConnection();
-            psmt = conn.prepareStatement(SQL.SELECT_CART_COUNT_PROD);
-            psmt.setInt(1, prodNo);
-            rs = psmt.executeQuery();
-            while (rs.next()) {
-                count = rs.getInt("count");
-            }
-            close();
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-        }
-        return count;
-    }
-
-    public void updateCartCount(int prodNo, int count) {
-        try {
-            conn = getConnection();
-            psmt = conn.prepareStatement(SQL.UPDATE_CART_COUNT);
-            psmt.setInt(1, count);
-            psmt.setInt(2, prodNo);
-            psmt.executeUpdate();
-            close();
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-        }
-    }
 }

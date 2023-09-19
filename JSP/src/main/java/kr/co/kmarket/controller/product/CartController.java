@@ -33,6 +33,7 @@ public class CartController extends HttpServlet {
         KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
         List<KmProductCartDTO> kmProductCartDTOS = kmProductCartService.selectCarts(sessUser.getUid());
 
+        logger.info(String.valueOf(kmProductCartDTOS.get(0).getProdNo()));
         req.setAttribute("kmProductCartDTOS", kmProductCartDTOS);
 
         req.getRequestDispatcher("/product/cart.jsp").forward(req, resp);
@@ -56,6 +57,7 @@ public class CartController extends HttpServlet {
         for(String kmProductDTO : kmProductDTOS) {
             String[] terms = kmProductDTO.toString().split(",",2);
             kmProductCartService.deleteCart(terms[0]);
+            logger.info(String.valueOf(terms[0]));
         }
 /*        ProductService productService = new ProductService();
         for(int i = 0; i < productNos.length; i++) {

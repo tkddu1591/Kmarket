@@ -92,9 +92,6 @@ public class KmMemberDTO {
     public int getPoint() {
         return point;
     }
-    public String getPointWithComma() {
-        return String.format("%,d",point);
-    }
 
     public void setPoint(int point) {
         this.point = point;
