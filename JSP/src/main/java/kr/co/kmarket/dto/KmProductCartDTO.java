@@ -16,6 +16,7 @@ public class KmProductCartDTO {
     private String prodName;
     private String descript;
 
+
     public String getProdName() {
         return prodName;
     }
@@ -159,4 +160,5 @@ public class KmProductCartDTO {
     public void setDiscount(String discount) {
         this.discount = Integer.parseInt(discount);
     }
+
 }

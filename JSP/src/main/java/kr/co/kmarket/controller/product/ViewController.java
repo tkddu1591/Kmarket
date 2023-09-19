@@ -119,22 +119,30 @@ public class ViewController extends HttpServlet {
         // 포맷팅 적용
         String formatedNow = formatter.format(rDate);
 
-        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
-        kmProductCartDTO.setUid(req.getParameter("uid"));
-        kmProductCartDTO.setProdNo(req.getParameter("prodNo"));
-        kmProductCartDTO.setCount(req.getParameter("count"));
-        kmProductCartDTO.setPrice(req.getParameter("price"));
-        kmProductCartDTO.setDiscount(req.getParameter("discount"));
-        kmProductCartDTO.setPoint(req.getParameter("point"));
-        kmProductCartDTO.setDelivery(req.getParameter("delivery"));
-        kmProductCartDTO.setTotal(req.getParameter("total"));
-        kmProductCartDTO.setrDate(formatedNow);
-
-
+        int prodNo = Integer.parseInt(req.getParameter("prodNo"));
+        int count = Integer.parseInt(req.getParameter("count"));
         KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
 
-        kmProductCartService.insertCart(kmProductCartDTO);
+        int check = 0;
+        check = kmProductCartService.selectCartCountProd(prodNo);
+        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
+        if(check>0) {
+            //카트에 동일 물품이 있을 때 숫자만 늘림
+            kmProductCartService.updateCartCount(prodNo, count);
+        }else {
+            //카트에 동일 물품이 없을 때,
+            kmProductCartDTO.setUid(req.getParameter("uid"));
+            kmProductCartDTO.setProdNo(prodNo);
+            kmProductCartDTO.setCount(count);
+            kmProductCartDTO.setPrice(req.getParameter("price"));
+            kmProductCartDTO.setDiscount(req.getParameter("discount"));
+            kmProductCartDTO.setPoint(req.getParameter("point"));
+            kmProductCartDTO.setDelivery(req.getParameter("delivery"));
+            kmProductCartDTO.setTotal(req.getParameter("total"));
+            kmProductCartDTO.setrDate(formatedNow);
 
+            kmProductCartService.insertCart(kmProductCartDTO);
+        }
 
         resp.sendRedirect("/JSP/product/view.do?success=100&prodNo=" + kmProductCartDTO.getProdNo() + "&cate1=" + cate1 + "&cate2=" + cate2);
     }

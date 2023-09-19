@@ -18,6 +18,11 @@ public class OrderController extends HttpServlet {
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(OrderController.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         String[] kmProductDTOS = req.getParameterValues("dto");
         String[] prodName=req.getParameterValues("prodName");
