@@ -50,12 +50,14 @@ $(function(){
 						<label><input type="checkbox" name="agree3" />동의합니다.</label>
 					</section>
 	
-					<section>
-						<h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
-						<textarea class="location" readonly>${type eq 'normal' ? dto.location : ''}</textarea>
-						<label><input type="checkbox" name="agree4" />동의합니다.</label>
-					</section>
-	
+					<c:if test="${type eq 'normal'}">
+						<section>
+							<h3><span class="optional">(선택)</span>위치정보 이용약관</h3>
+							<textarea class="location" readonly>${dto.location}</textarea>
+							<label><input type="checkbox" name="agree4" />동의합니다.</label>
+						</section>
+					</c:if>
+					
 					<div>
 						<input type="submit" class="agree" value="동의하기" /> <!-- register로 어떻게 전송해야하지??? type=button이었는데 submit으로 수정함, button은 전송안됨! -->
 					</div>

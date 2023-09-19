@@ -26,7 +26,7 @@
 		        				<span>파일${fileNo = fileNo +1} : &nbsp;</span>
 		        				<div class="fileImg">
 				        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${file}" id="downloadFile" data-fno="${file}">
-				        				 <img src="${ctxPath}/upload/${file}">
+				        				 <img src="${ctxPath += file}">
 			        				 </a>
 		        				 </div>
 		        			</li>

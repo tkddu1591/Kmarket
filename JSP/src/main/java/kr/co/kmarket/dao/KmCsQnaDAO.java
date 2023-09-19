@@ -196,7 +196,7 @@ public class KmCsQnaDAO extends DBHelper{
 		return count;
 	}
 
-	public void updateCsQna(KmCsQnaDTO dto) {
+	public int updateCsQna(KmCsQnaDTO dto) {
 		try { 
 			conn = getConnection();
 			psmt = conn.prepareStatement(SQL.UPDATE_CSQNA);
@@ -210,12 +210,12 @@ public class KmCsQnaDAO extends DBHelper{
 			psmt.setString(8, dto.getProdNo());
 			psmt.setInt(9, dto.getQnaNo());
 			psmt.executeUpdate();
-			logger.debug("수정 글 내용 : " + dto.toString());
 			
 			close();
 		}catch(Exception e){
 			logger.error("insertQna() updateCsQna : " + e.getMessage());
 		}
+		return dto.getQnaNo();
 	}
 	public void deleteCsQna(String no) {
 		try {
