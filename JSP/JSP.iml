@@ -34,6 +34,7 @@
     <orderEntry type="library" exported="" name="json-simple-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="catalina" level="project" />
     <orderEntry type="library" exported="" name="commons-fileupload-1.4 (2)" level="project" />
+    <orderEntry type="library" name="commons-fileupload-1.4" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="a1267f5f-37ba-4376-bd90-d3e1d0cd6518" />
