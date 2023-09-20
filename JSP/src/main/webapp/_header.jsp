@@ -96,7 +96,7 @@
             <c:if test="${sessUser.uid ne null}">
               <a href="${ctxPath}/member/logout.do">로그아웃</a>
             </c:if>
-            <c:if test="${sessUser.type eq 9}">
+            <c:if test="${sessUser.type ne 1}">
               <a href="${ctxPath}/admin/index.do">관리페이지</a>
             </c:if>
             <a href="#">마이페이지</a>

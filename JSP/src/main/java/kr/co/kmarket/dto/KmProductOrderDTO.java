@@ -30,6 +30,9 @@ public class KmProductOrderDTO {
     public int getOrdTotPrice() {
         return ordTotPrice;
     }
+    public String getOrdTotPriceWithComma() {
+        return String.format("%,d", ordTotPrice);
+    }
 
     public void setOrdTotPrice(int ordTotPrice) {
         this.ordTotPrice = ordTotPrice;
@@ -73,6 +76,10 @@ public class KmProductOrderDTO {
         return ordPrice;
     }
 
+    public String getOrdPriceWithComma() {
+        return String.format("%,d", ordPrice);
+    }
+
     public void setOrdPrice(int ordPrice) {
         this.ordPrice = ordPrice;
     }
@@ -84,6 +91,10 @@ public class KmProductOrderDTO {
         return ordDiscount;
     }
 
+    public String getOrdDiscountWithComma() {
+        return String.format("%,d", ordDiscount);
+    }
+
     public void setOrdDiscount(int ordDiscount) {
         this.ordDiscount = ordDiscount;
     }
@@ -93,6 +104,10 @@ public class KmProductOrderDTO {
 
     public int getOrdDelivery() {
         return ordDelivery;
+    }
+
+    public String getOrdDeliveryWithComma() {
+        return String.format("%,d", ordDelivery);
     }
 
     public void setOrdDelivery(int ordDelivery) {
@@ -115,6 +130,9 @@ public class KmProductOrderDTO {
 
     public int getUsedPoint() {
         return usedPoint;
+    }
+    public String getUsedPointWithComma() {
+        return String.format("%,d", usedPoint);
     }
 
     public void setUsedPoint(int usedPoint) {

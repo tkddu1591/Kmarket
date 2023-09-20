@@ -118,5 +118,8 @@ public void insertMember(KmMemberDTO dto) {
 		
 		return status;
 	}// sendCodeByEmail end
-	
+
+	public void updatePoint(String ordUid, int point) {
+	dao.updatePoint(ordUid, point);
+	}
 }

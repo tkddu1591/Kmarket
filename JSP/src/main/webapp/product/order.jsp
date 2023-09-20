@@ -20,8 +20,8 @@
     }
     window.onload = () => {
         //토탈 값 쉼표 제거
-        total= $('input[name=ordTotPrice]').val()
-        total = total.replace(",","");
+        total = $('input[name=ordTotPrice]').val()
+        total = total.replace(",", "");
         total = parseInt(total);
         const discountPoint = document.getElementsByClassName('discountPoint')[0]
         const discountPointBut = document.getElementsByClassName('discountPointBut')[0]
@@ -30,21 +30,94 @@
         discountPointBut.addEventListener('click', (e) => {
             usePoint = parseInt($('input[name=usedPoint]').val());
             if (usePoint >= 5000) {
-                discountPoint.innerText = '-'+usePoint.toLocaleString()
-                console.log(total-usePoint)
-                newTotal.innerText = (total-usePoint).toLocaleString()
+                discountPoint.innerText = '-' + usePoint.toLocaleString()
+                console.log(total - usePoint)
+                newTotal.innerText = (total - usePoint).toLocaleString()
                 $('input[name=ordTotPrice]').val(total - usePoint);
-            }
-            else {
+            } else {
                 alert('최소 5,000원 이상의 금액을 입력해주세요.')
             }
         })
 
+
+        // 폼 데이터 검증결과 상태변수
+        let isRecipNameOk = true;
+        let isRecipHpOk = false;
+        let isRecipAddrOk = false;
+        let isOrdPaymentOk = false;
+
+        // 데이터 검증에 사용하는 정규표현식
+        let reName = /^[가-힣]{2,10}$/
+        let reHp = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
+
+        // 유효성 검증(Validation)
+
+        // 이름 검사
+        $('input[name=recipName]').focusout(function () {
+            const name = $(this).val();
+
+            if (name.match(reName)) {
+                isRecipNameOk = true;
+            } else {
+                isRecipNameOk = false;
+            }
+        });
+
+        // 번호 검사
+        $('input[name=recipHp]').keyup(function () {
+            const hp = $(this).val();
+            if (hp.match(reHp)) {
+                isRecipHpOk = true;
+            } else {
+                isRecipHpOk = false;
+            }
+        });
+        // 주소 검사
+        const addr = document.getElementsByName('recipAddr2');
+        addr[0].focusout = function () {
+            const addr = document.getElementsByName('recipAddr1');
+            if (addr[0].value == '') {
+                isRecipAddrOk = false;
+            } else {
+                isRecipAddrOk = true;
+            }
+        }
+        // 결제수단 검사
+        $('input[name=ordPayment]').click(function () {
+            isOrdPaymentOk = true;
+        });
+
+
         const payment = document.getElementsByName('payment')[0]
         payment.addEventListener('click', (e) => {
+
+            if (!isRecipNameOk) {
+                alert('수령인을 확인 하십시오.');
+                return false; // 폼 전송 취소
+            }
+
+
+            if (!isRecipHpOk) {
+                alert('전화번호를 확인 하십시오.');
+                return false; // 폼 전송 취소
+            }
+            if (!isRecipAddrOk) {
+                alert('주소를 확인 하십시오.');
+                return false; // 폼 전송 취소
+            }
+
+            if (!isOrdPaymentOk) {
+                alert('결제수단을 확인 하십시오.');
+                return false; // 폼 전송 취소
+            }
+
+
             document.getElementById('orderForm').submit();
         })
+
+
     }
+
 </script>
 <main id="product">
     <aside>
@@ -80,7 +153,9 @@
                     <c:forEach var="item" items="${kmProductOrderItemDTOS}">
                         <tr>
                             <td>
-                                <input type="hidden" class="orderData" value="${dto}" name="dto">
+                                <input type="hidden" class="orderData" value="${item}" name="dto">
+                                <input type="hidden" value="${item.descript}" name="descript">
+                                <input type="hidden" value="${item.prodName}" name="prodName">
                                 <article>
                                     <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img
                                             src="https://via.placeholder.com/80x80" alt=""></a>
@@ -96,7 +171,8 @@
                             <td>${item.priceWithComma}</td>
                             <td>${item.discount}%</td>
                             <td>${item.deliveryWithComma}</td>
-                            <td><p>${item.totalWithComma}</p><p>${item.point * item.count} P</p></td>
+                            <td><p>${item.totalWithComma}</p>
+                                <p>${item.point * item.count} P</p></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -145,18 +221,18 @@
             </div>
             <!-- 배송정보 -->
             <article class="delivery">
-                <h1>배송정보</h1>
+                <h1>배송정보<span> * 표시는 반드시 입력해주세요.</span></h1>
                 <table>
                     <tr>
                         <td>주문자</td>
                         <td><input type="text" name="orderer" value="${sessUser.name}" readonly/></td>
                     </tr>
                     <tr>
-                        <td>수령인</td>
+                        <td>* 수령인</td>
                         <td><input type="text" name="recipName" value="${sessUser.name}"/></td>
                     </tr>
                     <tr>
-                        <td>휴대폰</td>
+                        <td>* 휴대폰</td>
                         <td>
                             <input type="text" oninput="hypenTel(this)" name="recipHp"
                                    minlength="13" maxlength="13"/>
@@ -164,14 +240,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>우편번호</td>
+                        <td>* 우편번호</td>
                         <td>
                             <input type="text" name="recipZip" readonly value="주소를 검색해주세요."/>
                             <input type="button" value="검색" onclick="zipcode()"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>기본주소</td>
+                        <td>* 기본주소</td>
                         <td>
                             <input type="text" name="recipAddr1" readonly/>
                         </td>
@@ -191,7 +267,7 @@
                     <p>현재 포인트 : <span>${sessUser.pointWithComma}</span>점</p>
                     <label>
                         <input type="text" name="usedPoint" onkeyup="maxPoint(this)"
-                               maxlength="${fn:length(sessUser.pointWithComma)}"/>점
+                               maxlength="${fn:length(sessUser.pointWithComma)}" value="0"/>점
                         <input type="button" value="적용" class="discountPointBut"/>
                     </label>
                     <span>포인트 5,000점 이상이면 현금처럼 사용 가능합니다.</span>

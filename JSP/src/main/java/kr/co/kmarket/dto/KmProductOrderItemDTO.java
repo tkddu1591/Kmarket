@@ -14,6 +14,13 @@ public class KmProductOrderItemDTO {
     private int delivery;
     private int total;
 
+    private int discountPrice;
+
+    public String getDiscountPriceWithComma() {
+        DecimalFormat df = new DecimalFormat("###,###");
+        return df.format((price*discount/100));
+    }
+
     public String getDescript() {
         return descript;
     }
@@ -108,5 +115,10 @@ public class KmProductOrderItemDTO {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return prodNo+","+count+","+price+","+discount+","+point+","+delivery+","+total;
     }
 }

@@ -43,6 +43,9 @@ public class SQL {
 
     //----------------------------km_member_point-----------------------
 
+	public static final String INSERT_POINT = "INSERT INTO Kmarket.km_member_point ( uid, ordNo, point, pointDate)\n" +
+			"VALUES (?, ?, ?, NOW())";
+
     //----------------------------km_member_terms-----------------------
 	public static final String SELECT_TERMS = "SELECT * FROM `km_member_terms`";
 
@@ -50,11 +53,16 @@ public class SQL {
 
 
 	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
+	public static final String UPDATE_POINT = "UPDATE `km_member` SET `point`=point+? WHERE `uid`=?";
 
 
 
 
-    /*
+
+
+
+
+	/*
      * 조회 쿼리 통합
      *
      * 조건 및 정렬방식 입력시 - 카테고리에 맞는 상품을 조건과 정렬방식을 활용해 DB에서 가져옴.
@@ -142,6 +150,8 @@ public class SQL {
 	public static final String SELECT_CART_COUNT_PROD = "SELECT COUNT(a.prodNo) as count FROM km_product_cart as a WHERE prodNo = ? ;";
 	public static final String UPDATE_CART_COUNT = "UPDATE `km_product_cart` SET count = count+?, total = (price*(100-discount))/100*count + delivery WHERE prodNo =?;";
 
+	public static final String DELETE_CARTS = "DELETE FROM `km_product_cart` WHERE uid=?;";
+
 	//--------------------------km_product_cate1------------------------------
 
 	public final static String SELECT_PRODUCT_CATE1_NAME = "SELECT c1Name from km_product_cate1 where cate1 = ?;";
@@ -155,7 +165,15 @@ public class SQL {
 
 	//--------------------------km_product_order------------------------------
 
+	public static final String SELECT_LAST_ORDERNO = "SELECT MAX(ordNo) AS ordNo FROM `km_product_order`;";
+
+	public static final String INSERT_ORDER = "INSERT INTO Kmarket.km_product_order ( ordUid, ordCount, ordPrice, ordDiscount, ordDelivery, savePoint, usedPoint,\n" +
+			"                                      ordTotPrice, recipName, recipHp, recipZip, recipAddr1, recipAddr2, ordPayment,\n" +
+			"                                      ordComplete, ordDate)\n" +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,NOW());";
 	//--------------------------km_product_order_item------------------------------
+	public static final String INSERT_ORDER_ITEM = "INSERT INTO Kmarket.km_product_order_item (ordNo, prodNo, count, price, discount, point, delivery, total)\n" +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
 	//--------------------------km_product_review------------------------------
 	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? ORDER BY revNo DESC LIMIT ?,5;";

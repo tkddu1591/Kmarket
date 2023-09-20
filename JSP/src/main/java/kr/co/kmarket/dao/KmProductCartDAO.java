@@ -128,4 +128,16 @@ public class KmProductCartDAO extends DBHelper {
             logger.error(e.getMessage());
         }
     }
+
+    public void deleteCarts(String ordUid) {
+        try {
+            conn = getConnection();
+            psmt = conn.prepareStatement(SQL.DELETE_CARTS);
+            psmt.setString(1, ordUid);
+            psmt.executeUpdate();
+            close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

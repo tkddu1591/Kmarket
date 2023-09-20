@@ -35,3 +35,13 @@ select c1.*, c2.cate2, c2Name from km_product_cate1 as c1 join km_product_cate2 
 SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY  prodNo DESC LIMIT ?, 10;
 
 
+SELECT MAX(ordNo) AS ordNo FROM `km_product_order`;
+
+INSERT INTO Kmarket.km_product_order ( ordUid, ordCount, ordPrice, ordDiscount, ordDelivery, savePoint, usedPoint,
+                                      ordTotPrice, recipName, recipHp, recipZip, recipAddr1, recipAddr2, ordPayment,
+                                      ordComplete, ordDate)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,NOW());
+
+UPDATE `km_member` SET `point`=point+? WHERE `uid`=?
+INSERT INTO Kmarket.km_member_point ( uid, ordNo, point, pointDate)
+VALUES (?, ?, ?, NOW())
