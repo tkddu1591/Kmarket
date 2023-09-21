@@ -25,6 +25,7 @@
             	</c:if>
             	<c:if test="${sessUser ne null}">
 	              <a href="#">마이페이지</a>
+	              <a href="${ctxPath}/member/logout.do">로그아웃</a>
 	              <a href="#"
 	                ><i class="fa fa-shopping-cart" aria-hidden="true"></i
 	                >&nbsp;장바구니</a

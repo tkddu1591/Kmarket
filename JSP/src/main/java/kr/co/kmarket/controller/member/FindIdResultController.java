@@ -28,8 +28,8 @@ public class FindIdResultController extends HttpServlet{
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		
-		logger.debug(name);
-		logger.debug(email);
+		logger.debug("name : " + name);
+		logger.debug("email : " + email);
 		
 		KmMemberDTO dto = new KmMemberDTO();
 		

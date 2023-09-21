@@ -55,6 +55,9 @@ public enum KmCsQnaService {
 	public int selectCsQnaCount(String cate1) {
 		return dao.selectCsQnaCount(cate1);
 	}
+	public List<KmCsQnaDTO> selectLatests(int size){
+		return dao.selectLatests(size);
+	}
 
 	public void updateCsQna(KmCsQnaDTO dto) {
 		dao.updateCsQna(dto);
@@ -150,7 +153,7 @@ public enum KmCsQnaService {
 		}
 
 		// modify 
-		if(inputs.get("type").equals("modify")){
+		if(inputs.get("type") !=null ){
 			modifiedFinalFileList.addAll(files);
 			logger.debug("deletedFileList  " + deletedFileList.toString());
 			files = modifiedFinalFileList;
@@ -159,9 +162,9 @@ public enum KmCsQnaService {
 		String regip = req.getRemoteAddr();
 		// 글 DTO 생성
 		KmCsQnaDTO dto = new KmCsQnaDTO();
-		dto.setQnaNo(inputs.get("no"));
-		dto.setCate1(inputs.get("cate1"));
-		dto.setCate2(inputs.get("cate2"));
+		if(inputs.get("no")!=null)dto.setQnaNo(inputs.get("no"));
+		if(inputs.get("cate1")!=null)dto.setCate1(inputs.get("cate1"));
+		if(inputs.get("cate2")!=null)dto.setCate2(inputs.get("cate2"));
 		dto.setTitle(inputs.get("title"));
 		dto.setContent(inputs.get("content"));
 		dto.setFile1(files.get(0));

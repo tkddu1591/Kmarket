@@ -35,25 +35,32 @@ public class ViewController extends HttpServlet{
 		KmMemberDTO sessUser = (KmMemberDTO) session.getAttribute("sessUser");
 		
 		KmCsQnaDTO dto = service.selectCsQna(no);
-		//if(!qna.getWriter().equals(sessUser.getUid()) || !qna.getWriter().equals("admin") {
-			// 나중에 레벨 구해서 본인과 admin그룹만 볼 수 있게끔 처리해야 함 
+		if(sessUser == null) {
+			resp.sendRedirect("list.do?success=301");
+		}else if(!dto.getWriter().equals(sessUser.getUid()) && sessUser.getType() != 9 ) {
+			//작성자 본인이나 관리자가 아니면 
+			resp.sendRedirect("list.do?success=301");
+		} else {
 		
-
-		KmCsQnaDTO answer = service.selectCsQnaAnswer(no);//}
-		
-		logger.debug("qna 글 : " + dto.toString());
-		if(dto.getAnswerComplete() == 2) {
-			logger.debug("qna 답변 : " + answer.toString());
+			KmCsQnaDTO answer = service.selectCsQnaAnswer(no);//}
 			
-		}
-		req.setAttribute("group", "view");
-		req.setAttribute("no", no);
-		req.setAttribute("cate1", cate1);
-		req.setAttribute("dto", dto);
-		req.setAttribute("answer", answer);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("view.jsp");
-		dispatcher.forward(req, resp);		
+			logger.debug("qna 글 : " + dto.toString());
+			/*
+			if(dto.getAnswerComplete() == 2) {
+			 
+				logger.debug("qna 답변 : " + answer.toString());
+				
+			}
+			*/
+			req.setAttribute("group", "view");
+			req.setAttribute("no", no);
+			req.setAttribute("cate1", cate1);
+			req.setAttribute("dto", dto);
+			req.setAttribute("answer", answer);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("view.jsp");
+			dispatcher.forward(req, resp);	
 		
+		}
 	}
 	
 }

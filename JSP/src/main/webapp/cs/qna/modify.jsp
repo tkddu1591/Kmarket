@@ -36,7 +36,7 @@ const existedFileCntOnLoad = ${fn:length(dto.file)};
 	          <tr>
 	            <td>문의내용</td>                  
 	            <td>
-	              <textarea name="content" value="${dto.content}"></textarea>
+	              <textarea name="content">${dto.content}</textarea>
 	            </td>
 	          </tr>              
 	          <tr>

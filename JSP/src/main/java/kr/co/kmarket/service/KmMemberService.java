@@ -69,7 +69,11 @@ public void insertMember(KmMemberDTO dto) {
 		return dao.selectCountNameAndEmail(name, email);
 	}
 	
-	public int sendCodeByEmail(String receiver) {
+	public int selectCountUidAndEmail(String uid, String email) {
+		return dao.selectCountUidAndEmail(uid, email);
+	}
+	
+	public int sendCodeByEmail(String receiver) { // dao에서 가져오는 거 아님
 		
 		// 인증코드 생성
 		int code = ThreadLocalRandom.current().nextInt(100000, 1000000);		
@@ -101,7 +105,7 @@ public void insertMember(KmMemberDTO dto) {
 		// 메일 발송
 		int status = 0;
 		Message message = new MimeMessage(gmailSession);
-		
+		logger.debug("인증코드 : " + generatedCode);
 		try{
 			logger.info("here1...");
 			message.setFrom(new InternetAddress(sender, "보내는 사람", "UTF-8"));
@@ -118,6 +122,17 @@ public void insertMember(KmMemberDTO dto) {
 		
 		return status;
 	}// sendCodeByEmail end
+	
+	public int confirmCodeByEmail(String code) {
+		
+		if(code.equals(generatedCode)) {
+			logger.info("return 1...");
+			return 1;
+		}else {
+			logger.info("return 0...");
+			return 0;
+		}
+	}
 
 	public void updatePoint(String ordUid, int point) {
 	dao.updatePoint(ordUid, point);
