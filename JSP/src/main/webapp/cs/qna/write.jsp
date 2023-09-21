@@ -12,7 +12,7 @@ const ctx = '${ctxPath}';
      
       <article>
         <form action="${ctxPath}/cs/qna/write.do" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="writer" value="user">
+        	<input type="hidden" name="writer" value="${sessUser.uid}">
 	        <table>
 	          <tr>
 	            <td>문의유형</td>

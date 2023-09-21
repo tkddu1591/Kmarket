@@ -159,4 +159,6 @@
     <!-- 결제완료 페이지 끝 -->
 </main>
 
+<hr/>
+
 <%@ include file="_footer.jsp" %>

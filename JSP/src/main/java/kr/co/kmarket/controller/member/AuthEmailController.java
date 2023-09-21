@@ -40,14 +40,14 @@ public class AuthEmailController extends HttpServlet{
 			
 			// 회원가입된 이메일인지 DB에서 select 하고, 존재하면 인증코드 전송한다
 			if(result == 1) { 
-				service.sendCodeByEmail(email);
+				status = service.sendCodeByEmail(email);
 			}
 			
 			// JSON 생성
 			JsonObject json = new JsonObject();
 			json.addProperty("result", result);
 			json.addProperty("status", status);
-			
+			logger.debug("result : " + result + "/ status : " + status);
 			// JSON 출력
 			PrintWriter writer = resp.getWriter(); // resp로 전송해야지
 			writer.print(json.toString());
