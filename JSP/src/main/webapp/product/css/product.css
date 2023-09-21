@@ -738,7 +738,6 @@
 }
 
 #product > .cart > form > table .empty {
-    display: none;
 }
 #product > .cart > form > table .empty td {
     padding: 50px 0 !important;

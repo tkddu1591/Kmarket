@@ -37,19 +37,15 @@
 
             count.val(parseInt(num.val()))
             total.val(newTotalPrice)
-            newPrice.val(parseInt(num.val())*parseInt(price))
-            newPoint.val(parseInt(num.val())*parseInt(point))
         })
         plus.addEventListener('click', function () {
             num.val(parseInt(num.val()) + 1)
 
-            newTotalPrice = (delivery + num.val() * discountPrice)
+            newTotalPrice = (num.val() * discountPrice)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
             total.val(newTotalPrice)
-            newPrice.val(parseInt(num.val())*parseInt(price))
-            newPoint.val(parseInt(num.val())*parseInt(point))
         })
 
 

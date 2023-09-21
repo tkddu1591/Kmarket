@@ -100,8 +100,8 @@
             let count = 0;
             for (let data of totalData) {
                 if (no == 5) {
-                    data.innerText = '-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
-                    finalData[number].value ='-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
+                    data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
+                    finalData[number].value ='-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
                     number++;
                     no++;
                     continue;
@@ -167,7 +167,7 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="all" id="all"></th>
-                        <th>상품명</th>
+                        <th>상품명${empty kmProductCartDTOS}</th>
                         <th>총수량</th>
                         <th>판매가</th>
                         <th>할인</th>

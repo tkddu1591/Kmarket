@@ -32,4 +32,8 @@ public enum KmProductCartService {
     public void updateCartCount(int prodNo, int count) {
         kmProductCartDao.updateCartCount(prodNo, count);
     }
+
+    public void deleteCarts(String ordUid) {
+        kmProductCartDao.deleteCarts(ordUid);
+    }
 }

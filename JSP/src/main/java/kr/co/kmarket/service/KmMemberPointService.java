@@ -1,4 +1,6 @@
 package kr.co.kmarket.service;
 
-public class KmMemberPointService {
+public enum KmMemberPointService {
+    INSTANCE;
+
 }

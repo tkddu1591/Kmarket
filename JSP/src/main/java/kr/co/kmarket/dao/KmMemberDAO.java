@@ -1,5 +1,6 @@
 package kr.co.kmarket.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -229,7 +230,19 @@ public class KmMemberDAO extends DBHelper{
 		}
 		return result;
 	}
-	
+
+    public void updatePoint(String ordUid, int point) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_POINT);
+			psmt.setInt(1, point);
+			psmt.setString(2, ordUid);
+			psmt.executeUpdate();
+			close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
 
 
