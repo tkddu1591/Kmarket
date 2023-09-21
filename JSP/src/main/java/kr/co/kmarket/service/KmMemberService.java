@@ -101,7 +101,7 @@ public void insertMember(KmMemberDTO dto) {
 		// 메일 발송
 		int status = 0;
 		Message message = new MimeMessage(gmailSession);
-		
+		logger.debug("인증코드 : " + generatedCode);
 		try{
 			logger.info("here1...");
 			message.setFrom(new InternetAddress(sender, "보내는 사람", "UTF-8"));
