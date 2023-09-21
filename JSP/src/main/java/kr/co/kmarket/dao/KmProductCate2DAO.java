@@ -57,6 +57,7 @@ public class KmProductCate2DAO extends DBHelper {
                 kmProductCate2DTO.setC2Name(rs.getString("c2Name"));
                 kmProductCate2DTOS.add(kmProductCate2DTO);
             }
+            close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.product;
 
+import kr.co.kmarket.dto.KmMemberPointDTO;
 import kr.co.kmarket.dto.KmProductOrderDTO;
 import kr.co.kmarket.dto.KmProductOrderItemDTO;
 import kr.co.kmarket.service.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @WebServlet("/product/complete.do")
 public class CompleteController extends HttpServlet {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(CompleteController.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
@@ -36,9 +38,9 @@ public class CompleteController extends HttpServlet {
         orderData.add(req.getParameter("ordDiscount"));
         orderData.add(req.getParameter("ordDelivery"));
         orderData.add(req.getParameter("savePoint"));
-        if(req.getParameter("usedPoint") == null|| req.getParameter("usedPoint").equals("0") || req.getParameter("usedPoint").isEmpty()) {
+        if (req.getParameter("usedPoint") == null || req.getParameter("usedPoint").equals("0") || req.getParameter("usedPoint").isEmpty()) {
             orderData.add("0");
-        }else {
+        } else {
             orderData.add(req.getParameter("usedPoint"));
         }
         orderData.add(req.getParameter("ordTotPrice"));
@@ -46,23 +48,23 @@ public class CompleteController extends HttpServlet {
         orderData.add(req.getParameter("recipZip"));
         orderData.add(req.getParameter("recipName"));
         orderData.add(req.getParameter("recipAddr1"));
-        if(req.getParameter("recipAddr2") != null) {
+        if (req.getParameter("recipAddr2") != null) {
             orderData.add(req.getParameter("recipAddr2"));
-        }else {
+        } else {
             orderData.add("");
         }
         orderData.add(req.getParameter("ordPayment"));
         logger.info(req.getParameter("ordPayment"));
 
         List<String> orderDataTemp = new ArrayList<>();
-        int j =0;
-        for(String data : orderData) {
-            if(j == 8){
+        int j = 0;
+        for (String data : orderData) {
+            if (j == 8) {
                 j++;
                 orderDataTemp.add(data);
                 continue;
             }
-            orderDataTemp.add(data.replace(",","").replace(" P","").replace("-",""));
+            orderDataTemp.add(data.replace(",", "").replace(" P", "").replace("-", ""));
             j++;
         }
 
@@ -83,7 +85,7 @@ public class CompleteController extends HttpServlet {
         productOrderDTO.setOrdComplete(1);
         KmProductOrderService kmProductOrderService = KmProductOrderService.INSTANCE;
         kmProductOrderService.insertOrder(productOrderDTO);
-        req.setAttribute("order",productOrderDTO);
+        req.setAttribute("order", productOrderDTO);
         //km_prodcut_order insert 완료-------------------------
 
 
@@ -95,6 +97,7 @@ public class CompleteController extends HttpServlet {
 
         String[] prodName = req.getParameterValues("prodName");
         String[] descript = req.getParameterValues("descript");
+        String[] thumb1 = req.getParameterValues("thumb1");
         //order No 셀렉
         int lastOrderNo = kmProductOrderService.selectLastOrderNo();
         req.setAttribute("orderNo", lastOrderNo);
@@ -102,7 +105,7 @@ public class CompleteController extends HttpServlet {
         List<KmProductOrderItemDTO> kmProductOrderItemDTOS = new ArrayList<>();
 
         int i = 0;
-        for(String kmProductDTO : kmProductDTOS) {
+        for (String kmProductDTO : kmProductDTOS) {
             // 0:prodNo
             // 1:count
             // 2:price
@@ -111,7 +114,7 @@ public class CompleteController extends HttpServlet {
             // 5:delivery
             // 6:total;
             KmProductOrderItemDTO kmProductOrderItemDTO = new KmProductOrderItemDTO();
-            String[] orderItemData = kmProductDTO.toString().split(",",10);
+            String[] orderItemData = kmProductDTO.toString().split(",", 10);
 
             kmProductOrderItemDTO.setOrdNo(lastOrderNo);
             kmProductOrderItemDTO.setProdNo(Integer.parseInt(orderItemData[0]));
@@ -123,8 +126,10 @@ public class CompleteController extends HttpServlet {
             kmProductOrderItemDTO.setTotal(Integer.parseInt(orderItemData[6]));
             kmProductOrderItemDTO.setProdName(prodName[i]);
             kmProductOrderItemDTO.setDescript(descript[i]);
+            kmProductOrderItemDTO.setThumb1(thumb1[i]);
             i++;
             kmProductOrderItemDTOS.add(kmProductOrderItemDTO);
+
             kmProductOrderItemService.insertKmProductOrderItem(kmProductOrderItemDTO);
         }
 
@@ -132,15 +137,23 @@ public class CompleteController extends HttpServlet {
 
         //km_cart_delete
         KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
+
         kmProductCartService.deleteCarts(ordUid);
+        //km_cart_delete 완료------------------------
+
 
         //km_member point 변화
         KmMemberService memberService = KmMemberService.instance;
-        KmMemberPointService kmMemberPointService= KmMemberPointService.INSTANCE;
+        KmMemberPointService kmMemberPointService = KmMemberPointService.INSTANCE;
 
         int point = productOrderDTO.getSavePoint() - productOrderDTO.getUsedPoint();
 
-        memberService.updatePoint(ordUid,point);
+        memberService.updatePoint(ordUid, point);
+        //km_member point 변화 완료------------------------
+
+        //km_member_point 테이블 insert
+        kmMemberPointService.insertKmMemberPoint(point, lastOrderNo, ordUid);
+
 
         //개별 데이터 List로 view에 전달
         req.setAttribute("kmProductOrderItemDTOS", kmProductOrderItemDTOS);

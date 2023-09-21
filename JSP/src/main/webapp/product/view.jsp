@@ -3,7 +3,7 @@
 <script>
     $(document).ready(function () {
         const success = ${success};
-        if(success==100){
+        if (success == 100) {
             alert('장바구니에 물건을 담았습니다.');
         }
 
@@ -12,10 +12,14 @@
         const minus = $('.decrease')[0]
         const plus = $('.increase')[0]
 
-        const discountPrice =${kmProduct.discountPrice}
-        const price =${kmProduct.price}
-        const point =${kmProduct.point}
-        const delivery =${kmProduct.delivery}
+        const discountPrice =
+        ${kmProduct.discountPrice}
+        const price =
+        ${kmProduct.price}
+        const point =
+        ${kmProduct.point}
+        const delivery =
+        ${kmProduct.delivery}
         const totalPrice = $('.totalPrice')[0]
 
 
@@ -25,7 +29,7 @@
         const newPoint = $('input[name=point]')
 
 
-        let newTotalPrice = 0;
+        let newTotalPrice = ${kmProduct.total};
 
         //수량 변경시 formAction의 데이터 및 화면의 데이터 수정
         minus.addEventListener('click', function () {
@@ -49,21 +53,53 @@
         })
 
 
-
         const formAction = $('#formAction')
 
         $('.order').on('click', function (e) {
             e.preventDefault()
-            formAction.attr("action","${ctxPath}/product/order.do");
+            formAction.attr("action", "${ctxPath}/product/order.do");
             formAction.submit();
         })
 
+
+        ////////////////////////////////////////////////////////////////////////
+        // 카드 담기(동적 이벤트 바인딩 처리 -> 동적 생성되는 새로운 댓글목록 삭제링크가 동작함)
+        ////////////////////////////////////////////////////////////////////////
 
         $('.cart').on('click', function (e) {
             e.preventDefault();
-            formAction.attr("action","${ctxPath}/product/view.do");
-            formAction.submit();
+            if (!confirm('정말 장바구니에 담으시겠습니까?')) {
+                return;
+            }
+            const params = new URLSearchParams({
+                'prodNo': ${kmProduct.prodNo},
+                'uid': '${sessUser.uid}',
+                'count': parseInt(num.val()),
+                'price': ${kmProduct.price},
+                'discount': ${kmProduct.discount},
+                'delivery': ${kmProduct.delivery},
+                'total': newTotalPrice,
+                'point': ${kmProduct.point},
+                'cate1': ${kmProduct.prodCate1},
+                'cate2': ${kmProduct.prodCate2},
+            });
+            fetch('${ctxPath}/product/view.do', {
+                method: 'POST',
+                body: params
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('data : ' + data);
+
+                    if (data.result > 0) {
+                        alert('장바구니에 담았습니다.');
+                    } else {
+                        alert('장바구니 담기가 실패 했습니다.');
+                    }
+
+                })
         })
+
     })
 </script>
 <main id="product">
@@ -87,7 +123,7 @@
         <!-- 상품 전체 정보 내용 -->
         <article class="info">
             <div class="image">
-                <img src="https://via.placeholder.com/460x460" alt="상품이미지"/>
+                <img src="${ctxPath}${kmProduct.thumb3}" alt="상품이미지"/>
             </div>
             <div class="summary">
                 <nav>
@@ -153,8 +189,10 @@
                     <input type="button" class="cart" value="장바구니"/>
                     <input type="button" class="order" value="구매하기"/>
                 </div>
-                <form action = "${ctxPath}/product/view.do" method="post" id="formAction">
+                <form action="${ctxPath}/product/view.do" method="post" id="formAction">
                     <input type="hidden" name="prodNo" value="${kmProduct.prodNo}"/>
+                    <input type="hidden" name="prodName" value="${kmProduct.prodName}"/>
+                    <input type="hidden" name="descript" value="${kmProduct.descript}"/>
                     <input type="hidden" name="uid" value="${sessUser.uid}"/>
                     <input type="hidden" name="count" value="1"/>
                     <input type="hidden" name="price" value="${kmProduct.price}"/>
@@ -162,9 +200,9 @@
                     <input type="hidden" name="delivery" value="${kmProduct.delivery}"/>
                     <input type="hidden" name="total" value="${kmProduct.total}"/>
                     <input type="hidden" name="point" value="${kmProduct.point}">
-                    <input type="hidden" name="type" value="view"/>
                     <input type="hidden" name="cate1" value="${cate1}">
                     <input type="hidden" name="cate2" value="${cate2}">
+                    <input type="hidden" name="type" value="order">
                 </form>
             </div>
 
@@ -175,9 +213,7 @@
                 <h1>상품정보</h1>
             </nav>
             <!-- 상품상세페이지 이미지 -->
-            <img src="https://via.placeholder.com/860x460" alt="상세페이지1">
-            <img src="https://via.placeholder.com/860x460" alt="상세페이지2">
-            <img src="https://via.placeholder.com/860x460" alt="상세페이지3">
+            <img src="${ctxPath}${kmProduct.detail}" alt="상세페이지1">
         </article>
 
         <!-- 상품 정보 제공 고시 내용 -->
@@ -306,19 +342,19 @@
                 <c:if test="${empty kmProductReviews}">
                     상품평이 없습니다.
                 </c:if>
-<%--
-                <li>
-                    <div>
-                        <h5 class="rating star4">상품평</h5>
-                        <span>seo******	2018-07-10</span>
-                    </div>
-                    <h3>상품명1/BLUE/L</h3>
-                    <p>
-                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                    </p>
-                </li>--%>
+                <%--
+                                <li>
+                                    <div>
+                                        <h5 class="rating star4">상품평</h5>
+                                        <span>seo******	2018-07-10</span>
+                                    </div>
+                                    <h3>상품명1/BLUE/L</h3>
+                                    <p>
+                                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
+                                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
+                                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
+                                    </p>
+                                </li>--%>
             </ul>
             <div class="paging">
             <span class="prev">
@@ -332,7 +368,7 @@
                 <span class="num">
                 <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}"
-                      class="num ${currentPage == i?'current':'off'}">${i}</a>
+                      class="num ${currentPage == i?'on':'off'}">${i}</a>
                 </c:forEach>
             </span>
                 <span class="next">

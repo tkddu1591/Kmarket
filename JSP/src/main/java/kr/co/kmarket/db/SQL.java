@@ -44,6 +44,7 @@ public class SQL {
 
     //----------------------------km_member_point-----------------------
 
+
 	public static final String INSERT_POINT = "INSERT INTO Kmarket.km_member_point ( uid, ordNo, point, pointDate)\n" +
 			"VALUES (?, ?, ?, NOW())";
 
@@ -55,6 +56,7 @@ public class SQL {
 
 	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
 	public static final String UPDATE_POINT = "UPDATE `km_member` SET `point`=point+? WHERE `uid`=?";
+
 
 
 
@@ -147,7 +149,7 @@ public class SQL {
 	public static final String INSERT_CART = "INSERT INTO `km_product_cart` SET uid = ?, prodNo =?, count=?, price =?, discount =?, point =?, delivery =?, total = ?, rdate=?;";
 	public static final String DELETE_CART = "DELETE FROM `km_product_cart` WHERE cartNo =?;";
 	public static final String DELETE_CART_UID = "DELETE FROM `km_product_cart` WHERE uid =?;";
-	public static final String SELECT_CARTS = "SELECT a.*, kp.prodName as prodName,kp.descript as descript  FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;";
+	public static final String SELECT_CARTS = "SELECT a.*, kp.prodName as prodName,kp.descript as descript ,kp.thumb1 as thumb1 FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;";
 	public static final String SELECT_CART_COUNT_PROD = "SELECT COUNT(a.prodNo) as count FROM km_product_cart as a WHERE prodNo = ? ;";
 	public static final String UPDATE_CART_COUNT = "UPDATE `km_product_cart` SET count = count+?, total = (price*(100-discount))/100*count + delivery WHERE prodNo =?;";
 

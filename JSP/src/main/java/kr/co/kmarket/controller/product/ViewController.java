@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.product;
 
+import com.google.gson.JsonObject;
 import kr.co.kmarket.dao.KmProductDAO;
 import kr.co.kmarket.dao.KmProductReviewDAO;
 import kr.co.kmarket.dto.KmProductCartDTO;
@@ -32,17 +33,31 @@ public class ViewController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String prodNo = req.getParameter("prodNo");
+        req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
+        int cate1 = Integer.parseInt(req.getParameter("cate1"));
+        int cate2 = Integer.parseInt(req.getParameter("cate2"));
+
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
 
+        req.setAttribute("cate1",cate1);
+        req.setAttribute("cate2",cate2);
 
+        req.setAttribute("c1Name",sessCoates1Map.get(cate1));
+        if(cate2!=0) {
+            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
+        }
         PageService pageService = PageService.getInstance();
         KmProductService kmProductService = KmProductService.getInstance();
 
         KmProductDTO kmProductDTO = kmProductService.selectProduct(prodNo);
 
+        logger.info(kmProductDTO.getThumb1());
+        logger.info(kmProductDTO.getThumb2());
+        logger.info(kmProductDTO.getThumb3());
+        logger.info(kmProductDTO.getDetail());
 
         req.setAttribute("kmProduct", kmProductDTO);
 
@@ -99,6 +114,7 @@ public class ViewController extends HttpServlet {
         HttpSession session = req.getSession();
         int cate1 = Integer.parseInt(req.getParameter("cate1"));
         int cate2 = Integer.parseInt(req.getParameter("cate2"));
+
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
@@ -106,9 +122,9 @@ public class ViewController extends HttpServlet {
         req.setAttribute("cate1",cate1);
         req.setAttribute("cate2",cate2);
 
-        req.setAttribute("cate1Name",sessCoates1Map.get(cate1));
+        req.setAttribute("c1Name",sessCoates1Map.get(cate1));
         if(cate2!=0) {
-            req.setAttribute("cate2Name", sessCoates2Map.get(cate1).get(cate2));
+            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
         }
         // 현재 날짜/시간
         Date rDate = Calendar.getInstance().getTime();
@@ -119,6 +135,8 @@ public class ViewController extends HttpServlet {
         // 포맷팅 적용
         String formatedNow = formatter.format(rDate);
 
+
+        int result =0;
         int prodNo = Integer.parseInt(req.getParameter("prodNo"));
         int count = Integer.parseInt(req.getParameter("count"));
         KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
@@ -126,13 +144,14 @@ public class ViewController extends HttpServlet {
         int check = 0;
         check = kmProductCartService.selectCartCountProd(prodNo);
         KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
+
+        kmProductCartDTO.setProdNo(prodNo);
         if(check>0) {
             //카트에 동일 물품이 있을 때 숫자만 늘림
-            kmProductCartService.updateCartCount(prodNo, count);
+            result = kmProductCartService.updateCartCount(prodNo, count);
         }else {
             //카트에 동일 물품이 없을 때,
             kmProductCartDTO.setUid(req.getParameter("uid"));
-            kmProductCartDTO.setProdNo(prodNo);
             kmProductCartDTO.setCount(count);
             kmProductCartDTO.setPrice(req.getParameter("price"));
             kmProductCartDTO.setDiscount(req.getParameter("discount"));
@@ -141,9 +160,14 @@ public class ViewController extends HttpServlet {
             kmProductCartDTO.setTotal(req.getParameter("total"));
             kmProductCartDTO.setrDate(formatedNow);
 
-            kmProductCartService.insertCart(kmProductCartDTO);
+            result = kmProductCartService.insertCart(kmProductCartDTO);
         }
 
-        resp.sendRedirect("/JSP/product/view.do?success=100&prodNo=" + kmProductCartDTO.getProdNo() + "&cate1=" + cate1 + "&cate2=" + cate2);
+
+        // JSON 출력
+        JsonObject json = new JsonObject();
+        json.addProperty("result", result);
+        resp.getWriter().print(json);
+
     }
 }

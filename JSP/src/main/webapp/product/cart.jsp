@@ -142,6 +142,9 @@
             }
         })
 
+
+
+
     })
 </script>
 <main id="product">
@@ -167,7 +170,7 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" name="all" id="all"></th>
-                        <th>상품명${empty kmProductCartDTOS}</th>
+                        <th>상품명</th>
                         <th>총수량</th>
                         <th>판매가</th>
                         <th>할인</th>
@@ -190,9 +193,10 @@
                                     <td><input type="checkbox" class="cartData" value="${dto}" name="dto" checked></td>
                                     <input type="hidden" name="prodName" value="${dto.prodName}">
                                     <input type="hidden" name="descript" value="${dto.descript}">
+                                    <input type="hidden" name="thumb1" value="${dto.thumb1}">
                                     <td>
                                         <article>
-                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img src="https://via.placeholder.com/80x80" alt=""></a>
+                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img src="${ctxPath}${dto.thumb1}" alt="상품이미지"></a>
                                             <div>
                                                 <h2><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}">${dto.prodName}</a></h2>
                                                 <p>${dto.descript}</p>
