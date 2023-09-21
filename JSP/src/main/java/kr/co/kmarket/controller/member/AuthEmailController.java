@@ -42,18 +42,43 @@ public class AuthEmailController extends HttpServlet{
 			if(result == 1) { 
 				status = service.sendCodeByEmail(email);
 			}
+		}else if(type.equals("FIND_PASS")) {
 			
-			// JSON 생성
-			JsonObject json = new JsonObject();
-			json.addProperty("result", result);
-			json.addProperty("status", status);
-			logger.debug("result : " + result + "/ status : " + status);
-			// JSON 출력
-			PrintWriter writer = resp.getWriter(); // resp로 전송해야지
-			writer.print(json.toString());
+			result = service.selectCountUidAndEmail(uid, email);
+			
+			if(result == 1) {
+				status = service.sendCodeByEmail(email);
+			}
 		}
 		
-		// dopost 로 인증완료 작성할 것
+		// JSON 생성 / if절의 각 경우에 따라
+		JsonObject json = new JsonObject();
+		json.addProperty("result", result);
+		json.addProperty("status", status);
+		logger.debug("result : " + result + "/ status : " + status);
+		
+		// JSON 출력
+		PrintWriter writer = resp.getWriter(); // resp로 전송해야지
+		writer.print(json.toString());
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String code = req.getParameter("code");
+		logger.info("code : " + code);
+		
+		int result = service.confirmCodeByEmail(code);
+		logger.info("result : " + result);
+		
+		// JSON 생성
+		JsonObject json = new JsonObject();
+		json.addProperty("result", result);
+		
+		// JSON 출력
+		PrintWriter writer = resp.getWriter();
+		writer.print(json.toString());
+		
 	}
 
 }

@@ -39,6 +39,7 @@ public class SQL {
 	public static final String SELECT_COUNT_HP = "SELECT COUNT(*) FROM `km_member` WHERE `hp`=?";
 	public static final String SELECT_COUNT_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `email`=?";
 	public static final String SELECT_COUNT_NAME_AND_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `name`=? AND `email`=?";
+	public static final String SELECT_COUNT_UID_AND_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `uid`=? AND `email`=?";
 
 
     //----------------------------km_member_point-----------------------
