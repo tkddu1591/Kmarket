@@ -189,8 +189,8 @@ public class SQL {
 	public final static String SELECT_CSCATE1S_BY_TYPE2 	= "SELECT * FROM `km_cs_cate1` WHERE `cate1`>=20";
 	public final static String SELECT_CSCATE1S_ALL	= "SELECT * FROM `km_cs_cate1`";
 	public final static String SELECT_CSCATE2S_BY_CATE1 	= "SELECT * FROM `km_cs_cate2` WHERE `cate1`=?";
-	public static final String SELECT_CSCATE1_C1NAME = "SELECT `c1Name` FROM `km_cs_cate1 WHERE `cate1`=?";
-	public static final String SELECT_CSCATE2_C2NAME = "SELECT `c1Name` FROM `km_cs_cate2 WHERE `cate1`=? AND `cate2`=?";
+	public static final String SELECT_CSCATE1_C1NAME = "SELECT `c1Name` FROM `km_cs_cate1` WHERE `cate1`=?";
+	public static final String SELECT_CSCATE2_C2NAME = "SELECT `c1Name` FROM `km_cs_cate2` WHERE `cate1`=? AND `cate2`=?";
 
 	// km_cs_qna
 	public final static String INSERT_CSQNA_QUESTION 		= "INSERT INTO `km_cs_qna` SET "
@@ -259,10 +259,20 @@ public class SQL {
 																+ "WHERE `parent`=0 AND a.cate1=? "
 																+ "ORDER BY `qnaNo` DESC "
 																+ "LIMIT ?, 10";
-	public final static String SELECT_CSQNA_MAX_NO = "SELECT MAX(`qnaNo`) FROM `km_cs_qna`";
-	public final static String SELECT_CSQNA_COUNT = "SELECT count(*) FROM `km_cs_qna`";
-	public final static String SELECT_CSQNA_COUNT_BY_CATE1 = "SELECT count(*) FROM `km_cs_qna` WHERE `cate1`=?";
-
+	public final static String SELECT_CSQNA_MAX_NO = "SELECT MAX(`qnaNo`) FROM `km_cs_qna` WHERE `parent` = 0";
+	public final static String SELECT_CSQNA_COUNT = "SELECT count(*) FROM `km_cs_qna` WHERE `parent` = 0";
+	public final static String SELECT_CSQNA_COUNT_BY_CATE1 = "SELECT count(*) FROM `km_cs_qna` WHERE `cate1`=?  AND `parent` = 0";
+	public final static String SELECT_CSQNA_LATESTS = """
+															SELECT 
+																 a.*, b.`name`, c.`c1Name`, d.`c2Name` 
+																 FROM `km_cs_qna` AS a 
+																 JOIN `km_member` AS b ON a.writer=b.uid 
+																 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+																 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+																 WHERE `parent`=0 
+																 ORDER BY `qnaNo` DESC 
+																 LIMIT ?
+													""";
 
 	public final static String UPDATE_CSQNA		= "UPDATE `km_cs_qna` SET "
 																	+ "`title` = ?, "
@@ -277,7 +287,64 @@ public class SQL {
 	public final static String UPDATE_CSQNA_ANSWERCOMPLETE	= "UPDATE `km_cs_qna` SET `answerComplete` = ? WHERE `qnaNo` = ?";
 
 	public static final String DELETE_CSQNA = "DELETE FROM `km_cs_qna` WHERE `qnaNo`=?";
+	
+	// km_cs_notice
+	public final static String INSERT_CSNOTICE 		= "INSERT INTO `km_cs_notice` SET "
+																		+ "`cate1` = ?, "
+																		+ "`cate2` = ?, "
+																		+ "`title` = ?, "
+																		+ "`content` = ?, "
+																		+ "`writer` = ?, "
+																		+ "`regip`=?, "
+																		+ "`rdate`=NOW()";
+	public static final String SELECT_CSNOTICE = """
+												SELECT 
+												 a.*, c.`c1Name`, d.`c2Name` 
+												 FROM `km_cs_notice` AS a 
+												 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+												 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 
+												 WHERE `noticeNo`=?
+												""";
 
+	public static final String SELECT_CSNOTICES = """
+																SELECT 
+																 a.*, c.`c1Name`, d.`c2Name` 
+																 FROM `km_cs_notice` AS a 
+																 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+																 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+																 ORDER BY `noticeNo` DESC 
+																 LIMIT ?, 10
+																 """;
+	public static final String SELECT_CSNOTICES_BY_CATE1 = "SELECT "
+																+ "a.*, c.`c1Name`, d.`c2Name`"
+																+ "FROM `km_cs_notice` AS a "
+																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 "
+																+ "WHERE a.`cate1`=? "
+																+ "ORDER BY `noticeNo` DESC "
+																+ "LIMIT ?, 10";
+	public final static String SELECT_CSNOTICE_MAX_NO = "SELECT MAX(`noticeNo`) FROM `km_cs_notice`";
+	public final static String SELECT_CSNOTICE_COUNT = "SELECT count(*) FROM `km_cs_notice`";
+	public final static String SELECT_CSNOTICE_COUNT_BY_CATE1 = "SELECT count(*) FROM `km_cs_notice` WHERE `cate1`=?";
+	public static final String SELECT_CSNOTICE_LATEST = """
+																SELECT 
+																 a.*, c.`c1Name`, d.`c2Name` 
+																 FROM `km_cs_notice` AS a 
+																 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+																 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+																 ORDER BY `noticeNo` DESC 
+																 LIMIT ?
+																 """;
 
+	public final static String UPDATE_CSNOTICE		= """
+													UPDATE `km_cs_notice` SET 
+																 `cate1` = ?, 
+																 `cate2` = ?, 
+																 `title` = ?, 
+																 `content` = ?
+																 WHERE `noticeNo` = ?
+															""";
+	
+	public static final String DELETE_CSNOTICE = "DELETE FROM `km_cs_notice` WHERE `noticeNo`=?";
 
 }

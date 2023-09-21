@@ -513,7 +513,7 @@
   #cs > .notice > .list > article > table a {
     font-size: 16px;
   }
-  
+  /*
   #cs > .notice > .list > article > .page {
     text-align: center;
     margin-top: 26px;
@@ -545,7 +545,7 @@
     border-radius: 17px;
     color: #fff;
   }
-  
+  */
   /* notice - ê¸€ë³´ê¸° */
   #cs > .notice > .view {}
   #cs > .notice > .view > article {}
@@ -881,47 +881,6 @@
     font-size: 16px;
   }
   
-  #cs > .qna > .list > article > .page {
-    text-align: center;
-    margin-top: 26px;
-  }
-  #cs > .qna > .list > article > .page > a {
-    display: inline-block;
-    width: 34px;
-    height: 34px;        
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 34px;
-    font-size: 13px;
-    font-weight: bold;        
-    vertical-align: bottom;
-  }
-  #cs > .qna > .list > article > .page > .prevOn {
-    font-size: 0;
-    background-image: url('../images/cs_sprites.png');
-    background-position: -550px -652px;
-  }
-  #cs > .qna > .list > article > .page > .prevOff {
-    font-size: 0;
-    background-image: url('../images/cs_sprites.png');
-    background-position: -706px -652px;
-  }
-  #cs > .qna > .list > article > .page > .nextOn {
-    font-size: 0;
-    background-image: url('../images/cs_sprites.png');
-    background-position: -628px -652px;
-  }
-  #cs > .qna > .list > article > .page > .nextOff {
-    font-size: 0;
-    background-image: url('../images/cs_sprites.png');
-    background-position: -784px -652px;
-  }
-  #cs > .qna > .list > article > .page > .num {}
-  #cs > .qna > .list > article > .page > .on {
-    background: #006cff;
-    border-radius: 17px;
-    color: #fff;
-  }
   
   /* qna - ê¸€ë³´ê¸° */
   #cs > .qna > .view {}
@@ -945,6 +904,32 @@
     color: #777;        
     margin-left:2px;
   }
+  
+  
+  #cs > .qna > .view > article > .qnaView  > .answerStatus {
+    width: 100%;
+    height: 100%;        
+    border-bottom: 1px solid #e9e9e9;
+    padding: 10px 26px;
+    box-sizing: border-box;
+    font-size : 16px;
+  }
+  
+  #cs > .qna > .view > article > .qnaView  > .answer-0 {
+    color: #aaa;
+  }
+  #cs > .qna > .view > article > .qnaView  > .answer-1{
+    color: red;
+  }
+  #cs > .qna > .view > article > .qnaView  > .answer-1 > span {
+    display:block;
+    font-size : 12px;
+    color:#aaa;
+  }
+  #cs > .qna > .view > article > .qnaView  > .answer-2 {
+    color: blue;
+  }
+  
   
   #cs > .qna > .view > article > .qnaView  > .content {
     width: 100%;
@@ -1108,3 +1093,49 @@
    /* content: "\f146"; */
    content: "[ 삭제 ]";
 }
+
+
+/* paging */
+
+
+ #cs > div > .list > article > .page {
+   text-align: center;
+   margin-top: 26px;
+ }
+ #cs > div > .list > article > .page > a {
+   display: inline-block;
+   width: 34px;
+   height: 34px;        
+   box-sizing: border-box;
+   text-align: center;
+   line-height: 34px;
+   font-size: 13px;
+   font-weight: bold;        
+   vertical-align: bottom;
+ }
+ #cs > div > .list > article > .page > .prevOn {
+   font-size: 0;
+   background-image: url('../images/cs_sprites.png');
+   background-position: -550px -652px;
+ }
+ #cs > div > .list > article > .page > .prevOff {
+   font-size: 0;
+   background-image: url('../images/cs_sprites.png');
+   background-position: -706px -652px;
+ }
+ #cs > div > .list > article > .page > .nextOn {
+   font-size: 0;
+   background-image: url('../images/cs_sprites.png');
+   background-position: -628px -652px;
+ }
+ #cs > div > .list > article > .page > .nextOff {
+   font-size: 0;
+   background-image: url('../images/cs_sprites.png');
+   background-position: -784px -652px;
+ }
+ #cs > div > .list > article > .page > .num {}
+ #cs > div > .list > article > .page > .on {
+   background: #006cff;
+   border-radius: 17px;
+   color: #fff;
+ }

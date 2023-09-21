@@ -9,6 +9,7 @@
    <aside>
      <h2><a href="${ctxPath}/cs/qna/write.do">문의하기</a></h2>
      <ul>
+       <li class="${cate1 eq '0'? 'on' : ''}"><a href="${ctxPath}/cs/qna/list.do?cate1=0">전체</a></li>
        <li class="${cate1 eq '20'? 'on' : ''}"><a href="${ctxPath}/cs/qna/list.do?cate1=20">회원</a></li>
        <li class="${cate1 eq '21'? 'on' : ''}"><a href="${ctxPath}/cs/qna/list.do?cate1=21">쿠폰/혜택/이벤트</a></li>
        <li class="${cate1 eq '22'? 'on' : ''}"><a href="${ctxPath}/cs/qna/list.do?cate1=22">주문/결제</a></li>

@@ -5,26 +5,12 @@
           <section class="notice">
             <h1>공지사항<a href="${ctxPath}/cs/notice/list.do">전체보기</a></h1>
             <ul>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
+            	<c:forEach var="notice" items="${latestNotices}">
+	              <li>
+	                <a href="${ctxPath}/cs/notice/view.do?no=${notice.noticeNo}" class="title">[${notice.c1Name}] ${notice.title}</a>
+	                <span class="date">${notice.rdateSub}</span>
+	              </li>
+              	</c:forEach>
             </ul>
           </section>
         
@@ -62,41 +48,15 @@
               <a href="${ctxPath}/cs/qna/list.do">전체보기</a>
             </h1>
             <ul>
-              <li>
-                <a href="./qna/list.html" class="title">[회원] 개인회원과 법인회원에 차이가 있나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[쿠폰/이벤트] 스마일포인트는 어디에 사용하나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[주문/결제] 신용카드 결제 중 오류가 난 경우 어떻게 하나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[배송] 주문한 상품은 언제 배송되나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[취소/반품/교환] 주문을 취소하고 싶어요.</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
+           		<c:forEach var="qna" items="${latestQnas}">
+	              <li>
+	                <a href="${ctxPath}/cs/qna/view.do?no=${qna.qnaNo}" class="title">[${qna.c1Name}] ${qna.title}</a>
+	                <p>
+	                	<span class="uid">${qna.writerMarking}</span>
+	                	<span class="date">${qna.rdateSub}</span>
+	                </p>
+	              </li>
+             	</c:forEach>
             </ul>
             <a href="${ctxPath}/cs/qna/write.do" class="ask">문의글 작성 ></a>
           </section>
