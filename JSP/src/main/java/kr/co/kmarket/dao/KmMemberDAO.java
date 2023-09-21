@@ -225,6 +225,7 @@ public class KmMemberDAO extends DBHelper{
 			if(rs.next()) {
 				result = rs.getInt(1);
 			}
+			close();
 		}catch (Exception e) {
 			logger.error("selectCountNameAndEmail() : " + e.getMessage());
 		}

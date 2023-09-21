@@ -9,8 +9,8 @@ public enum KmProductCartService {
     INSTANCE;
     private KmProductCartDAO kmProductCartDao = KmProductCartDAO.getInstance();
 
-    public void insertCart(KmProductCartDTO kmProductCartDTO) {
-        kmProductCartDao.insertCart(kmProductCartDTO);
+    public int insertCart(KmProductCartDTO kmProductCartDTO) {
+        return kmProductCartDao.insertCart(kmProductCartDTO);
     }
 
     public void deleteCartUid(String uid){
@@ -29,8 +29,8 @@ public enum KmProductCartService {
         return kmProductCartDao.selectCartCountProd(prodNo);
     }
 
-    public void updateCartCount(int prodNo, int count) {
-        kmProductCartDao.updateCartCount(prodNo, count);
+    public int updateCartCount(int prodNo, int count) {
+        return kmProductCartDao.updateCartCount(prodNo, count);
     }
 
     public void deleteCarts(String ordUid) {

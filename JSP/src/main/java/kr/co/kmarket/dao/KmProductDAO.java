@@ -278,7 +278,7 @@ public class KmProductDAO extends DBHelper {
 				dto.setOrigin(rs.getString(20));
 				
 			}
-			
+			close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

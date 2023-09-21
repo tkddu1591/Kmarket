@@ -10,6 +10,7 @@
             .replace(/[^0-9]/g, '')
             .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
     }
+
     //max point 넘겨서 사용 하려 할 시 변환
     const point = parseInt(${sessUser.point})
     const maxPoint = (target) => {
@@ -23,27 +24,34 @@
         total = $('input[name=ordTotPrice]').val()
         total = total.replace(",", "");
         total = parseInt(total);
+
+
+
+
         const discountPoint = document.getElementsByClassName('discountPoint')[0]
         const discountPointBut = document.getElementsByClassName('discountPointBut')[0]
         let usePoint = 0;
         const newTotal = document.getElementsByClassName('total')[0]
         discountPointBut.addEventListener('click', (e) => {
             usePoint = parseInt($('input[name=usedPoint]').val());
-            if (usePoint >= 5000) {
+            //포인트 체크
+            if (usePoint < 5000) {
+                alert('최소 5,000원 이상의 금액을 입력해주세요.')
+            } else if(total-usePoint < 0){
+                alert('전체 주문금액 보다 큰 금액 사용은 불가능합니다.')
+            }else{
                 discountPoint.innerText = '-' + usePoint.toLocaleString()
                 console.log(total - usePoint)
                 newTotal.innerText = (total - usePoint).toLocaleString()
                 $('input[name=ordTotPrice]').val(total - usePoint);
-            } else {
-                alert('최소 5,000원 이상의 금액을 입력해주세요.')
             }
         })
 
 
         // 폼 데이터 검증결과 상태변수
         let isRecipNameOk = true;
-        let isRecipHpOk = false;
-        let isRecipAddrOk = false;
+        let isRecipHpOk = true;
+        let isRecipAddrOk = true;
         let isOrdPaymentOk = false;
 
         // 데이터 검증에 사용하는 정규표현식
@@ -156,9 +164,10 @@
                                 <input type="hidden" class="orderData" value="${item}" name="dto">
                                 <input type="hidden" value="${item.descript}" name="descript">
                                 <input type="hidden" value="${item.prodName}" name="prodName">
+                                <input type="hidden" value="${item.thumb1}" name="thumb1">
                                 <article>
                                     <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img
-                                            src="https://via.placeholder.com/80x80" alt=""></a>
+                                            src="${ctxPath}${item.thumb1}" alt="상품이미지"></a>
                                     <div>
                                         <h2>
                                             <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}">${item.prodName}</a>
@@ -221,41 +230,41 @@
             </div>
             <!-- 배송정보 -->
             <article class="delivery">
-                <h1>배송정보<span> * 표시는 반드시 입력해주세요.</span></h1>
+                <h1>배송정보</h1>
                 <table>
                     <tr>
                         <td>주문자</td>
                         <td><input type="text" name="orderer" value="${sessUser.name}" readonly/></td>
                     </tr>
                     <tr>
-                        <td>* 수령인</td>
+                        <td>수령인</td>
                         <td><input type="text" name="recipName" value="${sessUser.name}"/></td>
                     </tr>
                     <tr>
-                        <td>* 휴대폰</td>
+                        <td>휴대폰</td>
                         <td>
                             <input type="text" oninput="hypenTel(this)" name="recipHp"
-                                   minlength="13" maxlength="13"/>
+                                   minlength="13" maxlength="13" value="${sessUser.hp}"/>
                             <span class="resultHp"></span>
                         </td>
                     </tr>
                     <tr>
-                        <td>* 우편번호</td>
+                        <td>우편번호</td>
                         <td>
-                            <input type="text" name="recipZip" readonly value="주소를 검색해주세요."/>
+                            <input type="text" name="recipZip" readonly value="${sessUser.zip}"/>
                             <input type="button" value="검색" onclick="zipcode()"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>* 기본주소</td>
+                        <td>기본주소</td>
                         <td>
-                            <input type="text" name="recipAddr1" readonly/>
+                            <input type="text" name="recipAddr1" readonly value="${sessUser.addr1}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>상세주소</td>
                         <td>
-                            <input type="text" name="recipAddr2"/>
+                            <input type="text" name="recipAddr2" value="${sessUser.addr2}"/>
                         </td>
                     </tr>
                 </table>
@@ -267,7 +276,7 @@
                     <p>현재 포인트 : <span>${sessUser.pointWithComma}</span>점</p>
                     <label>
                         <input type="text" name="usedPoint" onkeyup="maxPoint(this)"
-                               maxlength="${fn:length(sessUser.pointWithComma)}" value="0"/>점
+                               maxlength="${fn:length(sessUser.pointWithComma)}"/>점
                         <input type="button" value="적용" class="discountPointBut"/>
                     </label>
                     <span>포인트 5,000점 이상이면 현금처럼 사용 가능합니다.</span>

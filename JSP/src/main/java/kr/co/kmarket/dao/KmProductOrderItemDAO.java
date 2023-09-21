@@ -27,6 +27,7 @@ public class KmProductOrderItemDAO extends DBHelper {
             psmt.setInt(8, kmProductOrderItemDTO.getTotal());
             psmt.executeUpdate();
 
+            close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

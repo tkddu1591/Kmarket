@@ -41,7 +41,7 @@
                             <input type="hidden" class="orderData" value="${item}" name="dto">
                             <article>
                                 <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img
-                                        src="https://via.placeholder.com/80x80" alt=""></a>
+                                        src="${ctxPath}${item.thumb1}" alt="상품이미지"></a>
                                 <div>
                                     <h2>
                                         <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}">${item.prodName}</a>
@@ -159,4 +159,4 @@
     <!-- 결제완료 페이지 끝 -->
 </main>
 
-<%@ include file="_footer.jsp" %>
+<%@ include file="../_footer.jsp" %>

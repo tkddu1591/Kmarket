@@ -14,6 +14,24 @@ public class KmProductOrderItemDTO {
     private int delivery;
     private int total;
 
+    private String thumb1;
+
+    public String getThumb1() {
+        return thumb1;
+    }
+
+    public void setThumb1(String thumb1) {
+        this.thumb1 = thumb1;
+    }
+
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(int discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
     private int discountPrice;
 
     public String getDiscountPriceWithComma() {
@@ -53,12 +71,20 @@ public class KmProductOrderItemDTO {
         this.prodNo = prodNo;
     }
 
+    public void setProdNo(String prodNo) {
+        this.prodNo = Integer.parseInt(prodNo);
+    }
+
     public int getCount() {
         return count;
     }
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public void setCount(String count) {
+        this.count = Integer.parseInt(count);
     }
 
     public int getPrice() {
@@ -73,6 +99,10 @@ public class KmProductOrderItemDTO {
         this.price = price;
     }
 
+    public void setPrice(String price) {
+        this.price = Integer.parseInt(price);
+    }
+
     public int getDiscount() {
         return discount;
     }
@@ -81,12 +111,20 @@ public class KmProductOrderItemDTO {
         this.discount = discount;
     }
 
+    public void setDiscount(String discount) {
+        this.discount = Integer.parseInt(discount);
+    }
+
     public int getPoint() {
         return point;
     }
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public void setPoint(String point) {
+        this.point = Integer.parseInt(point);
     }
 
     public int getDelivery() {
@@ -100,6 +138,9 @@ public class KmProductOrderItemDTO {
 
     public void setDelivery(int delivery) {
         this.delivery = delivery;
+    }
+    public void setDelivery(String delivery) {
+        this.delivery = Integer.parseInt(delivery);
     }
 
     public int getTotal() {
@@ -117,8 +158,13 @@ public class KmProductOrderItemDTO {
         this.total = total;
     }
 
+    public void setTotal(String total) {
+        this.total = Integer.parseInt(total);
+    }
+
     @Override
     public String toString() {
         return prodNo+","+count+","+price+","+discount+","+point+","+delivery+","+total;
     }
+
 }

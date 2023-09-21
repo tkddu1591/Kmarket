@@ -45,3 +45,5 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,NOW());
 UPDATE `km_member` SET `point`=point+? WHERE `uid`=?
 INSERT INTO Kmarket.km_member_point ( uid, ordNo, point, pointDate)
 VALUES (?, ?, ?, NOW())
+
+SELECT a.*, kp.prodName as prodName,kp.descript as descript ,kp.thumb1 as thumb1 FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;
