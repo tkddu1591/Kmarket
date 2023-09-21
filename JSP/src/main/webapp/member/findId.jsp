@@ -54,7 +54,7 @@
         </p>
 
         <div>
-            <a href="#" class="btn btnCancel">취소</a>
+            <a href="${ctxPath}/member/login.do" class="btn btnCancel">취소</a>
             <a href="#" class="btn btnNext">다음</a> <!-- script 작성으로 a태그를 통해 form 전송한다 -->
         </div>
     </section>
