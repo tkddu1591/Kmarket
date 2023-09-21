@@ -55,6 +55,9 @@ public enum KmCsQnaService {
 	public int selectCsQnaCount(String cate1) {
 		return dao.selectCsQnaCount(cate1);
 	}
+	public List<KmCsQnaDTO> selectLatests(int size){
+		return dao.selectLatests(size);
+	}
 
 	public void updateCsQna(KmCsQnaDTO dto) {
 		dao.updateCsQna(dto);

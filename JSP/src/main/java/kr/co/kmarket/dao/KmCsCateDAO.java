@@ -79,19 +79,21 @@ public class KmCsCateDAO extends DBHelper{
 		String c1Name = null;
 		try {
 			conn = getConnection();
-			if(cate1==null) {
-				return null;
-			} else{
+			//if(cate1==null) {
+			//	return null;
+			//} else{
 				psmt = conn.prepareStatement(SQL.SELECT_CSCATE1_C1NAME);
 				psmt.setString(1, cate1);
-			}
+			//}
 			
+			rs = psmt.executeQuery();	
+				
 			if(rs.next()) {
 				c1Name = rs.getString(1);
 			}
 			close();
 		} catch (Exception e) {
-			logger.error("error selectCSCate1s() :" + e.getMessage());
+			logger.error("error selectCsC1Name() :" + e.getMessage());
 		}
 				
 		return c1Name;

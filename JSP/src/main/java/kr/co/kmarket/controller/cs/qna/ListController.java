@@ -31,9 +31,16 @@ public class ListController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String cate1 = req.getParameter("cate1");
+		String c1Name="";
+		if(cate1 == null) {
+			cate1 = "0";
+		} else {
+			// cate1 이름
+			c1Name = cateService.selectCsC1Name(cate1);
+		}
+		
 		String pg    = req.getParameter("pg");
-		// cate1 이름
-		String c1Name = cateService.selectCsC1Name(cate1);
+		
 
         // 현재 페이지 번호
         int currentPage = pageService.getCurrentPage(pg);
