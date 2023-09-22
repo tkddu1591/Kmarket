@@ -46,7 +46,7 @@
                 <tr>
                     <td>
                         <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}"
-                           class="thumb"><img src="${ctxPath}${dto.thumb1}}" alt="상품이미지"/></a></td>
+                           class="thumb"><img src="${ctxPath}${dto.thumb1}" alt="상품이미지"/></a></td>
                     <td>
                         <h3 class="name">${dto.prodName}</h3>
                         <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}"
