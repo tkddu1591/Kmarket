@@ -103,7 +103,10 @@
             for (let data of totalData) {
                 if (totalCartDatas[no] == '0') {
                     data.innerText = '-';
+
+                    finalData[number].value = 0;
                     no++;
+                    number++;
                     continue;
                 }
                 if (no == 5) {
@@ -220,7 +223,7 @@
                                     <td>${dto.count}</td>
                                         <td>${dto.priceWithComma}</td>
                                     <c:choose>
-                                        <c:when test="${dto.discount ne 0}"><td>${dto.priceWithComma}</td></c:when>
+                                        <c:when test="${dto.discount ne 0}"><td>${dto.discountWithComma}%</td></c:when>
                                         <c:otherwise><td>-</td></c:otherwise>
                                     </c:choose>
                                     <c:choose>

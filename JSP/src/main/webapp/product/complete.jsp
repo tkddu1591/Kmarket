@@ -53,9 +53,7 @@
                             </article>
                         </td>
                         <td>${item.priceWithComma}원</td>
-                        <c:if test="${order.ordDiscount ne 0}">
-                            <td>${item.discountPriceWithComma}원</td>
-                        </c:if>
+                        <td>${item.discountPriceWithComma ne '0' ? item.discountPriceWithComma+='원' : '-'}</td>
                         <td>${item.count}</td>
                         <td>${item.totalWithComma}원</td>
                     </tr>

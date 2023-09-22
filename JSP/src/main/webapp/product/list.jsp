@@ -57,10 +57,12 @@
                             <li>
                                 <ins class="dis-price">${dto.discountPriceWithComma}</ins>
                             </li>
-                            <li>
-                                <del class="org-price">${dto.priceWithComma}</del>
-                                <span class="discount">${dto.discountWithPer}</span>
-                            </li>
+                            <c:if test="${dto.discount ne 0}">
+                                <li>
+                                    <del class="org-price">${dto.priceWithComma}</del>
+                                    <span class="discount">${dto.discountWithPer}</span>
+                                </li>
+                            </c:if>
                             <li><span
                                     class="${dto.delivery eq 0 ? 'free-delivery' : ''}">배송비 ${dto.deliveryWithComma} 원</span>
                             </li>
