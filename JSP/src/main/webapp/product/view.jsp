@@ -36,7 +36,7 @@
             if (num.val() > 1) {
                 num.val(parseInt(num.val()) - 1)
             }
-            newTotalPrice = (delivery + num.val() * discountPrice)
+            newTotalPrice = (delivery + num.val() * discountPrice -  delivery)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
@@ -45,7 +45,7 @@
         plus.addEventListener('click', function () {
             num.val(parseInt(num.val()) + 1)
 
-            newTotalPrice = (num.val() * discountPrice)
+            newTotalPrice = (num.val() * discountPrice -  delivery)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
@@ -181,7 +181,7 @@
                 </div>
 
                 <div class="total">
-                    <span class="totalPrice">${kmProduct.totalWithComma}</span>
+                    <span class="totalPrice">${kmProduct.discountPriceWithComma}</span>
                     <em>총 상품금액</em>
                 </div>
 
