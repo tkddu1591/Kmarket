@@ -359,7 +359,7 @@
             <div class="paging">
             <span class="prev">
                 <c:if test="${pageGroupStart > 1}">
-                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}&"
                        class="start">처음으로</a>
                     <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}"
                        class="prev">이전</a>

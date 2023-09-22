@@ -44,6 +44,7 @@ public class ListController extends HttpServlet {
             condition = "11";
         }
 
+        req.setAttribute("condition",condition);
         KmProductService kmProductService = KmProductService.getInstance();
         PageService pageService = PageService.getInstance();
 

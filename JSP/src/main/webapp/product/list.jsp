@@ -95,23 +95,23 @@
         <div class="paging">
             <span class="prev">
                 <c:if test="${pageGroupStart > 1}">
-                    <a href="${ctxPath}P/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=1"
+                    <a href="${ctxPath}P/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=1&condition=${condition}"
                        class="start">처음으로</a>
-                    <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${pageGroupStart - 1}"
+                    <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${pageGroupStart - 1}&condition=${condition}"
                        class="prev">이전</a>
                 </c:if>
             </span>
             <span class="num">
                 <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
-                   <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${i}&"
+                   <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${i}&condition=${condition}"
                       class="num ${currentPage == i?'on':'off'}">${i}</a>
                 </c:forEach>
             </span>
             <span class="next">
                 <c:if test="${pageGroupEnd < lastPageNum}">
-                    <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${pageGroupEnd + 1}"
+                    <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${pageGroupEnd + 1}&condition=${condition}"
                        class="next">다음</a>
-                    <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${lastPageNum}"
+                    <a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&pg=${lastPageNum}&condition=${condition}"
                        class="last">마지막</a>
                 </c:if>
             </span>
