@@ -199,31 +199,31 @@
                 <table border="0">
                     <tr>
                         <td>총</td>
-                        <td>${finalCount} 건</td>
+                        <td>${finalCount eq '0' ? '-' : finalCount} 건</td>
                     </tr>
                     <tr>
                         <td>상품금액</td>
-                        <td>${finalPrice}</td>
+                        <td>${finalPrice  eq '0' ? '-' : finalPrice}</td>
                     </tr>
                     <tr>
                         <td>할인금액</td>
-                        <td>${finalDiscount}</td>
+                        <td>${finalDiscount  eq '0' ? '-' : finalDiscount}</td>
                     </tr>
                     <tr>
                         <td>배송비</td>
-                        <td>${finalDelivery}</td>
+                        <td>${finalDelivery  eq '0' ? '-' : finalDelivery}</td>
                     </tr>
                     <tr>
                         <td>포인트 할인</td>
-                        <td class="discountPoint">0</td>
+                        <td class="discountPoint">-</td>
                     </tr>
                     <tr>
                         <td>포인트 적립</td>
-                        <td>${finalPoint}</td>
+                        <td>${finalPoint  eq '0' ? '-' : finalPoint}</td>
                     </tr>
                     <tr>
                         <td>전체주문금액</td>
-                        <td class="total">${finalTotal}</td>
+                        <td class="total">${finalTotal  eq '0' ? '-' : finalTotal}</td>
                     </tr>
                 </table>
                 <input type="hidden" name="ordTotPrice" value="${finalTotal}">

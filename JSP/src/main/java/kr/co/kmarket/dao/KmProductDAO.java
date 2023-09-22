@@ -42,7 +42,9 @@ public class KmProductDAO extends DBHelper {
 				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
             }else if(kmProductCate2DTO.getCate1()!= 0){
 				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE  prodCate1 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
-			}else {
+			}else if(conditionName[1].equals("0")){
+				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 and "+conditionName[0]+"=? group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10");
+			} else{
 				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
 			}
 
@@ -391,7 +393,9 @@ public class KmProductDAO extends DBHelper {
 			else if(conditionData1==9){
 				st1 = "seller";
 			}
-			if(conditionData2==1){
+			if(conditionData2==0){
+				st2 = "0";
+			}else if(conditionData2==1){
 				st2 = "desc";
 			}else if(conditionData2==2){
 				st2 = "asc";

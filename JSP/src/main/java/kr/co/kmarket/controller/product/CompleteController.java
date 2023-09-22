@@ -121,8 +121,8 @@ public class CompleteController extends HttpServlet {
             kmProductOrderItemDTO.setCount(Integer.parseInt(orderItemData[1]));
             kmProductOrderItemDTO.setPrice(Integer.parseInt(orderItemData[2]));
             kmProductOrderItemDTO.setDiscount(Integer.parseInt(orderItemData[3]));
-            kmProductOrderItemDTO.setDelivery(Integer.parseInt(orderItemData[4]));
-            kmProductOrderItemDTO.setPoint(Integer.parseInt(orderItemData[5]));
+            kmProductOrderItemDTO.setDelivery(Integer.parseInt(orderItemData[5]));
+            kmProductOrderItemDTO.setPoint(Integer.parseInt(orderItemData[4]));
             kmProductOrderItemDTO.setTotal(Integer.parseInt(orderItemData[6]));
             kmProductOrderItemDTO.setProdName(prodName[i]);
             kmProductOrderItemDTO.setDescript(descript[i]);
