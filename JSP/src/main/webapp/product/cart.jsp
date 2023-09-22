@@ -83,8 +83,8 @@
                     termCartDatas = cart.value.split(',', 10)
                     console.log(cart.value)
                     for (let i = 4; i <= 8; i++) {
-                        if(i == 4 || i== 7){
-                            totalCartDatas[i] += parseInt(termCartDatas[i])*parseInt(termCartDatas[3]);
+                        if (i == 4 || i == 7) {
+                            totalCartDatas[i] += parseInt(termCartDatas[i]) * parseInt(termCartDatas[3]);
                             continue
                         }
                         totalCartDatas[i] += parseInt(termCartDatas[i]);
@@ -96,12 +96,12 @@
             const totalData = document.getElementsByClassName("totalData");
             const finalData = document.getElementsByClassName("finalData")
             let no = 3;
-            let number =0;
+            let number = 0;
             let count = 0;
             for (let data of totalData) {
                 if (no == 5) {
                     data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
-                    finalData[number].value ='-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
+                    finalData[number].value = '-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
                     number++;
                     no++;
                     continue;
@@ -109,7 +109,7 @@
                 if (no == 7) {
 
                     data.innerText = totalCartDatas[no].toLocaleString() + ' P';
-                    finalData[number].value = totalCartDatas[no].toLocaleString() +' P';
+                    finalData[number].value = totalCartDatas[no].toLocaleString() + ' P';
                     number++;
                     no++;
                     continue;
@@ -141,8 +141,12 @@
                 alert('삭제되었습니다.')*/
             }
         })
+        $('input[name="order"]').click(function (e){
 
-
+            if(!confirm('주문하시겠습니까?')){
+                e.preventDefault();
+            }
+        })
 
 
     })
@@ -196,9 +200,12 @@
                                     <input type="hidden" name="thumb1" value="${dto.thumb1}">
                                     <td>
                                         <article>
-                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img src="${ctxPath}${dto.thumb1}" alt="상품이미지"></a>
+                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img
+                                                    src="${ctxPath}${dto.thumb1}" alt="상품이미지"></a>
                                             <div>
-                                                <h2><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}">${dto.prodName}</a></h2>
+                                                <h2>
+                                                    <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}">${dto.prodName}</a>
+                                                </h2>
                                                 <p>${dto.descript}</p>
                                             </div>
                                         </article>
@@ -208,53 +215,57 @@
                                     <td>${dto.discount}%</td>
                                     <td>${dto.pointWithComma}</td>
                                     <td>${empty dto.delivery ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
-                                    <td><p>${dto.totalWithComma}</p><p>${dto.point*dto.count} P</p></td>
+                                    <td><p>${dto.totalWithComma}</p>
+                                        <p>${dto.point*dto.count} P</p></td>
                                 </tr>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
                 </tbody>
             </table>
-            <input type="button" name="del" value="선택삭제">
 
-            <!-- 장바구니 전체합계 -->
-            <div class="total">
-                <h2>전체합계</h2>
-                <table border="0">
-                    <tr>
-                        <td>상품수</td>
-                        <td class="totalData">1</td>
-                    </tr>
-                    <tr>
-                        <td>상품금액</td>
-                        <td class="totalData">27,000</td>
-                    </tr>
-                    <tr>
-                        <td>할인금액</td>
-                        <td class="totalData">-1,000</td>
-                    </tr>
-                    <tr>
-                        <td>배송비</td>
-                        <td class="totalData">0</td>
-                    </tr>
-                    <tr>
-                        <td>포인트적립</td>
-                        <td class="totalData">260</td>
-                    </tr>
-                    <tr>
-                        <td>전체주문금액</td>
-                        <td class="totalData">26,000</td>
-                    </tr>
-                </table>
-                <input class="final" type="submit" name="" value="주문하기">
-                <input class="finalData" type="hidden" name="finalCount" value="0"/>
-                <input class="finalData" type="hidden" name="finalPrice" value="0"/>
-                <input class="finalData" type="hidden" name="finalDiscount" value="0"/>
-                <input class="finalData" type="hidden" name="finalDelivery" value="0"/>
-                <input class="finalData" type="hidden" name="finalPoint" value="0"/>
-                <input class="finalData" type="hidden" name="finalTotal" value="0"/>
+            <c:if test="${not empty kmProductCartDTOS}">
+                <input type="button" name="del" value="선택삭제">
 
-            </div>
+                <!-- 장바구니 전체합계 -->
+                <div class="total">
+                    <h2>전체합계</h2>
+                    <table border="0">
+                        <tr>
+                            <td>상품수</td>
+                            <td class="totalData">1</td>
+                        </tr>
+                        <tr>
+                            <td>상품금액</td>
+                            <td class="totalData">27,000</td>
+                        </tr>
+                        <tr>
+                            <td>할인금액</td>
+                            <td class="totalData">-1,000</td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td class="totalData">0</td>
+                        </tr>
+                        <tr>
+                            <td>포인트적립</td>
+                            <td class="totalData">260</td>
+                        </tr>
+                        <tr>
+                            <td>전체주문금액</td>
+                            <td class="totalData">26,000</td>
+                        </tr>
+                    </table>
+                    <input class="final" type="submit" name="order" value="주문하기">
+                    <input class="finalData" type="hidden" name="finalCount" value="0"/>
+                    <input class="finalData" type="hidden" name="finalPrice" value="0"/>
+                    <input class="finalData" type="hidden" name="finalDiscount" value="0"/>
+                    <input class="finalData" type="hidden" name="finalDelivery" value="0"/>
+                    <input class="finalData" type="hidden" name="finalPoint" value="0"/>
+                    <input class="finalData" type="hidden" name="finalTotal" value="0"/>
+
+                </div>
+            </c:if>
         </form>
 
     </section>

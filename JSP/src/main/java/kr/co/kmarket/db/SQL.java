@@ -56,6 +56,7 @@ public class SQL {
 
 	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
 	public static final String UPDATE_POINT = "UPDATE `km_member` SET `point`=point+? WHERE `uid`=?";
+	public static final String UPDATE_PRODUCT= "UPDATE `km_product` SET `hit`=hit+?, stock=stock-? WHERE `prodNo`=?";
 
 
 

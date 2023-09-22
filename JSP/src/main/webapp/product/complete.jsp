@@ -31,7 +31,9 @@
                 <tr>
                     <th>상품명</th>
                     <th>상품금액</th>
-                    <th>할인금액</th>
+                    <c:if test="${order.ordDiscount ne 0}">
+                        <th>할인금액</th>
+                    </c:if>
                     <th>수량</th>
                     <th>주문금액</th>
                 </tr>
@@ -51,29 +53,40 @@
                             </article>
                         </td>
                         <td>${item.priceWithComma}원</td>
-                        <td>${item.discountPriceWithComma}원</td>
+                        <c:if test="${order.ordDiscount ne 0}">
+                            <td>${item.discountPriceWithComma}원</td>
+                        </c:if>
                         <td>${item.count}</td>
                         <td>${item.totalWithComma}원</td>
                     </tr>
                 </c:forEach>
 
                 <tr class="total">
-                    <td colspan="4"></td>
+                    <c:choose>
+                        <c:when test="${order.ordDiscount ne 0}">
+                            <td colspan="4"></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td colspan="3"></td>
+                        </c:otherwise>
+                    </c:choose>
                     <td>
                         <table border="0">
                             <tr>
                                 <td>총 상품금액</td>
                                 <td><span>${order.ordPriceWithComma}</span>원</td>
                             </tr>
-                            <tr>
-                                <td>할인금액</td>
-                                <td><span>-${order.ordDiscountWithComma}</span>원</td>
-                            </tr>
+                            <c:if test="${order.ordDiscount ne 0}">
+                                <tr>
+                                    <td>할인금액</td>
+                                    <td><span>-${order.ordDiscountWithComma}</span>원</td>
+                                </tr>
+                            </c:if>
                             <c:if test="${order.usedPoint ne '0'}">
-                            <tr>
-                                <td>사용포인트</td>
-                                <td>-<span>${order.usedPointWithComma}</span>P</td>
-                            </tr>
+                                <tr>
+                                    <td>사용포인트</td>
+                                    <td>-<span>${order.usedPointWithComma}</span>P</td>
+                                </tr>
                             </c:if>
                             <tr>
                                 <td>배송비</td>
@@ -160,4 +173,4 @@
 </main>
 
 
-<%@ include file="_footer.jsp" %>
+<%@ include file="../_footer.jsp" %>
