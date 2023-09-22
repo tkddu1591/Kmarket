@@ -26,6 +26,8 @@
         total = parseInt(total);
 
 
+
+
         const discountPoint = document.getElementsByClassName('discountPoint')[0]
         const discountPointBut = document.getElementsByClassName('discountPointBut')[0]
         let usePoint = 0;
@@ -35,9 +37,9 @@
             //포인트 체크
             if (usePoint < 5000) {
                 alert('최소 5,000원 이상의 금액을 입력해주세요.')
-            } else if (total - usePoint < 0) {
+            } else if(total-usePoint < 0){
                 alert('전체 주문금액 보다 큰 금액 사용은 불가능합니다.')
-            } else {
+            }else{
                 discountPoint.innerText = '-' + usePoint.toLocaleString()
                 console.log(total - usePoint)
                 newTotal.innerText = (total - usePoint).toLocaleString()
@@ -117,6 +119,8 @@
                 return false; // 폼 전송 취소
             }
 
+
+
             if (!confirm('결제하시겠습니까?')) {
                 e.preventDefault();
             } else {
@@ -150,9 +154,7 @@
                         <th>상품명</th>
                         <th>총수량</th>
                         <th>판매가</th>
-                        <c:if test="${finalDiscount ne 0}">
-                            <th>할인</th>
-                        </c:if>
+                        <th>할인</th>
                         <th>배송비</th>
                         <th>소계</th>
                     </tr>
@@ -181,10 +183,7 @@
                             </td>
                             <td>${item.count}</td>
                             <td>${item.priceWithComma}</td>
-
-                            <c:if test="${finalDiscount ne 0}">
-                                <td>${item.discount}%</td>
-                            </c:if>
+                            <td>${item.discount}%</td>
                             <td>${item.deliveryWithComma}</td>
                             <td><p>${item.totalWithComma}</p>
                                 <p>${item.point * item.count} P</p></td>
@@ -204,12 +203,10 @@
                         <td>상품금액</td>
                         <td>${finalPrice}</td>
                     </tr>
-                    <c:if test="${finalDiscount ne 0}">
-                        <tr>
-                            <td>할인금액</td>
-                            <td>${finalDiscount}</td>
-                        </tr>
-                    </c:if>
+                    <tr>
+                        <td>할인금액</td>
+                        <td>${finalDiscount}</td>
+                    </tr>
                     <tr>
                         <td>배송비</td>
                         <td>${finalDelivery}</td>
