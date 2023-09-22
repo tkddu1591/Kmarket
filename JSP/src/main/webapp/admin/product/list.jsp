@@ -89,7 +89,7 @@
 						 <c:forEach var="dto" items="${kmProductDTOS}">
                         <tr>
                             <td><input type="checkbox" name="상품코드"/></td>
-                            <td><img src="../img/sample_thumb.jpg" class="thumb"></td>
+                            <td><img src="${ctxPath += dto.thumb1}" class="thumb1"></td>
                             <td>${dto.prodNo}</td>
                             <td>${dto.prodName}</td>
                             <td>${dto.priceWithComma}</td>
