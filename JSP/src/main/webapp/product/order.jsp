@@ -183,7 +183,9 @@
                             </td>
                             <td>${item.count}</td>
                             <td>${item.priceWithComma}</td>
+
                             <td>${item.discount}%</td>
+
                             <td>${item.deliveryWithComma}</td>
                             <td><p>${item.totalWithComma}</p>
                                 <p>${item.point * item.count} P</p></td>
