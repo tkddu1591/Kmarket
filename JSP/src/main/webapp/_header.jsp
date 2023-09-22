@@ -130,7 +130,7 @@
                             <li><a href="#">사용후기</a></li>
                             <li><a href="#">개인결제</a></li>
                             <li><a href="${ctxPath}/cs/">고객센터</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="${ctxPath}/cs/faq/list.do?cate1=20">FAQ</a></li>
                         </ul>
                     </div>
                 </div>
