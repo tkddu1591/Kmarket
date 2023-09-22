@@ -182,7 +182,7 @@
                             <td>${item.count}</td>
                             <td>${item.priceWithComma}</td>
 
-                            <c:if test="${finalDiscount ne 0}">
+                            <c:if test="${finalDiscount ne 0}"> 
                                 <td>${item.discount}%</td>
                             </c:if>
                             <td>${item.deliveryWithComma}</td>
