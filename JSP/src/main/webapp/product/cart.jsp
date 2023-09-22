@@ -100,8 +100,8 @@
             let count = 0;
             for (let data of totalData) {
                 if (no == 5) {
-                    data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
-                    finalData[number].value = '-' + (totalCartDatas[4] - totalCartDatas[8]).toLocaleString();
+                    data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8]+totalCartDatas[6]).toLocaleString();
+                    finalData[number].value = '-' + (totalCartDatas[4] - totalCartDatas[8]+totalCartDatas[6]).toLocaleString();
                     number++;
                     no++;
                     continue;

@@ -103,7 +103,7 @@ public class KmProductDTO {
         this.total = total;
     }
     public void setTotal(int discountPrice, int delivery) {
-        this.total = (discountPrice+delivery);
+        this.total = (discountPrice);
     }
     public int getTotal() {
         return total;
