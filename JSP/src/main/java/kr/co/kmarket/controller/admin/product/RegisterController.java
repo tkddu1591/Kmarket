@@ -47,20 +47,6 @@ public class RegisterController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*
-		resp.setContentType("text/html");
-		PrintWriter out = resp.getWriter();
-		
-		String uploadPath = getServletContext().getRealPath("/") + File.separator + "uploads";
-		
-		File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-		
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        */
 		String uploadPath = kpService.getFilePath(req);
 		MultipartRequest mr = kpService.uploadFile(req, uploadPath);  
 	
