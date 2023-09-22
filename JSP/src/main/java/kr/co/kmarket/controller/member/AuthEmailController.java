@@ -40,14 +40,14 @@ public class AuthEmailController extends HttpServlet{
 			
 			// 회원가입된 이메일인지 DB에서 select 하고, 존재하면 인증코드 전송한다
 			if(result == 1) { 
-				status = service.sendCodeByEmail(email);
+				status = service.sendCodeByEmail(email); // service.sendCodeByEmail(email); 이렇게만 있어서, status를 안 받아줘서 계속 status=0 으로 인식을 못했던 것임
 			}
 		}else if(type.equals("FIND_PASS")) {
 			
 			result = service.selectCountUidAndEmail(uid, email);
 			
 			if(result == 1) {
-				status = service.sendCodeByEmail(email);
+				status = service.sendCodeByEmail(email); 
 			}
 		}
 		

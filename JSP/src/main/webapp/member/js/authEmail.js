@@ -50,7 +50,7 @@ $(function(){
 						$('.resultEmail').css('color', 'red').text('이미 사용중인 이메일 입니다.'); // .resultEmail은 회원가입페이지에서 class 지정하는 경우에 있고, Kmarket에는 없음
 						isEmailOk = false;
 						
-						if(data.status > 0){ // status = 0으로 계속 됐었는데, 1로 어떻게 받았지?? 뭘 수정한거지??
+						if(data.status > 0){ // status = 0으로 계속 됐었는데, 1로 어떻게 받았지?? 뭘 수정한거지?? / AuthEmailController에서 service.sendCodeByEmail(email)를 status로 받게 수정!!!
 							$('.resultEmailForId').css('color', 'green').text('이메일을 확인 후 인증코드를 입력하세요.');
 							$('.resultEmailForPass').css('color', 'green').text('이메일을 확인 후 인증코드를 입력하세요.');
 							$('input[name=auth]').prop('disabled', false);
