@@ -83,6 +83,8 @@
                     termCartDatas = cart.value.split(',', 10)
                     console.log(cart.value)
                     for (let i = 4; i <= 8; i++) {
+                        if (termCartDatas[i] == '0') {
+                        }
                         if (i == 4 || i == 7) {
                             totalCartDatas[i] += parseInt(termCartDatas[i]) * parseInt(termCartDatas[3]);
                             continue
@@ -99,9 +101,14 @@
             let number = 0;
             let count = 0;
             for (let data of totalData) {
+                if (totalCartDatas[no] == '0') {
+                    data.innerText = '-';
+                    no++;
+                    continue;
+                }
                 if (no == 5) {
-                    data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8]+totalCartDatas[6]).toLocaleString();
-                    finalData[number].value = '-' + (totalCartDatas[4] - totalCartDatas[8]+totalCartDatas[6]).toLocaleString();
+                    data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8] + totalCartDatas[6]).toLocaleString();
+                    finalData[number].value = '-' + (totalCartDatas[4] - totalCartDatas[8] + totalCartDatas[6]).toLocaleString();
                     number++;
                     no++;
                     continue;
@@ -141,9 +148,9 @@
                 alert('삭제되었습니다.')*/
             }
         })
-        $('input[name="order"]').click(function (e){
+        $('input[name="order"]').click(function (e) {
 
-            if(!confirm('주문하시겠습니까?')){
+            if (!confirm('주문하시겠습니까?')) {
                 e.preventDefault();
             }
         })
@@ -211,10 +218,16 @@
                                         </article>
                                     </td>
                                     <td>${dto.count}</td>
-                                    <td>${dto.priceWithComma}</td>
-                                    <td>${dto.discount}%</td>
-                                    <td>${dto.pointWithComma}</td>
-                                    <td>${empty dto.delivery ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
+                                        <td>${dto.priceWithComma}</td>
+                                    <c:choose>
+                                        <c:when test="${dto.discount ne 0}"><td>${dto.priceWithComma}</td></c:when>
+                                        <c:otherwise><td>-</td></c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${dto.point ne 0}"><td>${dto.priceWithComma}</td></c:when>
+                                        <c:otherwise><td>-</td></c:otherwise>
+                                    </c:choose>
+                                    <td>${dto.delivery eq 0 ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
                                     <td><p>${dto.totalWithComma}</p>
                                         <p>${dto.point*dto.count} P</p></td>
                                 </tr>
