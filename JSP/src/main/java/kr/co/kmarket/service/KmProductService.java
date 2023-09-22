@@ -19,7 +19,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class KmProductService {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static KmProductService INSTANCE = new KmProductService();
 	private static KmProductDAO dao = KmProductDAO.getInstance();
@@ -140,4 +140,7 @@ public class KmProductService {
 	}
 
 
+	public void updateProductHit(int count, int prodNo) {
+		dao.updateProductHit(count, prodNo);
+	}
 }

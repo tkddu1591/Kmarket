@@ -24,19 +24,18 @@ public class KmProductOrderItemDTO {
         this.thumb1 = thumb1;
     }
 
-    public int getDiscountPrice() {
-        return discountPrice;
-    }
-
-    public void setDiscountPrice(int discountPrice) {
-        this.discountPrice = discountPrice;
-    }
 
     private int discountPrice;
 
     public String getDiscountPriceWithComma() {
         DecimalFormat df = new DecimalFormat("###,###");
         return df.format((price*discount/100));
+    }
+    private int discountPriceTotal;
+
+    public String getDiscountPriceTotalWithComma() {
+        DecimalFormat df = new DecimalFormat("###,###");
+        return df.format(price-(price*discount/100));
     }
 
     public String getDescript() {

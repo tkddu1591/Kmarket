@@ -405,4 +405,18 @@ public class KmProductDAO extends DBHelper {
 			 * */
 			return new String[]{st1, st2};
 		}
+
+    public void updateProductHit(int count, int prodNo) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT);
+			psmt.setInt(1, count);
+			psmt.setInt(2, count);
+			psmt.setInt(3, prodNo);
+			psmt.executeUpdate();
+			close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+    }
 }
