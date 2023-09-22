@@ -36,7 +36,7 @@
             if (num.val() > 1) {
                 num.val(parseInt(num.val()) - 1)
             }
-            newTotalPrice = (delivery + num.val() * discountPrice -  delivery)
+            newTotalPrice = (delivery + num.val() * discountPrice - delivery)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
@@ -45,7 +45,7 @@
         plus.addEventListener('click', function () {
             num.val(parseInt(num.val()) + 1)
 
-            newTotalPrice = (num.val() * discountPrice -  delivery)
+            newTotalPrice = (num.val() * discountPrice - delivery)
             totalPrice.innerText = newTotalPrice.toLocaleString();
 
             count.val(parseInt(num.val()))
@@ -152,10 +152,12 @@
                 </nav>
 
                 <nav>
-                    <div class="org_price">
-                        <del>${kmProduct.priceWithComma}</del>
-                        <span>${kmProduct.discountWithPer}</span>
-                    </div>
+                    <c:if test="${kmProduct.discount ne 0}">
+                        <div class="org_price">
+                            <del>${kmProduct.priceWithComma}</del>
+                            <span>${kmProduct.discountWithPer}</span>
+                        </div>
+                    </c:if>
                     <div class="dis_price">
                         <ins>${kmProduct.discountPriceWithComma}</ins>
                     </div>
