@@ -13,12 +13,12 @@
 	
 	        <c:if test="${dto.answerComplete eq 0}">
 		        <div class="answerStatus answer-0">
-		        	[상태] 대기
+		        	[상태] 대기중
 		        </div>
 	        </c:if>
 	        <c:if test="${dto.answerComplete eq 1}">
 		        <div class="answerStatus answer-1">
-		        	[상태] 검토 중 
+		        	[상태] 검토중 
 		        	<span>* 검토 중인 질문은 수정/삭제가 제한됩니다.</span>
 		        </div>
 	        </c:if>

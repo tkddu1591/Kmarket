@@ -189,7 +189,7 @@ public class SQL {
 	public final static String SELECT_CSCATE1S_ALL	= "SELECT * FROM `km_cs_cate1`";
 	public final static String SELECT_CSCATE2S_BY_CATE1 	= "SELECT * FROM `km_cs_cate2` WHERE `cate1`=?";
 	public static final String SELECT_CSCATE1_C1NAME = "SELECT `c1Name` FROM `km_cs_cate1` WHERE `cate1`=?";
-	public static final String SELECT_CSCATE2_C2NAME = "SELECT `c1Name` FROM `km_cs_cate2` WHERE `cate1`=? AND `cate2`=?";
+	public static final String SELECT_CSCATE2_C2NAMES = "SELECT `c2Name` FROM `km_cs_cate2` WHERE `cate1`=?";
 
 	// km_cs_qna
 	public final static String INSERT_CSQNA_QUESTION 		= "INSERT INTO `km_cs_qna` SET "
@@ -345,5 +345,77 @@ public class SQL {
 															""";
 	
 	public static final String DELETE_CSNOTICE = "DELETE FROM `km_cs_notice` WHERE `noticeNo`=?";
+	// km_cs_notice
+	public final static String INSERT_CSFAQ 		= "INSERT INTO `km_cs_faq` SET "
+																		+ "`cate1` = ?, "
+																		+ "`cate2` = ?, "
+																		+ "`title` = ?, "
+																		+ "`content` = ?, "
+																		+ "`relatedFaq` = ?, "
+																		+ "`writer` = ?, "
+																		+ "`regip`=?, "
+																		+ "`rdate`=NOW()";
+	public static final String SELECT_CSFAQ = """
+												SELECT 
+												 a.*, c.`c1Name`, d.`c2Name` 
+												 FROM `km_cs_faq` AS a 
+												 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+												 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 
+												 WHERE `faqNo`=?
+												""";
 
+	public static final String SELECT_CSFAQS = """
+																SELECT 
+																 a.*, c.`c1Name`, d.`c2Name` 
+																 FROM `km_cs_faq` AS a 
+																 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+																 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+																 ORDER BY `faqNo` DESC 
+																 LIMIT ?, 10
+																 """;
+	public static final String SELECT_CSFAQS_BY_CATE2 = "SELECT "
+																+ "a.*, c.`c1Name`, d.`c2Name`"
+																+ "FROM `km_cs_faq` AS a "
+																+ "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 "
+																+ "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 "
+																+ "WHERE a.`cate1`=? AND a.`cate2`=? "
+																+ "ORDER BY `faqNo` ASC ";
+	public final static String SELECT_CSFAQ_MAX_NO = "SELECT MAX(`faqNo`) FROM `km_cs_faq`";
+
+
+	public final static String UPDATE_CSFAQ		= """
+													UPDATE `km_cs_faq` SET 
+																 `cate1` = ?, 
+																 `cate2` = ?, 
+																 `title` = ?, 
+																 `content` = ?
+																 WHERE `faqNo` = ?
+															""";
+	public static final String DELETE_CSFAQ = "DELETE FROM `km_cs_faq` WHERE `faqNo`=?";
+
+	// km_cs_faq_rate
+	public final static String INSERT_CSFAQRATE 		= "INSERT INTO `km_cs_faq_rate` SET "
+																		+ "`faqNo` = ?, "
+																		+ "`uid` = ?, "
+																		+ "`rate` = ?";
+	public static final String SELECT_CSFAQRATE = """
+													SELECT 
+													 * 
+													 FROM `km_cs_faq_rate`
+													 WHERE `faqNo`=? AND `uid`=?
+													""";
+
+	public static final String SELECT_CSFAQRATES_BY_NO = """
+							SELECT
+							 COUNT(CASE WHEN `rate`=0 THEN 1 END) AS 'Y',
+							 COUNT(CASE WHEN `rate`=1 THEN 1 END) AS 'N'
+							 FROM `km_cs_faq_rate`
+							 WHERE `faqNo`=?;
+							 """;
+
+	public final static String UPDATE_CSFAQRATE		= """
+												UPDATE `km_cs_faq_rate` SET 
+															 `rate` = ?
+															 WHERE `faqNo` = ? AND `uid`=?
+														""";
 }
