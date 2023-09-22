@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.kmarket.db.DBHelper;
 import kr.co.kmarket.dto.KmCsNoticeDTO;
-import kr.co.kmarket.dto.KmCsQnaDTO;
 import kr.co.kmarket.db.SQL;
 
 public class KmCsNoticeDAO extends DBHelper{
@@ -172,9 +171,11 @@ public class KmCsNoticeDAO extends DBHelper{
 		try { 
 			conn = getConnection();
 			psmt = conn.prepareStatement(SQL.UPDATE_CSNOTICE);
-			psmt.setString(1, dto.getTitle());
-			psmt.setString(2, dto.getContent());
-			psmt.setInt(9, dto.getNoticeNo());
+			psmt.setInt(1, dto.getCate1());
+			psmt.setInt(2, dto.getCate2());
+			psmt.setString(3, dto.getTitle());
+			psmt.setString(4, dto.getContent());
+			psmt.setInt(5, dto.getNoticeNo());
 			psmt.executeUpdate();
 			
 			close();

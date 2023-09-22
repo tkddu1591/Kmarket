@@ -103,10 +103,8 @@ public enum KmCsQnaService {
 			List<FileItem> items = fileUpload.parseRequest(req);
 			for (FileItem item : items) {
 				if (item.isFormField()) {
-					logger.debug(String.format("[파일형식이 아닌 파라미터] 파라미터명: %s, 파일 명: %s, 파일크기: %s bytes <br>", item.getFieldName(), item.getString(), item.getSize()));
 					inputs.put(item.getFieldName(), item.getString());
 				} else {
-					logger.debug(String.format("[파일형식 파라미터] 파라미터명: %s, 파일 명: %s, 파일 크기: %s bytes <br>", item.getFieldName(), item.getName(), item.getSize()));
 					if (item.getSize() > 0) {
 						String separator = File.separator;
 						int index = item.getName().lastIndexOf(separator);

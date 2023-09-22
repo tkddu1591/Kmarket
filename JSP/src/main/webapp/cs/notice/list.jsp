@@ -4,12 +4,12 @@
       <article>
         <nav>
            	<c:if test="${cate1 eq '0'}">
-           		<h1>문의게시판</h1>
-           		<h2>전체 문의 내용입니다.</h2>
+           		<h1>전체</h1>
+           		<h2>공지사항 전체 내용입니다.</h2>
            	</c:if>
            	<c:if test="${cate1 ne '0'}">  		
               <h1>${c1Name}</h1>
-              <h2>${c1Name}관련 문의 내용입니다.</h2>
+              <h2>${c1Name} 관련 공지사항입니다.</h2>
            	</c:if>
         </nav>
 
@@ -22,7 +22,7 @@
 	   				</a>
 	   			</td>
 	   			<td>
-	   				${notice.rdate}
+	   				${notice.rdateSub}
 	   			</td>
 	   		</tr>
    	       </c:forEach>

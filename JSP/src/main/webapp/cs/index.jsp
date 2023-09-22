@@ -1,5 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
+<script>
+	const success =  new URL(location.href).searchParams.get('success');
+	
+	if(success == 0){
+		alert('잘못된 경로입니다.');
+	} 
+</script>
         <div class="main">
           <h1 class="title"><strong>케이마켓</strong>이 도와드릴게요!</h1>              
           <section class="notice">
@@ -15,29 +22,29 @@
           </section>
         
           <section class="faq">
-            <h1>자주 묻는 질문<a href="${ctxPath}/cs/faq/list.do">전체보기</a>
+            <h1>자주 묻는 질문<a href="${ctxPath}/cs/faq/list.do?cate1=20">전체보기</a>
             </h1>
             <ol>
               <li>
-                <a href="#"><span>회원</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=20"><span>회원</span></a>
               </li>
               <li>
-                <a href="#"><span>쿠폰/이벤트</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=21"><span>쿠폰/이벤트</span></a>
               </li>
               <li>
-                <a href="#"><span>주문/결제</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=22"><span>주문/결제</span></a>
               </li>
               <li>
-                <a href="#"><span>배송</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=23"><span>배송</span></a>
               </li>
               <li>
-                <a href="#"><span>취소/반품/교환</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=24"><span>취소/반품/교환</span></a>
               </li>
               <li>
-                <a href="#"><span>여행/숙박/항공</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=25"><span>여행/숙박/항공</span></a>
               </li>
               <li>
-                <a href="#"><span>안전거래</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=27"><span>기타</span></a>
               </li>
             </ol>
           </section>
