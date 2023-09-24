@@ -1,5 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="./../_header.jsp" %>
+<script>
+	const success =  new URL(location.href).searchParams.get('success');
+	
+	if(success == 0){
+	} else if(success == 100){
+		alert('상품이 정상적으로 삭제되었습니다.');
+	} else if(success == 200){
+		alert('상품이 정상적으로 수정되었습니다.');
+	}	
+</script>
+
         <main>
             <aside>
                 <!-- Global Navigation Bar -->
@@ -91,7 +102,7 @@
                             <td><input type="checkbox" name="상품코드"/></td>
                             <td><img src="${ctxPath += dto.thumb1}" class="thumb1"></td>
                             <td>${dto.prodNo}</td>
-                            <td>${dto.prodName}</td>
+                            <td>${dto.prodName}</td> 
                             <td>${dto.priceWithComma}</td>
                             <td>${dto.discount}</td>
                             <td>${dto.point}</td>
@@ -99,7 +110,8 @@
                             <td>${dto.seller}</td>
                             <td>${dto.hit}</td>
                             <td>
-                                <a href="/admin/product/list.jsp" class="productDelete">[삭제]</a>
+                            	<a href="${ctxPath}/product/delete?prodNo=${dto.prodNo}" class="productDelete">[삭제]</a>
+                               <!--   <a href="/admin/product/list.jsp" class="productDelete">[삭제]</a>-->
                                 <a href="#" class="productRegister">[수정]</a>
                             </td>
                         </tr>
