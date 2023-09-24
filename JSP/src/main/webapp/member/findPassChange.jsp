@@ -20,8 +20,8 @@
 
 <main id="user">
     <section class="find findPassChange">
-        <form id="formFindPassChange" action="/Jboard2/user/findPassChange.do" method="post">
-        	<input type="hidden" name="uid" value="${sessionScope.uid}">
+        <form id="formFindPassChange" action="${ctxPath}/member/findPassChange.do" method="post">
+        	<input type="hidden" name="uid" value="${sessionScope.uid}"> <!-- FindPassController에서 session 만든 걸 여기서 이용하네 -->
             <table border="0">
                 <caption>비밀번호 변경</caption>                        
                 <tr>
@@ -31,14 +31,14 @@
                 <tr>
                     <td>새 비밀번호</td>
                     <td>
-                        <input type="password" name="pass1" placeholder="새 비밀번호 입력"/>
+                        <input type="password" name="km_pass1" placeholder="새 비밀번호 입력"/> <!-- validation.js에서 pass1, pass2가 아니라 km_pass1, km_pass2로 찾는다. -->
                     </td>
                 </tr>
                 <tr>
                     <td>새 비밀번호 확인</td>
                     <td>
-                        <input type="password" name="pass2" placeholder="새 비밀번호 입력 확인"/>
-                        <span class="passResult"></span>
+                        <input type="password" name="km_pass2" placeholder="새 비밀번호 입력 확인"/>
+                        <span class="resultPass"></span> <!-- validation.js에서 resultPass에 글자 표시하는 거 놓치면 안되지! -->
                     </td>
                 </tr>
             </table>                                        
@@ -50,7 +50,7 @@
         </p>
 
         <div>
-            <a href="/Jboard2/user/login.do" class="btn btnCancel">취소</a>
+            <a href="${ctxPath}/member/login.do" class="btn btnCancel">취소</a>
             <a href="#" id="btnPassChange" class="btn btnNext">비밀번호 변경</a>
         </div>
     </section>

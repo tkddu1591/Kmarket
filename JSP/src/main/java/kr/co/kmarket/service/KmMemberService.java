@@ -26,7 +26,7 @@ public enum KmMemberService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private KmMemberDAO dao = new KmMemberDAO();
-	private static String generatedCode; // 인증코드 생성시 필요
+	private static String generatedCode; // 인증코드 생성시 필요, 왜 static(정적변수)??
 	
 public void insertMember(KmMemberDTO dto) {
 		dao.insertMember(dto);
@@ -34,6 +34,10 @@ public void insertMember(KmMemberDTO dto) {
 	
 	public KmMemberDTO selectMember(String uid, String pass) {
 		return dao.selectMember(uid, pass);
+	}
+	
+	public KmMemberDTO selectMemberByUid(String uid) {
+		return dao.selectMemberByUid(uid);
 	}
 	
 	public List<KmMemberDTO> selectMembers() {
@@ -132,6 +136,10 @@ public void insertMember(KmMemberDTO dto) {
 			logger.info("return 0...");
 			return 0;
 		}
+	}
+	
+	public void updatePass(String uid, String pass) {
+		dao.updatePass(uid, pass);
 	}
 
 	public void updatePoint(String ordUid, int point) {
