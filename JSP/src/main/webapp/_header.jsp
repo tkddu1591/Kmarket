@@ -62,10 +62,30 @@
         <script>
             $(function () {
 
+                //탑 배너
                 $('#bannerTop .btnClose').closest('#bannerTop').addClass('on');
                 $('#bannerTop .btnClose').click(function () {
                     $(this).closest('#bannerTop').removeClass('on');
                 });
+
+                //인덱스 슬라이더
+                const sliders = $('.slider>ul>li');
+
+                let i = 0;
+                setInterval(function () {
+                    $(sliders.eq(i)).animate({
+                        'left': '-100%'
+                    }, 5000)
+                    i++
+                    if (i == 3)
+                        i = 0;
+                    $(sliders.eq(i)).css('left', '100%').animate({
+                        'left': '0%'
+                    }, 4900)
+
+
+                }, 10000)
+
             });
 
         </script>
@@ -116,14 +136,19 @@
                     </div>
 
                 </div>
+                <style>
+                    .menuOn > a{
+                        font-weight: bold;
+                    }
+                </style>
                 <div class="menu">
                     <div>
                         <ul>
-                            <li><a href="#">히트상품</a></li>
-                            <li><a href="#">추천상품</a></li>
-                            <li><a href="#">최신상품</a></li>
-                            <li><a href="#">인기상품</a></li>
-                            <li><a href="#">할인상품</a></li>
+                            <li class="${cate1 eq '0' && condition eq '1'  ? 'menuOn' :''}" > <a href="${ctxPath}/product/list.do?condition=1">히트상품</a></li>
+                            <li class="${cate1 eq '0' && condition eq '31' ? 'menuOn' :''}" > <a href="${ctxPath}/product/list.do?condition=31">추천상품</a></li>
+                            <li class="${cate1 eq '0' && condition eq '51' ? 'menuOn' :''}" > <a href="${ctxPath}/product/list.do?condition=51">최신상품</a></li>
+                            <li class="${cate1 eq '0' && condition eq '11' ? 'menuOn' :''}" > <a href="${ctxPath}/product/list.do?condition=11">인기상품</a></li>
+                            <li class="${cate1 eq '0' && condition eq '101'? 'menuOn' :''}" > <a href="${ctxPath}/product/list.do?condition=101">할인상품</a></li>
                         </ul>
                         <ul>
                             <li><a href="#">쿠폰존</a></li>

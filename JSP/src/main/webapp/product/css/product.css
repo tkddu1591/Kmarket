@@ -1429,3 +1429,18 @@
     color: #fe434c;
     font-weight: bold;
 }
+
+#product .soldOut {
+    margin-top: 5px;
+}
+#product .soldOut span {
+    color: #4d4d4d;
+    font-size: 14px;
+}
+#product .soldOut span:nth-of-type(1) {
+    color: #e34858;
+    font-weight: bold;
+}
+#product .soldOut span:nth-of-type(3) {
+    font-size: 12px;
+}

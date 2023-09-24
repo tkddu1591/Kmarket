@@ -12,34 +12,39 @@
         <nav>
             <h1>상품목록</h1>
             <c:choose>
-                <c:when test="${cate2!= 0}">
-                    <p>HOME > <span>${c1Name}</span> > <strong>${c2Name}</strong>
-                    </p>
-                </c:when>
-                <c:otherwise>
-                    <p>HOME > <span>${c1Name}</span></strong>
-                    </p>
+            <c:when test="${cate2!= 0}">
+                <p>HOME > <span>${c1Name}</span> > <strong>${c2Name}</strong>
+                </p>
+            </c:when>
+            <c:when test="${cate1!= 0}">
+                <p>HOME > <span>${c1Name}</span></strong></p>
+            </c:when>
+            <c:otherwise>
+            <p>상품목록
+            <p>
+
                 </c:otherwise>
 
-            </c:choose>
+                </c:choose>
         </nav>
 
         <!-- 정렬 메뉴 -->
-        <ul class="sort">
-            <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=11"
-                   class="${condition eq '11' ? 'on' : ''}">판매많은순</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=22"
-                   class="${condition eq '22' ? 'on' : ''}">낮은가격순</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=21"
-                   class="${condition eq '21' ? 'on' : ''}">높은가격순</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=31"
-                   class="${condition eq '31' ? 'on' : ''}">평점높은순</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=41"
-                   class="${condition eq '41' ? 'on' : ''}">후기많은순</a></li>
-            <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=51"
-                   class="${condition eq '51' ? 'on' : ''}">최근등록순</a></li>
-        </ul>
-
+        <c:if test="${cate1!= 0}">
+            <ul class="sort">
+                <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=11"
+                       class="${condition eq '11' ? 'on' : ''}">판매많은순</a></li>
+                <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=22"
+                       class="${condition eq '22' ? 'on' : ''}">낮은가격순</a></li>
+                <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=21"
+                       class="${condition eq '21' ? 'on' : ''}">높은가격순</a></li>
+                <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=31"
+                       class="${condition eq '31' ? 'on' : ''}">평점높은순</a></li>
+                <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=41"
+                       class="${condition eq '41' ? 'on' : ''}">후기많은순</a></li>
+                <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=51"
+                       class="${condition eq '51' ? 'on' : ''}">최근등록순</a></li>
+            </ul>
+        </c:if>
         <!-- 상품목록 -->
         <table border="0">
             <c:forEach var="dto" items="${KmProductDTOS}">
@@ -66,6 +71,11 @@
                             <li><span
                                     class="${dto.delivery eq 0 ? 'free-delivery' : ''}">배송비 ${dto.deliveryWithComma} 원</span>
                             </li>
+                            <c:if test="${dto.stock <= 20 }">
+                                <li class="soldOut">
+                                    <span>품절임박!!</span>
+                                </li>
+                            </c:if>
                         </ul>
                     </td>
                     <td>

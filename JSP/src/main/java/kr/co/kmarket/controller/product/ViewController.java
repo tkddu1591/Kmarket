@@ -33,31 +33,32 @@ public class ViewController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String prodNo = req.getParameter("prodNo");
-        req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
-        int cate1 = Integer.parseInt(req.getParameter("cate1"));
-        int cate2 = Integer.parseInt(req.getParameter("cate2"));
+        int cate1 = 0;
+        if (req.getParameter("cate1") != null && !req.getParameter("cate1").equals("")) {
+            cate1 = Integer.parseInt(req.getParameter("cate1"));
+
+        }
+        int cate2 = 0;
+        if (req.getParameter("cate2") != null && !req.getParameter("cate2").equals("")) {
+            cate2 = Integer.parseInt(req.getParameter("cate2"));
+
+        }
 
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
-
-
-        req.setAttribute("cate1",cate1);
-        req.setAttribute("cate2",cate2);
 
         req.setAttribute("c1Name",sessCoates1Map.get(cate1));
         if(cate2!=0) {
             req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
         }
+
+
         PageService pageService = PageService.getInstance();
         KmProductService kmProductService = KmProductService.getInstance();
 
         KmProductDTO kmProductDTO = kmProductService.selectProduct(prodNo);
 
-        logger.info(kmProductDTO.getThumb1());
-        logger.info(kmProductDTO.getThumb2());
-        logger.info(kmProductDTO.getThumb3());
-        logger.info(kmProductDTO.getDetail());
 
         req.setAttribute("kmProduct", kmProductDTO);
 
@@ -88,9 +89,11 @@ public class ViewController extends HttpServlet {
         // 현재 페이지 게시물 조회
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
+        //조회수 상승
+        kmProductService.updateProductHit(prodNo);
 
-        req.setAttribute("cate1", kmProductDTO.getProdCate1());
-        req.setAttribute("cate2", kmProductDTO.getProdCate2());
+        req.setAttribute("cate1", cate1);
+        req.setAttribute("cate2", cate2);
         req.setAttribute("prodNo", prodNo);
         req.setAttribute("kmProductReviews", kmProductReviews);
         req.setAttribute("currentPage", currentPage);
@@ -103,6 +106,22 @@ public class ViewController extends HttpServlet {
             success = "0";
         }
         req.setAttribute("success", success);
+
+
+
+        // 현재 날짜/시간
+        Date rDate = new Date();
+
+        //2일 추가
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 2);
+        Date wDate = new Date(cal.getTimeInMillis());
+        // 포맷팅 정의
+        SimpleDateFormat formatter = new SimpleDateFormat("(E) MM/dd");
+
+        // 포맷팅 적용
+        String formatedNow = formatter.format(wDate);
+        req.setAttribute("formatedNow", formatedNow);
 
 
         req.getRequestDispatcher("/product/view.jsp").forward(req, resp);

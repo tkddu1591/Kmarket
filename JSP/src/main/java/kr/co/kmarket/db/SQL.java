@@ -57,6 +57,7 @@ public class SQL {
 	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
 	public static final String UPDATE_POINT = "UPDATE `km_member` SET `point`=point+? WHERE `uid`=?";
 	public static final String UPDATE_PRODUCT= "UPDATE `km_product` SET `sold`=sold+?, stock=stock-? WHERE `prodNo`=?";
+    public static final String UPDATE_PRODUCT_HIT = "UPDATE `km_product` SET `hit`=hit+1 WHERE `prodNo`=?";
 
 
 
@@ -66,7 +67,7 @@ public class SQL {
 
 
 
-	/*
+    /*
      * 조회 쿼리 통합
      *
      * 조건 및 정렬방식 입력시 - 카테고리에 맞는 상품을 조건과 정렬방식을 활용해 DB에서 가져옴.
@@ -107,7 +108,7 @@ public class SQL {
 
 
 
-	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` ";
+	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` where stock>0;";
 	public static final String SELECT_PRODUCTS_COUNT_CATE12 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
 	public static final String SELECT_PRODUCTS_COUNT_CATE1 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate2 = ? and stock>0;";
 
