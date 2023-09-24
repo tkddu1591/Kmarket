@@ -133,7 +133,7 @@ public class CompleteController extends HttpServlet {
             kmProductOrderItemService.insertKmProductOrderItem(kmProductOrderItemDTO);
 
             KmProductService kmProductService = KmProductService.getInstance();
-            kmProductService.updateProductHit(kmProductOrderItemDTO.getCount(),kmProductOrderItemDTO.getProdNo());
+            kmProductService.updateProduct(kmProductOrderItemDTO.getCount(), kmProductOrderItemDTO.getProdNo());
 
         }
 
@@ -153,11 +153,14 @@ public class CompleteController extends HttpServlet {
 
         int point = productOrderDTO.getSavePoint() - productOrderDTO.getUsedPoint();
 
-        memberService.updatePoint(ordUid, point);
-        //km_member point 변화 완료------------------------
+        //변화포인트 0 아닐때에만 작동
+        if (point != 0) {
+            memberService.updatePoint(ordUid, point);
+            //km_member point 변화 완료------------------------
 
-        //km_member_point 테이블 insert
-        kmMemberPointService.insertKmMemberPoint(point, lastOrderNo, ordUid);
+            //km_member_point 테이블 insert
+            kmMemberPointService.insertKmMemberPoint(point, lastOrderNo, ordUid);
+        }
 
 
         //개별 데이터 List로 view에 전달

@@ -7,6 +7,10 @@
             alert('장바구니에 물건을 담았습니다.');
         }
 
+        //유저 로그인 확인 true는 로그인 flase는 비로그인
+        const isUser = ${not empty sessUser}
+
+            console.log(isUser)
         const num = $('input[name=num]')
 
         const minus = $('.decrease')[0]
@@ -30,37 +34,49 @@
 
 
         let newTotalPrice = ${kmProduct.total};
+        const stock = ${kmProduct.stock}
 
-        //수량 변경시 formAction의 데이터 및 화면의 데이터 수정
-        minus.addEventListener('click', function () {
-            if (num.val() > 1) {
-                num.val(parseInt(num.val()) - 1)
-            }
-            newTotalPrice = (delivery + num.val() * discountPrice - delivery)
-            totalPrice.innerText = newTotalPrice.toLocaleString();
+            //수량 변경시 formAction의 데이터 및 화면의 데이터 수정
+            minus.addEventListener('click', function () {
+                //1개 이하로 변경 불가
+                if (num.val() > 1) {
+                    num.val(parseInt(num.val()) - 1)
+                }
+                newTotalPrice = (delivery + num.val() * discountPrice - delivery)
+                totalPrice.innerText = newTotalPrice.toLocaleString();
 
-            count.val(parseInt(num.val()))
-            total.val(newTotalPrice)
-        })
+                count.val(parseInt(num.val()))
+                total.val(newTotalPrice)
+            })
         plus.addEventListener('click', function () {
-            num.val(parseInt(num.val()) + 1)
+            //최대 수량일시 추가 불가
+            console.log(stock)
+            if (parseInt(stock) <= parseInt(num.val())) {
+                alert('상품 최대 수량입니다.')
+            } else {
+                num.val(parseInt(num.val()) + 1)
 
-            newTotalPrice = (num.val() * discountPrice - delivery)
-            totalPrice.innerText = newTotalPrice.toLocaleString();
+                newTotalPrice = (num.val() * discountPrice)
+                totalPrice.innerText = newTotalPrice.toLocaleString();
 
-            count.val(parseInt(num.val()))
-            total.val(newTotalPrice)
+                count.val(parseInt(num.val()))
+                total.val(newTotalPrice)
+            }
         })
 
 
         const formAction = $('#formAction')
 
         $('.order').on('click', function (e) {
-            e.preventDefault()
-            formAction.attr("action", "${ctxPath}/product/order.do");
-            formAction.submit();
-        })
 
+            e.preventDefault()
+            if (isUser == false) {
+                alert('로그인 후 이용 가능합니다.')
+            } else {
+                formAction.attr("action", "${ctxPath}/product/order.do");
+                formAction.submit();
+            }
+        })
 
         ////////////////////////////////////////////////////////////////////////
         // 카드 담기(동적 이벤트 바인딩 처리 -> 동적 생성되는 새로운 댓글목록 삭제링크가 동작함)
@@ -68,6 +84,12 @@
 
         $('.cart').on('click', function (e) {
             e.preventDefault();
+
+            if (isUser == false) {
+                alert('로그인 후 이용 가능합니다.')
+                e.preventDefault()
+            }
+            else{
             if (!confirm('정말 장바구니에 담으시겠습니까?')) {
                 return;
             }
@@ -98,6 +120,7 @@
                     }
 
                 })
+            }
         })
 
     })
@@ -115,9 +138,22 @@
         <!-- 제목, 페이지 네비게이션 -->
         <nav>
             <h1>상품보기</h1>
+            <h1>상품목록</h1>
+            <c:choose>
+            <c:when test="${cate2!= 0}">
+                <p>HOME > <span>${c1Name}</span> > <strong>${c2Name}</strong>
+                </p>
+            </c:when>
+            <c:when test="${cate1!= 0}">
+                <p>HOME > <span>${c1Name}</span></strong></p>
+            </c:when>
+            <c:otherwise>
+            <p>상품목록
             <p>
-                HOME > <span>${c1Name}</span> <c:if test="${not empty c2}">> <strong>${c2Name}</strong></c:if>
-            </p>
+
+                </c:otherwise>
+
+                </c:choose>
         </nav>
 
         <!-- 상품 전체 정보 내용 -->
@@ -161,10 +197,15 @@
                     <div class="dis_price">
                         <ins>${kmProduct.discountPriceWithComma}</ins>
                     </div>
+                    <c:if test="${kmProduct.stock < 20}">
+                        <div class="soldOut">
+                            <span>품절임박!!</span><span> | </span><span> ${kmProduct.stock}개 남았습니다.</span>
+                        </div>
+                    </c:if>
                 </nav>
                 <nav>
                     <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
-                    <span class="arrival">모레(금) 7/8 도착예정</span>
+                    <span class="arrival">모레 ${formatedNow} 도착예정</span>
                     <span class="desc">본 상품은 국내배송만 가능합니다.</span>
                 </nav>
                 <nav>

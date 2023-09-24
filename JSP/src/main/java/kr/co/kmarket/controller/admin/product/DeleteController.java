@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.admin.product;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,27 +19,29 @@ public class DeleteController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+/*
+				tkddu1591: fService, aService 없어서 작동안함.
+
 				String prodNo = req.getParameter("prodNo");
 				logger.debug("prodNo : " + prodNo);
-						
+
 				// 파일 삭제(DB)
 				int result = fService.deleteFile(no);
-				
+
 				// 글 삭제
 				aService.deleteArticle(no);
-						
+
 				// 파일 삭제(Directory)
 				if(result > 0) {
-					
+
 					String path	= aService.getFilePath(req);
-					
+
 					File file = new File(path+"/"+"파일명");
-					
+
 					if(file.exists()) {
 							file.delete();
 					}
-				}
+				}*/
 				// 리다이렉트
 				resp.sendRedirect("/admin/product/list.do");
 			}

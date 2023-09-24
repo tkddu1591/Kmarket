@@ -40,6 +40,9 @@ public class KmProductService {
 		return dao.selectKmProductsCountAll();
 	}
 
+	public List<KmProductDTO> selectProducts(String condition){
+        return dao.selectProducts(condition);
+    }
 
 	//0912 수현님
 
@@ -140,7 +143,11 @@ public class KmProductService {
 	}
 
 
-	public void updateProductHit(int count, int prodNo) {
-		dao.updateProductHit(count, prodNo);
+	public void updateProduct(int count, int prodNo) {
+		dao.updateProduct(count, prodNo);
 	}
+
+    public void updateProductHit(String prodNo) {
+		dao.updateProductHit(prodNo);
+    }
 }

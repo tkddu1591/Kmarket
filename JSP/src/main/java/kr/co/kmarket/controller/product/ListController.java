@@ -22,39 +22,41 @@ import java.util.Map;
 @WebServlet("/product/list.do")
 public class ListController extends HttpServlet {
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(ListController.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
         req.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession();
 
         KmProductCate2DTO kmProductCate2DTO = new KmProductCate2DTO();
-        int cate1 = Integer.parseInt(req.getParameter("cate1"));
-        int cate2 = Integer.parseInt(req.getParameter("cate2"));
+        int cate1 = 0;
+        if (req.getParameter("cate1") != null && !req.getParameter("cate1").equals("")) {
+            cate1 = Integer.parseInt(req.getParameter("cate1"));
 
+        }
+        int cate2 = 0;
+        if (req.getParameter("cate2") != null && !req.getParameter("cate2").equals("")) {
+            cate2 = Integer.parseInt(req.getParameter("cate2"));
+
+        }
         kmProductCate2DTO.setCate1(cate1);
         kmProductCate2DTO.setCate2(cate2);
+
         String pg = req.getParameter("pg");
         String condition = req.getParameter("condition");
-        if(cate2==0) {
-            kmProductCate2DTO.setCate2(0);
-        }
-        if(condition==null || condition.equals("")) {
+        if (condition == null || condition.equals("")) {
             condition = "11";
         }
 
-        req.setAttribute("condition",condition);
+        req.setAttribute("condition", condition);
         KmProductService kmProductService = KmProductService.getInstance();
         PageService pageService = PageService.getInstance();
 
         //카테고리 1, 2 받아오기
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
-
-
-        req.setAttribute("cate1",cate1);
-        req.setAttribute("cate2",cate2);
 
         req.setAttribute("c1Name",sessCoates1Map.get(cate1));
         if(cate2!=0) {
@@ -83,15 +85,15 @@ public class ListController extends HttpServlet {
         List<KmProductDTO> kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
 
 
-        req.setAttribute("cate1", kmProductCate2DTO.getCate1());
-        req.setAttribute("cate2", kmProductCate2DTO.getCate2());
+        req.setAttribute("cate1", cate1);
+        req.setAttribute("cate2", cate2);
         req.setAttribute("condition", condition);
         req.setAttribute("KmProductDTOS", kmProducts);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("lastPageNum", lastPageNum);
         req.setAttribute("pageGroupStart", result[0]);
         req.setAttribute("pageGroupEnd", result[1]);
-        req.setAttribute("pageStartNum", pageStartNum+1);
+        req.setAttribute("pageStartNum", pageStartNum + 1);
 
 
         KmProductCate2Service kmProductCate2Service = KmProductCate2Service.INSTANCE;
