@@ -26,7 +26,7 @@ $(function(){
 		isUidOk = false;
 	});
 	
-	// 비밀번호 검사
+	// 비밀번호 검사 / 회원가입할 때 외에 비밀번호 변경할 때도 쓰인다
 	$('input[name=km_pass2]').focusout(function(){
 		
 		const pass1 = $('input[name=km_pass1]').val();

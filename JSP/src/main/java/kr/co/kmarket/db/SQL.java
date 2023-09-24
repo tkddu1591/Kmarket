@@ -33,6 +33,7 @@ public class SQL {
 
 
 	public static final String SELECT_MEMBER = "SELECT * FROM `km_member` WHERE `uid`=? AND `pass`=SHA2(?, 256)";
+	public static final String SELECT_MEMBER_BY_UID = "SELECT * FROM `km_member` WHERE `uid`=?";
 	public static final String SELECT_MEMBER_BY_NAME_AND_EMAIL = "SELECT * FROM `km_member` WHERE `name`=? AND `email`=?";
 
 	public static final String SELECT_COUNT_UID = "SELECT COUNT(*) FROM `km_member` WHERE `uid`=?";
@@ -41,6 +42,7 @@ public class SQL {
 	public static final String SELECT_COUNT_NAME_AND_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `name`=? AND `email`=?";
 	public static final String SELECT_COUNT_UID_AND_EMAIL = "SELECT COUNT(*) FROM `km_member` WHERE `uid`=? AND `email`=?";
 
+	public static final String UPDATE_PASS = "UPDATE `km_member` SET `pass`=SHA2(?, 256) WHERE `uid`=?"; 
 
     //----------------------------km_member_point-----------------------
 
