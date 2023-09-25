@@ -6,8 +6,8 @@
             <li>
                 <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>환경설정</a>
                 <ol>
-                    <li><a href="./config/info.html">기본환경정보</a></li>
-                    <li><a href="./config/banner.html">배너관리</a></li>
+                    <li><a href="${ctxPath}/config/info.do">기본환경정보</a></li>
+                    <li><a href="${ctxPath}/config/banner.html">배너관리</a></li>
                 </ol>
             </li>
             <li>

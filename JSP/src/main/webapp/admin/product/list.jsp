@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="./../_header.jsp" %>
-
 <%@include file="./../_aside.jsp" %>
-<script>
+<!-- <script>
 	const success =  new URL(location.href).searchParams.get('success');
 	
 	if(success == 0){
@@ -11,9 +10,7 @@
 	} else if(success == 200){
 		alert('상품이 정상적으로 수정되었습니다.');
 	}	
-</script>
-
-
+</script> -->
             <section id="admin-product-list">
                 <nav>
                     <h3>상품목록</h3>
@@ -24,6 +21,8 @@
                
                 <!-- 상품목록 컨텐츠 시작 -->                                
                 <section>
+                	
+                	<form action="${ctxPath}/admin/product/delete.do" method="post">
                     <div>
                         <select name="search">
                             <option value="search1">상품명</option>
@@ -33,7 +32,8 @@
                         </select>
                         <input type="text" name="search">
                     </div>
-                    <table>
+                    <table class="listTable">
+                    	<thead>
                         <tr>
                             <th><input type="checkbox" name="all"/></th>
                             <th>이미지</th>
@@ -47,9 +47,11 @@
                             <th>조회</th>
                             <th>관리</th>
                         </tr>
+                        </thead>
+                        <tbody class="listTbody">
 						 <c:forEach var="dto" items="${kmProductDTOS}">
                         <tr>
-                            <td><input type="checkbox" name="상품코드"/></td>
+                            <td><input type="checkbox" name="chk" value="${dto.prodNo}"/></td>
                             <td><img src="${ctxPath += dto.thumb1}" class="thumb1"></td>
                             <td>${dto.prodNo}</td>
                             <td>${dto.prodName}</td> 
@@ -60,19 +62,17 @@
                             <td>${dto.seller}</td>
                             <td>${dto.hit}</td>
                             <td>
-                                <a href="/admin/product/delete.do?no=${dto.prodNo}" class="productDelete">[삭제]</a>
-                                <a href="/admin/product/update.do?no=${dto.prodNo}"  class="productRegister">[수정]</a>
-
+                                <a href="${ctxPath}/admin/product/delete.do?no=${dto.prodNo}" class="productDelete">[삭제]</a>
+                                <a href="${ctxPath}/admin/product/update.do?no=${dto.prodNo}" class="productRegister">[수정]</a>
                             </td>
                         </tr>
                         </c:forEach>
-                        
+                        </tbody>
                     </table>
 
-                  
-                    	<input type="button" value="선택삭제" method="post" />                          
-                    	
-
+                    	<input type="submit" value="선택삭제" class="deleteAll" />                          
+                    </form>	
+						
                     <div class="paging">              
 			        	<c:if test="${pageGroupStart > 1}">
 			        	<span class="prev">
@@ -90,7 +90,6 @@
 			            	</span>
 			            </c:if>
                     </div>
-
                 </section>                
 
                 

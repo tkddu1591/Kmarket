@@ -362,7 +362,7 @@ public class KmProductDAO extends DBHelper {
 		return products;
 	}
 	
-	public void updateProduct(KmProductDTO dto) {} // update 페이지 만들고 추가할게요
+	// public void updateProduct(KmProductDTO dto) {}
  	public int deleteProduct(int prodNo) {
  		int result = 0;
  		try {
@@ -377,6 +377,19 @@ public class KmProductDAO extends DBHelper {
 		 return result;
 		
 	}
+ 	// public void updateProduct(KmProductDTO dto) {}
+ 	public void admin_deleteProduct(String prodNo) {
+ 		try {
+ 			conn = getConnection();
+ 			psmt = conn.prepareStatement(SQL.DELETE_PRODUCT);
+ 			psmt.setString(1, prodNo);
+ 			psmt.executeUpdate();
+ 			close();
+ 		} catch (Exception e) {
+ 			logger.error("deleteFile - " + e.getMessage());
+ 		}
+ 		
+ 	}
 	
 	public int selectCountProductsTotal() {
 		int total = 0;
@@ -489,6 +502,7 @@ public class KmProductDAO extends DBHelper {
 			return new String[]{st1, st2};
 		}
 
+	
     public void updateProduct(int count, int prodNo) {
 		conn = getConnection();
 		try {
@@ -502,16 +516,30 @@ public class KmProductDAO extends DBHelper {
 			throw new RuntimeException(e);
 		}
     }
+    public void updateProduct(int count, String prodNo) {
+    	conn = getConnection();
+    	try {
+    		psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT);
+    		psmt.setInt(1, count);
+    		psmt.setInt(2, count);
+    		psmt.setString(3, prodNo);
+    		psmt.executeUpdate();
+    		close();
+    	} catch (SQLException e) {
+    		throw new RuntimeException(e);
+    	}
+    }
 
     public void updateProductHit( String prodNo) {
 		conn = getConnection();
 		try {
 			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_HIT);
-			psmt.setString(1, prodNo);
+			psmt.setString(1, prodNo);  
 			psmt.executeUpdate();
 			close();
 		} catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-}
+
+	}
