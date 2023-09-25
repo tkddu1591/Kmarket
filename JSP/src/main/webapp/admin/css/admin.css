@@ -543,6 +543,12 @@ button[type=submit] {
     cursor: pointer;
 }
 
+/*** product ***/
+.thumb1 {
+	width:100px !important;
+	height:100px !important;
+}
+
 /******* cs **********/
 .writeBtn {
 	
