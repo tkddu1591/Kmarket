@@ -70,6 +70,8 @@ public class KmCsNoticeDAO extends DBHelper{
 				dto.setRdate(rs.getString("rdate"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+				dto.setHit(rs.getInt("hit"));
+				logger.debug(dto.toString());
 			}
 			close();
 		} catch (Exception e) {
@@ -105,6 +107,7 @@ public class KmCsNoticeDAO extends DBHelper{
 				dto.setRdate(rs.getString("rdate"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+				dto.setHit(rs.getInt("hit"));
 				noticeList.add(dto);
 			}
 			close();
@@ -121,7 +124,7 @@ public class KmCsNoticeDAO extends DBHelper{
 			String stmtSQL = SQL.changeSelectCsNoticesL10(cate1, keyword, start);
 			rs = stmt.executeQuery(stmtSQL);
 
-			logger.debug("SQL : " + stmtSQL);
+			//logger.debug("SQL : " + stmtSQL);
 			while(rs.next()) {
 				KmCsNoticeDTO dto = new KmCsNoticeDTO();
 				dto.setNoticeNo(rs.getInt("noticeNo"));
@@ -134,6 +137,7 @@ public class KmCsNoticeDAO extends DBHelper{
 				dto.setRdate(rs.getString("rdate"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+				dto.setHit(rs.getInt("hit"));
 				noticeList.add(dto);
 			}
 			close();
@@ -172,7 +176,7 @@ public class KmCsNoticeDAO extends DBHelper{
 			String stmtSQL = SQL.changeSelectCsNoticesCountL10(cate1, keyword);
 			rs = stmt.executeQuery(stmtSQL);
 
-			logger.debug("SQL : " + stmtSQL);
+			//logger.debug("SQL : " + stmtSQL);
 			
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -205,6 +209,7 @@ public class KmCsNoticeDAO extends DBHelper{
 				dto.setRdate(rs.getString("rdate"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+				dto.setHit(rs.getInt("hit"));
 				latests.add(dto);
 				//logger.debug("noticeDTO : " + dto.toString());
 			}
@@ -232,6 +237,20 @@ public class KmCsNoticeDAO extends DBHelper{
 		}
 		return dto.getNoticeNo();
 	}
+
+	public void updateHit(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_CSNOTICE_HIT);
+			psmt.setString(1, no);
+
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void deleteCsNotice(String no) {
 		try {
 			conn = getConnection();

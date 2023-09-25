@@ -3,11 +3,13 @@
 <%@include file="./../../_aside.jsp" %>
 <script>
 const ctx = '${ctxPath}';
+const cate1 = '${dto.cate1}';
+const cate2 = '${dto.cate2}';
 </script>
 <script src="${ctxPath}/cs/js/setType1Category.js"></script>
     <section id="admin-product-register">
         <nav>
-            <h3>공지사항 수정</h3>
+            <h3>공지사항 조회</h3>
             <p>
                 HOME > 고객센터 > <strong>공지사항</strong>
             </p>
@@ -25,7 +27,7 @@ const ctx = '${ctxPath}';
 				            <td>유형</td>
 				            <td>
 				              <select name="cate1" id="cate1">
-				                <option value="${dto.cate1}">${dto.c1Name}</option>
+				              	<option value="">메인유형 선택</option>
 				              </select>
 				              <select name="cate2" id="cate2">
 				                <option value="${dto.cate2}">${dto.c2Name}</option>
@@ -41,14 +43,15 @@ const ctx = '${ctxPath}';
 				          <tr>
 				            <td>내용</td>                  
 				            <td>
-				              <textarea name="content" placeholder="내용을 입력하세요.">${dto.content}</textarea>
+				            <c:set var="newLine" value="\n" />
+				              <textarea name="content" placeholder="내용을 입력하세요.">${dto.getContentTextArea()}</textarea>
 				            </td>
 				          </tr>              
 				          <tr>
                     </table>
                 </section>
                 
-                <input type="submit" value="등록하기" class="onclick"/>
+                <input type="submit" value="수정하기" class="onclick"/>
             </form>
         </article>
 

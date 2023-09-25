@@ -1,4 +1,4 @@
-package kr.co.kmarket.controller.cs.notice;
+package kr.co.kmarket.controller.admin.cs.qna;
 
 import java.io.IOException;
 
@@ -8,35 +8,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import kr.co.kmarket.dto.KmCsQnaDTO;
+import kr.co.kmarket.service.KmCsQnaService;
 
-import kr.co.kmarket.dto.KmCsNoticeDTO;
-import kr.co.kmarket.service.KmCsNoticeService;
-
-@WebServlet("/cs/notice/view.do")
+@WebServlet("/admin/cs/qna/view.do")
 public class ViewController extends HttpServlet{
 
-	private static final long serialVersionUID = 824910349917258619L;	
-	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	private KmCsNoticeService service = KmCsNoticeService.INSTANCE;
+
+	private static final long serialVersionUID = -199877794397725844L;
+	private KmCsQnaService service = KmCsQnaService.INSTANCE;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		String no = req.getParameter("no");
-		String cate1 = req.getParameter("cate1");
-		service.updateHit(no);
-		KmCsNoticeDTO dto = service.selectCsNotice(no);
-		
+
+		KmCsQnaDTO dto = service.selectCsQna(no);
+		if(dto.getAnswerComplete() == 2) {
+			KmCsQnaDTO answerDto = service.selectCsQnaAnswer(no);
+			req.setAttribute("answerDto", answerDto);
+		}
 //		logger.debug("notice 글 : " + dto.toString());
 
-		req.setAttribute("group", "view");
 		req.setAttribute("no", no);
-		req.setAttribute("cate1", cate1);
 		req.setAttribute("dto", dto);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("view.jsp");
 		dispatcher.forward(req, resp);		

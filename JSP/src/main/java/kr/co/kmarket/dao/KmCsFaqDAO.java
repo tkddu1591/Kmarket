@@ -26,14 +26,24 @@ public class KmCsFaqDAO extends DBHelper{
 			conn.setAutoCommit(false); // 트랜잭션 시작  
 			
 			stmt = conn.createStatement();
-			psmt = conn.prepareStatement(SQL.INSERT_CSFAQ);
-			psmt.setInt(1, dto.getCate1());
-			psmt.setInt(2, dto.getCate2());
-			psmt.setString(3, dto.getTitle());
-			psmt.setString(4, dto.getContent());
-			psmt.setInt(5, dto.getRelatedFaq());
-			psmt.setString(6, dto.getWriter());
-			psmt.setString(7, dto.getRegip());
+			if(dto.getRelatedFaq() == 0) {
+				psmt = conn.prepareStatement(SQL.INSERT_CSFAQ_NOTRELATED);
+				psmt.setInt(1, dto.getCate1());
+				psmt.setInt(2, dto.getCate2());
+				psmt.setString(3, dto.getTitle());
+				psmt.setString(4, dto.getContent());
+				psmt.setString(5, dto.getWriter());
+				psmt.setString(6, dto.getRegip());
+			} else {
+				psmt = conn.prepareStatement(SQL.INSERT_CSFAQ);
+				psmt.setInt(1, dto.getCate1());
+				psmt.setInt(2, dto.getCate2());
+				psmt.setString(3, dto.getTitle());
+				psmt.setString(4, dto.getContent());
+				psmt.setInt(5, dto.getRelatedFaq());
+				psmt.setString(6, dto.getWriter());
+				psmt.setString(7, dto.getRegip());
+			}
 			psmt.executeUpdate();
 			rs = stmt.executeQuery(SQL.SELECT_CSFAQ_MAX_NO);
 			
@@ -72,6 +82,7 @@ public class KmCsFaqDAO extends DBHelper{
 				dto.setRdate(rs.getString("rdate"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+				dto.setHit(rs.getInt("hit"));
 			}
 			close();
 		} catch (Exception e) {
@@ -104,6 +115,7 @@ public class KmCsFaqDAO extends DBHelper{
 				dto.setRdate(rs.getString("rdate"));
 				dto.setC1Name(rs.getString("c1Name"));
 				dto.setC2Name(rs.getString("c2Name"));
+				dto.setHit(rs.getInt("hit"));
 				faqList.add(dto);
 			}
 			close();
@@ -117,13 +129,22 @@ public class KmCsFaqDAO extends DBHelper{
 	public int updateCsFaq(KmCsFaqDTO dto) {
 		try { 
 			conn = getConnection();
-			psmt = conn.prepareStatement(SQL.UPDATE_CSFAQ);
-			psmt.setInt(1, dto.getCate1());
-			psmt.setInt(2, dto.getCate2());
-			psmt.setString(3, dto.getTitle());
-			psmt.setString(4, dto.getContent());
-			psmt.setInt(5, dto.getRelatedFaq());
-			psmt.setInt(6, dto.getFaqNo());
+			if(dto.getRelatedFaq() == 0) {
+				psmt = conn.prepareStatement(SQL.UPDATE_CSFAQ_NOTRELATED);
+				psmt.setInt(1, dto.getCate1());
+				psmt.setInt(2, dto.getCate2());
+				psmt.setString(3, dto.getTitle());
+				psmt.setString(4, dto.getContent());
+				psmt.setInt(5, dto.getFaqNo());
+			} else {
+				psmt = conn.prepareStatement(SQL.UPDATE_CSFAQ);
+				psmt.setInt(1, dto.getCate1());
+				psmt.setInt(2, dto.getCate2());
+				psmt.setString(3, dto.getTitle());
+				psmt.setString(4, dto.getContent());
+				psmt.setInt(5, dto.getRelatedFaq());
+				psmt.setInt(6, dto.getFaqNo());
+			}
 			psmt.executeUpdate();
 			
 			close();
@@ -131,6 +152,18 @@ public class KmCsFaqDAO extends DBHelper{
 			logger.error("updateCsFaq() updateCsFaq : " + e.getMessage());
 		}
 		return dto.getFaqNo();
+	}
+	public void updateHit(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_CSFAQ_HIT);
+			psmt.setString(1, no);
+
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public void deleteCsFaq(String no) {
 		try {

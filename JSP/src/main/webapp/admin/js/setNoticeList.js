@@ -92,7 +92,7 @@ function getList(){
 				item += "<td><input type='checkbox' name='chk' value='"+n.noticeNo+"'/></td>";
 				item += "<td>"+n.noticeNo+"</td>";
 				item += "<td>"+n.c1Name+"</td>";
-				item += "<td>[ "+n.c2Name+" ] " + n.title + "</td>";
+				item += "<td><a href='"+ctx+"/admin/cs/notice/view.do?no="+n.noticeNo +"'>[ "+n.c2Name+" ] " + n.title + "</a></td>";
 				item += "<td>"+n.hit+"</td>";
 				item += "<td>"+n.rdateSub+"</td>";
 				item += "<td>";

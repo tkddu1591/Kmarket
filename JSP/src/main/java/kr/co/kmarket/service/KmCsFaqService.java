@@ -30,6 +30,9 @@ public enum KmCsFaqService {
 	public int updateCsFaq(KmCsFaqDTO dto) {
 		return dao.updateCsFaq(dto);
 	}
+	public void updateHit(String no) {
+		dao.updateHit(no);
+	}
 	public void deleteCsFaq(String no) {
 		dao.deleteCsFaq(no);
 	}

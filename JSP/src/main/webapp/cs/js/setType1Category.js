@@ -8,6 +8,8 @@ $(document).ready(function() {
     var subCategoryArray = new Array();
     var subCategoryObject = new Object();
     
+    var isSelected = false;
+    
   	//메인 카테고리 셋팅
     var mainCategorySelectBox = document.getElementById("cate1");;
 	$.ajax({
@@ -45,7 +47,10 @@ $(document).ready(function() {
 		    	var opt = document.createElement("option");
 		    	opt.value = mainCategoryArray[i].main_category_id;
 		    	opt.innerHTML =  mainCategoryArray[i].main_category_name;
+		    	if(cate1 == mainCategoryArray[i].main_category_id) isSelected = true;
+		    	opt.selected = isSelected;
 		    	mainCategorySelectBox.appendChild(opt);
+		    	isSelected = false;
 		    }
 		    
 		}
@@ -64,8 +69,7 @@ $(document).ready(function() {
 	        subCategorySelectBox.append("<option value=''>상세유형 선택</option>");
 	        for(var i=0;i<subCategoryArray.length;i++){
 	            if(selectValue == subCategoryArray[i].main_category_id){
-	            
-	                subCategorySelectBox.append("<option value='"+subCategoryArray[i].sub_category_id+"'>"+subCategoryArray[i].sub_category_name+"</option>");
+	                subCategorySelectBox.append("<option value='"+subCategoryArray[i].sub_category_id+"' " + (cate2 == subCategoryArray[i].sub_category_id ? "selected" : "" ) + ">"+subCategoryArray[i].sub_category_name+"</option>");
 	                
 	            }
         	}

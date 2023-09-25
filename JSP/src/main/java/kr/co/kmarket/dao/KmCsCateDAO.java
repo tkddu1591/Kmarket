@@ -98,4 +98,30 @@ public class KmCsCateDAO extends DBHelper{
 				
 		return c1Name;
 	}
+
+	public String selectCsC2Name(String cate1, String cate2) {
+		String c2Name = null;
+		try {
+			conn = getConnection();
+			//if(cate1==null) {
+			//	return null;
+			//} else{
+				psmt = conn.prepareStatement(SQL.SELECT_CSCATE_C2NAME);
+				psmt.setString(1, cate1);
+				psmt.setString(2, cate2);
+			//}
+			
+			rs = psmt.executeQuery();	
+				
+			if(rs.next()) {
+				c2Name = rs.getString(1);
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("error selectCsC2Name() :" + e.getMessage());
+		}
+				
+		return c2Name;
+		
+	}
 }

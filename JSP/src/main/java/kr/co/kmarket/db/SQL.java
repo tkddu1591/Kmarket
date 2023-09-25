@@ -197,6 +197,7 @@ public class SQL {
 	public final static String SELECT_CSCATE2S_BY_CATE1 	= "SELECT * FROM `km_cs_cate2` WHERE `cate1`=?";
 	public static final String SELECT_CSCATE1_C1NAME = "SELECT `c1Name` FROM `km_cs_cate1` WHERE `cate1`=?";
 	public static final String SELECT_CSCATE2_C2NAMES = "SELECT `c2Name` FROM `km_cs_cate2` WHERE `cate1`=?";
+	public static final String SELECT_CSCATE_C2NAME = "SELECT `c2Name` FROM `km_cs_cate2` WHERE `cate1`=? AND `cate2`=?";
 
 	// km_cs_qna
 	public final static String INSERT_CSQNA_QUESTION 		= "INSERT INTO `km_cs_qna` SET "
@@ -216,18 +217,65 @@ public class SQL {
 																	+ "`regip`=?, "
 																	+ "`rdate`=NOW()";
 	public final static String INSERT_CSQNA_ANSWER 		= "INSERT INTO `km_cs_qna` SET "
-																	+ "`cate1` = ?, "
-																	+ "`cate2` = ?, "
-																	+ "`title` = ?, "
 																	+ "`content` = ?, "
-																	+ "`file1` = ?, "
-																	+ "`file2` = ?, "
-																	+ "`file3` = ?, "
-																	+ "`file4` = ?, "
 																	+ "`writer` = ?, "
-																	+ "`parent` = 0, "
+																	+ "`parent` = ?, "
 																	+ "`regip`=?, "
 																	+ "`rdate`=NOW()";
+
+	public static String getSelectCsQnasL10(String cate1, String cate2, int start){
+		String SELECT_CSNOTICES_L10 = """
+				SELECT 
+					 a.*, b.`name`, c.`c1Name`, d.`c2Name` 
+					 FROM `km_cs_qna` AS a 
+					 JOIN `km_member` AS b ON a.writer=b.uid 
+					 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+					 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+						""";
+
+		
+        if(cate1 != null&& !cate1.equals("0")) {
+        	if( cate2 != null&& !cate2.equals("0")) {
+        		// cate2 있고 cate1 있음 
+        		SELECT_CSNOTICES_L10 += " WHERE a.`cate1`=" + cate1 ;
+        		SELECT_CSNOTICES_L10 += " AND a.`cate2`=" + cate2 ;
+        	} else {
+        		//cate2 없고 cate1 있음 
+        		SELECT_CSNOTICES_L10 += " WHERE a.`cate1`=" + cate1 ;
+        	}
+        	SELECT_CSNOTICES_L10 += " AND `parent`=0" ;
+        }else {
+        	//cate1 없음  
+        	SELECT_CSNOTICES_L10 += " WHERE `parent`=0" ;
+        }
+        SELECT_CSNOTICES_L10 += " ORDER BY `qnaNo` DESC  LIMIT " + start + ", 10 ";
+        return SELECT_CSNOTICES_L10;
+    }
+
+	public static String getSelectCsQnaCount(String cate1, String cate2){
+		String SELECT_CSNOTICES_COUNT = """
+										SELECT 
+											 COUNT(*)
+											 FROM `km_cs_qna` 
+												""";
+								
+        if(cate1 != null&& !cate1.equals("0")) {
+        	if( cate2 != null&& !cate2.equals("0")) {
+        		// cate2 있고 cate1 있음 
+        		SELECT_CSNOTICES_COUNT += " WHERE `cate1`=" + cate1 ;
+        		SELECT_CSNOTICES_COUNT += " AND `cate2`=" + cate2;  
+        	} else {
+        		//cate2 없고 cate1 있음 
+        		SELECT_CSNOTICES_COUNT += " WHERE `cate1`=" + cate1 ;
+        	}
+    		SELECT_CSNOTICES_COUNT += " AND `parent`=0" ;
+        }else {
+    		// cate1 없음 
+    		SELECT_CSNOTICES_COUNT += " WHERE `parent`=0" ;
+        }
+        return SELECT_CSNOTICES_COUNT;
+    }
+	
 	public static final String SELECT_CSQNA = """
 			SELECT 
 			 a.*, b.`name`, c.`c1Name`, d.`c2Name` 
@@ -290,6 +338,9 @@ public class SQL {
 																	+ "`ordNo` = ?, "
 																	+ "`prodNo` = ? "
 																	+ "WHERE `qnaNo` = ?";
+	public final static String UPDATE_CSQNA_ANSWER		= "UPDATE `km_cs_qna` SET "
+																		+ "`content` = ? "
+																		+ "WHERE `parent` = ?";
 	public final static String UPDATE_CSQNA_ANSWERCOMPLETE	= "UPDATE `km_cs_qna` SET `answerComplete` = ? WHERE `qnaNo` = ?";
 
 	public static final String DELETE_CSQNA = "DELETE FROM `km_cs_qna` WHERE `qnaNo`=?";
@@ -317,7 +368,7 @@ public class SQL {
         	if(keyword!=null) {
         		// keyword 있고 cate1 있음 
         		SELECT_CSNOTICES_L10 += " WHERE a.`cate1`=" + cate1 ;
-        		SELECT_CSNOTICES_L10 += " WHERE a.`title` LIKE '%" + keyword +"%' OR a.`content` LIKE '%"+keyword+"%' ";    
+        		SELECT_CSNOTICES_L10 += " AND (a.`title` LIKE '%" + keyword +"%' OR a.`content` LIKE '%"+keyword+"%')";    
         	} else {
         		//keyword 없고 cate1 있음 
         		SELECT_CSNOTICES_L10 += " WHERE a.`cate1`=" + cate1 ;
@@ -345,7 +396,7 @@ public class SQL {
         	if( keyword!=null) {
         		// keyword 있고 cate1 있음 
         		SELECT_CSNOTICES_COUNT += " WHERE `cate1`=" + cate1 ;
-        		SELECT_CSNOTICES_COUNT += " WHERE `title` LIKE '%" + keyword +"%' OR `content` LIKE '%"+keyword+"%' ";  
+        		SELECT_CSNOTICES_COUNT += " AND (`title` LIKE '%" + keyword +"%' OR `content` LIKE '%"+keyword+"%' ) ";  
         	} else {
         		//keyword 없고 cate1 있음 
         		SELECT_CSNOTICES_COUNT += " WHERE `cate1`=" + cate1 ;
@@ -416,6 +467,11 @@ public class SQL {
 																 `content` = ?
 																 WHERE `noticeNo` = ?
 															""";
+	public final static String UPDATE_CSNOTICE_HIT		= """
+											UPDATE `km_cs_notice` SET 
+														 `hit` = `hit`+1 
+														 WHERE `noticeNo` = ?
+													""";
 	
 	public static final String DELETE_CSNOTICE = "DELETE FROM `km_cs_notice` WHERE `noticeNo`=?";
 	// km_cs_notice
@@ -428,6 +484,14 @@ public class SQL {
 																		+ "`writer` = ?, "
 																		+ "`regip`=?, "
 																		+ "`rdate`=NOW()";
+	public final static String INSERT_CSFAQ_NOTRELATED 		= "INSERT INTO `km_cs_faq` SET "
+																+ "`cate1` = ?, "
+																+ "`cate2` = ?, "
+																+ "`title` = ?, "
+																+ "`content` = ?, "
+																+ "`writer` = ?, "
+																+ "`regip`=?, "
+																+ "`rdate`=NOW()";
 	public static final String SELECT_CSFAQ = """
 												SELECT 
 												 a.*, c.`c1Name`, d.`c2Name` 
@@ -461,9 +525,23 @@ public class SQL {
 																 `cate1` = ?, 
 																 `cate2` = ?, 
 																 `title` = ?, 
-																 `content` = ?
+																 `content` = ?,
+																 `relatedFaq`=? 
 																 WHERE `faqNo` = ?
 															""";
+	public final static String UPDATE_CSFAQ_HIT		= """
+											UPDATE `km_cs_faq` SET 
+														 `hit` = `hit`+1 
+														 WHERE `faqNo` = ?
+													""";
+	public final static String UPDATE_CSFAQ_NOTRELATED		= """
+			UPDATE `km_cs_faq` SET 
+						 `cate1` = ?, 
+						 `cate2` = ?, 
+						 `title` = ?, 
+						 `content` = ?
+						 WHERE `faqNo` = ?
+					""";
 	public static final String DELETE_CSFAQ = "DELETE FROM `km_cs_faq` WHERE `faqNo`=?";
 
 	// km_cs_faq_rate

@@ -4,18 +4,18 @@
 <script>
 const ctx = '${ctxPath}';
 </script>
-<script src="${ctxPath}/cs/js/setType1Category.js"></script>
+<script src="${ctxPath}/cs/js/setType2Category.js"></script>
+<script src="${ctxPath}/admin/js/setFaqWrite.js"></script>
     <section id="admin-product-register">
         <nav>
-            <h3>공지사항 등록</h3>
+            <h3>자주묻는질문 등록</h3>
             <p>
-                HOME > 고객센터 > <strong>공지사항</strong>
+                HOME > 고객센터 > <strong>자주묻는질문</strong>
             </p>
         </nav>
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
-            <form action="${ctxPath}/admin/cs/notice/write.do" method="post" >
-		    	<input type="hidden" name="no" value="${no}">
+            <form action="${ctxPath}/admin/cs/faq/write.do" method="post" >
 		    	<input type="hidden" name="writer" value="${sessUser.uid}">
 		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
                 <!-- 상품분류 -->
@@ -43,7 +43,20 @@ const ctx = '${ctxPath}';
 				            <td>
 				              <textarea name="content" placeholder="내용을 입력하세요."></textarea>
 				            </td>
-				          </tr>              
+				          </tr>  
+				          <tr>            
+				            <td>자주 찾는 연관 문의</td>                  
+				            <td>
+		                        <select name="relatedCate1" id="relatedCate1">
+				                	<option value="">대분류 선택</option>
+		                        </select>
+		                        <select name="relatedCate2" id="relatedCate2">
+				                	<option value="">상세유형 선택</option>
+		                        </select>
+		                        <select name="relatedFaq" id="relatedTitle" style="width:500px">
+		                        </select>
+				            </td>
+				          </tr>   
                     </table>
                 </section>
                 

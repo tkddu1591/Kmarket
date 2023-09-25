@@ -103,6 +103,16 @@ public class KmCsFaqDTO {
 		this.content = escapedStr6;
 		return content;
 	}
+	public String getContentTextArea() {
+		String escapedStr1 = content.replaceAll("<br>", "\n");
+		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");
+		String escapedStr3 = escapedStr2.replaceAll("&lt;", "<");
+		String escapedStr4 = escapedStr3.replaceAll("&quot;", "\"");
+		String escapedStr5 = escapedStr4.replaceAll("&nbsp;", " ");
+		String escapedStr6 = escapedStr5.replaceAll("&amp;", "&");
+		this.content = escapedStr6;
+		return content;
+	}
 	public void setContent(String content) {
 		String escapedStr1 = content.replaceAll("<br>", "\n");
 		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");
@@ -120,7 +130,11 @@ public class KmCsFaqDTO {
 		this.relatedFaq = relatedFaq;
 	}
 	public void setRelatedFaq(String relatedFaq) {
-		this.relatedFaq = Integer.parseInt(relatedFaq);
+		if(relatedFaq == null) {
+			this.relatedFaq = 0;
+		} else {
+			this.relatedFaq = Integer.parseInt(relatedFaq);
+		}
 	}
 	public String getWriter() {
 		return writer;
@@ -141,7 +155,13 @@ public class KmCsFaqDTO {
 		this.rdate = rdate;
 		this.rdateSub = rdate.substring(2, 10).replace('-', '.');
 	}
-	
+	@Override
+	public String toString() {
+		return "KmCsFaqDTO [faqNo=" + faqNo + ", cate1=" + cate1 + ", cate2=" + cate2 + ", title=" + title
+				+ ", content=" + content + ", relatedFaq=" + relatedFaq + ", writer=" + writer + ", regip=" + regip
+				+ ", rdate=" + rdate + ", hit=" + hit + ", c1Name=" + c1Name + ", c2Name=" + c2Name + ", rdateSub="
+				+ rdateSub + "]";
+	}
 	
 	
 }

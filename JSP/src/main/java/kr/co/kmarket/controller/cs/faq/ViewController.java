@@ -34,6 +34,7 @@ public class ViewController extends HttpServlet{
 	
 		
 		String no = req.getParameter("no");
+		service.updateHit(no);
 		KmCsFaqDTO dto = service.selectCsFaq(no);
 		KmCsFaqDTO relatedFAQ = service.selectCsFaq(dto.getRelatedFaq()+"");
 		
