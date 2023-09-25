@@ -466,7 +466,7 @@ public class KmProductDAO extends DBHelper {
 		}
     }
 
-    public void updateProductHit(String prodNo) {
+    public void updateProductHit( String prodNo) {
 		conn = getConnection();
 		try {
 			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_HIT);

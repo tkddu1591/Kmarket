@@ -160,7 +160,7 @@ public class KmProductService {
 //	}
 	
 	public void updateProductHit(int count, int prodNo) {
-		dao.updateProductHit(count, prodNo);
+		//dao.updateProductHit(count, prodNo);
 	}
 	public void updateProduct(int count, int prodNo) {
 		dao.updateProduct(count, prodNo);
