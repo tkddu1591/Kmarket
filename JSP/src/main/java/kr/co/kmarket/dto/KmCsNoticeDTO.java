@@ -9,6 +9,17 @@ public class KmCsNoticeDTO {
 	private String writer;
 	private String regip;
 	private String rdate;
+
+	private int hit;
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+	public void setHit(String hit) {
+		this.hit = Integer.parseInt(hit);
+	}
 	
 	//추가필드 
 	private String c1Name;

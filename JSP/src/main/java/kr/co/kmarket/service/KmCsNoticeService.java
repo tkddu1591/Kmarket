@@ -26,8 +26,14 @@ public enum KmCsNoticeService {
 	public List<KmCsNoticeDTO> selectCsNoticeList(String cate1, int start) {
 		return dao.selectCsNoticeList(cate1, start);
 	}
+	public List<KmCsNoticeDTO> selectCsNoticeListByAjax(String cate1, String keyword, int start){
+		return dao.selectCsNoticeListByAjax(cate1, keyword, start);
+	}
 	public int selectCsNoticeCount(String cate1) {
 		return dao.selectCsNoticeCount(cate1);
+	}
+	public int selectCsNoticeCountByAjax(String cate1, String keyword) {
+		return dao.selectCsNoticeCountByAjax(cate1, keyword);
 	}
 	public List<KmCsNoticeDTO> selectLatests(int size){
 		return dao.selectLatests(size);

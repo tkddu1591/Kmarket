@@ -292,6 +292,72 @@ public class SQL {
 	public static final String DELETE_CSQNA = "DELETE FROM `km_cs_qna` WHERE `qnaNo`=?";
 	
 	// km_cs_notice
+	
+
+	/*
+     * 조회 쿼리 통합
+     *
+     * 검색 및 카테고리 입력시 - 키워드에 맞는 게시글을 DB에서 가져옴.
+     * */
+
+	public static String changeSelectCsNoticesL10(String cate1, String keyword, int start){
+		String SELECT_CSNOTICES_L10 = """
+				SELECT 
+					 a.*, b.`name`, c.`c1Name`, d.`c2Name` 
+					 FROM `km_cs_notice` AS a 
+					 JOIN `km_member` AS b ON a.writer=b.uid 
+					 JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 
+					 JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1  AND a.cate2=d.cate2 
+						""";
+		
+        if(cate1 != null&& cate1!="0") {
+        	if(keyword!=null) {
+        		// keyword 있고 cate1 있음 
+        		SELECT_CSNOTICES_L10 += " WHERE a.`cate1`=" + cate1 ;
+        		SELECT_CSNOTICES_L10 += " WHERE a.`title` LIKE '%" + keyword +"%' OR a.`content` LIKE '%"+keyword+"%' ";    
+        	} else {
+        		//keyword 없고 cate1 있음 
+        		SELECT_CSNOTICES_L10 += " WHERE a.`cate1`=" + cate1 ;
+        	}
+        }else {
+        	if( keyword!=null) {
+        		// keyword 있고 cate1 없음 
+        		SELECT_CSNOTICES_L10 += " WHERE a.`title` LIKE '%" + keyword +"%' OR a.`content` LIKE '%"+keyword+"%' ";        	
+        	} else {
+        		//keyword 없고 cate1 없음 
+        	}        
+        }
+        SELECT_CSNOTICES_L10 += " ORDER BY `noticeNo` DESC  LIMIT " + start + ", 10 ";
+        return SELECT_CSNOTICES_L10;
+    }
+
+	public static String changeSelectCsNoticesCountL10(String cate1, String keyword){
+		String SELECT_CSNOTICES_COUNT = """
+				SELECT 
+					COUNT(*)
+					 FROM `km_cs_notice` 
+						""";
+		
+        if(cate1 != null&& cate1!="0") {
+        	if( keyword!=null) {
+        		// keyword 있고 cate1 있음 
+        		SELECT_CSNOTICES_COUNT += " WHERE `cate1`=" + cate1 ;
+        		SELECT_CSNOTICES_COUNT += " WHERE `title` LIKE '%" + keyword +"%' OR `content` LIKE '%"+keyword+"%' ";  
+        	} else {
+        		//keyword 없고 cate1 있음 
+        		SELECT_CSNOTICES_COUNT += " WHERE `cate1`=" + cate1 ;
+        	}
+        }else {
+        	if(keyword!=null) {
+        		// keyword 있고 cate1 없음 
+        		SELECT_CSNOTICES_COUNT += " WHERE `title` LIKE '%" + keyword +"%' OR `content` LIKE '%"+keyword+"%' ";     	
+        	} else {
+        		//keyword 없고 cate1 없음 
+        	}        
+        }
+        return SELECT_CSNOTICES_COUNT;
+    }
+	
 	public final static String INSERT_CSNOTICE 		= "INSERT INTO `km_cs_notice` SET "
 																		+ "`cate1` = ?, "
 																		+ "`cate2` = ?, "

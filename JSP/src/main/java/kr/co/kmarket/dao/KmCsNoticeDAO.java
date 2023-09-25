@@ -113,7 +113,35 @@ public class KmCsNoticeDAO extends DBHelper{
 		}
 		return noticeList;
 	}
-	
+	public List<KmCsNoticeDTO> selectCsNoticeListByAjax(String cate1, String keyword, int start){
+		List<KmCsNoticeDTO> noticeList = new ArrayList<>();
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			String stmtSQL = SQL.changeSelectCsNoticesL10(cate1, keyword, start);
+			rs = stmt.executeQuery(stmtSQL);
+
+			logger.debug("SQL : " + stmtSQL);
+			while(rs.next()) {
+				KmCsNoticeDTO dto = new KmCsNoticeDTO();
+				dto.setNoticeNo(rs.getInt("noticeNo"));
+				dto.setCate1(rs.getInt("cate1"));
+				dto.setCate2(rs.getInt("cate2"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setRegip(rs.getString("regip"));
+				dto.setRdate(rs.getString("rdate"));
+				dto.setC1Name(rs.getString("c1Name"));
+				dto.setC2Name(rs.getString("c2Name"));
+				noticeList.add(dto);
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsNoticeList() error : " + e.getMessage());
+		}
+		return noticeList;
+	}
 	public int selectCsNoticeCount(String cate1) {
 		int count = 0;
 		try {
@@ -125,6 +153,26 @@ public class KmCsNoticeDAO extends DBHelper{
 				psmt.setString(1, cate1);
 			}
 			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsNoticeCount() error : " + e.getMessage() );
+		}
+		return count;
+	}
+	public int selectCsNoticeCountByAjax(String cate1, String keyword) {
+		int count = 0;
+		try {
+
+			conn = getConnection();
+			stmt = conn.createStatement();
+			String stmtSQL = SQL.changeSelectCsNoticesCountL10(cate1, keyword);
+			rs = stmt.executeQuery(stmtSQL);
+
+			logger.debug("SQL : " + stmtSQL);
 			
 			if(rs.next()) {
 				count = rs.getInt(1);

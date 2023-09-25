@@ -44,7 +44,7 @@ public class PageService {
     public int getCurrentPage(String pg) {
         int currentPage = 1;
 
-        if(pg != null){
+        if(pg != null || pg==""){
             currentPage = Integer.parseInt(pg);
         }
 

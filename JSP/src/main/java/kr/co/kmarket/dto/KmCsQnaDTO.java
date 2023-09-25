@@ -30,6 +30,10 @@ public class KmCsQnaDTO {
 	private String c2Name;
 	private String writerMarking;
 	private String rdateSub;
+	public String getExtension(String fileName) {
+		String ext = fileName;
+		return ext;
+	}
 	public String getRdateSub() {
 		return rdateSub;
 	}

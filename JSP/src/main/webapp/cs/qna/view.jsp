@@ -72,8 +72,21 @@
 			        		<ul>
 			        			<li>
 			        				<span>파일${fileNo = fileNo +1} : &nbsp;</span>
+			        				
 			        				<div class="fileImg">
 					        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${file}" id="downloadFile" data-fno="${file}">
+											<c:forTokens var="ext" items="${file}" delims="." varStatus="status">
+												<c:if test="${status.last}">
+													<c:choose>
+														<c:when test="${ext eq 'pdf'}">
+															pdf
+														</c:when>
+														<c:otherwise>
+															이미지 
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forTokens>
 					        				 <img src="${ctxPath}/upload/${file}">
 				        				 </a>
 			        				 </div>
