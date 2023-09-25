@@ -46,6 +46,7 @@ public class KmProductDTO {
     private int discountPrice;
 
     private String path;
+    private int level;
 
     public KmProductDTO(String path) {
         this.path = path;
@@ -469,8 +470,12 @@ public class KmProductDTO {
     }
 
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
-
-
+    public int getLevel() {
+        return level;
+    }
 }
 

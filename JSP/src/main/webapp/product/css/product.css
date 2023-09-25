@@ -744,6 +744,11 @@
     text-align: center;
     color: #777 !important;
 }
+#product > .list .empty td {
+    padding: 50px 0 !important;
+    text-align: center;
+    color: #777 !important;
+}
 #product > .cart > form > table td {
     text-align: center;
 }
