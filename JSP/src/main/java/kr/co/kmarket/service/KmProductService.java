@@ -59,11 +59,14 @@ public class KmProductService {
 	    return dao.selectProducts(cate, start);
 	}
 	public void updateProduct(KmProductDTO dto) {
-	    dao.updateProduct(dto);
+	  //  dao.updateProduct(dto); error떠서 주석했어요
 	}
 	public void deleteProduct(int prodNo) {
-	    dao.deleteProduct(prodNo);
+	     dao.deleteProduct(prodNo);
 	}
+	public void admin_deleteProduct(String prodNo) {
+		dao.admin_deleteProduct(prodNo);
+	}  // prodNo이라고 하면 에러나서 prodNumber라고 했는데 이거 맞아요?
 
 
 	public int selectCountProductsTotal() {
@@ -142,26 +145,15 @@ public class KmProductService {
 		return mr;
 	}
 
-	// 리스트삭제 delete oName&sName or only prodNo ??
-	public void deletelist(String path, String prodNo) {
-		File f = new File(path + "/" + prodNo);
+	// 리스트삭제
+	public void deletelist(String path, String sName) {
+		File f = new File(path + "/" + sName);
 		if(f.exists()) {
 			f.delete();
-			logger.debug("파일 삭제 : " + prodNo);
+			logger.debug("파일 삭제 : " + sName);
 		}
 		}
 	
-
-	// 리스트 수정 
-	//if(inputs.get("type") !=null ){
-		//modifiedFinalFileList.addAll(files);
-		//logger.debug("deletedFileList  " + deletedFileList.toString());
-		//files = modifiedFinalFileList;
-//	}
-	
-	public void updateProductHit(int count, int prodNo) {
-		dao.updateProductHit(count, prodNo);
-	}
 	public void updateProduct(int count, int prodNo) {
 		dao.updateProduct(count, prodNo);
 	}
@@ -169,4 +161,9 @@ public class KmProductService {
     public void updateProductHit(String prodNo) {
 		dao.updateProductHit(prodNo);
     }
+//	public List<String> deletefile(String path, String prodNo) {
+//		return dao.deletefile(path ,prodNo);  
+//		
+//	}
+	
 }

@@ -146,7 +146,7 @@ public class SQL {
 	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=?";
 
 
-	public final static String DELETE_PRODUCT = "DELETE * FROM `km_product` WHERE `prodNo`=?";
+	public final static String DELETE_PRODUCT = "DELETE FROM `km_product` WHERE `prodNo`=?";
 
 	//-----------------------------km_product_cart-----------------------
 
