@@ -12,7 +12,7 @@
         <nav>
             <h1>상품목록</h1>
 
-            <c:if test="${not empty KmProductDTOS}">
+            <c:if test="${not empty KmProductDTOS &&empty search}">
             <c:choose>
             <c:when test="${cate2!= 0}">
                 <p>HOME > <span>${c1Name}</span> > <strong>${c2Name}</strong></p>
@@ -105,15 +105,20 @@
                             </c:when>
                         </c:choose>
                         <c:choose>
-                            <c:when test="${dto.rating >= 4.5}"><h5 class="rating star5"><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
+                            <c:when test="${dto.rating >= 4.5}"><h5 class="rating star5"><a
+                                    href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
                             </h5></c:when>
-                            <c:when test="${dto.rating >= 3.5}"><h5 class="rating star4"><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
+                            <c:when test="${dto.rating >= 3.5}"><h5 class="rating star4"><a
+                                    href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
                             </h5></c:when>
-                            <c:when test="${dto.rating >= 2.5}"><h5 class="rating star3"><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
+                            <c:when test="${dto.rating >= 2.5}"><h5 class="rating star3"><a
+                                    href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
                             </h5></c:when>
-                            <c:when test="${dto.rating >= 1.5}"><h5 class="rating star2"><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
+                            <c:when test="${dto.rating >= 1.5}"><h5 class="rating star2"><a
+                                    href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
                             </h5></c:when>
-                            <c:when test="${dto.rating >= 0.5}"><h5 class="rating star1"><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
+                            <c:when test="${dto.rating >= 0.5}"><h5 class="rating star1"><a
+                                    href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}&cate1=${cate1}&cate2=${cate2}&scrollDown=1">상품평</a>
                             </h5></c:when>
                             <c:otherwise>
                                 <h6>상품평이 없습니다.</h6>

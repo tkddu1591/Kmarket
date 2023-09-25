@@ -10,7 +10,6 @@
         //유저 로그인 확인 true는 로그인 flase는 비로그인
         const isUser = ${not empty sessUser}
 
-            console.log(isUser)
         const num = $('input[name=num]')
 
         const minus = $('.decrease')[0]
@@ -125,13 +124,14 @@
 
         //상품평 보기
         const btn = document.querySelector('.rating > a')
-        const review = document.querySelectorAll('.review')[0].offsetTop
-        btn.addEventListener('click',function(){
-            window.scrollTo({top: review, behavior: "smooth"});
-        })
-        const scrollDown = ${scrollDown}
-        if(scrollDown != null){
-            window.scrollTo({top: review, behavior: "smooth"});
+        if(btn != null) {
+            const review = document.querySelectorAll('.review')[0].offsetTop
+            btn.addEventListener('click', function () {
+                window.scrollTo({top: review, behavior: "smooth"});
+            })
+            <c:if test="${not empty scrollDown}">
+                window.scrollTo({top: review, behavior: "smooth"});
+            </c:if>
         }
 
     })
