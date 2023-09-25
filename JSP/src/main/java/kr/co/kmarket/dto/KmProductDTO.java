@@ -132,6 +132,9 @@ public class KmProductDTO {
     public void setProdNo(int prodNo) {
         this.prodNo = prodNo;
     }
+    public void setProdNo(String prodNo) {
+    	this.prodNo = Integer.parseInt(prodNo);
+    }
 
     public int getProdCate1() {
         return prodCate1;

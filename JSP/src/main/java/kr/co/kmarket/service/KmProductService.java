@@ -142,7 +142,26 @@ public class KmProductService {
 		return mr;
 	}
 
+	// 리스트삭제 delete oName&sName or only prodNo ??
+	public void deletelist(String path, String prodNo) {
+		File f = new File(path + "/" + prodNo);
+		if(f.exists()) {
+			f.delete();
+			logger.debug("파일 삭제 : " + prodNo);
+		}
+		}
+	
 
+	// 리스트 수정 
+	//if(inputs.get("type") !=null ){
+		//modifiedFinalFileList.addAll(files);
+		//logger.debug("deletedFileList  " + deletedFileList.toString());
+		//files = modifiedFinalFileList;
+//	}
+	
+	public void updateProductHit(int count, int prodNo) {
+		dao.updateProductHit(count, prodNo);
+	}
 	public void updateProduct(int count, int prodNo) {
 		dao.updateProduct(count, prodNo);
 	}
