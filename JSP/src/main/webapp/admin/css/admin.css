@@ -295,7 +295,7 @@ button[type=submit] {
     height: auto;
     overflow: hidden;
 }
-#admin-index > article > table {
+#admin-index > article table {
     width: 100%;
     margin-top: 6px;
     margin-bottom: 16px;
@@ -303,24 +303,24 @@ button[type=submit] {
     border-top: 2px solid #8798a3;
 }
 
-#admin-index > article > table tr {}
-#admin-index > article > table tr:first-child {
+#admin-index > article table tr {}
+#admin-index > article table tr:first-child {
     background: #fafafa !important;
 }
-#admin-index > article > table tr > td {
+#admin-index > article table tr > td {
     width: 20%;
     border: 1px solid #e5e5e5;
     padding: 6px 6px 6px 12px;
     color: #111;
     text-align: center;
 }
-#admin-index > article > table tr > td > strong {
+#admin-index > article table tr > td > strong {
     display: block;
     font-size: 16px;
     font-weight: bold;
     padding-top: 10px;
 }
-#admin-index > article > table tr > td > span {
+#admin-index > article table tr > td > span {
     display: block;
     padding: 16px;
     font-size: 16px;
@@ -328,17 +328,17 @@ button[type=submit] {
     color: #bc2e13;
 }
 
-#admin-index > article > table tr > td > p {
+#admin-index > article table tr > td > p {
     padding: 6px;            
     overflow: hidden;            
 }
-#admin-index > article > table tr > td > p > span {
+#admin-index > article table tr > td > p > span {
     font-size: 14px;
 }
-#admin-index > article > table tr > td > p > span:nth-child(1) {
+#admin-index > article table tr > td > p > span:nth-child(1) {
     float: left;
 }
-#admin-index > article > table tr > td > p > span:nth-child(2) {
+#admin-index > article table tr > td > p > span:nth-child(2) {
     float: right;
 }
 
@@ -403,31 +403,31 @@ button[type=submit] {
     margin-bottom: 10px;
 }
 
-#admin-product-list > section > table  {
+#admin-product-list > section table  {
     border-top: 2px solid #8798a3;
 }
-#admin-product-list > section > table  tr > th{
+#admin-product-list > section table  tr > th{
     padding: 10px 0;
     background: #f6f6f6;
 }
-#admin-product-list > section > table  tr > td {
+#admin-product-list > section table  tr > td {
     background: #fff;
     text-align: center;
     box-sizing: border-box;
 }
-#admin-product-list > section > table  tr > td:nth-child(1) {width: 20px;}
-#admin-product-list > section > table  tr > td:nth-child(2) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(3) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(4) {width: auto; text-align: left;}
-#admin-product-list > section > table  tr > td:nth-child(5) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(6) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(7) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(8) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(9) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(10) {width: 80px;}
-#admin-product-list > section > table  tr > td:nth-child(11) {width: 100px;}
+#admin-product-list > section table  tr > td:nth-child(1) {width: 20px;}
+#admin-product-list > section table  tr > td:nth-child(2) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(3) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(4) {width: auto; text-align: left;}
+#admin-product-list > section table  tr > td:nth-child(5) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(6) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(7) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(8) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(9) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(10) {width: 80px;}
+#admin-product-list > section table  tr > td:nth-child(11) {width: 100px;}
 
-#admin-product-list > section > table img.thumb {width: 60px;}
+#admin-product-list > section table img.thumb {width: 60px;}
 
 #admin-product-list > section input[type=button] {
     float: left;
@@ -483,32 +483,32 @@ button[type=submit] {
     margin-bottom: 10px;
 }
 
-#admin-config-banner section > table  {
+#admin-config-banner section table  {
     border-top: 2px solid #8798a3;
 }
-#admin-config-banner section > table  tr > th{
+#admin-config-banner section table  tr > th{
     padding: 10px 0;
     background: #f6f6f6;
 }
-#admin-config-banner section > table  tr > td {
+#admin-config-banner section table  tr > td {
     background: #fff;
     text-align: center;
     box-sizing: border-box;
 }
-#admin-config-banner section > table  tr > td:nth-child(1) {width: 20px;}
-#admin-config-banner section > table  tr > td:nth-child(2) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(3) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(4) {width: auto; text-align: left;}
-#admin-config-banner section > table  tr > td:nth-child(5) {width: 240px;}
-#admin-config-banner section > table  tr > td:nth-child(6) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(7) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(8) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(9) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(10) {width: 80px;}
-#admin-config-banner section > table  tr > td:nth-child(11) {width: 100px;}
+#admin-config-banner section table  tr > td:nth-child(1) {width: 20px;}
+#admin-config-banner section table  tr > td:nth-child(2) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(3) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(4) {width: auto; text-align: left;}
+#admin-config-banner section table  tr > td:nth-child(5) {width: 240px;}
+#admin-config-banner section table  tr > td:nth-child(6) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(7) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(8) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(9) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(10) {width: 80px;}
+#admin-config-banner section table  tr > td:nth-child(11) {width: 100px;}
 
-#admin-config-banner section > table img.thumb {width: 60px;}
-#admin-config-banner section > table ul > li {line-height: 19px;}
+#admin-config-banner section table img.thumb {width: 60px;}
+#admin-config-banner section table ul > li {line-height: 19px;}
 
 #admin-config-banner section input[type=button] {
     width: 100px;
@@ -541,4 +541,30 @@ button[type=submit] {
     vertical-align: middle;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+/******* cs **********/
+.writeBtn {
+	
+    width: 200px !important;
+    padding: 6px;
+    border: 1px solid #959595;
+    font-size: 13px;
+    background-color: #b2e0fe;
+    color: #333;
+    vertical-align: middle;
+    box-sizing: border-box;
+    float:right;
+    text-align:center;
+}
+.listTable {
+	margin-bottom: 10px;
+}
+.csInputTable input {
+	width:100% !important;
+	height: 100% !important;
+}
+ .csInputTable textarea {
+	width:100% !important;
+	height: 400px !important;
 }
