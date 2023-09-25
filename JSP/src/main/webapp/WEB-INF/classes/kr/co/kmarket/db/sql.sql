@@ -48,4 +48,6 @@ VALUES (?, ?, ?, NOW())
 
 SELECT a.*, kp.prodName as prodName,kp.descript as descript ,kp.thumb1 as thumb1 FROM `km_product_cart` as a join Kmarket.km_product kp on kp.prodNo = a.prodNo WHERE a.uid=?;
 
-SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 and ?=? group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10
+SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 and ?=? group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10;
+
+SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodName LIKE concat('%',?,'%') and stock>0 group by a.prodNo ORDER BY prodNo DESC Limit ?, 10;

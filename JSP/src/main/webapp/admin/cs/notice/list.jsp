@@ -21,7 +21,7 @@ const controllerCate1 = '${cate1}';
                     <form action="${ctxPath}/admin/cs/notice/delete.do" method="post">
                     <div>
                         <select name="searchCate1" id="searchCate1">
-                            <option value="">유형선택</option>                              
+                            <option value="">유형선택</option>
                         </select>
                         <input type="text" name="searchKeyword" id="searchKeyword" value="${keyword}">
                         <input type="hidden" name="searchPg" id="searchPg">
