@@ -14,7 +14,7 @@ const ctx = '${ctxPath}';
         </nav>
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
-            <form action="${ctxPath}/admin/cs/notice/write.do" method="post" >
+            <form action="${ctxPath}/admin/cs/notice/update.do" method="post" >
 		    	<input type="hidden" name="no" value="${no}">
 		    	<input type="hidden" name="writer" value="${sessUser.uid}">
 		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
@@ -25,23 +25,23 @@ const ctx = '${ctxPath}';
 				            <td>유형</td>
 				            <td>
 				              <select name="cate1" id="cate1">
-				                <option value="">대분류 선택</option>
+				                <option value="${dto.cate1}">${dto.c1Name}</option>
 				              </select>
 				              <select name="cate2" id="cate2">
-				                <option value="">상세유형 선택</option>
+				                <option value="${dto.cate2}">${dto.c2Name}</option>
 				              </select>
 				            </td>
 				         </tr>
 				         <tr>
 				            <td>제목</td>                  
 				            <td>
-				              <input type="text" name="title" placeholder="제목을 입력하세요."/>
+				              <input type="text" name="title" placeholder="제목을 입력하세요." value="${dto.title}"/>
 				            </td>
 				          </tr>                
 				          <tr>
 				            <td>내용</td>                  
 				            <td>
-				              <textarea name="content" placeholder="내용을 입력하세요."></textarea>
+				              <textarea name="content" placeholder="내용을 입력하세요.">${dto.content}</textarea>
 				            </td>
 				          </tr>              
 				          <tr>

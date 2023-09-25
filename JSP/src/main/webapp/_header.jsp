@@ -129,8 +129,8 @@
                 <div class="logo">
                     <div>
                         <a href="${ctxPath}"><img src="${ctxPath}/img/header_logo.png" alt="로고"/></a>
-                        <form action="#">
-                            <input type="text" name="search"/>
+                        <form action="${ctxPath}/product/list.do?">
+                            <input type="text" name="search" value="${search}" minlength="2"/>
                             <button><i class="fa fa-search"></i></button>
                         </form>
                     </div>
