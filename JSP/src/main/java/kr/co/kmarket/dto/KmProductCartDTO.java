@@ -15,6 +15,15 @@ public class KmProductCartDTO {
 
     private String prodName;
     private String descript;
+    private String thumb1;
+
+    public String getThumb1() {
+        return thumb1;
+    }
+
+    public void setThumb1(String thumb1) {
+        this.thumb1 = thumb1;
+    }
 
     public String getProdName() {
         return prodName;
@@ -159,4 +168,5 @@ public class KmProductCartDTO {
     public void setDiscount(String discount) {
         this.discount = Integer.parseInt(discount);
     }
+
 }

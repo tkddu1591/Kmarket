@@ -1,57 +1,50 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
+<script>
+	const success =  new URL(location.href).searchParams.get('success');
+	
+	if(success == 0){
+		alert('잘못된 경로입니다.');
+	} 
+</script>
         <div class="main">
           <h1 class="title"><strong>케이마켓</strong>이 도와드릴게요!</h1>              
           <section class="notice">
             <h1>공지사항<a href="${ctxPath}/cs/notice/list.do">전체보기</a></h1>
             <ul>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
-              <li>
-                <a href="#" class="title">[안내] 해외결제 사칭 문자 주의</a>
-                <span class="date">22.10.31</span>
-              </li>
+            	<c:forEach var="notice" items="${latestNotices}">
+	              <li>
+	                <a href="${ctxPath}/cs/notice/view.do?no=${notice.noticeNo}" class="title">[${notice.c1Name}] ${notice.title}</a>
+	                <span class="date">${notice.rdateSub}</span>
+	              </li>
+              	</c:forEach>
             </ul>
           </section>
         
           <section class="faq">
-            <h1>자주 묻는 질문<a href="${ctxPath}/cs/faq/list.do">전체보기</a>
+            <h1>자주 묻는 질문<a href="${ctxPath}/cs/faq/list.do?cate1=20">전체보기</a>
             </h1>
             <ol>
               <li>
-                <a href="#"><span>회원</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=20"><span>회원</span></a>
               </li>
               <li>
-                <a href="#"><span>쿠폰/이벤트</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=21"><span>쿠폰/이벤트</span></a>
               </li>
               <li>
-                <a href="#"><span>주문/결제</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=22"><span>주문/결제</span></a>
               </li>
               <li>
-                <a href="#"><span>배송</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=23"><span>배송</span></a>
               </li>
               <li>
-                <a href="#"><span>취소/반품/교환</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=24"><span>취소/반품/교환</span></a>
               </li>
               <li>
-                <a href="#"><span>여행/숙박/항공</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=25"><span>여행/숙박/항공</span></a>
               </li>
               <li>
-                <a href="#"><span>안전거래</span></a>
+                <a href="${ctxPath}/cs/faq/list.do?cate1=27"><span>기타</span></a>
               </li>
             </ol>
           </section>
@@ -62,41 +55,15 @@
               <a href="${ctxPath}/cs/qna/list.do">전체보기</a>
             </h1>
             <ul>
-              <li>
-                <a href="./qna/list.html" class="title">[회원] 개인회원과 법인회원에 차이가 있나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[쿠폰/이벤트] 스마일포인트는 어디에 사용하나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[주문/결제] 신용카드 결제 중 오류가 난 경우 어떻게 하나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[배송] 주문한 상품은 언제 배송되나요?</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
-              <li>
-                <a href="#" class="title">[취소/반품/교환] 주문을 취소하고 싶어요.</a>
-                <p>
-                  <span class="uid">chh**</span>
-                  <span class="date">22.10.31</span>
-                </p>
-              </li>
+           		<c:forEach var="qna" items="${latestQnas}">
+	              <li>
+	                <a href="${ctxPath}/cs/qna/view.do?no=${qna.qnaNo}" class="title">[${qna.c1Name}] ${qna.title}</a>
+	                <p>
+	                	<span class="uid">${qna.writerMarking}</span>
+	                	<span class="date">${qna.rdateSub}</span>
+	                </p>
+	              </li>
+             	</c:forEach>
             </ul>
             <a href="${ctxPath}/cs/qna/write.do" class="ask">문의글 작성 ></a>
           </section>

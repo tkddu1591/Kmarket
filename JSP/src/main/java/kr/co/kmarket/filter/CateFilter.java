@@ -22,11 +22,14 @@ public class CateFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 
+        req.setCharacterEncoding("UTF-8");
         // 현재 세션 가져오기
         HttpServletRequest httpRequest = (HttpServletRequest) req;
         HttpSession session = httpRequest.getSession();
 
         if (session.getAttribute("sessCoates1") == null) {
+
+
 
             //첫 접속시 세션에 카테고리 부여
             KmProductCate2Service kmProductCate2Service = KmProductCate2Service.INSTANCE;

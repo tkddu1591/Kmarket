@@ -29,8 +29,8 @@
         </p>
 
         <div>
-            <a href="#" class="btn btnCancel">로그인</a>
-            <a href="#" class="btn btnNext">비밀번호 찾기</a>
+            <a href="${ctxPath}/member/login.do" class="btn btnCancel">로그인</a>
+            <a href="${ctxPath}/member/findPass.do" class="btn btnNext">비밀번호 찾기</a>
         </div>
     </section>
 </main>

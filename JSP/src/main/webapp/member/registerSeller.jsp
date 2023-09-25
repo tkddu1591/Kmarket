@@ -121,16 +121,9 @@
 								</td>
 							</tr>
 							<tr>
-								<th><span class="essential">*</span>성별</th>
-								<td>
-									<label><input type="radio" name="km_gender" value="1" checked>&nbsp;남</label> 
-									<label><input type="radio" name="km_gender" value="2">&nbsp;여</label>
-								</td> <!-- name을 똑같은걸로해야 radio 효과가 적용됨, name이 다르니까 km_gender / gender 되있어서 안됨-->
-							</tr>
-							<tr>
 								<th><span class="essential">*</span>휴대폰</th>
 								<td>
-									<input type="text" name="km_hp" maxlength="13" placeholder="휴대폰번호 입력" required /> 
+									<input type="text" name="km_hp" maxlength="13" placeholder="휴대폰번호 입력" required /> <!-- 중복체크하기 위해 name="km_hp" 로 설정 -->
 									<span class="msgHp">&nbsp;&nbsp;-포함 13자리를 입력하세요.</span>
 									<span id="resultHp"></span>
 								</td>

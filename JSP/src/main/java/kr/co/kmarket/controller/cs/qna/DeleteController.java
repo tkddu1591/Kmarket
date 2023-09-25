@@ -50,18 +50,14 @@ public class DeleteController extends HttpServlet{
 
 		// 파일 삭제용 이름 
 		List<String> file = dto.getFile();
-		// 게시글과 삭제 
+		// 게시글 삭제 
 		qnaService.deleteCsQna(no);
 		
 		// 파일 삭제(디렉터리) 
 		if(file.size() != 0) {
-			String path = qnaService.getFilePath(req);
-			
+			String path = qnaService.getCtxPath(req);
 			for(String fileName : file) {
-				File f = new File(path + "/" + fileName);
-				if(f.exists()) {
-					f.delete();
-				}
+				qnaService.deletefile(path, fileName);
 			}
 		}
 		

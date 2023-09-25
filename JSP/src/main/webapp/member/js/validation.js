@@ -11,7 +11,7 @@ let isHpOk    = false;
 
 // 데이터 검증에 사용하는 정규표현식
 let reUid   = /^[a-z]+[a-z0-9]{4,19}$/g;
-let rePass  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
+let rePass  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,12}$/; // 최소 8자 이상 최대 12자 
 let reName  = /^[가-힣]{2,10}$/ 
 let reNick  = /^[a-zA-Zㄱ-힣0-9][a-zA-Zㄱ-힣0-9]*$/;
 let reEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -26,7 +26,7 @@ $(function(){
 		isUidOk = false;
 	});
 	
-	// 비밀번호 검사
+	// 비밀번호 검사 / 회원가입할 때 외에 비밀번호 변경할 때도 쓰인다
 	$('input[name=km_pass2]').focusout(function(){
 		
 		const pass1 = $('input[name=km_pass1]').val();

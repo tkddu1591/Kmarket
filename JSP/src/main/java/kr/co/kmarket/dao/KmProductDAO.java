@@ -26,8 +26,8 @@ public class KmProductDAO extends DBHelper {
   
     // 0912 상엽님 
     /*condition
-     * 10의자리= 조건(1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜) 
-     * 조건 검색 : 6:상품명, 7: 상품코드,8: 제조사, 9: 판매자
+     * 10의자리= 조건(0: hit 1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜)
+     * 조건 검색 : 6:상품명, 7: 상품코드, 8: 제조사, 9: 판매자, 10:할인
      * 1의자리 = 높은순(1), 낮은순(2) 정렬 , 이외 조건검색방식
      * */
     public List<KmProductDTO> selectKmProductsCateL10(KmProductCate2DTO kmProductCate2DTO, int start, String condition) {
@@ -42,7 +42,9 @@ public class KmProductDAO extends DBHelper {
 				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
             }else if(kmProductCate2DTO.getCate1()!= 0){
 				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE  prodCate1 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
-			}else {
+			}else if(conditionName[1].equals("0")|| conditionName[1].equals("")){
+				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 and "+conditionName[0]+"=? group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10");
+			} else{
 				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
 			}
 
@@ -62,7 +64,7 @@ public class KmProductDAO extends DBHelper {
                 KmProductDTO kmProduct = new KmProductDTO();
 
                 kmProduct = getInstance().SelectProductData(); 
-                if(kmProductCate2DTO.getCate1()!= 0) {
+                if(!conditionName[1].equals("0")&& !conditionName[1].equals("")) {
                 kmProduct.setRating(rs.getInt("rating"));
                 }
 
@@ -77,6 +79,41 @@ public class KmProductDAO extends DBHelper {
     }
 
 
+	public List<KmProductDTO> selectProducts(String condition){
+		List<KmProductDTO> kmProductDTOS = new ArrayList<>();
+		String[] conditionName= new String[2];
+
+		conditionName = changeCondition(condition);
+		try {
+			conn = getConnection();
+			int count= 8;
+			int num=1;
+			if(conditionName[0]=="sold"){
+				count = 5;
+			}
+			psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT 0, "+count);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				KmProductDTO kmProduct = new KmProductDTO();
+				kmProduct.setThumb2(rs.getString("thumb2"));
+				kmProduct.setProdName(rs.getString("prodName"));
+				kmProduct.setProdNo(rs.getInt("prodNo"));
+				kmProduct.setDescript(rs.getString("descript"));
+				kmProduct.setDiscount(rs.getInt("discount"));
+				kmProduct.setPrice(rs.getInt("price"));
+				kmProduct.setDelivery(rs.getInt("delivery"));
+				if(count==5){
+					kmProduct.setEtc1(num);
+					num++;
+				}
+				kmProductDTOS.add(kmProduct);
+			}
+			close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return kmProductDTOS;
+	}
     public int selectKmProductsCountCate(int cate1, int cate2) {
         int count = 0;
         try {
@@ -85,10 +122,13 @@ public class KmProductDAO extends DBHelper {
 				psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_CATE12);
 				psmt.setInt(1, cate1);
 				psmt.setInt(2, cate2);
-			}else {
+			}else if(cate1 !=0){
 				psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_CATE1);
 				psmt.setInt(1, cate1);
+			}else{
+				psmt = conn.prepareStatement(SQL.SELECT_PRODUCTS_COUNT_ALL);
 			}
+
 
             rs = psmt.executeQuery();
             while (rs.next()) {
@@ -137,7 +177,7 @@ public class KmProductDAO extends DBHelper {
         kmProduct.setEtc4(rs.getString("etc4"));
         kmProduct.setEtc5(rs.getString("etc5"));
         kmProduct.setDiscountPrice((kmProduct.getPrice()*(100-kmProduct.getDiscount()))/100);
-        kmProduct.setTotal((kmProduct.getDiscountPrice()+kmProduct.getDelivery()));
+        kmProduct.setTotal((kmProduct.getDiscountPrice()));
         return kmProduct;
     }
 
@@ -278,7 +318,7 @@ public class KmProductDAO extends DBHelper {
 				dto.setOrigin(rs.getString(20));
 				
 			}
-			
+			close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -391,18 +431,50 @@ public class KmProductDAO extends DBHelper {
 			else if(conditionData1==9){
 				st1 = "seller";
 			}
+			else if(conditionData1==10){
+				st1 = "discount";
+			}
+			else{
+				st1="hit";
+			}
 			if(conditionData2==1){
 				st2 = "desc";
 			}else if(conditionData2==2){
 				st2 = "asc";
-			}else if(conditionData2>2) {
+			}else {
 				st2="";
 			}
 			/*condition
-			 * st1= 조건(1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜)
+			 * st1= 조건(0: hit, 1: 판매건수, 2:상품가격, 3:상품평점, 4:상품리뷰, 5:등록날짜)
 			 * 조건 검색 : 6:상품명, 7: 상품코드,8: 제조사, 9: 판매자
 			 * st2 = 높은순(1), 낮은순(2) 정렬 , 이외 조건검색방식
 			 * */
 			return new String[]{st1, st2};
 		}
+
+    public void updateProduct(int count, int prodNo) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT);
+			psmt.setInt(1, count);
+			psmt.setInt(2, count);
+			psmt.setInt(3, prodNo);
+			psmt.executeUpdate();
+			close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+    }
+
+    public void updateProductHit(String prodNo) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_HIT);
+			psmt.setString(1, prodNo);
+			psmt.executeUpdate();
+			close();
+		} catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

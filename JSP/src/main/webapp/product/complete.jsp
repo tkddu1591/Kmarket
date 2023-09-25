@@ -31,75 +31,68 @@
                 <tr>
                     <th>상품명</th>
                     <th>상품금액</th>
-                    <th>할인금액</th>
+                    <c:if test="${order.ordDiscount ne 0}">
+                        <th>할인금액</th>
+                    </c:if>
                     <th>수량</th>
                     <th>주문금액</th>
                 </tr>
-                <tr>
-                    <td>
-                        <article>
-                            <img src="https://via.placeholder.com/80x80" alt="">
-                            <div>
-                                <h2><a href="#">상품명</a></h2>
-                                <p>상품설명</p>
-                            </div>
-                        </article>
-                    </td>
-                    <td>17,000원</td>
-                    <td>1,000원</td>
-                    <td>1</td>
-                    <td>16,000원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <article>
-                            <img src="https://via.placeholder.com/80x80" alt="">
-                            <div>
-                                <h2><a href="#">상품명</a></h2>
-                                <p>상품설명</p>
-                            </div>
-                        </article>
-                    </td>
-                    <td>17,000원</td>
-                    <td>1,000원</td>
-                    <td>1</td>
-                    <td>16,000원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <article>
-                            <img src="https://via.placeholder.com/80x80" alt="">
-                            <div>
-                                <h2><a href="#">상품명</a></h2>
-                                <p>상품설명</p>
-                            </div>
-                        </article>
-                    </td>
-                    <td>17,000원</td>
-                    <td>1,000원</td>
-                    <td>1</td>
-                    <td>16,000원</td>
-                </tr>
+                <c:forEach var="item" items="${kmProductOrderItemDTOS}">
+                    <tr>
+                        <td>
+                            <input type="hidden" class="orderData" value="${item}" name="dto">
+                            <article>
+                                <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}"><img
+                                        src="${ctxPath}${item.thumb1}" alt="상품이미지"></a>
+                                <div>
+                                    <h2>
+                                        <a href="${ctxPath}/product/view.do?prodNo=${item.prodNo}">${item.prodName}</a>
+                                    </h2>
+                                    <p>${item.descript}</p>
+                                </div>
+                            </article>
+                        </td>
+                        <td>${item.priceWithComma}원</td>
+                        <td>${item.discountPriceWithComma ne '0' ? item.discountPriceWithComma+='원' : '-'}</td>
+                        <td>${item.count}</td>
+                        <td>${item.totalWithComma}원</td>
+                    </tr>
+                </c:forEach>
 
                 <tr class="total">
-                    <td colspan="4"></td>
+                    <c:choose>
+                        <c:when test="${order.ordDiscount ne 0}">
+                            <td colspan="4"></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td colspan="3"></td>
+                        </c:otherwise>
+                    </c:choose>
                     <td>
                         <table border="0">
                             <tr>
                                 <td>총 상품금액</td>
-                                <td><span>34,000</span>원</td>
+                                <td><span>${order.ordPriceWithComma}</span>원</td>
                             </tr>
-                            <tr>
-                                <td>총 할인금액</td>
-                                <td><span>-2,000</span>원</td>
-                            </tr>
+                            <c:if test="${order.ordDiscount ne 0}">
+                                <tr>
+                                    <td>할인금액</td>
+                                    <td><span>-${order.ordDiscountWithComma}</span>원</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${order.usedPoint ne '0'}">
+                                <tr>
+                                    <td>사용포인트</td>
+                                    <td>-<span>${order.usedPointWithComma}</span>P</td>
+                                </tr>
+                            </c:if>
                             <tr>
                                 <td>배송비</td>
-                                <td><span>3,000</span>원</td>
+                                <td><span>${order.ordDeliveryWithComma}</span>원</td>
                             </tr>
                             <tr>
                                 <td>총 결제금액</td>
-                                <td><span>35,000</span>원</td>
+                                <td><span>${order.ordTotPriceWithComma}</span>원</td>
                             </tr>
                         </table>
                     </td>
@@ -113,17 +106,24 @@
             <table border="0">
                 <tr>
                     <td>주문번호</td>
-                    <td>2008101324568</td>
+                    <td>${orderNo}</td>
                     <td rowspan="3">총 결제금액</td>
-                    <td rowspan="3"><span>35,000</span>원</td>
+                    <td rowspan="3"><span>${order.ordTotPriceWithComma}</span>원</td>
                 </tr>
                 <tr>
                     <td>결제방법</td>
-                    <td>신용카드</td>
+                    <td><c:choose>
+                        <c:when test="${order.ordPayment eq 1}">신용카드</c:when>
+                        <c:when test="${order.ordPayment eq 2}">체크카드</c:when>
+                        <c:when test="${order.ordPayment eq 3}">실시간 계좌이체</c:when>
+                        <c:when test="${order.ordPayment eq 4}">무통장입금</c:when>
+                        <c:when test="${order.ordPayment eq 5}">휴대폰결제</c:when>
+                        <c:when test="${order.ordPayment eq 6}">카카오페이</c:when>
+                    </c:choose></td>
                 </tr>
                 <tr>
                     <td>주문자/연락처</td>
-                    <td>홍길동/010-1234-1234</td>
+                    <td>${sessUser.name}/${sessUser.hp}</td>
                 </tr>
             </table>
         </article>
@@ -134,20 +134,20 @@
             <table border="0">
                 <tr>
                     <td>수취인</td>
-                    <td>홍길동</td>
+                    <td>${order.recipName}</td>
                     <td>주문자 정보</td>
                 </tr>
                 <tr>
                     <td>연락처</td>
-                    <td>010-1234-1234</td>
+                    <td>${order.recipHp}</td>
                     <td rowspan="2">
-                        홍길동<br/>
-                        010-1234-1234
+                        ${order.recipName}<br/>
+                        ${order.recipHp}
                     </td>
                 </tr>
                 <tr>
                     <td>배송지 주소</td>
-                    <td>부산광역시 강남구 대연동 123 10층</td>
+                    <td>${order.recipAddr1} ${order.recipAddr2}</td>
                 </tr>
             </table>
         </article>
@@ -170,4 +170,5 @@
     <!-- 결제완료 페이지 끝 -->
 </main>
 
-<%@ include file="_footer.jsp" %>
+
+<%@ include file="../_footer.jsp" %>

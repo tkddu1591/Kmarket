@@ -83,6 +83,12 @@
                     termCartDatas = cart.value.split(',', 10)
                     console.log(cart.value)
                     for (let i = 4; i <= 8; i++) {
+                        if (termCartDatas[i] == '0') {
+                        }
+                        if (i == 4 || i == 7) {
+                            totalCartDatas[i] += parseInt(termCartDatas[i]) * parseInt(termCartDatas[3]);
+                            continue
+                        }
                         totalCartDatas[i] += parseInt(termCartDatas[i]);
                     }
                     totalCartDatas[3]++;
@@ -92,11 +98,20 @@
             const totalData = document.getElementsByClassName("totalData");
             const finalData = document.getElementsByClassName("finalData")
             let no = 3;
-            let number =0;
+            let number = 0;
+            let count = 0;
             for (let data of totalData) {
+                if (totalCartDatas[no] == '0') {
+                    data.innerText = '-';
+
+                    finalData[number].value = 0;
+                    no++;
+                    number++;
+                    continue;
+                }
                 if (no == 5) {
-                    data.innerText = '-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
-                    finalData[number].value ='-' + (totalCartDatas[4] + totalCartDatas[6] - totalCartDatas[8]).toLocaleString();
+                    data.innerText = '-' + (totalCartDatas[4] - totalCartDatas[8] + totalCartDatas[6]).toLocaleString();
+                    finalData[number].value = '-' + (totalCartDatas[4] - totalCartDatas[8] + totalCartDatas[6]).toLocaleString();
                     number++;
                     no++;
                     continue;
@@ -104,7 +119,7 @@
                 if (no == 7) {
 
                     data.innerText = totalCartDatas[no].toLocaleString() + ' P';
-                    finalData[number].value = totalCartDatas[no].toLocaleString() +' P';
+                    finalData[number].value = totalCartDatas[no].toLocaleString() + ' P';
                     number++;
                     no++;
                     continue;
@@ -128,6 +143,7 @@
                 // form 액션 구현하기
                 e.preventDefault();
                 cartDeleteForm.attr("action", "${ctxPath}/product/cart.do");
+                cartDeleteForm.attr("method", "POST");
                 cartDeleteForm.submit();
 
                 /*let check = $('input:checkbox')
@@ -135,6 +151,13 @@
                 alert('삭제되었습니다.')*/
             }
         })
+        $('input[name="order"]').click(function (e) {
+
+            if (!confirm('주문하시겠습니까?')) {
+                e.preventDefault();
+            }
+        })
+
 
     })
 </script>
@@ -155,7 +178,7 @@
             </p>
         </nav>
 
-        <form action="${ctxPath}/product/order.do" method="GET" id="cartDeleteForm">
+        <form action="${ctxPath}/product/order.do" method="POST" id="cartDeleteForm">
             <!-- 장바구니 목록 -->
             <table>
                 <thead>
@@ -184,68 +207,81 @@
                                     <td><input type="checkbox" class="cartData" value="${dto}" name="dto" checked></td>
                                     <input type="hidden" name="prodName" value="${dto.prodName}">
                                     <input type="hidden" name="descript" value="${dto.descript}">
+                                    <input type="hidden" name="thumb1" value="${dto.thumb1}">
                                     <td>
                                         <article>
-                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img src="https://via.placeholder.com/80x80" alt=""></a>
+                                            <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}"> <img
+                                                    src="${ctxPath}${dto.thumb1}" alt="상품이미지"></a>
                                             <div>
-                                                <h2><a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}">${dto.prodName}</a></h2>
+                                                <h2>
+                                                    <a href="${ctxPath}/product/view.do?prodNo=${dto.prodNo}">${dto.prodName}</a>
+                                                </h2>
                                                 <p>${dto.descript}</p>
                                             </div>
                                         </article>
                                     </td>
                                     <td>${dto.count}</td>
-                                    <td>${dto.priceWithComma}</td>
-                                    <td>${dto.discount}%</td>
-                                    <td>${dto.pointWithComma}</td>
-                                    <td>${empty dto.delivery ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
-                                    <td>${dto.totalWithComma}</td>
+                                        <td>${dto.priceWithComma}</td>
+                                    <c:choose>
+                                        <c:when test="${dto.discount ne 0}"><td>${dto.discountWithComma}%</td></c:when>
+                                        <c:otherwise><td>-</td></c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${dto.point ne 0}"><td>${dto.priceWithComma}</td></c:when>
+                                        <c:otherwise><td>-</td></c:otherwise>
+                                    </c:choose>
+                                    <td>${dto.delivery eq 0 ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
+                                    <td><p>${dto.totalWithComma}</p>
+                                        <p>${dto.point*dto.count} P</p></td>
                                 </tr>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
                 </tbody>
             </table>
-            <input type="button" name="del" value="선택삭제">
 
-            <!-- 장바구니 전체합계 -->
-            <div class="total">
-                <h2>전체합계</h2>
-                <table border="0">
-                    <tr>
-                        <td>상품수</td>
-                        <td class="totalData">1</td>
-                    </tr>
-                    <tr>
-                        <td>상품금액</td>
-                        <td class="totalData">27,000</td>
-                    </tr>
-                    <tr>
-                        <td>할인금액</td>
-                        <td class="totalData">-1,000</td>
-                    </tr>
-                    <tr>
-                        <td>배송비</td>
-                        <td class="totalData">0</td>
-                    </tr>
-                    <tr>
-                        <td>포인트적립</td>
-                        <td class="totalData">260</td>
-                    </tr>
-                    <tr>
-                        <td>전체주문금액</td>
-                        <td class="totalData">26,000</td>
-                    </tr>
-                </table>
-                <input class="final" type="submit" name="" value="주문하기">
-                <input class="finalData" type="hidden" name="finalCount" value="0"/>
-                <input class="finalData" type="hidden" name="finalPrice" value="0"/>
-                <input class="finalData" type="hidden" name="finalDiscount" value="0"/>
-                <input class="finalData" type="hidden" name="finalPoint" value="0"/>
-                <input class="finalData" type="hidden" name="finalDelivery" value="0"/>
-                <input class="finalData" type="hidden" name="finalTotal" value="0"/>
+            <c:if test="${not empty kmProductCartDTOS}">
+                <input type="button" name="del" value="선택삭제">
 
-            </div>
+                <!-- 장바구니 전체합계 -->
+                <div class="total">
+                    <h2>전체합계</h2>
+                    <table border="0">
+                        <tr>
+                            <td>상품수</td>
+                            <td class="totalData">1</td>
+                        </tr>
+                        <tr>
+                            <td>상품금액</td>
+                            <td class="totalData">27,000</td>
+                        </tr>
+                        <tr>
+                            <td>할인금액</td>
+                            <td class="totalData">-1,000</td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td class="totalData">0</td>
+                        </tr>
+                        <tr>
+                            <td>포인트적립</td>
+                            <td class="totalData">260</td>
+                        </tr>
+                        <tr>
+                            <td>전체주문금액</td>
+                            <td class="totalData">26,000</td>
+                        </tr>
+                    </table>
+                    <input class="final" type="submit" name="order" value="주문하기">
+                    <input class="finalData" type="hidden" name="finalCount" value="0"/>
+                    <input class="finalData" type="hidden" name="finalPrice" value="0"/>
+                    <input class="finalData" type="hidden" name="finalDiscount" value="0"/>
+                    <input class="finalData" type="hidden" name="finalDelivery" value="0"/>
+                    <input class="finalData" type="hidden" name="finalPoint" value="0"/>
+                    <input class="finalData" type="hidden" name="finalTotal" value="0"/>
 
+                </div>
+            </c:if>
         </form>
 
     </section>

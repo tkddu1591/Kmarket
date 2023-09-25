@@ -11,6 +11,22 @@
 	          </p>
 	        </nav>
 	
+	        <c:if test="${dto.answerComplete eq 0}">
+		        <div class="answerStatus answer-0">
+		        	[상태] 대기중
+		        </div>
+	        </c:if>
+	        <c:if test="${dto.answerComplete eq 1}">
+		        <div class="answerStatus answer-1">
+		        	[상태] 검토중 
+		        	<span>* 검토 중인 질문은 수정/삭제가 제한됩니다.</span>
+		        </div>
+	        </c:if>
+	        <c:if test="${dto.answerComplete eq 2}">
+		        <div class="answerStatus answer-2">
+		        	[상태] 답변완료 
+		        </div>
+	        </c:if>
 	        <div class="content">
 	          <p>
 	            ${dto.content}
@@ -26,7 +42,7 @@
 		        				<span>파일${fileNo = fileNo +1} : &nbsp;</span>
 		        				<div class="fileImg">
 				        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${file}" id="downloadFile" data-fno="${file}">
-				        				 <img src="${ctxPath}/upload/${file}">
+				        				 <img src="${ctxPath += file}">
 			        				 </a>
 		        				 </div>
 		        			</li>
@@ -56,8 +72,21 @@
 			        		<ul>
 			        			<li>
 			        				<span>파일${fileNo = fileNo +1} : &nbsp;</span>
+			        				
 			        				<div class="fileImg">
 					        			<a href="${ctxPath}/cs/qna/fileDownload.do?fileName=${file}" id="downloadFile" data-fno="${file}">
+											<c:forTokens var="ext" items="${file}" delims="." varStatus="status">
+												<c:if test="${status.last}">
+													<c:choose>
+														<c:when test="${ext eq 'pdf'}">
+															pdf
+														</c:when>
+														<c:otherwise>
+															이미지 
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forTokens>
 					        				 <img src="${ctxPath}/upload/${file}">
 				        				 </a>
 			        				 </div>

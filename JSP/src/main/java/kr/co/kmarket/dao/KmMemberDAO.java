@@ -1,5 +1,6 @@
 package kr.co.kmarket.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -52,6 +53,53 @@ public class KmMemberDAO extends DBHelper{
 			psmt = conn.prepareStatement(SQL.SELECT_MEMBER);
 			psmt.setString(1, uid);
 			psmt.setString(2, pass);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setUid(rs.getString(1));
+				dto.setPass(rs.getString(2));
+				dto.setName(rs.getString(3));
+				dto.setGender(rs.getInt(4));
+				dto.setHp(rs.getString(5));
+				dto.setEmail(rs.getString(6));
+				dto.setType(rs.getInt(7));
+				dto.setPoint(rs.getInt(8));
+				dto.setLevel(rs.getInt(9));
+				dto.setZip(rs.getString(10));
+				dto.setAddr1(rs.getString(11));
+				dto.setAddr2(rs.getString(12));
+				dto.setCompany(rs.getString(13));
+				dto.setCeo(rs.getString(14));
+				dto.setBizRegNum(rs.getString(15));
+				dto.setComRegNum(rs.getString(16));
+				dto.setTel(rs.getString(17));
+				dto.setManager(rs.getString(18));
+				dto.setManagerHp(rs.getString(19));
+				dto.setFax(rs.getString(20));
+				dto.setRegIp(rs.getString(21));
+				dto.setwDate(rs.getString(22));
+				dto.setrDate(rs.getString(23));
+				dto.setEtc1(rs.getInt(24));
+				dto.setEtc2(rs.getInt(25));
+				dto.setEtc3(rs.getString(26));
+				dto.setEtc4(rs.getString(27));
+				dto.setEtc5(rs.getString(28));
+			}
+			close();
+			
+		}catch (Exception e) {
+			logger.error("selectMember() : " + e.getMessage());
+		}
+		return dto;
+	}
+	
+	public KmMemberDTO selectMemberByUid(String uid) {
+		KmMemberDTO dto = new KmMemberDTO();
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_MEMBER_BY_UID);
+			psmt.setString(1, uid);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -224,12 +272,58 @@ public class KmMemberDAO extends DBHelper{
 			if(rs.next()) {
 				result = rs.getInt(1);
 			}
+			close();
 		}catch (Exception e) {
 			logger.error("selectCountNameAndEmail() : " + e.getMessage());
 		}
 		return result;
 	}
 	
+	public int selectCountUidAndEmail(String uid, String email) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COUNT_UID_AND_EMAIL);
+			psmt.setString(1, uid);
+			psmt.setString(2, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			logger.error("selectCountNameAndEmail() : " + e.getMessage());
+		}
+		return result;
+	}
+	
+	public void updatePass(String uid, String pass) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_PASS);
+			psmt.setString(1, pass); // 1번 파라미터 자리에는 매개변수 중 2번째가 들어간다(매개변수 순서, 즉 위치를 봐야함!!!)
+			psmt.setString(2, uid);
+			psmt.executeUpdate();
+			close();
+			
+		}catch (Exception e) {
+			logger.error("updatePass() : " + e.getMessage());
+		}
+	}
+	
+    public void updatePoint(String ordUid, int point) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_POINT);
+			psmt.setInt(1, point);
+			psmt.setString(2, ordUid);
+			psmt.executeUpdate();
+			close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
 
 

@@ -28,9 +28,9 @@
                     </table>					
 					<input type="submit" value="로그인" />
 					<span>
-                        <label><input type="checkbox" name="auto"/>자동 로그인</label>
+                        <label><input type="checkbox" name="auto" value="1"/>자동 로그인</label> <!-- value값 추가, 1이면 checkbox 체크된 것 -->
 						<a href="${ctxPath}/member/findId.do">아이디찾기</a>
-						<a href="#">비밀번호찾기</a>
+						<a href="${ctxPath}/member/findPass.do">비밀번호찾기</a>
 						<a href="${ctxPath}/member/join.do">회원가입</a>
 					</span>
 

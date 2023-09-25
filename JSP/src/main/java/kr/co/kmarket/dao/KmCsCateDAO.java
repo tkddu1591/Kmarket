@@ -32,6 +32,8 @@ public class KmCsCateDAO extends DBHelper{
 				rs = stmt.executeQuery(SQL.SELECT_CSCATE1S_BY_TYPE1);
 			} else if(type==2){
 				rs = stmt.executeQuery(SQL.SELECT_CSCATE1S_BY_TYPE2);
+			} else if(type == 0){
+				rs = stmt.executeQuery(SQL.SELECT_CSCATE1S_ALL);
 			}
 			
 			while(rs.next()) {
@@ -72,24 +74,26 @@ public class KmCsCateDAO extends DBHelper{
 				
 		return cate2List;
 	}
-	
+
 	public String selectCsC1Name(String cate1) {
 		String c1Name = null;
 		try {
 			conn = getConnection();
-			if(cate1==null) {
-				return null;
-			} else{
+			//if(cate1==null) {
+			//	return null;
+			//} else{
 				psmt = conn.prepareStatement(SQL.SELECT_CSCATE1_C1NAME);
 				psmt.setString(1, cate1);
-			}
+			//}
 			
+			rs = psmt.executeQuery();	
+				
 			if(rs.next()) {
 				c1Name = rs.getString(1);
 			}
 			close();
 		} catch (Exception e) {
-			logger.error("error selectCSCate1s() :" + e.getMessage());
+			logger.error("error selectCsC1Name() :" + e.getMessage());
 		}
 				
 		return c1Name;

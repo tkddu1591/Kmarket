@@ -2,10 +2,12 @@ package kr.co.kmarket.controller.member;
 
 import java.io.IOException;
 
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,10 +39,41 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		// success는 왜 수신하는거지??
 		String success = req.getParameter("success");
 		req.setAttribute("success", success);
 		
 		logger.debug(success);
+		
+		/*Cookie[] cookies = req.getCookies();
+		
+		if(cookies != null) {
+		
+			for(Cookie cookie : cookies) {
+				
+				if(cookie.getName().equals("cid")) {
+					
+					String uid = cookie.getValue();
+					
+					KmMemberDTO user = service.selectMemberByUid(uid);
+					
+					HttpSession session = req.getSession();
+					session.setAttribute("sessUser", user);
+				}
+			}// for문 끝 , 밖에서 session 참조 못함
+		}
+		*/
+		 
+		
+		/*// 로그인 여부 할 필요가 있나?? 이렇게 확인하는 거 맞나??
+		HttpSession session = req.getSession();
+		KmMemberDTO user = (KmMemberDTO) session.getAttribute("sessUser");
+		
+		if(user != null) {
+			resp.sendRedirect("/JSP");
+			return;
+		}
+		*/
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/member/login.jsp");
 		dispatcher.forward(req, resp);
@@ -51,6 +84,7 @@ public class LoginController extends HttpServlet{
 		
 		String uid = req.getParameter("uid");
 		String pass = req.getParameter("pass");
+		String auto = req.getParameter("auto");
 		
 		logger.debug(uid);
 		logger.debug(pass);
@@ -59,12 +93,18 @@ public class LoginController extends HttpServlet{
 		
 		if(user != null) {
 			
+			if(auto != null) {
+				Cookie autoCookie = new Cookie("cid", uid);
+				autoCookie.setMaxAge(60*3);
+				resp.addCookie(autoCookie); //response객체에 쿠키전송??
+			}
+			
 			HttpSession session = req.getSession();
 			
-			session.setAttribute("sessUser", user);
+			session.setAttribute("sessUser", user); 
 			
 			// 컨텍스트 경로 전역변수를 이용한 리다이렉트
-			resp.sendRedirect(ctxPath);
+			resp.sendRedirect(ctxPath); // session은 브라우저 켜져 있는 한 유지되므로 index.jsp에서 sessUser속성을 표현언어로 참조할 수 있는 것 / 위에서 ctxPath 생성해주고 이렇게 쓸수도 있네
 		}else {
 			resp.sendRedirect(ctxPath+"/member/login.do?success=100");
 		}

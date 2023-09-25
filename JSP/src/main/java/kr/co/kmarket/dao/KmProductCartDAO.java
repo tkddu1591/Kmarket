@@ -17,7 +17,8 @@ public class KmProductCartDAO extends DBHelper {
         return INSTANCE;
     }
 
-    public void insertCart(KmProductCartDTO dto) {
+    public int insertCart(KmProductCartDTO dto) {
+        int result = 0;
         try {
             conn = getConnection();
             psmt = conn.prepareStatement(SQL.INSERT_CART);
@@ -33,11 +34,12 @@ public class KmProductCartDAO extends DBHelper {
             logger.info(SQL.INSERT_CART);
             logger.info(dto.getUid());
             logger.info(dto.getrDate());
-            psmt.executeUpdate();
+            result =psmt.executeUpdate();
             close();
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
+        return result;
     }
 
     public void deleteCartUid(String uid) {
@@ -64,6 +66,7 @@ public class KmProductCartDAO extends DBHelper {
                 dto = selectCartData();
                 dto.setProdName(rs.getString("prodName"));
                 dto.setDescript(rs.getString("descript"));
+                dto.setThumb1(rs.getString("thumb1"));
                 list.add(dto);
             }
             close();
@@ -96,6 +99,50 @@ public class KmProductCartDAO extends DBHelper {
             close();
         } catch (SQLException e) {
             logger.error(e.getMessage());
+        }
+    }
+
+    public int selectCartCountProd(int prodNo) {
+        int count = 0;
+        try {
+            conn = getConnection();
+            psmt = conn.prepareStatement(SQL.SELECT_CART_COUNT_PROD);
+            psmt.setInt(1, prodNo);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("count");
+            }
+            close();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+        return count;
+    }
+
+    public int updateCartCount(int prodNo, int count) {
+        int result =0;
+        try {
+            conn = getConnection();
+            psmt = conn.prepareStatement(SQL.UPDATE_CART_COUNT);
+            psmt.setInt(1, count);
+            psmt.setInt(2, prodNo);
+            result =psmt.executeUpdate();
+            close();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteCarts(String ordUid) {
+        try {
+            conn = getConnection();
+            psmt = conn.prepareStatement(SQL.DELETE_CARTS);
+            psmt.setString(1, ordUid);
+            psmt.executeUpdate();
+            close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

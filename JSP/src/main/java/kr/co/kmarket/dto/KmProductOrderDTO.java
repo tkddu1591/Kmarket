@@ -9,13 +9,38 @@ public class KmProductOrderDTO {
     private int ordDelivery;
     private int savePoint;
     private int usedPoint;
-    private String recIpName;
-    private String recIpHp;
-    private String recIpAddr1;
-    private String recIpAddr2;
+    private String recipName;
+    private String recipHp;
+    private String recipZip;
+    private String recipAddr1;
+    private String recipAddr2;
     private int ordPayment;
     private int ordComplete;
+    private int ordTotPrice;
     private String ordDate;
+
+    public String getRecipZip() {
+        return recipZip;
+    }
+
+    public void setRecipZip(String recipZip) {
+        this.recipZip = recipZip;
+    }
+
+    public int getOrdTotPrice() {
+        return ordTotPrice;
+    }
+    public String getOrdTotPriceWithComma() {
+        return String.format("%,d", ordTotPrice);
+    }
+
+    public void setOrdTotPrice(int ordTotPrice) {
+        this.ordTotPrice = ordTotPrice;
+    }
+
+    public void setOrdTotPrice(String ordTotPrice) {
+        this.ordTotPrice = Integer.parseInt(ordTotPrice);
+    }
 
     public int getOrdNo() {
         return ordNo;
@@ -23,6 +48,9 @@ public class KmProductOrderDTO {
 
     public void setOrdNo(int ordNo) {
         this.ordNo = ordNo;
+    }
+    public void setOrdNo(String ordNo) {
+        this.ordNo = Integer.parseInt(ordNo);
     }
 
     public String getOrdUid() {
@@ -40,29 +68,53 @@ public class KmProductOrderDTO {
     public void setOrdCount(int ordCount) {
         this.ordCount = ordCount;
     }
+    public void setOrdCount(String ordCount) {
+        this.ordCount = Integer.parseInt(ordCount);
+    }
 
     public int getOrdPrice() {
         return ordPrice;
     }
 
+    public String getOrdPriceWithComma() {
+        return String.format("%,d", ordPrice);
+    }
+
     public void setOrdPrice(int ordPrice) {
         this.ordPrice = ordPrice;
+    }
+    public void setOrdPrice(String ordPrice) {
+        this.ordPrice = Integer.parseInt(ordPrice);
     }
 
     public int getOrdDiscount() {
         return ordDiscount;
     }
 
+    public String getOrdDiscountWithComma() {
+        return String.format("%,d", ordDiscount);
+    }
+
     public void setOrdDiscount(int ordDiscount) {
         this.ordDiscount = ordDiscount;
+    }
+    public void setOrdDiscount(String ordDiscount) {
+        this.ordDiscount = Integer.parseInt(ordDiscount);
     }
 
     public int getOrdDelivery() {
         return ordDelivery;
     }
 
+    public String getOrdDeliveryWithComma() {
+        return String.format("%,d", ordDelivery);
+    }
+
     public void setOrdDelivery(int ordDelivery) {
         this.ordDelivery = ordDelivery;
+    }
+    public void setOrdDelivery(String ordDelivery) {
+        this.ordDelivery = Integer.parseInt(ordDelivery);
     }
 
     public int getSavePoint() {
@@ -72,45 +124,54 @@ public class KmProductOrderDTO {
     public void setSavePoint(int savePoint) {
         this.savePoint = savePoint;
     }
+    public void setSavePoint(String savePoint) {
+        this.savePoint = Integer.parseInt(savePoint);
+    }
 
     public int getUsedPoint() {
         return usedPoint;
+    }
+    public String getUsedPointWithComma() {
+        return String.format("%,d", usedPoint);
     }
 
     public void setUsedPoint(int usedPoint) {
         this.usedPoint = usedPoint;
     }
-
-    public String getRecIpName() {
-        return recIpName;
+    public void setUsedPoint(String usedPoint) {
+        this.usedPoint = Integer.parseInt(usedPoint);
     }
 
-    public void setRecIpName(String recIpName) {
-        this.recIpName = recIpName;
+    public String getRecipName() {
+        return recipName;
     }
 
-    public String getRecIpHp() {
-        return recIpHp;
+    public void setRecipName(String recipName) {
+        this.recipName = recipName;
     }
 
-    public void setRecIpHp(String recIpHp) {
-        this.recIpHp = recIpHp;
+    public String getRecipHp() {
+        return recipHp;
     }
 
-    public String getRecIpAddr1() {
-        return recIpAddr1;
+    public void setRecipHp(String recipHp) {
+        this.recipHp = recipHp;
     }
 
-    public void setRecIpAddr1(String recIpAddr1) {
-        this.recIpAddr1 = recIpAddr1;
+    public String getRecipAddr1() {
+        return recipAddr1;
     }
 
-    public String getRecIpAddr2() {
-        return recIpAddr2;
+    public void setRecipAddr1(String recipAddr1) {
+        this.recipAddr1 = recipAddr1;
     }
 
-    public void setRecIpAddr2(String recIpAddr2) {
-        this.recIpAddr2 = recIpAddr2;
+    public String getRecipAddr2() {
+        return recipAddr2;
+    }
+
+    public void setRecipAddr2(String recipAddr2) {
+        this.recipAddr2 = recipAddr2;
     }
 
     public int getOrdPayment() {
@@ -120,6 +181,9 @@ public class KmProductOrderDTO {
     public void setOrdPayment(int ordPayment) {
         this.ordPayment = ordPayment;
     }
+    public void setOrdPayment(String ordPayment) {
+        this.ordPayment = Integer.parseInt(ordPayment);
+    }
 
     public int getOrdComplete() {
         return ordComplete;
@@ -127,6 +191,10 @@ public class KmProductOrderDTO {
 
     public void setOrdComplete(int ordComplete) {
         this.ordComplete = ordComplete;
+    }
+
+    public void setOrdComplete(String ordComplete) {
+        this.ordComplete = Integer.parseInt(ordComplete);
     }
 
     public String getOrdDate() {

@@ -3,19 +3,27 @@
 <script>
     $(document).ready(function () {
         const success = ${success};
-        if(success==100){
+        if (success == 100) {
             alert('장바구니에 물건을 담았습니다.');
         }
 
+        //유저 로그인 확인 true는 로그인 flase는 비로그인
+        const isUser = ${not empty sessUser}
+
+            console.log(isUser)
         const num = $('input[name=num]')
 
         const minus = $('.decrease')[0]
         const plus = $('.increase')[0]
 
-        const discountPrice =${kmProduct.discountPrice}
-        const price =${kmProduct.price}
-        const point =${kmProduct.point}
-        const delivery =${kmProduct.delivery}
+        const discountPrice =
+        ${kmProduct.discountPrice}
+        const price =
+        ${kmProduct.price}
+        const point =
+        ${kmProduct.point}
+        const delivery =
+        ${kmProduct.delivery}
         const totalPrice = $('.totalPrice')[0]
 
 
@@ -25,49 +33,96 @@
         const newPoint = $('input[name=point]')
 
 
-        let newTotalPrice = 0;
+        let newTotalPrice = ${kmProduct.total};
+        const stock = ${kmProduct.stock}
 
-        //수량 변경시 formAction의 데이터 및 화면의 데이터 수정
-        minus.addEventListener('click', function () {
-            if (num.val() > 1) {
-                num.val(parseInt(num.val()) - 1)
-            }
-            newTotalPrice = (delivery + num.val() * discountPrice)
-            totalPrice.innerText = newTotalPrice.toLocaleString();
+            //수량 변경시 formAction의 데이터 및 화면의 데이터 수정
+            minus.addEventListener('click', function () {
+                //1개 이하로 변경 불가
+                if (num.val() > 1) {
+                    num.val(parseInt(num.val()) - 1)
+                }
+                newTotalPrice = (delivery + num.val() * discountPrice - delivery)
+                totalPrice.innerText = newTotalPrice.toLocaleString();
 
-            count.val(parseInt(num.val()))
-            total.val(newTotalPrice)
-            newPrice.val(parseInt(num.val())*parseInt(price))
-            newPoint.val(parseInt(num.val())*parseInt(point))
-        })
+                count.val(parseInt(num.val()))
+                total.val(newTotalPrice)
+            })
         plus.addEventListener('click', function () {
-            num.val(parseInt(num.val()) + 1)
+            //최대 수량일시 추가 불가
+            console.log(stock)
+            if (parseInt(stock) <= parseInt(num.val())) {
+                alert('상품 최대 수량입니다.')
+            } else {
+                num.val(parseInt(num.val()) + 1)
 
-            newTotalPrice = (delivery + num.val() * discountPrice)
-            totalPrice.innerText = newTotalPrice.toLocaleString();
+                newTotalPrice = (num.val() * discountPrice)
+                totalPrice.innerText = newTotalPrice.toLocaleString();
 
-            count.val(parseInt(num.val()))
-            total.val(newTotalPrice)
-            newPrice.val(parseInt(num.val())*parseInt(price))
-            newPoint.val(parseInt(num.val())*parseInt(point))
+                count.val(parseInt(num.val()))
+                total.val(newTotalPrice)
+            }
         })
-
 
 
         const formAction = $('#formAction')
 
         $('.order').on('click', function (e) {
+
             e.preventDefault()
-            formAction.attr("action","${ctxPath}/product/order.do");
-            formAction.submit();
+            if (isUser == false) {
+                alert('로그인 후 이용 가능합니다.')
+            } else {
+                formAction.attr("action", "${ctxPath}/product/order.do");
+                formAction.submit();
+            }
         })
 
+        ////////////////////////////////////////////////////////////////////////
+        // 카드 담기(동적 이벤트 바인딩 처리 -> 동적 생성되는 새로운 댓글목록 삭제링크가 동작함)
+        ////////////////////////////////////////////////////////////////////////
 
         $('.cart').on('click', function (e) {
             e.preventDefault();
-            formAction.attr("action","${ctxPath}/product/view.do");
-            formAction.submit();
+
+            if (isUser == false) {
+                alert('로그인 후 이용 가능합니다.')
+                e.preventDefault()
+            }
+            else{
+            if (!confirm('정말 장바구니에 담으시겠습니까?')) {
+                return;
+            }
+            const params = new URLSearchParams({
+                'prodNo': ${kmProduct.prodNo},
+                'uid': '${sessUser.uid}',
+                'count': parseInt(num.val()),
+                'price': ${kmProduct.price},
+                'discount': ${kmProduct.discount},
+                'delivery': ${kmProduct.delivery},
+                'total': newTotalPrice,
+                'point': ${kmProduct.point},
+                'cate1': ${kmProduct.prodCate1},
+                'cate2': ${kmProduct.prodCate2},
+            });
+            fetch('${ctxPath}/product/view.do', {
+                method: 'POST',
+                body: params
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('data : ' + data);
+
+                    if (data.result > 0) {
+                        alert('장바구니에 담았습니다.');
+                    } else {
+                        alert('장바구니 담기가 실패 했습니다.');
+                    }
+
+                })
+            }
         })
+
     })
 </script>
 <main id="product">
@@ -83,15 +138,28 @@
         <!-- 제목, 페이지 네비게이션 -->
         <nav>
             <h1>상품보기</h1>
+            <h1>상품목록</h1>
+            <c:choose>
+            <c:when test="${cate2!= 0}">
+                <p>HOME > <span>${c1Name}</span> > <strong>${c2Name}</strong>
+                </p>
+            </c:when>
+            <c:when test="${cate1!= 0}">
+                <p>HOME > <span>${c1Name}</span></strong></p>
+            </c:when>
+            <c:otherwise>
+            <p>상품목록
             <p>
-                HOME > <span>${c1Name}</span> <c:if test="${not empty c2}">> <strong>${c2Name}</strong></c:if>
-            </p>
+
+                </c:otherwise>
+
+                </c:choose>
         </nav>
 
         <!-- 상품 전체 정보 내용 -->
         <article class="info">
             <div class="image">
-                <img src="https://via.placeholder.com/460x460" alt="상품이미지"/>
+                <img src="${ctxPath}${kmProduct.thumb3}" alt="상품이미지"/>
             </div>
             <div class="summary">
                 <nav>
@@ -120,17 +188,24 @@
                 </nav>
 
                 <nav>
-                    <div class="org_price">
-                        <del>${kmProduct.priceWithComma}</del>
-                        <span>${kmProduct.discountWithPer}</span>
-                    </div>
+                    <c:if test="${kmProduct.discount ne 0}">
+                        <div class="org_price">
+                            <del>${kmProduct.priceWithComma}</del>
+                            <span>${kmProduct.discountWithPer}</span>
+                        </div>
+                    </c:if>
                     <div class="dis_price">
                         <ins>${kmProduct.discountPriceWithComma}</ins>
                     </div>
+                    <c:if test="${kmProduct.stock < 20}">
+                        <div class="soldOut">
+                            <span>품절임박!!</span><span> | </span><span> ${kmProduct.stock}개 남았습니다.</span>
+                        </div>
+                    </c:if>
                 </nav>
                 <nav>
                     <span class="delivery">${kmProduct.delivery eq 0 ? '무료배송': '배송비 '+=kmProduct.deliveryWithComma+=' 원'}</span>
-                    <span class="arrival">모레(금) 7/8 도착예정</span>
+                    <span class="arrival">모레 ${formatedNow} 도착예정</span>
                     <span class="desc">본 상품은 국내배송만 가능합니다.</span>
                 </nav>
                 <nav>
@@ -149,7 +224,7 @@
                 </div>
 
                 <div class="total">
-                    <span class="totalPrice">${kmProduct.totalWithComma}</span>
+                    <span class="totalPrice">${kmProduct.discountPriceWithComma}</span>
                     <em>총 상품금액</em>
                 </div>
 
@@ -157,8 +232,10 @@
                     <input type="button" class="cart" value="장바구니"/>
                     <input type="button" class="order" value="구매하기"/>
                 </div>
-                <form action = "${ctxPath}/product/view.do" method="post" id="formAction">
+                <form action="${ctxPath}/product/view.do" method="post" id="formAction">
                     <input type="hidden" name="prodNo" value="${kmProduct.prodNo}"/>
+                    <input type="hidden" name="prodName" value="${kmProduct.prodName}"/>
+                    <input type="hidden" name="descript" value="${kmProduct.descript}"/>
                     <input type="hidden" name="uid" value="${sessUser.uid}"/>
                     <input type="hidden" name="count" value="1"/>
                     <input type="hidden" name="price" value="${kmProduct.price}"/>
@@ -166,9 +243,9 @@
                     <input type="hidden" name="delivery" value="${kmProduct.delivery}"/>
                     <input type="hidden" name="total" value="${kmProduct.total}"/>
                     <input type="hidden" name="point" value="${kmProduct.point}">
-                    <input type="hidden" name="type" value="view"/>
                     <input type="hidden" name="cate1" value="${cate1}">
                     <input type="hidden" name="cate2" value="${cate2}">
+                    <input type="hidden" name="type" value="order">
                 </form>
             </div>
 
@@ -179,9 +256,7 @@
                 <h1>상품정보</h1>
             </nav>
             <!-- 상품상세페이지 이미지 -->
-            <img src="https://via.placeholder.com/860x460" alt="상세페이지1">
-            <img src="https://via.placeholder.com/860x460" alt="상세페이지2">
-            <img src="https://via.placeholder.com/860x460" alt="상세페이지3">
+            <img src="${ctxPath}${kmProduct.detail}" alt="상세페이지1">
         </article>
 
         <!-- 상품 정보 제공 고시 내용 -->
@@ -310,24 +385,24 @@
                 <c:if test="${empty kmProductReviews}">
                     상품평이 없습니다.
                 </c:if>
-<%--
-                <li>
-                    <div>
-                        <h5 class="rating star4">상품평</h5>
-                        <span>seo******	2018-07-10</span>
-                    </div>
-                    <h3>상품명1/BLUE/L</h3>
-                    <p>
-                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
-                    </p>
-                </li>--%>
+                <%--
+                                <li>
+                                    <div>
+                                        <h5 class="rating star4">상품평</h5>
+                                        <span>seo******	2018-07-10</span>
+                                    </div>
+                                    <h3>상품명1/BLUE/L</h3>
+                                    <p>
+                                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음...제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
+                                        아주 약간 루즈한정도...?그래도 이만한 옷은 없다고 봅니다 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
+                                        제품들을 구매하고 싶네요 정말 만족하고 후기 남깁니다 많이 파시길 바래요 ~ ~ ~
+                                    </p>
+                                </li>--%>
             </ul>
             <div class="paging">
             <span class="prev">
                 <c:if test="${pageGroupStart > 1}">
-                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}&"
                        class="start">처음으로</a>
                     <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}"
                        class="prev">이전</a>
@@ -336,7 +411,7 @@
                 <span class="num">
                 <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}"
-                      class="num ${currentPage == i?'current':'off'}">${i}</a>
+                      class="num ${currentPage == i?'on':'off'}">${i}</a>
                 </c:forEach>
             </span>
                 <span class="next">

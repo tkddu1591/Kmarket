@@ -1,2 +1,8 @@
 /build/
 /.metadata/
+/.idea/
+/JSP/.idea/sonarlint
+/JSP/.idea/shelf
+/Database/Kmarket_testSQL.spf
+JSP.war
+

@@ -1,97 +1,56 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./../_header.jsp" %>
+<%@ include file="./_aside.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(function(){
+	
   $('.more').click(function(e){
     e.preventDefault();
+
+    var list = $(this).parents('.box__question').find('.list__question .list-item');
+	if (!$(this).hasClass('button__more--active') && $(this).parents('.box__question').find('.list__question .list-item').length > 4) {
+		$(this).parents('.box__question').find('.list__question').find('.list-item').slideDown(100);
+		$(this).addClass('button__more--active').html('<a>간단히보기</a>')
+	} else {
+		$(this).parents('.box__question').find('.list__question > li:nth-child(n+4)').slideUp(100);
+		$(this).removeClass('button__more--active').html('<a>더보기</a>')
+	}
     
-    /*
-    let item = $(this).parent().find('> li:nth-child(n+4)');
-    let isVisible = item.is(':visible');
-
-    console.log('isVisible : ' + isVisible);
-
-    if(isVisible){
-      item.slideUp(100);
-    }else{
-      item.slideDown(100);
-    }
-    */
 
   });
 });
 </script>
-  <div class="faq">
-    <nav>
-      <div>
-        <p>홈<span>></span>자주묻는 질문</p>
-      </div>
-    </nav>
-    <section class="list">
-      <aside>
-        <h2>자주묻는 질문</h2>
-        <ul>
-          <li class="on"><a href="#">회원</a></li>
-          <li><a href="#">쿠폰/이벤트</a></li>
-          <li><a href="#">주문/결제</a></li>
-          <li><a href="#">배송</a></li>
-          <li><a href="#">취소/반품/교환</a></li>
-          <li><a href="#">여행/숙박/항공</a></li>
-          <li><a href="#">안전거래</a></li>
-        </ul>
-      </aside>
+ 
       <article>              
         <nav>
-          <h1>회원</h1>
+          <h1>${c1Name}</h1>
           <h2>가장 자주 묻는 질문입니다.</h2>
         </nav>
 
-        <div>
-          <h3>가입</h3>
-          <ul>
-            <li><a href="./view.html"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-            <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-            <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-            <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-            <li><a href="#"><span>Q.</span>개인회원과 법인회원에 차이가 있나요?</a></li>
-            <li class="more"><a href="#">더보기</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>탈퇴</h3>
-          <ul>
-            <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-            <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-            <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-            <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-            <li><a href="#"><span>Q.</span>회원탈퇴 후 재가입이 가능한가요?</a></li>
-            <li class="more"><a href="#">더보기</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>회원정보</h3>
-          <ul>
-            <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-            <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-            <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-            <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-            <li><a href="#"><span>Q.</span>회원정보를 수정하고 싶어요.</a></li>
-            <li class="more"><a href="#">더보기</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>로그인</h3>
-          <ul>
-            <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-            <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-            <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-            <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-            <li><a href="#"><span>Q.</span>로그인에 문제가 있어요.</a></li>
-            <li class="more"><a href="#">더보기</a></li>
-          </ul>
-        </div>
-
+        
+        	<c:forEach var="questions" items="${faqList}">
+        		<c:set var="i" value="${i+1}" />
+        		<div class="box__question">
+        			<h3>${c2NameList[i-1]}</h3>
+	          		<ul class="list__question">
+	          			<c:forEach var="item" items="${questions}">
+	          				<li class="list-item">
+	          					<a href="${ctxPath}/cs/faq/view.do?no=${item.faqNo}">
+	          						<span>Q.</span>${item.title}
+	          					</a>
+	          				</li>
+	          			</c:forEach>
+	          			<c:if test="${fn:length(questions) > 3}">
+	          				 <li class="more"><a>더보기</a></li>
+	          			</c:if>
+	          			<c:if test="${fn:length(questions) eq 0}">
+	          				 <li><a>등록된 자주 묻는 질문이 없습니다.</a></li>
+	          			</c:if>
+	          		</ul>
+          		</div>
+        	</c:forEach>
+       
       </article>
     </section>
   </div>

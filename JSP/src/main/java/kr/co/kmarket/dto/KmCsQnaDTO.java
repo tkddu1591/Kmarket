@@ -29,6 +29,17 @@ public class KmCsQnaDTO {
 	private String c1Name;
 	private String c2Name;
 	private String writerMarking;
+	private String rdateSub;
+	public String getExtension(String fileName) {
+		String ext = fileName;
+		return ext;
+	}
+	public String getRdateSub() {
+		return rdateSub;
+	}
+	public void setRdateSub(String rdateSub) {
+		this.rdateSub = rdateSub;
+	}
 	private List<String> file = new ArrayList<>();
 	
 	
@@ -88,13 +99,47 @@ public class KmCsQnaDTO {
 		return title;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		
+		if(title != null) {
+		String escapedStr1 = title.replaceAll("<br>", "\n");
+		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");
+		String escapedStr3 = escapedStr2.replaceAll("&lt;", "<");
+		String escapedStr4 = escapedStr3.replaceAll("&quot;", "\"");
+		String escapedStr5 = escapedStr4.replaceAll("&nbsp;", " ");
+		String escapedStr6 = escapedStr5.replaceAll("&amp;", "&");
+		
+		this.title = escapedStr6;
+		} else {
+			this.title = title;
+		}
 	}
 	public String getContent() {
+		String escapedStr1 = content.replaceAll("\n", "<br>");
+
+		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");
+		String escapedStr3 = escapedStr2.replaceAll("&lt;", "<");
+		String escapedStr4 = escapedStr3.replaceAll("&quot;", "\"");
+		String escapedStr5 = escapedStr4.replaceAll("&nbsp;", " ");
+		String escapedStr6 = escapedStr5.replaceAll("&amp;", "&");
+		/*
+		String escapedStr2 = escapedStr1.replaceAll(">", "&gt;");
+		String escapedStr3 = escapedStr2.replaceAll("<", "&lt;");
+		String escapedStr4 = escapedStr3.replaceAll("\"", "&quot;");
+		String escapedStr5 = escapedStr4.replaceAll(" ", "&nbsp;");
+		String escapedStr6 = escapedStr5.replaceAll("&", "&amp;");
+		*/
+		this.content = escapedStr6;
 		return content;
 	}
 	public void setContent(String content) {
-		this.content = content;
+		String escapedStr1 = content.replaceAll("<br>", "\n");
+		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");
+		String escapedStr3 = escapedStr2.replaceAll("&lt;", "<");
+		String escapedStr4 = escapedStr3.replaceAll("&quot;", "\"");
+		String escapedStr5 = escapedStr4.replaceAll("&nbsp;", " ");
+		String escapedStr6 = escapedStr5.replaceAll("&amp;", "&");
+		
+		this.content = escapedStr6;
 	}
 	public String getFile1() {
 		return file1;
@@ -191,6 +236,7 @@ public class KmCsQnaDTO {
 	}
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
+		this.rdateSub = rdate.substring(2, 10).replace('-', '.');
 	}
 	@Override
 	public String toString() {
@@ -199,8 +245,9 @@ public class KmCsQnaDTO {
 				+ file4 + ", writer=" + writer + ", ordNo=" + ordNo + ", prodNo=" + prodNo + ", parent=" + parent
 				+ ", answerComplete=" + answerComplete + ", regip=" + regip + ", rdate=" + rdate + ", writerName="
 				+ writerName + ", c1Name=" + c1Name + ", c2Name=" + c2Name + ", writerMarking=" + writerMarking
-				+ ", file=" + file + "]";
+				+ ", rdateSub=" + rdateSub + ", file=" + file + "]";
 	}
+	
 
 	
 	

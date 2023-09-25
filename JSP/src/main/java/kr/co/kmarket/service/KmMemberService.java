@@ -26,7 +26,7 @@ public enum KmMemberService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private KmMemberDAO dao = new KmMemberDAO();
-	private static String generatedCode; // 인증코드 생성시 필요
+	private static String generatedCode; // 인증코드 생성시 필요, 왜 static(정적변수)??
 	
 public void insertMember(KmMemberDTO dto) {
 		dao.insertMember(dto);
@@ -34,6 +34,10 @@ public void insertMember(KmMemberDTO dto) {
 	
 	public KmMemberDTO selectMember(String uid, String pass) {
 		return dao.selectMember(uid, pass);
+	}
+	
+	public KmMemberDTO selectMemberByUid(String uid) {
+		return dao.selectMemberByUid(uid);
 	}
 	
 	public List<KmMemberDTO> selectMembers() {
@@ -54,7 +58,7 @@ public void insertMember(KmMemberDTO dto) {
 	}
 	
 	public int selectCountHp(String hp) {
-		return dao.selectCountHp(hp);
+		return dao.selectCountHp(hp); // selectCountUid 되 있어서 휴대폰 중복체크 안 됐던 것
 	}
 	
 	public int selectCountEmail(String email) {
@@ -69,7 +73,11 @@ public void insertMember(KmMemberDTO dto) {
 		return dao.selectCountNameAndEmail(name, email);
 	}
 	
-	public int sendCodeByEmail(String receiver) {
+	public int selectCountUidAndEmail(String uid, String email) {
+		return dao.selectCountUidAndEmail(uid, email);
+	}
+	
+	public int sendCodeByEmail(String receiver) { // dao에서 가져오는 거 아님
 		
 		// 인증코드 생성
 		int code = ThreadLocalRandom.current().nextInt(100000, 1000000);		
@@ -101,7 +109,7 @@ public void insertMember(KmMemberDTO dto) {
 		// 메일 발송
 		int status = 0;
 		Message message = new MimeMessage(gmailSession);
-		
+		logger.debug("인증코드 : " + generatedCode);
 		try{
 			logger.info("here1...");
 			message.setFrom(new InternetAddress(sender, "보내는 사람", "UTF-8"));
@@ -119,4 +127,22 @@ public void insertMember(KmMemberDTO dto) {
 		return status;
 	}// sendCodeByEmail end
 	
+	public int confirmCodeByEmail(String code) {
+		
+		if(code.equals(generatedCode)) {
+			logger.info("return 1...");
+			return 1;
+		}else {
+			logger.info("return 0...");
+			return 0;
+		}
+	}
+	
+	public void updatePass(String uid, String pass) {
+		dao.updatePass(uid, pass);
+	}
+
+	public void updatePoint(String ordUid, int point) {
+	dao.updatePoint(ordUid, point);
+	}
 }

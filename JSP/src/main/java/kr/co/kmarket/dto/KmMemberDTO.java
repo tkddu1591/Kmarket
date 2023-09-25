@@ -62,7 +62,7 @@ public class KmMemberDTO {
         this.gender = gender;
     }
     public void setGender(String gender) {
-    	this.gender = Integer.parseInt(gender);
+        this.gender = Integer.parseInt(gender);
     }
 
     public String getHp() {
@@ -91,6 +91,9 @@ public class KmMemberDTO {
 
     public int getPoint() {
         return point;
+    }
+    public String getPointWithComma() {
+        return String.format("%,d",point);
     }
 
     public void setPoint(int point) {

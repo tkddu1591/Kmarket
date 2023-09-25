@@ -19,7 +19,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class KmProductService {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static KmProductService INSTANCE = new KmProductService();
 	private static KmProductDAO dao = KmProductDAO.getInstance();
@@ -40,6 +40,9 @@ public class KmProductService {
 		return dao.selectKmProductsCountAll();
 	}
 
+	public List<KmProductDTO> selectProducts(String condition){
+        return dao.selectProducts(condition);
+    }
 
 	//0912 수현님
 
@@ -149,8 +152,6 @@ public class KmProductService {
 		}
 	
 
-<<<<<<< Updated upstream
-=======
 	// 리스트 수정 
 	//if(inputs.get("type") !=null ){
 		//modifiedFinalFileList.addAll(files);
@@ -161,5 +162,11 @@ public class KmProductService {
 	public void updateProductHit(int count, int prodNo) {
 		dao.updateProductHit(count, prodNo);
 	}
->>>>>>> Stashed changes
+	public void updateProduct(int count, int prodNo) {
+		dao.updateProduct(count, prodNo);
+	}
+
+    public void updateProductHit(String prodNo) {
+		dao.updateProductHit(prodNo);
+    }
 }

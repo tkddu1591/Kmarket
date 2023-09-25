@@ -35,13 +35,13 @@
                     <td>이메일</td>
                     <td>
                         <div>
-                            <input type="email" name="email" placeholder="이메일 입력"/>
+                            <input type="email" name="email" placeholder="이메일 입력"/> <!-- disabled 삭제 -->
                             <button type="button" id="btnEmailCode" class="btnAuth">인증번호 받기</button>
                             <span class="resultEmailForId"></span>
                         </div>
                         <div>
-                            <input type="text" name="auth" disabled placeholder="인증번호 입력"/>
-                            <button type="button" id="btnEmailAuth" class="btnConfirm">확인</button>
+                            <input type="text" name="auth" placeholder="인증번호 입력"/>
+                            <button type="button" id="btnEmailAuth" class="btnConfirm">확인</button> <!-- type="button" submit으로 수정 -->
                         </div>
                     </td>
                 </tr>                        
@@ -54,7 +54,7 @@
         </p>
 
         <div>
-            <a href="#" class="btn btnCancel">취소</a>
+            <a href="${ctxPath}/member/login.do" class="btn btnCancel">취소</a>
             <a href="#" class="btn btnNext">다음</a> <!-- script 작성으로 a태그를 통해 form 전송한다 -->
         </div>
     </section>

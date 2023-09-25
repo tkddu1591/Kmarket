@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.product;
 
+import com.google.gson.JsonObject;
 import kr.co.kmarket.dao.KmProductDAO;
 import kr.co.kmarket.dao.KmProductReviewDAO;
 import kr.co.kmarket.dto.KmProductCartDTO;
@@ -33,9 +34,24 @@ public class ViewController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String prodNo = req.getParameter("prodNo");
         HttpSession session = req.getSession();
+        int cate1 = 0;
+        if (req.getParameter("cate1") != null && !req.getParameter("cate1").equals("")) {
+            cate1 = Integer.parseInt(req.getParameter("cate1"));
+
+        }
+        int cate2 = 0;
+        if (req.getParameter("cate2") != null && !req.getParameter("cate2").equals("")) {
+            cate2 = Integer.parseInt(req.getParameter("cate2"));
+
+        }
+
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
+        req.setAttribute("c1Name",sessCoates1Map.get(cate1));
+        if(cate2!=0) {
+            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
+        }
 
 
         PageService pageService = PageService.getInstance();
@@ -73,9 +89,11 @@ public class ViewController extends HttpServlet {
         // 현재 페이지 게시물 조회
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
 
+        //조회수 상승
+        kmProductService.updateProductHit(prodNo);
 
-        req.setAttribute("cate1", kmProductDTO.getProdCate1());
-        req.setAttribute("cate2", kmProductDTO.getProdCate2());
+        req.setAttribute("cate1", cate1);
+        req.setAttribute("cate2", cate2);
         req.setAttribute("prodNo", prodNo);
         req.setAttribute("kmProductReviews", kmProductReviews);
         req.setAttribute("currentPage", currentPage);
@@ -90,6 +108,22 @@ public class ViewController extends HttpServlet {
         req.setAttribute("success", success);
 
 
+
+        // 현재 날짜/시간
+        Date rDate = new Date();
+
+        //2일 추가
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 2);
+        Date wDate = new Date(cal.getTimeInMillis());
+        // 포맷팅 정의
+        SimpleDateFormat formatter = new SimpleDateFormat("(E) MM/dd");
+
+        // 포맷팅 적용
+        String formatedNow = formatter.format(wDate);
+        req.setAttribute("formatedNow", formatedNow);
+
+
         req.getRequestDispatcher("/product/view.jsp").forward(req, resp);
     }
 
@@ -99,6 +133,7 @@ public class ViewController extends HttpServlet {
         HttpSession session = req.getSession();
         int cate1 = Integer.parseInt(req.getParameter("cate1"));
         int cate2 = Integer.parseInt(req.getParameter("cate2"));
+
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
@@ -106,9 +141,9 @@ public class ViewController extends HttpServlet {
         req.setAttribute("cate1",cate1);
         req.setAttribute("cate2",cate2);
 
-        req.setAttribute("cate1Name",sessCoates1Map.get(cate1));
+        req.setAttribute("c1Name",sessCoates1Map.get(cate1));
         if(cate2!=0) {
-            req.setAttribute("cate2Name", sessCoates2Map.get(cate1).get(cate2));
+            req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
         }
         // 현재 날짜/시간
         Date rDate = Calendar.getInstance().getTime();
@@ -119,23 +154,39 @@ public class ViewController extends HttpServlet {
         // 포맷팅 적용
         String formatedNow = formatter.format(rDate);
 
-        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
-        kmProductCartDTO.setUid(req.getParameter("uid"));
-        kmProductCartDTO.setProdNo(req.getParameter("prodNo"));
-        kmProductCartDTO.setCount(req.getParameter("count"));
-        kmProductCartDTO.setPrice(req.getParameter("price"));
-        kmProductCartDTO.setDiscount(req.getParameter("discount"));
-        kmProductCartDTO.setPoint(req.getParameter("point"));
-        kmProductCartDTO.setDelivery(req.getParameter("delivery"));
-        kmProductCartDTO.setTotal(req.getParameter("total"));
-        kmProductCartDTO.setrDate(formatedNow);
 
-
+        int result =0;
+        int prodNo = Integer.parseInt(req.getParameter("prodNo"));
+        int count = Integer.parseInt(req.getParameter("count"));
         KmProductCartService kmProductCartService = KmProductCartService.INSTANCE;
 
-        kmProductCartService.insertCart(kmProductCartDTO);
+        int check = 0;
+        check = kmProductCartService.selectCartCountProd(prodNo);
+        KmProductCartDTO kmProductCartDTO = new KmProductCartDTO();
+
+        kmProductCartDTO.setProdNo(prodNo);
+        if(check>0) {
+            //카트에 동일 물품이 있을 때 숫자만 늘림
+            result = kmProductCartService.updateCartCount(prodNo, count);
+        }else {
+            //카트에 동일 물품이 없을 때,
+            kmProductCartDTO.setUid(req.getParameter("uid"));
+            kmProductCartDTO.setCount(count);
+            kmProductCartDTO.setPrice(req.getParameter("price"));
+            kmProductCartDTO.setDiscount(req.getParameter("discount"));
+            kmProductCartDTO.setPoint(req.getParameter("point"));
+            kmProductCartDTO.setDelivery(req.getParameter("delivery"));
+            kmProductCartDTO.setTotal(req.getParameter("total"));
+            kmProductCartDTO.setrDate(formatedNow);
+
+            result = kmProductCartService.insertCart(kmProductCartDTO);
+        }
 
 
-        resp.sendRedirect("/JSP/product/view.do?success=100&prodNo=" + kmProductCartDTO.getProdNo() + "&cate1=" + cate1 + "&cate2=" + cate2);
+        // JSON 출력
+        JsonObject json = new JsonObject();
+        json.addProperty("result", result);
+        resp.getWriter().print(json);
+
     }
 }
