@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller.admin.product;
 
+<<<<<<< Updated upstream
 import java.io.IOException;
 import java.io.ObjectInputFilter.Config;
 
@@ -114,4 +115,21 @@ public class ModifyController extends HttpServlet {
 		resp.sendRedirect(ctxPath + "/admin/product/list.do?no="+dto.getProdNo());		
     }
 	
+=======
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import kr.co.kmarket.service.KmProductService;
+
+@WebServlet("/admin/product/list/modify.do")
+public class ModifyController extends HttpServlet{
+	private static final long serialVersionUID = 3455791473958570385L;
+	private String ctxPath;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private KmProductService kpService = KmProductService.INSTANCE;
+>>>>>>> Stashed changes
 }
