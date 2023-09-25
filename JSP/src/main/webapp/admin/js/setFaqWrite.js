@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	
 	//Main 카테고리를 선택 할때 마다 AJAX를 호출할 수 있지만 DB접속을 매번 해야 하기 때문에 main, sub카테고리 전체을 들고온다.
     //Main 카테고리 data
     var mainCategoryArray = new Array();
@@ -9,7 +8,7 @@ $(document).ready(function() {
     var subCategoryObject = new Object();
     
   	//메인 카테고리 셋팅
-    var mainCategorySelectBox = document.getElementById("cate1");;
+    var mainCategorySelectBox = document.getElementById("relatedCate1");;
     
 	$.ajax({
 		url: ctx + '/cs/setCsCategory.do',
@@ -25,7 +24,6 @@ $(document).ready(function() {
 				    mainCategoryObject.main_category_name = data["depth1"][i]["c1Name"];
 				    mainCategoryArray.push(mainCategoryObject);
    
-			   
 				    let cate1 = mainCategoryObject.main_category_id;
 				    
 				    for(let j=0; j<data["depth2"][cate1].length; j++){
@@ -38,6 +36,7 @@ $(document).ready(function() {
 	
 				        //console.log('c2Name : ' + subCategoryObject.sub_category_name);
 				    }
+				   
 				}
 			}
 
@@ -49,15 +48,15 @@ $(document).ready(function() {
 		    	mainCategorySelectBox.appendChild(opt);
 		    }
 		    
-		    
 		}
 	});
 	
+	
 	// depth1 선택값에 따른 depth2 옵션 수정 
-	$(document).on("change","select[name='cate1']",function(){
+	$(document).on("change","select[name='relatedCate1']",function(){
 	       
 	    //두번째 셀렉트 박스를 삭제 시킨다.
-	    var subCategorySelectBox = $("select[name='cate2']");
+	    var subCategorySelectBox = $("select[name='relatedCate2']");
 	    subCategorySelectBox.children().remove(); //기존 리스트 삭제
 	    
 	    //선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
@@ -74,5 +73,54 @@ $(document).ready(function() {
     	});
 	       
 	});
-
+	
+	$(document).on("change","select[name=relatedCate2]",function(){
+	       var cate1 = $('select[name=relatedCate1]').val();
+	       var cate2 = $('select[name=relatedCate2]').val();
+	       if(cate2 == ''){
+			   
+		   }else{
+			   setTitle(cate1, cate2);
+		   }
+	       
+	});
 });
+
+function setTitle(cate1, cate2){
+
+	$.ajax({   
+		type : "post",
+		url : ctx + "/admin/cs/faq/list.do",
+		data :  {
+			"cate1": cate1,
+			"cate2" : cate2
+		},
+		success : function(result) {
+			console.log(result);
+			$('#relatedTitle').children().remove();
+			const listObj = JSON.parse(result);			
+			for(var n of listObj){
+										
+				var item = "<option value="+ n.faqNo + ">";
+					item += n.title;
+					item += "</option>";
+										
+				$('#relatedTitle').append(item);
+			}
+			if(listObj.length == 0){
+				
+				
+				var item = "<option>";
+					item += "조회 가능한 자주묻는질문이 없습니다.";
+					item += "</option>";
+				$('#relatedTitle').append(item);
+			}
+		},
+		error : (request, status, error) => { // 순서 체크해보기 
+            console.log("상태코드: " + request.status);
+            console.log("메세지: " + request.responseText);
+            console.log("에러설명: " + error);
+        }
+	});
+}
+

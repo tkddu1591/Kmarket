@@ -5,9 +5,9 @@
         <nav>
           <h2 class="title">[${dto.c2Name}] ${dto.title}</h2>                
           <p>
-            <span class="date">${dto.rdate}</span>
+            <span class="date">${dto.rdate}</span> <span class="hit"> / 조회수 : ${dto.hit}</span>
           </p>
-        </nav>
+        </nav>	
 
         <div class="content">
           <p>

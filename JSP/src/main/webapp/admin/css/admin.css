@@ -564,6 +564,7 @@ button[type=submit] {
     text-align:center;
 }
 .listTable {
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 .csInputTable input {
@@ -589,3 +590,56 @@ button[type=submit] {
 .mainBtn{
 	background-color: #a2c9dd;
 }
+#faqListTable  tr > td:nth-child(3) {
+    width: 120px !important;
+    text-align:center !important;
+}
+#faqListTable  tr > td:nth-child(4) {
+    width: 120px !important;
+    text-align:center !important;
+}
+#faqListTable  tr > td:nth-child(5) {
+    width: auto !important;
+    text-align:left !important;
+}
+.answer0 {
+    color: #aaa !important;
+ }
+.answer1 {
+    color: red !important;
+ }
+.answer2 {
+   color: blue !important;
+ }
+ .qnaRadio{
+ display:block;
+  font-size: 9px;
+  line-height: 2rem;
+ }
+ .qnaRadio > [type="radio"] {
+  vertical-align: middle;
+  appearance: none;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 1em !important;
+  height: 1em !important;
+}
+[type="radio"]:checked {
+  border: 0.4em solid tomato;
+}
+.file span{
+	display:inline-block;	
+}
+
+.file  .fileImg{
+  	display:inline-block;
+  	line-height:30px;
+ 	width:30px;
+ 	height:30px;
+ 	border: 1px solid #ccc;
+ 	overflow:hidden;
+  }
+  .file .fileImg img{
+ 	width: 100%;
+  }
+  

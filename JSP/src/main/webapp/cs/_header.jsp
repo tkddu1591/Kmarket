@@ -23,13 +23,22 @@
 	              <a href="${ctxPath}/member/login.do">로그인</a>
 	              <a href="${ctxPath}/member/join.do">회원가입</a>
             	</c:if>
+            	<c:if test="${sessUser.type eq 1}">
+                    <a href="#">회원 ${sessUser.uid}</a>
+                </c:if>
+                <c:if test="${sessUser.type eq 2}">
+                    <a href="#">판매자 ${sessUser.uid}</a>
+                </c:if>
+                <c:if test="${sessUser.type eq 9}">
+                    <a href="#">관리자 ${sessUser.uid}</a>
+                </c:if>
+                <c:if test="${sessUser.type eq 2 || sessUser.type eq 9}">
+                    <a href="${ctxPath}/admin/index.do">관리페이지</a>
+                </c:if>
             	<c:if test="${sessUser ne null}">
 	              <a href="#">마이페이지</a>
 	              <a href="${ctxPath}/member/logout.do">로그아웃</a>
-	              <a href="#"
-	                ><i class="fa fa-shopping-cart" aria-hidden="true"></i
-	                >&nbsp;장바구니</a
-	              >
+                  <a href="${ctxPath}/product/cart.do"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
             	</c:if>
             </p>
           </div>

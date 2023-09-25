@@ -58,6 +58,24 @@ public class KmCsQnaDAO extends DBHelper{
 		}
 		return no;
 	}
+	public int insertCsQnaAnswer(KmCsQnaDTO dto) {
+		logger.debug(dto.toString());
+		int result = 0;
+		try { 
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.INSERT_CSQNA_ANSWER);
+			psmt.setString(1, dto.getContent());
+			psmt.setString(2,dto.getWriter());
+			psmt.setInt(3, dto.getParent());
+			psmt.setString(4,dto.getRegip());
+			result = psmt.executeUpdate();
+			
+			close();
+		}catch(Exception e){
+			logger.error("insertCsQnaAnswer() error : " + e.getMessage());
+		}
+		return result;
+	}
 	
 	public KmCsQnaDTO selectCsQna(String no) {
 		KmCsQnaDTO dto = null;
@@ -172,7 +190,61 @@ public class KmCsQnaDAO extends DBHelper{
 		}
 		return qnaList;
 	}
-	
+
+	public List<KmCsQnaDTO> selectCsQnaListForAdmin(String cate1, String cate2, int start) {
+		List<KmCsQnaDTO> qnaList = new ArrayList<>();
+		try {
+			conn = getConnection();
+			String sqlString = SQL.getSelectCsQnasL10(cate1, cate2, start);
+			psmt = conn.prepareStatement(sqlString);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				KmCsQnaDTO dto = new KmCsQnaDTO();
+				dto.setQnaNo(rs.getInt("qnaNo"));
+				dto.setCate1(rs.getInt("cate1"));
+				dto.setCate2(rs.getInt("cate2"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFile1(rs.getString("file1"));
+				dto.setFile2(rs.getString("file2"));
+				dto.setFile3(rs.getString("file3"));
+				dto.setFile4(rs.getString("file4"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setOrdNo(rs.getString("ordNo"));
+				dto.setProdNo(rs.getString("prodNo"));
+				dto.setParent(rs.getString("parent"));
+				dto.setAnswerComplete(rs.getString("answerComplete"));
+				dto.setRegip(rs.getString("regip"));
+				dto.setRdate(rs.getString("rdate"));
+				dto.setWriterName(rs.getString("name"));
+				dto.setC1Name(rs.getString("c1Name"));
+				dto.setC2Name(rs.getString("c2Name"));
+				qnaList.add(dto);
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsQnaDTO() error : " + e.getMessage());
+		}
+		return qnaList;
+	}
+	public int selectCsQnaCountForAdmin(String cate1, String cate2) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			String sqlString = SQL.getSelectCsQnaCount(cate1, cate2);
+			psmt = conn.prepareStatement(sqlString);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsQnaCount() error : " + e.getMessage() );
+		}
+		return count;
+	}
 	public int selectCsQnaCount(String cate1) {
 		int count = 0;
 		try {
@@ -257,6 +329,37 @@ public class KmCsQnaDAO extends DBHelper{
 			logger.error("insertQna() updateCsQna : " + e.getMessage());
 		}
 		return dto.getQnaNo();
+	}
+	public int updateCsQnaAnswer(KmCsQnaDTO dto) {
+		int result = 0;
+		try { 
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_CSQNA_ANSWER);
+			psmt.setString(1, dto.getContent());
+			psmt.setInt(2, dto.getParent());
+			result = psmt.executeUpdate();
+			
+			close();
+		}catch(Exception e){
+			logger.error("insertQna() updateCsQna : " + e.getMessage());
+		}
+		return result;
+	}
+
+	public int updateCsQnaAnswerComplete(String no, String status) {
+		int result = 0;
+		try { 
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_CSQNA_ANSWERCOMPLETE);
+			psmt.setString(1, status);
+			psmt.setString(2, no);
+			result = psmt.executeUpdate();
+			
+			close();
+		}catch(Exception e){
+			logger.error("insertQna() updateCsQna : " + e.getMessage());
+		}
+		return result;
 	}
 	public void deleteCsQna(String no) {
 		try {

@@ -79,10 +79,10 @@
 												<c:if test="${status.last}">
 													<c:choose>
 														<c:when test="${ext eq 'pdf'}">
-															pdf
+															
 														</c:when>
 														<c:otherwise>
-															이미지 
+															
 														</c:otherwise>
 													</c:choose>
 												</c:if>

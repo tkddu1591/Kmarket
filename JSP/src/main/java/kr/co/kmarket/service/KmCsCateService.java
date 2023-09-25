@@ -29,6 +29,11 @@ public enum KmCsCateService {
 		return dao.selectCsC1Name(cate1);
 	}
 
+
+	public String selectCsC2Name(String cate1, String cate2) {
+		return dao.selectCsC2Name(cate1, cate2);
+	}
+
 	
 	public Map<String, Object> getCsCates(){
 

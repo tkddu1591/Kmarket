@@ -3,58 +3,61 @@
 <%@include file="./../../_aside.jsp" %>
 <script>
 const ctx = '${ctxPath}';
-const controllerCate1 = '${cate1}';
 </script>
-<script src="${ctxPath}/admin/js/setNoticeList.js"></script>
+<script src="${ctxPath}/admin/js/setQnaList.js"></script>
 <script src="${ctxPath}/admin/js/controllCsDelete.js"></script>
+<script src="${ctxPath}/cs/js/setType2Category.js"></script>
             <section id="admin-product-list">
                 <nav>
-                    <h3>공지사항 목록</h3>
+                    <h3>자주묻는질문 목록</h3>
                     <p>
-                        HOME > 고객센터 > <strong>공지사항</strong>
+                        HOME > 고객센터 > <strong>자주묻는질문</strong>
                     </p>
                 </nav>
                
                 <!-- 상품목록 컨텐츠 시작 -->                                
                 <section>
                 
-                    <form action="${ctxPath}/admin/cs/notice/delete.do" method="post">
+                    <form action="${ctxPath}/admin/cs/qna/delete.do" method="post">
                     <div>
-                        <select name="searchCate1" id="searchCate1">
-                            <option value="">유형선택</option>
+                        <select name="cate1" id="cate1">
+                        	<option value="">1차 유형 선택</option>
                         </select>
-                        <input type="text" name="searchKeyword" id="searchKeyword" value="${keyword}">
-                        <input type="hidden" name="searchPg" id="searchPg">
+                        <select name="cate2" id="cate2">
+                        	<option value="">2차 유형 선택</option>
+                        </select>
                     </div>
-                    <table class="listTable">
+                    <table class="listTable" id="faqListTable">
                     	<thead>
                         <tr>
                             <th><input type="checkbox" name="all"/></th>
                             <th>번호</th>
-                            <th>유형</th>
+                            <th>1차유형</th>
+                            <th>2차유형</th>
                             <th>제목</th>
-                            <th>조회</th>
-                            <th>날짜</th>
-                            <th>관리</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>상태</th>
                         </tr>
                         </thead>
                         <tbody class="listTbody">
-						 <c:forEach var="dto" items="${noticeList}">
+						 <c:forEach var="dto" items="${qnaList}">
                         <tr>
-                            <td><input type="checkbox" name="chk" value="${dto.noticeNo}"/></td>
-                            <td>${dto.noticeNo}</td>
+                            <td><input type="checkbox" name="chk" value="${dto.qnaNo}"/></td>
+                            <td>${dto.qnaNo}</td>
                             <td>${dto.c1Name}</td>
-                            <td><a href="${ctxPath}/admin/cs/notice/view.do?no=${dto.noticeNo}">[ ${dto.c2Name} ] ${dto.title}</a></td>
-                            <td>${dto.hit}</td>
+                            <td>${dto.c2Name}</td>
+                            <td><a href="${ctxPath}/admin/cs/qna/view.do?no=${dto.qnaNo}"> ${dto.title}</a></td>
+                            <td>${dto.writerMarking}</td>
                             <td>${dto.rdateSub}</td>
                             <td>
-                                <a href="${ctxPath}/admin/cs/notice/delete.do?no=${dto.noticeNo}" class="noticeDelete">[삭제]</a>
-                                <br/>
-                                <a href="${ctxPath}/admin/cs/notice/update.do?no=${dto.noticeNo}" class="noticeUpdate">[수정]</a>
-                            </td>
+		           				<span class="answer${dto.answerComplete}">
+		           					${dto.answerComplete eq '0' ? '미확인' : dto.answerComplete eq '1' ? '검토중' : '답변완료'}
+		           				</span>
+							</td>
                         </tr>
                         </c:forEach>
-                        <c:if test="${fn:length(noticeList) eq 0}">
+                        <c:if test="${fn:length(qnaList) eq 0}">
                         <tr>
                         	<td colspan="7">
                         	조회 결과가 없습니다.
@@ -66,28 +69,27 @@ const controllerCate1 = '${cate1}';
 
                   
                     	<input type="submit" value="선택삭제" class="deleteAll" />   
-                    	<a href="${ctxPath}/admin/cs/notice/write.do" class="writeBtn">작성하기</a>                       
                    	</form>
                     	
-
+                    
                     <div class="paging">              
 			        	<c:if test="${pageGroupStart > 1}">
 			        	<span class="prev">
-			            	<a href="${ctxPath}/admin/cs/notice/list.do?cate1=${cate1}&pg=${pageGroupStart - 1}"><&nbsp;이전</a>
+			            	<a href="${ctxPath}/admin/cs/qna/list.do?cate1=${cate1}&cate2=${cate2}&pg=${pageGroupStart - 1}"><&nbsp;이전</a>
 		            	</span>
 			            </c:if>
 			            <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
 			            	<span class="num ${currentPage == i?'on':'off'}">
-			            		<a href="${ctxPath}/admin/cs/notice/list.do?cate1=${cate1}&pg=${i}">${i}</a>
+			            		<a href="${ctxPath}/admin/cs/qna/list.do?cate1=${cate1}&cate2=${cate2}&pg=${i}">${i}</a>
 			            	</span>
 			            </c:forEach>
 			            <c:if test="${pageGroupEnd < lastPageNum}">
 	                        <span class="next">
-			            		<a href="${ctxPath}/admin/cs/notice/list.do?cate1=${cate1}&pg=${pageGroupEnd + 1}" >다음&nbsp;></a>
+			            		<a href="${ctxPath}/admin/cs/qna/list.do?cate1=${cate1}&cate2=${cate2}&pg=${pageGroupEnd + 1}" >다음&nbsp;></a>
 			            	</span>
 			            </c:if>
                     </div>
-
+                    	
                 </section>                
 
                 

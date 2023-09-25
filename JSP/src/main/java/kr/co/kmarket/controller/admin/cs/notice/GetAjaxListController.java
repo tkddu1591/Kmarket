@@ -50,23 +50,9 @@ public class GetAjaxListController extends HttpServlet{
         // 현재 페이지 번호
         int currentPage = pageService.getCurrentPage(pg);
 
-        // 전체 게시물 갯수
-        int total = noticeService.selectCsNoticeCountByAjax(cate1, keyword);
-
-        // 마지막 페이지 번호
-        int lastPageNum = pageService.getLastPageNum(total);
-
-        // 페이지 그룹 start, end 번호
-        int[] result = pageService.getPageGroupNum(currentPage, lastPageNum);
-
-        // 페이지 시작번호
-        int pageStartNum = pageService.getPageStartNum(total, currentPage);
-
         // 시작 인덱스
         int start = pageService.getStartNum(currentPage);
-
         // 페이지 변수 확인 
-        logger.debug("start : " + start + "/currentPage : " +currentPage + "/total : " + total + "/pg : " + pg);
         
 		
 		

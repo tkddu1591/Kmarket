@@ -41,6 +41,9 @@ public enum KmCsNoticeService {
 	public void updateCsNotice(KmCsNoticeDTO dto) {
 		dao.updateCsNotice(dto);
 	}
+	public void updateHit(String no) {
+		dao.updateHit(no);
+	}
 	public void deleteCsNotice(String no) {
 		dao.deleteCsNotice(no);
 	}

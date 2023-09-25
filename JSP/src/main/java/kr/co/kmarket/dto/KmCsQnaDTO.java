@@ -131,6 +131,16 @@ public class KmCsQnaDTO {
 		this.content = escapedStr6;
 		return content;
 	}
+	public String getContentTextArea() {
+		String escapedStr1 = content.replaceAll("<br>", "\n");
+		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");
+		String escapedStr3 = escapedStr2.replaceAll("&lt;", "<");
+		String escapedStr4 = escapedStr3.replaceAll("&quot;", "\"");
+		String escapedStr5 = escapedStr4.replaceAll("&nbsp;", " ");
+		String escapedStr6 = escapedStr5.replaceAll("&amp;", "&");
+		this.content = escapedStr6;
+		return content;
+	}
 	public void setContent(String content) {
 		String escapedStr1 = content.replaceAll("<br>", "\n");
 		String escapedStr2 = escapedStr1.replaceAll("&gt;", ">");

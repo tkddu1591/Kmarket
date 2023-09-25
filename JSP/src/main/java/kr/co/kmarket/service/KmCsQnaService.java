@@ -43,6 +43,9 @@ public enum KmCsQnaService {
 	public int insertCsQna(KmCsQnaDTO dto) {
 		return dao.insertCsQna(dto);
 	}
+	public int insertCsQnaAnswer(KmCsQnaDTO dto) {
+		return dao.insertCsQnaAnswer(dto);
+	}
 	public KmCsQnaDTO selectCsQna(String no) {
 		return dao.selectCsQna(no);
 	}
@@ -51,6 +54,12 @@ public enum KmCsQnaService {
 	}
 	public List<KmCsQnaDTO> selectCsQnaList(String cate1, int start) {
 		return dao.selectCsQnaList(cate1, start);
+	}
+	public List<KmCsQnaDTO> selectCsQnaListForAdmin(String cate1, String cate2, int start) {
+		return dao.selectCsQnaListForAdmin(cate1, cate2, start);
+	}
+	public int selectCsQnaCountForAdmin(String cate1, String cate2) {
+		return dao.selectCsQnaCountForAdmin(cate1, cate2);
 	}
 	public int selectCsQnaCount(String cate1) {
 		return dao.selectCsQnaCount(cate1);
@@ -61,6 +70,12 @@ public enum KmCsQnaService {
 
 	public void updateCsQna(KmCsQnaDTO dto) {
 		dao.updateCsQna(dto);
+	}
+	public int updateCsQnaAnswer(KmCsQnaDTO dto) {
+		return dao.updateCsQnaAnswer(dto);
+	}
+	public int updateCsQnaAnswerComplete(String no, String status) {
+		return dao.updateCsQnaAnswerComplete(no, status);
 	}
 	public void deleteCsQna(String no) {
 		dao.deleteCsQna(no);
