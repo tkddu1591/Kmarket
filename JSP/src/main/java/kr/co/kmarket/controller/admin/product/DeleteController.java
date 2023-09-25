@@ -58,6 +58,7 @@ public class DeleteController extends HttpServlet {
 
 		String prodNo = req.getParameter("prodNo");
 		
+		/*
 		 List<String> file = dto.getFile();
 		 kpService.deleteProduct(prodNo);
 		
@@ -65,11 +66,11 @@ public class DeleteController extends HttpServlet {
 			 String path = kpService.getFilePath(req);
 			 for(int prodNo : file) {
 					kpService.deletefile(path, prodNo);
-				}
 			}
-			*/
+		}
+			
 		resp.sendRedirect(ctxPath + "/admin/product/list.do?success=100");
-				
+				*/
 			}
 	}
 

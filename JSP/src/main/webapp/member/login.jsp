@@ -5,6 +5,8 @@
         const success = ${success};
         if(success == 200){
             alert('정상적으로 로그아웃 되었습니다.');
+        } else if(success == 102){
+            alert('관리자로 로그인해주세요.');
         }
     });
 </script>

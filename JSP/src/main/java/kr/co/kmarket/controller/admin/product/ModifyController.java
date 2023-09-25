@@ -21,6 +21,7 @@ import kr.co.kmarket.service.KmProductService;
 @WebServlet("/admin/productlist/modify.do")
 public class ModifyController extends HttpServlet {
 
+
 	private static final long serialVersionUID = 8348467550638944485L;
     private String ctxPath;
     
