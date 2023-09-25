@@ -41,7 +41,9 @@ const ctx = '${ctxPath}';
                     </table>
                 </section>
                 
-                <input type="submit" value="등록하기" class="onclick"/>
+                <a class="linkBtn" href="${ctxPath}/admin/cs/notice/delete.do?no=${dto.noticeNo}">삭제</a>
+                <a class="linkBtn" href="${ctxPath}/admin/cs/notice/update.do?no=${dto.noticeNo}">수정</a>
+                <a class="linkBtn mainBtn" href="${ctxPath}/admin/cs/notice/list.do">목록</a>
         </article>
 
         <!-- 상품등록 컨텐츠 끝 -->

@@ -54,9 +54,7 @@ public class DeleteController extends HttpServlet {
 					if(file.exists()) {
 							file.delete();
 					}
-				}*/
-				// 리다이렉트
-				resp.sendRedirect("/admin/product/list.do");
+				}
 
 		String prodNo = req.getParameter("prodNo");
 		
@@ -69,7 +67,7 @@ public class DeleteController extends HttpServlet {
 					kpService.deletefile(path, prodNo);
 				}
 			}
-			
+			*/
 		resp.sendRedirect(ctxPath + "/admin/product/list.do?success=100");
 				
 			}

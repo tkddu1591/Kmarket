@@ -574,3 +574,18 @@ button[type=submit] {
 	width:100% !important;
 	height: 400px !important;
 }
+.linkBtn{
+	display:inline-block;
+    width: 150px;
+    padding: 6px;
+    text-align:center;
+    border: 1px solid #959595;
+    font-size: 13px;
+    background-color: #fefefe;
+    color: #333;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+.mainBtn{
+	background-color: #a2c9dd;
+}
