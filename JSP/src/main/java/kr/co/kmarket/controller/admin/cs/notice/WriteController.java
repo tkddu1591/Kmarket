@@ -67,7 +67,7 @@ public class WriteController extends HttpServlet{
 			int noticeNo = service.insertCsNotice(dto);
 		
 			logger.debug("WriteController write INFO : " + dto.toString());
-			resp.sendRedirect(ctxPath + "/cs/notice/view.do?no="+noticeNo);		
+			resp.sendRedirect(ctxPath + "/admin/cs/notice/view.do?no="+noticeNo);		
 			
 	}
 }
