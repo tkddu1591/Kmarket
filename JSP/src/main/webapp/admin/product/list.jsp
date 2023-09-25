@@ -1,6 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="./../_header.jsp" %>
+
 <%@include file="./../_aside.jsp" %>
+<script>
+	const success =  new URL(location.href).searchParams.get('success');
+	
+	if(success == 0){
+	} else if(success == 100){
+		alert('상품이 정상적으로 삭제되었습니다.');
+	} else if(success == 200){
+		alert('상품이 정상적으로 수정되었습니다.');
+	}	
+</script>
+
+
             <section id="admin-product-list">
                 <nav>
                     <h3>상품목록</h3>
@@ -39,7 +52,7 @@
                             <td><input type="checkbox" name="상품코드"/></td>
                             <td><img src="${ctxPath += dto.thumb1}" class="thumb1"></td>
                             <td>${dto.prodNo}</td>
-                            <td>${dto.prodName}</td>
+                            <td>${dto.prodName}</td> 
                             <td>${dto.priceWithComma}</td>
                             <td>${dto.discount}</td>
                             <td>${dto.point}</td>
@@ -49,6 +62,7 @@
                             <td>
                                 <a href="/admin/product/delete.do?no=${dto.prodNo}" class="productDelete">[삭제]</a>
                                 <a href="/admin/product/update.do?no=${dto.prodNo}"  class="productRegister">[수정]</a>
+
                             </td>
                         </tr>
                         </c:forEach>

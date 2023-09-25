@@ -44,7 +44,7 @@ const controllerCate1 = '${cate1}';
                             <td><input type="checkbox" name="chk" value="${dto.noticeNo}"/></td>
                             <td>${dto.noticeNo}</td>
                             <td>${dto.c1Name}</td>
-                            <td>[ ${dto.c2Name} ] ${dto.title}</td>
+                            <td><a href="${ctxPath}/admin/cs/notice/view.do?no=${dto.noticeNo}">[ ${dto.c2Name} ] ${dto.title}</a></td>
                             <td>${dto.hit}</td>
                             <td>${dto.rdateSub}</td>
                             <td>
