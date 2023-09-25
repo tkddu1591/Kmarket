@@ -7,49 +7,43 @@ const ctx = '${ctxPath}';
 <script src="${ctxPath}/cs/js/setType1Category.js"></script>
     <section id="admin-product-register">
         <nav>
-            <h3>공지사항 수정</h3>
+            <h3>공지사항 등록</h3>
             <p>
                 HOME > 고객센터 > <strong>공지사항</strong>
             </p>
         </nav>
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
-            <form action="${ctxPath}/admin/cs/notice/update.do" method="post" >
-		    	<input type="hidden" name="no" value="${no}">
-		    	<input type="hidden" name="writer" value="${sessUser.uid}">
 		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
                 <!-- 상품분류 -->
                 <section>
-                    <table class="csInputTable">
-						<tr>
-				            <td>유형</td>
-				            <td>
-				              <select name="cate1" id="cate1">
-				                <option value="${dto.cate1}">${dto.c1Name}</option>
-				              </select>
-				              <select name="cate2" id="cate2">
-				                <option value="${dto.cate2}">${dto.c2Name}</option>
-				              </select>
-				            </td>
-				         </tr>
+                    <table class="csInputTable csViewTable">
 				         <tr>
+				            <td>유형</td>                  
+				            <td>
+				            	<p>1차 유형 : [${dto.c1Name}]</p>
+				            	<p>2차 유형 : [${dto.c2Name}]</p>
+				            </td>
+				          </tr>                
+				          <tr>
 				            <td>제목</td>                  
 				            <td>
-				              <input type="text" name="title" placeholder="제목을 입력하세요." value="${dto.title}"/>
+				            	<p>${dto.title}</p>
 				            </td>
 				          </tr>                
 				          <tr>
 				            <td>내용</td>                  
 				            <td>
-				              <textarea name="content" placeholder="내용을 입력하세요.">${dto.content}</textarea>
+				            	<p>${dto.content}</p>
 				            </td>
 				          </tr>              
 				          <tr>
                     </table>
                 </section>
                 
-                <input type="submit" value="등록하기" class="onclick"/>
-            </form>
+                <a class="linkBtn" href="${ctxPath}/admin/cs/notice/delete.do?no=${dto.noticeNo}">삭제</a>
+                <a class="linkBtn" href="${ctxPath}/admin/cs/notice/update.do?no=${dto.noticeNo}">수정</a>
+                <a class="linkBtn mainBtn" href="${ctxPath}/admin/cs/notice/list.do">목록</a>
         </article>
 
         <!-- 상품등록 컨텐츠 끝 -->

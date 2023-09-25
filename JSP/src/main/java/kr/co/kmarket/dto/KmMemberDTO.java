@@ -259,4 +259,17 @@ public class KmMemberDTO {
     public void setEtc5(String etc5) {
         this.etc5 = etc5;
     }
+
+	@Override
+	public String toString() {
+		return "KmMemberDTO [uid=" + uid + ", pass=" + pass + ", name=" + name + ", gender=" + gender + ", hp=" + hp
+				+ ", email=" + email + ", type=" + type + ", point=" + point + ", level=" + level + ", zip=" + zip
+				+ ", addr1=" + addr1 + ", addr2=" + addr2 + ", company=" + company + ", ceo=" + ceo + ", bizRegNum="
+				+ bizRegNum + ", comRegNum=" + comRegNum + ", tel=" + tel + ", manager=" + manager + ", managerHp="
+				+ managerHp + ", fax=" + fax + ", regIp=" + regIp + ", wDate=" + wDate + ", rDate=" + rDate + ", etc1="
+				+ etc1 + ", etc2=" + etc2 + ", etc3=" + etc3 + ", etc4=" + etc4 + ", etc5=" + etc5 + "]";
+	}
+    
+    
+    
 }

@@ -1,10 +1,8 @@
 package kr.co.kmarket.controller.admin.cs.notice;
 
-import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,7 +65,7 @@ public class WriteController extends HttpServlet{
 			int noticeNo = service.insertCsNotice(dto);
 		
 			logger.debug("WriteController write INFO : " + dto.toString());
-			resp.sendRedirect(ctxPath + "/cs/notice/view.do?no="+noticeNo);		
+			resp.sendRedirect(ctxPath + "/admin/cs/notice/view.do?no="+noticeNo);		
 			
 	}
 }

@@ -44,6 +44,9 @@ public class ViewController extends HttpServlet {
             cate2 = Integer.parseInt(req.getParameter("cate2"));
 
         }
+        if(req.getParameter("scrollDown")!=null){
+            req.setAttribute("scrollDown",req.getParameter("scrollDown"));
+        }
 
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");

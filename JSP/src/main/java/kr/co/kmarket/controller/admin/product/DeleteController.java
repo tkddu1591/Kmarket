@@ -48,7 +48,7 @@ public class DeleteController extends HttpServlet {
 //				}
 //			}
 //			
-		resp.sendRedirect(ctxPath + "/admin/product/list.do?success=100");
+	//	resp.sendRedirect(ctxPath + "/admin/product/list.do?success=100");
 				
 			}
 	}
