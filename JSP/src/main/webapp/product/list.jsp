@@ -33,7 +33,7 @@
         <!-- 정렬 메뉴 -->
 
         <c:if test="${not empty KmProductDTOS}">
-            <c:if test="${cate1!= 0}">
+            <c:if test="${cate1!= 0 && search == null}">
                 <ul class="sort">
                     <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=11"
                            class="${condition eq '11' ? 'on' : ''}">판매많은순</a></li>
