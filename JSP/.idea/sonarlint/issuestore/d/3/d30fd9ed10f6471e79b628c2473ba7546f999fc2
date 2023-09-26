@@ -1,78 +1,160 @@
 
 n
-java:S1192­"PDefine a constant instead of duplicating this literal "`content` = ?, " 3 times.(ÇÅêĞ8ı´×²©1
-f
-java:S1192Æ"HDefine a constant instead of duplicating this literal "SELECT " 3 times.(«ÄÇî8ı´×²©1
+java:S1192ì"PDefine a constant instead of duplicating this literal "`content` = ?, " 6 times.(ÇÅêĞ8Šæç†­1
+l
+java:S1192é"NDefine a constant instead of duplicating this literal "`cate1` = ?, " 4 times.(Ú‰’¶8æç†­1
+k
+java:S1192Ğ"HDefine a constant instead of duplicating this literal "SELECT " 3 times.(ˆü¸±ùÿÿÿÿ8æç†­1
+l
+java:S1192ê"NDefine a constant instead of duplicating this literal "`cate2` = ?, " 4 times.(Ó½Í›8æç†­1
 q
-java:S1192¬"NDefine a constant instead of duplicating this literal "`title` = ?, " 3 times.(Ú¨µßúÿÿÿÿ8ş´×²©1
+java:S1192ë"NDefine a constant instead of duplicating this literal "`title` = ?, " 5 times.(Ú¨µßúÿÿÿÿ8æç†­1
+Ÿ
+java:S1192Õ"€Define a constant instead of duplicating this literal "JOIN `km_cs_cate2` AS d ON a.cate1=d.cate1 AND a.cate2=d.cate2 " 3 times.(áÁÁµ8æç†­1
+o
+java:S1192ö"LDefine a constant instead of duplicating this literal "`regip`=?, " 5 times.(ø±§²úÿÿÿÿ8æç†­1
+m
+java:S1192ñ"ODefine a constant instead of duplicating this literal "`writer` = ?, " 5 times.(ÚÃÚÆ8‘æç†­1
 p
-java:S1192"NDefine a constant instead of duplicating this literal "`rdate`=NOW()" 3 times.(¯¼üÌıÿÿÿÿ8ş´×²©1
+java:S1192"NDefine a constant instead of duplicating this literal "`rdate`=NOW()" 6 times.(¯¼üÌıÿÿÿÿ8Ê‘Í†­1
 
-java:S1192Ê"lDefine a constant instead of duplicating this literal "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 " 3 times.(µñÄ‰ùÿÿÿÿ8ş´×²©1
-Œ
-java:S1192É"iDefine a constant instead of duplicating this literal "JOIN `km_member` AS b ON a.writer=b.uid " 3 times.(Ú­Íüÿÿÿÿ8ş´×²©1
-q
-java:S1192¯"NDefine a constant instead of duplicating this literal "`file2` = ?, " 3 times.(ñ¸ÒÙıÿÿÿÿ8ş´×²©1
-l
-java:S1192±"NDefine a constant instead of duplicating this literal "`file4` = ?, " 3 times.(²Ôéµ8ş´×²©1
-z
-java:S1192È"WDefine a constant instead of duplicating this literal "FROM `km_cs_qna` AS a " 3 times.(¬–ëòÿÿÿÿÿ8ş´×²©1
-q
-java:S1192°"NDefine a constant instead of duplicating this literal "`file3` = ?, " 3 times.(¥½ÌÙùÿÿÿÿ8ş´×²©1
-l
-java:S1192®"NDefine a constant instead of duplicating this literal "`file1` = ?, " 3 times.(ñî×·8ş´×²©1
+java:S1192Ô"lDefine a constant instead of duplicating this literal "JOIN `km_cs_cate1` AS c ON a.cate1=c.cate1 " 3 times.(µñÄ‰ùÿÿÿÿ8‘æç†­1
+p
+java:S1192"RDefine a constant instead of duplicating this literal " WHERE a.`cate1`=" 4 times.(âşôÙ8‘æç†­1
+m
+java:S1192¦"PDefine a constant instead of duplicating this literal " WHERE `cate1`=" 4 times.(—‡Ï8‘æç†­1
+s	java:S117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤ÖÛ–şÿÿÿÿ8‘æç†­1
+n	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨§ƒÀ8’æç†­1
+s	java:S117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤ÖÛ–şÿÿÿÿ8’æç†­1
+n	java:S117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨§ƒÀ8’æç†­1
+Z
+java:S4973Œ"<Strings and Boxed types should be compared using "equals()".(¼ˆ§8’æç†­1
+Z
+java:S4973¨"<Strings and Boxed types should be compared using "equals()".(¼ˆ§8“æç†­1
 T
-java:S2589A"7Remove this expression which always evaluates to "true"(æß”Õ8…µ×²©1
+java:S2589W"7Remove this expression which always evaluates to "true"(æß”Õ8œæç†­1
 :
-java:S23860"Make this member "protected".(‘˜”8†µ×²©1
+java:S2386;"Make this member "protected".(‘˜”8Ó‘Í†­1
 W
-java:S1118":Add a private constructor to hide the implicit public one.(²şœÜ8¶£¼“©1
+java:S1118":Add a private constructor to hide the implicit public one.(²şœÜ8Ô‘Í†­1
 I
-java:S1172?",Remove this unused method parameter "cate2".(­àİ8‰µ×²©1
-W	java:S125P"<This block of commented-out lines of code should be removed.(…º¢8Šµ×²©1
+java:S1172U",Remove this unused method parameter "cate2".(­àİ8¦æç†­1
+W	java:S125f"<This block of commented-out lines of code should be removed.(…º¢8¹æç†­1
 \
-java:S2479]":Remove the non-escaped \u0009 character from this literal.(ü’áäüÿÿÿÿ8Šµ×²©1
+java:S2479s":Remove the non-escaped \u0009 character from this literal.(•×Åœùÿÿÿÿ8¹æç†­1
 b
-java:S1124b"EReorder the modifiers to comply with the Java Language Specification.(ËÎóê8Šµ×²©1
-g
-java:S1124z"EReorder the modifiers to comply with the Java Language Specification.(¾¤â©øÿÿÿÿ8Šµ×²©1
+java:S1124x"EReorder the modifiers to comply with the Java Language Specification.(ËÎóê8Ş‘Í†­1
+h
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(¾¤â©øÿÿÿÿ8Ş‘Í†­1
+c
+java:S1124‘"EReorder the modifiers to comply with the Java Language Specification.(ˆ€Èˆ8»æç†­1
+c
+java:S1124’"EReorder the modifiers to comply with the Java Language Specification.(Øù»Ü8»æç†­1
+h
+java:S1124“"EReorder the modifiers to comply with the Java Language Specification.(‰£¿ãúÿÿÿÿ8»æç†­1
+h
+java:S1124”"EReorder the modifiers to comply with the Java Language Specification.(æãŸšûÿÿÿÿ8»æç†­1
+h
+java:S1124—"EReorder the modifiers to comply with the Java Language Specification.(’ÛÓ§ıÿÿÿÿ8¼æç†­1
+c
+java:S1124±"EReorder the modifiers to comply with the Java Language Specification.(–¶Â³8¼æç†­1
+h
+java:S1124²"EReorder the modifiers to comply with the Java Language Specification.(’ëôÍüÿÿÿÿ8¼æç†­1
+c
+java:S1124Á"EReorder the modifiers to comply with the Java Language Specification.(èƒÕË8½æç†­1
+h
+java:S1124Â"EReorder the modifiers to comply with the Java Language Specification.(ÕşÃæÿÿÿÿÿ8½æç†­1
+h
+java:S1124Å"EReorder the modifiers to comply with the Java Language Specification.(ƒ“ş¸øÿÿÿÿ8¾æç†­1
 b
-java:S1124{"EReorder the modifiers to comply with the Java Language Specification.(ïÅ€8Šµ×²©1
-g
-java:S1124|"EReorder the modifiers to comply with the Java Language Specification.(Ù¡ùúÿÿÿÿÿ8Šµ×²©1
+java:S1124Æ"EReorder the modifiers to comply with the Java Language Specification.(«ÉĞ#8¾æç†­1
+h
+java:S1124Ç"EReorder the modifiers to comply with the Java Language Specification.(úÀĞ€ÿÿÿÿÿ8¾æç†­1
+U
+java:S6126Î"2Replace this String concatenation with Text block.(ã±Ç§ûÿÿÿÿ8¾æç†­1
+h
+java:S1124ß"EReorder the modifiers to comply with the Java Language Specification.( Ù™Úûÿÿÿÿ8¿æç†­1
+c
+java:S1124à"EReorder the modifiers to comply with the Java Language Specification.(‡çË³8¿æç†­1
+h
+java:S1124á"EReorder the modifiers to comply with the Java Language Specification.(é¬œüÿÿÿÿ8¿æç†­1
+c
+java:S1124â"EReorder the modifiers to comply with the Java Language Specification.(–“îƒ8Àæç†­1
+h
+java:S1124è"EReorder the modifiers to comply with the Java Language Specification.(ò¥¶Šûÿÿÿÿ8Àæç†­1
 b
-java:S1124}"EReorder the modifiers to comply with the Java Language Specification.(Ä›Æ•8‹µ×²©1
+java:S1124ø"EReorder the modifiers to comply with the Java Language Specification.(Èéã{8Àæç†­1
+]
+java:S2479€":Remove the non-escaped \u0009 character from this literal.(¤ÖÛ–şÿÿÿÿ8Áæç†­1
+X
+java:S2479":Remove the non-escaped \u0009 character from this literal.(¨§ƒÀ8Åæç†­1
+X
+java:S2479½":Remove the non-escaped \u0009 character from this literal.(À‡Ğƒ8Çæç†­1
+h
+java:S1124Ù"EReorder the modifiers to comply with the Java Language Specification.(÷ÆÕøÿÿÿÿ8Éæç†­1
+c
+java:S1124Ú"EReorder the modifiers to comply with the Java Language Specification.(é¡’ï8Ëæç†­1
 b
-java:S1124~"EReorder the modifiers to comply with the Java Language Specification.(ÿ˜ª8‹µ×²©1
-h
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Œ‚´êúÿÿÿÿ8‹µ×²©1
+java:S1124Û"EReorder the modifiers to comply with the Java Language Specification.(©û•j8Íæç†­1
 c
-java:S1124Œ"EReorder the modifiers to comply with the Java Language Specification.(èƒÕË8‹µ×²©1
+java:S1124Ü"EReorder the modifiers to comply with the Java Language Specification.(”ş‡ç8Ïæç†­1
+X
+java:S2479Ü":Remove the non-escaped \u0009 character from this literal.(”ş‡ç8Ñæç†­1
+c
+java:S1124è"EReorder the modifiers to comply with the Java Language Specification.(¼¼·Ÿ8Ñæç†­1
+c
+java:S1124ò"EReorder the modifiers to comply with the Java Language Specification.(”½å§8Òæç†­1
 h
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ÕşÃæÿÿÿÿÿ8‹µ×²©1
+java:S1124õ"EReorder the modifiers to comply with the Java Language Specification.(Î€å¸øÿÿÿÿ8Òæç†­1
+]
+java:S2479ƒ":Remove the non-escaped \u0009 character from this literal.(¤ÖÛ–şÿÿÿÿ8Óæç†­1
+X
+java:S2479¢":Remove the non-escaped \u0009 character from this literal.(¨§ƒÀ8Ôæç†­1
+c
+java:S1124¼"EReorder the modifiers to comply with the Java Language Specification.(‰’Š8Ôæç†­1
+c
+java:S1124Ş"EReorder the modifiers to comply with the Java Language Specification.(”¨Òô8Ôæç†­1
 h
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ƒ“ş¸øÿÿÿÿ8‹µ×²©1
+java:S1124ß"EReorder the modifiers to comply with the Java Language Specification.(Õ¼üÿÿÿÿ8Ôæç†­1
 b
-java:S1124‘"EReorder the modifiers to comply with the Java Language Specification.(«ÉĞ#8‹µ×²©1
-h
-java:S1124’"EReorder the modifiers to comply with the Java Language Specification.(úÀĞ€ÿÿÿÿÿ8‹µ×²©1
-h
-java:S1124¢"EReorder the modifiers to comply with the Java Language Specification.( Ù™Úûÿÿÿÿ8‹µ×²©1
+java:S1124à"EReorder the modifiers to comply with the Java Language Specification.(èé…18Õæç†­1
 c
-java:S1124£"EReorder the modifiers to comply with the Java Language Specification.(‡çË³8‹µ×²©1
-c
-java:S1124¤"EReorder the modifiers to comply with the Java Language Specification.(–“îƒ8‹µ×²©1
+java:S1124ë"EReorder the modifiers to comply with the Java Language Specification.(µşœÿ8Õæç†­1
+X
+java:S2479ë":Remove the non-escaped \u0009 character from this literal.(µşœÿ8Õæç†­1
 h
-java:S1124©"EReorder the modifiers to comply with the Java Language Specification.(ò¥¶Šûÿÿÿÿ8‹µ×²©1
+java:S1124ó"EReorder the modifiers to comply with the Java Language Specification.(¥à±Óÿÿÿÿÿ8Õæç†­1
+]
+java:S2479ó":Remove the non-escaped \u0009 character from this literal.(¥à±Óÿÿÿÿÿ8Õæç†­1
+h
+java:S1124û"EReorder the modifiers to comply with the Java Language Specification.(à÷€¯øÿÿÿÿ8Õæç†­1
+h
+java:S1124„"EReorder the modifiers to comply with the Java Language Specification.(ØÉôÇúÿÿÿÿ8Õæç†­1
+h
+java:S1124¥"EReorder the modifiers to comply with the Java Language Specification.(®ö¸ıÿÿÿÿÿ8Öæç†­1
 b
-java:S1124¹"EReorder the modifiers to comply with the Java Language Specification.(Èéã{8‹µ×²©1
+java:S1124¨"EReorder the modifiers to comply with the Java Language Specification.(®ÕÌZ8èÕí†­1
+W
+java:S2479¨":Remove the non-escaped \u0009 character from this literal.(®ÕÌZ8èÕí†­1
 c
-java:S1124ß"EReorder the modifiers to comply with the Java Language Specification.(‚áüİ8Œµ×²©1
+java:S1124²"EReorder the modifiers to comply with the Java Language Specification.(û­Šœ8èÕí†­1
+X
+java:S2479²":Remove the non-escaped \u0009 character from this literal.(û­Šœ8èÕí†­1
 c
-java:S1124à"EReorder the modifiers to comply with the Java Language Specification.(Âöšñ8Œµ×²©1
+java:S1124·"EReorder the modifiers to comply with the Java Language Specification.(Ô”¯¬8èÕí†­1
+X
+java:S2479·":Remove the non-escaped \u0009 character from this literal.(Ô”¯¬8èÕí†­1
 h
-java:S1124á"EReorder the modifiers to comply with the Java Language Specification.(îíôúùÿÿÿÿ8Œµ×²©1
+java:S1124¿"EReorder the modifiers to comply with the Java Language Specification.(ûø™úÿÿÿÿ8éÕí†­1
+]
+java:S2479¿":Remove the non-escaped \u0009 character from this literal.(ûø™úÿÿÿÿ8éÕí†­1
 c
-java:S1124ä"EReorder the modifiers to comply with the Java Language Specification.(¼¼·Ÿ8Œµ×²©1
+java:S1124Ç"EReorder the modifiers to comply with the Java Language Specification.(ò­¾§8éÕí†­1
 h
-java:S1124î"EReorder the modifiers to comply with the Java Language Specification.(Î€å¸øÿÿÿÿ8Œµ×²©1
+java:S1124Ú"EReorder the modifiers to comply with the Java Language Specification.(¯®öıÿÿÿÿ8éÕí†­1
+]
+java:S2479Ú":Remove the non-escaped \u0009 character from this literal.(¯®öıÿÿÿÿ8éÕí†­1
+c
+java:S1124à"EReorder the modifiers to comply with the Java Language Specification.(ô¾ïó8éÕí†­1
+X
+java:S2479à":Remove the non-escaped \u0009 character from this literal.(ô¾ïó8éÕí†­1

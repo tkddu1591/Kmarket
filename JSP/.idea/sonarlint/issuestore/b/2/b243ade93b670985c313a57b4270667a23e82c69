@@ -1,18 +1,44 @@
 
+g	java:S112c"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‘ñî†­1
+g	java:S112~"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‘ñî†­1
+h	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‘ñî†­1
+h	java:S112¼"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‘ñî†­1
+h	java:S112É"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‘ñî†­1
+h	java:S112Õ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8’ñî†­1
 v
-java:S2293""YReplace the type specification in this constructor call with the diamond operator ("<>").(ëì¸8—Ó‰·©1
+java:S2293!"YReplace the type specification in this constructor call with the diamond operator ("<>").(ëì¸8’ñî†­1
+l
+java:S1192–"IDefine a constant instead of duplicating this literal "discount" 3 times.( µøŠûÿÿÿÿ8“ñî†­1
+i
+java:S1192—"FDefine a constant instead of duplicating this literal "price" 3 times.(ÒÃ²äûÿÿÿÿ8“ñî†­1
+q
+java:S1192‚"NDefine a constant instead of duplicating this literal "deleteFile - " 3 times.(„éµ£ıÿÿÿÿ8’âñ†­1
 d
-java:S1192B"GDefine a constant instead of duplicating this literal "rating" 3 times.(¬¶³8¬§»©1
-x
-java:S1192*"[Define a constant instead of duplicating this literal ", prodNo DESC LIMIT ?, 10;" 3 times.(ÁŠ°å8˜Ó‰·©1
+java:S1192D"GDefine a constant instead of duplicating this literal "rating" 4 times.(¬¶³8“ñî†­1
+k
+java:S1192U"IDefine a constant instead of duplicating this literal "prodName" 5 times.(­ÆÆúÿÿÿÿ8“ñî†­1
+}
+java:S1192)"[Define a constant instead of duplicating this literal ", prodNo DESC LIMIT ?, 10;" 3 times.(ŸßÁ“ıÿÿÿÿ8“ñî†­1
+j
+java:S1192”"GDefine a constant instead of duplicating this literal "prodNo" 3 times.(È‰Í€ûÿÿÿÿ8“ñî†­1
+_
+java:S4973‹"<Strings and Boxed types should be compared using "equals()".(ÂìÚ—ùÿÿÿÿ8•ñî†­1
 u
-java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦›Èÿÿÿÿÿ8ÁÓ‰·©1
-
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å8ÁÓ‰·©1
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦›Èÿÿÿÿÿ8¢ñî†­1
 »
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(¹¯‚Ÿøÿÿÿÿ8ÂÓ‰·©1
-o	java:S100h"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÖÌùÿÿÿÿ8ÇÓ‰·©1
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(¹¯‚Ÿøÿÿÿÿ8ÅêÊ†­1
+L
+java:S1197T"*Move the array designators [] to the type.(‹³¿üÿÿÿÿ8¯ñî†­1
+L
+java:S1197j"*Move the array designators [] to the type.(‹³¿üÿÿÿÿ8²ñî†­1
+^	java:S125ø"<This block of commented-out lines of code should be removed.(¾‰Ü‹üÿÿÿÿ8½ñî†­1
 d
-java:S3457¨"AFormat specifiers should be used instead of string concatenation.(„éµ£ıÿÿÿÿ8ÎÓ‰·©1
+java:S3457‚"AFormat specifiers should be used instead of string concatenation.(„éµ£ıÿÿÿÿ8¾ñî†­1
+k	java:S100ˆ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š†Ö¹8¾ñî†­1
+^	java:S125‡"<This block of commented-out lines of code should be removed.(¾‰Ü‹üÿÿÿÿ8¾ñî†­1
+d
+java:S3457"AFormat specifiers should be used instead of string concatenation.(„éµ£ıÿÿÿÿ8¾ñî†­1
 M
-java:S1481Â"*Remove this unused "total" local variable.(óË üÿÿÿÿ8ÎÓ‰·©1
+java:S1481©"*Remove this unused "total" local variable.(óË üÿÿÿÿ8¿ñî†­1
+d
+java:S3457­"AFormat specifiers should be used instead of string concatenation.(„éµ£ıÿÿÿÿ8´âñ†­1

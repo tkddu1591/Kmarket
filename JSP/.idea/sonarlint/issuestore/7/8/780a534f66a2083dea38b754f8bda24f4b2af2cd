@@ -1,23 +1,29 @@
 
+v
+java:S2293\"YReplace the type specification in this constructor call with the diamond operator ("<>").(ëì¸8Ìø†­1
 h
-java:S1192!"FDefine a constant instead of duplicating this literal "cate1" 3 times.(Î„¤ÿÿÿÿÿ8¤Á·©1
-h
-java:S1192""FDefine a constant instead of duplicating this literal "cate2" 3 times.(²Îöûÿÿÿÿ8¤Á·©1
+java:S1192%"FDefine a constant instead of duplicating this literal "cate1" 4 times.( Àâëşÿÿÿÿ8´œ÷†­1
+c
+java:S1192*"FDefine a constant instead of duplicating this literal "cate2" 4 times.(‹ĞÇî8´œ÷†­1
+g
+java:S11922"JDefine a constant instead of duplicating this literal "condition" 3 times.(Şˆˆ8´œ÷†­1
+o
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¹Â·Š8¹œ÷†­1
 ‰
-java:S1989"lHandle the following exception that could be thrown by "setCharacterEncoding": UnsupportedEncodingException.(±Œ©À8®Á·©1
+java:S1989"lHandle the following exception that could be thrown by "setCharacterEncoding": UnsupportedEncodingException.(±Œ©À8¹œ÷†­1
 {
-java:S1989!"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(Î„¤ÿÿÿÿÿ8®Á·©1
-{
-java:S1989""YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(²Îöûÿÿÿÿ8®Á·©1
+java:S1989&"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(Ì²¦‡şÿÿÿÿ8ºœ÷†­1
+v
+java:S1989+"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(ÔÒÓŞ8ºœ÷†­1
 ƒ
-java:S1989e"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßäÙ—ùÿÿÿÿ8°Á·©1
+java:S1989x"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ßäÙ—ùÿÿÿÿ8½œ÷†­1
 E
-java:S1185i"(Remove this method to simply inherit it.(üª¼í8°Á·©1
+java:S1185|"(Remove this method to simply inherit it.(üª¼í8½œ÷†­1
 ‚
-java:S1989j"`Handle the following exceptions that could be thrown by "doPost": ServletException, IOException.(Í†»Öúÿÿÿÿ8°Á·©1
+java:S1989}"`Handle the following exceptions that could be thrown by "doPost": ServletException, IOException.(Í†»Öúÿÿÿÿ8½œ÷†­1
 V
-java:S1128":Remove this unused import 'kr.co.kmarket.dto.KmMemberDTO'.(··û"8¨™Ñº©1
+java:S1128":Remove this unused import 'kr.co.kmarket.dto.KmMemberDTO'.(··û"8Ã‚ı†­1
 P
-java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8¨™Ñº©1
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8Ã‚ı†­1
 L
-java:S1068"*Remove this unused "logger" private field.(­Áúúÿÿÿÿ8°Á·©1
+java:S1068"*Remove this unused "logger" private field.(­Áúúÿÿÿÿ8¾œ÷†­1

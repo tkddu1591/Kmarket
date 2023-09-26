@@ -1,16 +1,54 @@
 
 ~
-java:S1488Q"\Immediately return this expression instead of assigning it to the temporary variable "path".(·òÒğüÿÿÿÿ8ĞÌŒ¶©1
+java:S1488Q"\Immediately return this expression instead of assigning it to the temporary variable "path".(·òÒğüÿÿÿÿ8¤†ô†­1
+~
+java:S1488W"\Immediately return this expression instead of assigning it to the temporary variable "path".(úÕ¶Àùÿÿÿÿ8¥†ô†­1
+Y
+java:S2629~"7Use the built-in formatting to construct this argument.(å¿¼™üÿÿÿÿ8¥†ô†­1
+Z
+java:S2629›"7Use the built-in formatting to construct this argument.(Ö¦ŠĞıÿÿÿÿ8¥†ô†­1
+T
+java:S2629³"7Use the built-in formatting to construct this argument.(ŞºñU8¥†ô†­1
 p
-java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ĞıÉÄ8„è‘¿¨1
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ĞıÉÄ8ª†ô†­1
 »
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(ç÷èûıÿÿÿÿ8„è‘¿¨1
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(ç÷èûıÿÿÿÿ8«†ô†­1
 L
-java:S1172U"*Remove this unused method parameter "req".(Öÿƒšúÿÿÿÿ8ÚÌŒ¶©1
+java:S1172["*Remove this unused method parameter "req".(Öÿƒšúÿÿÿÿ8¯†ô†­1
 C
-java:S1075]"&Remove this hard-coded path-delimiter.(ôç˜î8ŞÌŒ¶©1
+java:S1075c"&Remove this hard-coded path-delimiter.(ôç˜î8°†ô†­1
 C
-java:S1075^"&Remove this hard-coded path-delimiter.(î–àñ8ßÌŒ¶©1
-Y	java:S899`"=Do something with the "boolean" value returned by "renameTo".(Ş®Üï8ßÌŒ¶©1
+java:S1075d"&Remove this hard-coded path-delimiter.(î–àñ8°†ô†­1
+Y	java:S899f"=Do something with the "boolean" value returned by "renameTo".(Ş®Üï8°†ô†­1
+G
+java:S1172l"*Remove this unused method parameter "req".(åŞÕ÷8±†ô†­1
+C
+java:S1075t"&Remove this hard-coded path-delimiter.(ğü•è8±†ô†­1
+H
+java:S1075u"&Remove this hard-coded path-delimiter.(çõûúÿÿÿÿ8±†ô†­1
+H
+java:S1075u"&Remove this hard-coded path-delimiter.(çõûúÿÿÿÿ8±†ô†­1
+H
+java:S1075u"&Remove this hard-coded path-delimiter.(çõûúÿÿÿÿ8±†ô†­1
+Y	java:S899y"=Do something with the "boolean" value returned by "renameTo".(Ş®Üï8±†ô†­1
+\	java:S899{";Do something with the "boolean" value returned by "delete".(¹Î“üÿÿÿÿ8±†ô†­1
+p
+java:S4042{"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(¹Î“üÿÿÿÿ8±†ô†­1
 c
-java:S3457t"AFormat specifiers should be used instead of string concatenation.(´Ïìÿÿÿÿÿ8àÌŒ¶©1
+java:S3457~"AFormat specifiers should be used instead of string concatenation.(å¿¼™üÿÿÿÿ8±†ô†­1
+d
+java:S3457‘"AFormat specifiers should be used instead of string concatenation.(´Ïìÿÿÿÿÿ8²†ô†­1
+I
+java:S1075˜"&Remove this hard-coded path-delimiter.(ÍÊÔÓûÿÿÿÿ8²†ô†­1
+]	java:S899š";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ8³†ô†­1
+q
+java:S4042š"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(é‘‚©úÿÿÿÿ8³†ô†­1
+d
+java:S3457›"AFormat specifiers should be used instead of string concatenation.(Ö¦ŠĞıÿÿÿÿ8³†ô†­1
+I
+java:S1075°"&Remove this hard-coded path-delimiter.(¯†Î­şÿÿÿÿ8´†ô†­1
+]	java:S899²";Do something with the "boolean" value returned by "delete".(é‘‚©úÿÿÿÿ8´†ô†­1
+q
+java:S4042²"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(é‘‚©úÿÿÿÿ8´†ô†­1
+^
+java:S3457³"AFormat specifiers should be used instead of string concatenation.(ŞºñU8´†ô†­1
