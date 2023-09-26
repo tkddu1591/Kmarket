@@ -38,13 +38,13 @@ public class KmProductDAO extends DBHelper {
             conn = getConnection();
 
             if(kmProductCate2DTO.getCate2()!= 0) {
-				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodCate1=? and prodCate2 = ? and stock>0 AND `isRemoved` = 0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
             }else if(kmProductCate2DTO.getCate1()!= 0){
-				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE  prodCate1 = ? and stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE  prodCate1 = ? and stock>0  AND `isRemoved` = 0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
 			}else if(conditionName[1].equals("0")|| conditionName[1].equals("")){
-				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0 and "+conditionName[0]+"=? group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10");
+				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0 and "+conditionName[0]+"=?   AND `isRemoved` = 0 group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10");
 			} else{
-				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0  AND `isRemoved` = 0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
 			}
 
             if(kmProductCate2DTO.getCate2()!= 0) {
@@ -362,13 +362,12 @@ public class KmProductDAO extends DBHelper {
 		return products;
 	}
 	
-	// public void updateProduct(KmProductDTO dto) {}
- 	public int deleteProduct(int prodNo) {
+ 	public int removeProduct(String prodNo) {
  		int result = 0;
  		try {
 			conn = getConnection();
-			psmt = conn.prepareStatement(SQL.DELETE_PRODUCT);
-			psmt.setInt(1, prodNo);
+			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_ISREMOVED);
+			psmt.setString(1, prodNo);
 			result = psmt.executeUpdate();
 			close();
 		} catch (Exception e) {
@@ -377,19 +376,6 @@ public class KmProductDAO extends DBHelper {
 		 return result;
 		
 	}
- 	// public void updateProduct(KmProductDTO dto) {}
- 	public void admin_deleteProduct(String prodNo) {
- 		try {
- 			conn = getConnection();
- 			psmt = conn.prepareStatement(SQL.DELETE_PRODUCT);
- 			psmt.setString(1, prodNo);
- 			psmt.executeUpdate();
- 			close();
- 		} catch (Exception e) {
- 			logger.error("deleteFile - " + e.getMessage());
- 		}
- 		
- 	}
 	
 	public int selectCountProductsTotal() {
 		int total = 0;

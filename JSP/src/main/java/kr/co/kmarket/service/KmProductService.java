@@ -61,13 +61,9 @@ public class KmProductService {
 	public void updateProduct(KmProductDTO dto) {
 	  //  dao.updateProduct(dto); error떠서 주석했어요
 	}
-	public void deleteProduct(int prodNo) {
-	     dao.deleteProduct(prodNo);
+	public void removeProduct(String prodNo) {
+	     dao.removeProduct(prodNo);
 	}
-	public void admin_deleteProduct(String prodNo) {
-		dao.admin_deleteProduct(prodNo);
-	}  // prodNo이라고 하면 에러나서 prodNumber라고 했는데 이거 맞아요?
-
 
 	public int selectCountProductsTotal() {
 		return dao.selectCountProductsTotal();
@@ -83,6 +79,12 @@ public class KmProductService {
 
 		ServletContext ctx = req.getServletContext();
 		String path = ctx.getRealPath("/thumb");
+		return path;
+	}
+	public String getCtxPath(HttpServletRequest req) {
+
+		ServletContext ctx = req.getServletContext();
+		String path = ctx.getRealPath("/");
 		return path;
 	}
 	// 파일명수정
@@ -161,11 +163,7 @@ public class KmProductService {
     public void updateProductHit(String prodNo) {
 		dao.updateProductHit(prodNo);
     }
-//	public List<String> deletefile(String path, String prodNo) {
-//		return dao.deletefile(path ,prodNo);  
-//		
-//	}
-	
+
 
 	public List<KmProductDTO> selectProductsSearch(String prodName, int start) {
 		return dao.selectProductsSearch(prodName,start);
@@ -173,4 +171,12 @@ public class KmProductService {
 	public int selectCountProductsSearch(String prodName) {
         return dao.selectCountProductsSearch(prodName);
     }
+	//파일 삭제 
+	public void deletefile(String path, String fileName) {
+		File f = new File(path + "/" + fileName);
+		if(f.exists()) {
+			f.delete();
+			logger.debug("파일 삭제 : " + fileName);
+		}
+	}
 }

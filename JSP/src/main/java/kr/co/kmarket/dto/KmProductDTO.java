@@ -47,7 +47,13 @@ public class KmProductDTO {
 
     private String path;
     private int level;
-
+    private List<String> file = new ArrayList<>();
+	
+	
+	public List<String> getFile() {
+		return file;
+	}
+    
     public KmProductDTO(String path) {
         this.path = path;
     }
@@ -302,6 +308,9 @@ public class KmProductDTO {
     }
 
     public void setThumb1(String thumb1) {
+    	if(thumb1 != null) {
+			file.add(thumb1);
+		}
         this.thumb1 = thumb1;
     }
 
@@ -314,6 +323,9 @@ public class KmProductDTO {
     }
 
     public void setThumb2(String thumb2) {
+    	if(thumb2 != null) {
+			file.add(thumb2);
+		}
         this.thumb2 = thumb2;
     }
 
@@ -326,6 +338,10 @@ public class KmProductDTO {
     }
 
     public void setThumb3(String thumb3) {
+
+    	if(thumb3 != null) {
+			file.add(thumb3);
+		}
         this.thumb3 = thumb3;
     }
 
@@ -338,6 +354,10 @@ public class KmProductDTO {
     }
 
     public void setDetail(String detail) {
+
+    	if(detail != null) {
+			file.add(detail);
+		}
         this.detail = detail;
     }
 
