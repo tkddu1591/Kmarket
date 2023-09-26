@@ -116,8 +116,6 @@ $(document).ready(function() {
 	});
 	
 	$(document).on("change","select[name=relatedCate1]",function(){
-	    var _tempSelect = $("select[name='relatedCate2']");
-	    _tempSelect.children().remove(); //기존 리스트 삭제
    		for(var i=0;i<subCategoryArray.length;i++){
             if($('select[name=relatedCate1').val() == subCategoryArray[i].main_category_id){
 	    		var opt = document.createElement("option");

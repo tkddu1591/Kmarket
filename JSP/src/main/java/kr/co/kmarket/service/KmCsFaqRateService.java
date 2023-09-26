@@ -29,7 +29,4 @@ public enum KmCsFaqRateService {
 	public int updateCsFaqRate(KmCsFaqRateDTO dto) {
 		return dao.updateCsFaqRate(dto);
 	}
-	public int deleteCsFaqRate(KmCsFaqRateDTO dto) {
-		return dao.deleteCsFaqRate(dto);
-	}
 }

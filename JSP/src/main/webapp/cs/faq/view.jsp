@@ -2,7 +2,7 @@
 <%@ include file="./../_header.jsp" %>
 <%@ include file="./_aside.jsp" %>
 <script>
-const ctx = '${ctxPath}';
+
 //유저가 로그인하였는가 
 let isLogin = ${isLogin};
 //유저가 평가하였는가 
@@ -48,8 +48,6 @@ $(function(){
 			console.log('faqRatesAllY : ' + faqRatesAllY + '/ faqRatesAllN : ' + faqRatesAllN);
 			updateFaqRate(1);
 		}
-		//DB 업로드
-		updateRateDB();
 	});
 	
 });
@@ -94,29 +92,6 @@ function calPercent(a, b){
 	} else {
 		return Math.round((a / (a+b)) * 100);
 	}
-}
-function updateRateDB(){
-	$.ajax({ 
-		type : "get",
-		url : ctx + "/cs/faq/updateRateDB.do",
-		dataType : 'json',
-		data :  {
-			"userRate": userRate,
-			"no" : '${dto.faqNo}',
-			"uid" : '${sessUser.uid}'
-		},
-		success : function(result) {
-			console.log(result);
-			if(result.result == 1){
-				alert('성공적으로 평점이 부여되었습니다.');
-			}
-		},
-		error : (request, status, error) => { // 순서 체크해보기 
-            console.log("상태코드: " + request.status);
-            console.log("메세지: " + request.responseText);
-            console.log("에러설명: " + error);
-        }
-	});
 }
 </script>
       <article>

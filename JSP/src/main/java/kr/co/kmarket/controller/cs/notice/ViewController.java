@@ -28,6 +28,7 @@ public class ViewController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String no = req.getParameter("no");
+		String cate1 = req.getParameter("cate1");
 		service.updateHit(no);
 		KmCsNoticeDTO dto = service.selectCsNotice(no);
 		
@@ -35,7 +36,7 @@ public class ViewController extends HttpServlet{
 
 		req.setAttribute("group", "view");
 		req.setAttribute("no", no);
-		req.setAttribute("cate1", dto.getCate1());
+		req.setAttribute("cate1", cate1);
 		req.setAttribute("dto", dto);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("view.jsp");
 		dispatcher.forward(req, resp);		
