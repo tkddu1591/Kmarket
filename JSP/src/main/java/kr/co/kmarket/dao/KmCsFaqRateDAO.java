@@ -23,21 +23,13 @@ public class KmCsFaqRateDAO extends DBHelper{
 		int no = 0;
 		try {
 			conn = getConnection();
-			conn.setAutoCommit(false); // 트랜잭션 시작  
 			
-			stmt = conn.createStatement();
 			psmt = conn.prepareStatement(SQL.INSERT_CSFAQRATE);
 			psmt.setInt(1, dto.getFaqNo());
 			psmt.setString(2, dto.getUid());
 			psmt.setInt(3, dto.getRate());
-			psmt.executeUpdate();			
-			conn.commit();
-			
-			if(rs.next()) {
-				no = rs.getInt(1);
-			}
+			no = psmt.executeUpdate();			
 
-			conn.setAutoCommit(true); 
 			close();
 		}catch(Exception e){
 			logger.error("insertCsFaqRate() error : " + e.getMessage());
@@ -102,5 +94,22 @@ public class KmCsFaqRateDAO extends DBHelper{
 			logger.error("updateCsFaqRate() error : " + e.getMessage());
 		}
 		return result;
+	}
+	public int deleteCsFaqRate(KmCsFaqRateDTO dto) {
+		int no = 0;
+		try {
+			conn = getConnection();
+			
+			stmt = conn.createStatement();
+			psmt = conn.prepareStatement(SQL.DELETE_CSFAQRATE);
+			psmt.setInt(1, dto.getFaqNo());
+			psmt.setString(2, dto.getUid());
+			no = psmt.executeUpdate();			
+			
+			close();
+		}catch(Exception e){
+			logger.error("deleteCsFaqRate() error : " + e.getMessage());
+		}
+		return no;
 	}
 }
