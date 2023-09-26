@@ -23,7 +23,7 @@ const controllerCate1 = '${cate1}';
                         <select name="searchCate1" id="searchCate1">
                             <option value="">유형선택</option>
                         </select>
-                        <input type="text" name="searchKeyword" id="searchKeyword" value="${keyword}">
+                        <input type="text" name="searchKeyword" id="searchKeyword" value="${keyword}" placeholder="검색어를 입력하세요." >
                         <input type="hidden" name="searchPg" id="searchPg">
                     </div>
                     <table class="listTable">
