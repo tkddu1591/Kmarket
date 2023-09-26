@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class ListController extends HttpServlet {
 
         HttpSession session = req.getSession();
 
+        String search = req.getParameter("search");
         KmProductCate2DTO kmProductCate2DTO = new KmProductCate2DTO();
         int cate1 = 0;
         if (req.getParameter("cate1") != null && !req.getParameter("cate1").equals("")) {
@@ -58,8 +60,8 @@ public class ListController extends HttpServlet {
         Map<Integer, String> sessCoates1Map = (Map<Integer, String>) session.getAttribute("sessCoates1Map");
         Map<Integer, Map<Integer, String>> sessCoates2Map = (Map<Integer, Map<Integer, String>>) session.getAttribute("sessCoates2Map");
 
-        req.setAttribute("c1Name",sessCoates1Map.get(cate1));
-        if(cate2!=0) {
+        req.setAttribute("c1Name", sessCoates1Map.get(cate1));
+        if (cate2 != 0) {
             req.setAttribute("c2Name", sessCoates2Map.get(cate1).get(cate2));
         }
 
@@ -67,7 +69,12 @@ public class ListController extends HttpServlet {
         int currentPage = pageService.getCurrentPage(pg);
 
         // 전체 게시물 갯수
-        int total = kmProductService.selectKmProductsCountCate(kmProductCate2DTO.getCate1(), (kmProductCate2DTO.getCate2()));
+        int total = 0;
+        if (search == null || search.equals("")) {
+            total = kmProductService.selectKmProductsCountCate(kmProductCate2DTO.getCate1(), (kmProductCate2DTO.getCate2()));
+        } else {
+            total = kmProductService.selectCountProductsSearch(search);
+        }
 
         // 마지막 페이지 번호
         int lastPageNum = pageService.getLastPageNum(total);
@@ -82,12 +89,21 @@ public class ListController extends HttpServlet {
         int start = pageService.getStartNum(currentPage);
 
         // 현재 페이지 게시물 조회
-        List<KmProductDTO> kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+        List<KmProductDTO> kmProducts = new ArrayList<KmProductDTO>();
+        if (search == null || search.equals("")) {
+            kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+        } else {
+            kmProducts = kmProductService.selectProductsSearch(search, start);
+        }
 
 
-        req.setAttribute("cate1", cate1);
-        req.setAttribute("cate2", cate2);
-        req.setAttribute("condition", condition);
+        if (search == null || search.equals("")) {
+            req.setAttribute("cate1", cate1);
+            req.setAttribute("cate2", cate2);
+            req.setAttribute("condition", condition);
+        }else {
+            req.setAttribute("search", search);
+        }
         req.setAttribute("KmProductDTOS", kmProducts);
         req.setAttribute("currentPage", currentPage);
         req.setAttribute("lastPageNum", lastPageNum);

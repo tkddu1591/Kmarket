@@ -74,7 +74,7 @@
                                 <td>총 상품금액</td>
                                 <td><span>${order.ordPriceWithComma}</span>원</td>
                             </tr>
-                            <c:if test="${order.ordDiscount ne 0}">
+                            <c:if test="${order.ordDiscount ne '0'}">
                                 <tr>
                                     <td>할인금액</td>
                                     <td><span>-${order.ordDiscountWithComma}</span>원</td>
@@ -86,10 +86,10 @@
                                     <td>-<span>${order.usedPointWithComma}</span>P</td>
                                 </tr>
                             </c:if>
-                            <tr>
-                                <td>배송비</td>
-                                <td><span>${order.ordDeliveryWithComma}</span>원</td>
-                            </tr>
+                                <tr>
+                                    <td>배송비</td>
+                                    <td><span>${order.ordDeliveryWithComma eq '0' ? '무료배송' :order.ordDeliveryWithComma+='원'}</span></td>
+                                </tr>
                             <tr>
                                 <td>총 결제금액</td>
                                 <td><span>${order.ordTotPriceWithComma}</span>원</td>

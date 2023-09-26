@@ -59,6 +59,7 @@
         })
 
 
+
         //전체 선택
         all.change(function () {
             if ($(this).is(':checked')) {

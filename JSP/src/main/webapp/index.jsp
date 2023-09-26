@@ -17,6 +17,7 @@
     .slider>ul>li:nth-of-type(1){left: 0;top: 0;}
     .slider>ul>li:nth-of-type(2){left: 100%;top: 0%;}
     .slider>ul>li:nth-of-type(3){left: 200%;top: 0%;}
+    .slider>ul>li:nth-of-type(4){left: 300%;top: 0%;}
 
     .hit img{
         width: 230px;
@@ -75,13 +76,16 @@
         <section class="slider">
             <ul>
                 <li>
-                    <a href="#"><img src="https://via.placeholder.com/985x447" alt="item1" /></a>
+                    <a href="#"><img src="${ctxPath}/img/mainSlide1.png" alt="item1" /></a>
                 </li>
                 <li>
-                    <a href="#"><img src="https://via.placeholder.com/985x447" alt="item2" /></a>
+                    <a href="#"><img src="${ctxPath}/img/mainSlide2.png" alt="item2" /></a>
                 </li>
                 <li>
-                    <a href="#"><img src="https://via.placeholder.com/985x447" alt="item3" /></a>
+                    <a href="#"><img src="${ctxPath}/img/mainSlide3.png" alt="item3" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="${ctxPath}/img/mainSlide4.png" alt="item4" /></a>
                 </li>
             </ul>
         </section>

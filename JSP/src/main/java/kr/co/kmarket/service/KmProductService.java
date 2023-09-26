@@ -166,4 +166,11 @@ public class KmProductService {
 //		
 //	}
 	
+
+	public List<KmProductDTO> selectProductsSearch(String prodName, int start) {
+		return dao.selectProductsSearch(prodName,start);
+	}
+	public int selectCountProductsSearch(String prodName) {
+        return dao.selectCountProductsSearch(prodName);
+    }
 }
