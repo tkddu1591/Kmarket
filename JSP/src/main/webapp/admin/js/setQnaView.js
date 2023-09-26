@@ -4,7 +4,6 @@ $(document).ready(function() {
 	$(document).on("change","input[name='updateAnswerComplete']",function(){
 		const updateVal = $('input[name=updateAnswerComplete]:checked').val();
 		const no = $('input[name=no]').val();
-		alert(updateVal + '/' + no);
 		$.ajax({
 			
 			type : "get",
