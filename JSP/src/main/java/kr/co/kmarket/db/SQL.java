@@ -147,7 +147,33 @@ public class SQL {
 	public final static String SELECT_COUNT_PRODUCTS_ALL 	= "SELECT COUNT(*) `km_product` WHERE `stock` > 0 AND `isRemoved` = 0";
 	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=? AND `isRemoved` = 0";
 
-
+	
+	public final static String UPDATE_PRODUCT_ADMIN = """
+			UPDATE  `km_product` SET  
+			`prodCate1`=?,
+			`prodCate2`=?,
+			`prodName`=?,
+			`descript`=?,
+			`company`=?,
+			`price`=?,
+			`discount`=?,
+			`point`=?,
+			`stock`=?,
+			`seller`=?,
+			`delivery`=?,
+			`thumb1`=?,
+			`thumb2`=?,
+			`thumb3`=?,
+			`detail`=?,
+			`status`=?,
+			`duty`=?,
+			`receipt`=?,
+			`bizType`=?,
+			`origin`=?,
+			`ip` =?,
+			`rdate` = NOW()
+			WHERE `prodNo`= ?
+			""";
 	public final static String DELETE_PRODUCT = "DELETE FROM `km_product` WHERE `prodNo`=?";
 	public final static String UPDATE_PRODUCT_ISREMOVED = "UPDATE `km_product` SET `isRemoved`=1, `thumb1`=null, `thumb2`=null, `thumb3`=null, `detail`=null WHERE `prodNo`=?";
 

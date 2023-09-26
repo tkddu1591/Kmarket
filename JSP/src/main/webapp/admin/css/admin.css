@@ -642,4 +642,26 @@ button[type=submit] {
   .file .fileImg img{
  	width: 100%;
   }
+ .fileList{
+  	display:block;
+  	float:clear;
+  	margin-top : 4px;
+  }
   
+  .fileList * {
+  	display:inline-block;
+  }
+ .fileList .fileImg{
+ 	margin : 0 3px 0 0;
+ 	display:block; 
+ 	float:left;
+ 	border: 1px solid #ccc;
+ 	
+ } 
+.fileImg img{
+  	display:inline-block;
+  	line-height:60px;
+ 	width:60px;
+ 	height:60px;
+ 	overflow:hidden;
+  }

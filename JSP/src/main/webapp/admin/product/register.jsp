@@ -80,8 +80,7 @@ $(document).ready(function() {
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
             <form action="${ctxPath}/admin/product/register.do" method="post" enctype="multipart/form-data">
-		    	<input type="hidden" name="seller" value="seller">
-		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
+		    	<input type="hidden" name="seller" value="${sessUser.uid}">		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
                 <!-- 상품분류 -->
                 <section>
                     <h4>상품분류</h4>
