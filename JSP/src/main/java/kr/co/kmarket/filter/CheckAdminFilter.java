@@ -29,13 +29,13 @@ public class CheckAdminFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         KmMemberDTO sessUser = (KmMemberDTO) session.getAttribute("sessUser");
 
-        if(sessUser.getType() == 2||sessUser.getType() == 9||sessUser != null) {
+        if(sessUser != null  && (sessUser.getType() == 2||sessUser.getType() == 9)) {
             logger.debug("here1...");
             chain.doFilter(request, response);
         }else {
             // 다음 필터 호출, 필터 없으면 최종 자원 요청
             logger.debug("here2...");
-            ((HttpServletResponse)response).sendRedirect("/JSP/member/login.do?success=102");
+            ((HttpServletResponse) response).sendRedirect("/JSP/member/login.do?success=102");
         }
     }
 }
