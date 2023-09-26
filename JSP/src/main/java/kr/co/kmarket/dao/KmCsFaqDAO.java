@@ -178,4 +178,18 @@ public class KmCsFaqDAO extends DBHelper{
 			logger.error("deleteCsFaq() error : " + e.getMessage() );
 		}
 	}
+	public void removeRelatedFaq(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_CSQNA_REMOVE_RELATEDFAQ);
+			psmt.setString(1, no);
+			
+			psmt.executeUpdate();
+			
+			close();
+		} catch (Exception e) {
+			logger.error("selectCsQnaCount() error : " + e.getMessage() );
+		}
+		
+	}
 }
