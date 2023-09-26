@@ -12,6 +12,11 @@
 		alert('상품이 정상적으로 수정되었습니다.');
 	}	
 </script> -->
+<script>
+    $(document).ready(function() {
+
+    })
+</script>
             <section id="admin-product-list">
                 <nav>
                     <h3>상품목록</h3>
@@ -23,15 +28,16 @@
                 <!-- 상품목록 컨텐츠 시작 -->                                
                 <section>
                 	
-                	<form action="${ctxPath}/admin/product/delete.do" method="post">
+                	<form action="${ctxPath}/admin/product/list.do" method="post" id="adminListForm">
                     <div>
-                        <select name="search">
-                            <option value="search1">상품명</option>
-                            <option value="search1">상품코드</option>
-                            <option value="search1">제조사</option>
-                            <option value="search1">판매자</option>                                    
+                        <select name="condition">
+                            <option value="63" <c:if test="${condition eq '63'}">selected</c:if> >상품명</option>
+                            <option value="73" <c:if test="${condition eq '73'}">selected</c:if> >상품코드</option>
+                            <option value="83" <c:if test="${condition eq '83'}">selected</c:if> >제조사</option>
+                            <option value="93" <c:if test="${condition eq '93'}">selected</c:if> >판매자</option>
                         </select>
-                        <input type="text" name="search">
+                        <input type="text" name="search" minlength="2" value="${search}">
+
                     </div>
                     <table class="listTable">
                     	<thead>
@@ -44,6 +50,7 @@
                             <th>할인율</th>
                             <th>포인트</th>
                             <th>재고</th>
+                            <th>제조사</th>
                             <th>판매자</th>
                             <th>조회</th>
                             <th>관리</th>
@@ -60,6 +67,7 @@
                             <td>${dto.discount}</td>
                             <td>${dto.point}</td>
                             <td>${dto.stock}</td>
+                            <td>${dto.company}</td>
                             <td>${dto.seller}</td>
                             <td>${dto.hit}</td>
                             <td>
@@ -77,22 +85,21 @@
                     <div class="paging">              
 			        	<c:if test="${pageGroupStart > 1}">
 			        	<span class="prev">
-			            	<a href="${ctxPath}/admin/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupStart - 1}"><&nbsp;이전</a>
+			            	<a onclick="javascript:pagePrev()" href='javascript:void(0);'><&nbsp;이전</a>
 		            	</span>
 			            </c:if>
 			            <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
 			            	<span class="num ${currentPage == i?'on':'off'}">
-			            		<a href="${ctxPath}/admin/product/list.do?group=${group}&cate=${cate}&pg=${i}&">${i}</a>
+			            		<a  class="num ${currentPage == i?'on':''}" onclick="javascript:pageNum(${i})" href='javascript:void(0);'>${i}</a>
 			            	</span>
 			            </c:forEach>
 			            <c:if test="${pageGroupEnd < lastPageNum}">
 	                        <span class="next">
-			            		<a href="${ctxPath}/admin/product/list.do?group=${group}&cate=${cate}&pg=${pageGroupEnd + 1}" >다음&nbsp;></a>
+			            		<a  onclick="javascript:pageNext()" href='javascript:void(0);' >다음&nbsp;></a>
 			            	</span>
 			            </c:if>
                     </div>
-                </section>                
-
+                </section>
                 
                 <p class="ico info">
                     <strong>Tip!</strong>
@@ -104,4 +111,26 @@
                 <!-- 상품목록 컨텐츠 끝 -->
             </section>
         </main>
+
+<script>
+        adminListForm = document.getElementById('adminListForm');
+
+        function pageNext() {
+            adminListForm.setAttribute('method', 'post');
+            adminListForm.setAttribute('action', '${ctxPath}/admin/product/list.do?pg=${pageGroupEnd + 1}');
+            adminListForm.submit();
+        }
+
+        function pagePrev() {
+            adminListForm.setAttribute('method', 'post');
+            adminListForm.setAttribute('action', '${ctxPath}/admin/product/list.do?pg=${pageGroupStart - 1}');
+            adminListForm.submit();
+        }
+
+        function pageNum(e) {
+            adminListForm.setAttribute('method', 'post');
+            adminListForm.setAttribute('action', '${ctxPath}/admin/product/list.do?pg=' + e);
+            adminListForm.submit();
+        }
+</script>
 <%@include file="./../_footer.jsp" %>

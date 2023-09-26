@@ -38,13 +38,14 @@ public class KmProductDAO extends DBHelper {
             conn = getConnection();
 
             if(kmProductCate2DTO.getCate2()!= 0) {
-				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodCate1=? and prodCate2 = ? and stock>0 AND `isRemoved` = 0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodCate1=? and prodCate2 = ? and stock>0 and isRemoved=0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				logger.info("1");
             }else if(kmProductCate2DTO.getCate1()!= 0){
-				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE  prodCate1 = ? and stock>0  AND `isRemoved` = 0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
-			}else if(conditionName[1].equals("0")|| conditionName[1].equals("")){
-				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0 and "+conditionName[0]+"=?   AND `isRemoved` = 0 group by a.prodNo ORDER BY prodNo DESC LIMIT ?, 10");
+				psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE  prodCate1 = ? and stock>0 and isRemoved=0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				logger.info("2");
 			} else{
-				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0  AND `isRemoved` = 0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE stock>0 and isRemoved=0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT ?, 10;");
+				logger.info("4");
 			}
 
             if(kmProductCate2DTO.getCate2()!= 0) {
@@ -78,11 +79,16 @@ public class KmProductDAO extends DBHelper {
         return kmProducts;
     }
 
-	public int selectCountProductsSearch(String prodName) {
+	public int selectCountProductsSearch(String prodName, String condition) {
 		int count = 0;
+		String conditions[] = new String[2];
+		if(!condition.equals("prodName")){
+			conditions = changeCondition(condition);
+			condition = conditions[0];
+		}
         try {
             conn = getConnection();
-            psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_SEARCH_COUNT);
+            psmt = conn.prepareStatement("SELECT COUNT(prodNo) as count FROM Kmarket.km_product WHERE "+condition+" LIKE concat('%',?,'%') and stock>0 and isRemoved=0;");
             psmt.setString(1, prodName);
             rs = psmt.executeQuery();
             while (rs.next()) {
@@ -95,11 +101,16 @@ public class KmProductDAO extends DBHelper {
         return count;
 	}
 
-	public List<KmProductDTO> selectProductsSearch(String prodName, int start){
+	public List<KmProductDTO> selectProductsSearch(String prodName, int start, String condition){
 		List<KmProductDTO> kmProductDTOS = new ArrayList<>();
+		String conditions[] = new String[2];
+		if(!condition.equals("prodName")){
+			conditions = changeCondition(condition);
+			condition = conditions[0];
+		}
 		try {
 			conn = getConnection();
-			psmt = conn.prepareStatement(SQL.SELECT_PRODUCT_SEARCH);
+			psmt = conn.prepareStatement("SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE a."+condition+" LIKE concat('%',?,'%') and stock>0 and isRemoved=0 group by a.prodNo ORDER BY prodNo DESC Limit ?, 10;");
 			psmt.setString(1, prodName);
 			psmt.setInt(2, start);
 			rs = psmt.executeQuery();
@@ -128,7 +139,7 @@ public class KmProductDAO extends DBHelper {
 			if(conditionName[0]=="sold"){
 				count = 5;
 			}
-			psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT 0, "+count);
+			psmt= conn.prepareStatement("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 and isRemoved=0 group by a.prodNo ORDER BY "+conditionName[0]+" "+conditionName[1]+", prodNo DESC LIMIT 0, "+count);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				KmProductDTO kmProduct = new KmProductDTO();
@@ -361,45 +372,14 @@ public class KmProductDAO extends DBHelper {
 		}
 		return products;
 	}
-
-	public void updateProduct(KmProductDTO dto) {
-		try {
-			 conn = getConnection();
-			 psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_ADMIN);
-			 psmt.setInt(1, dto.getProdCate1());
-			 psmt.setInt(2, dto.getProdCate2());
-			 psmt.setString(3, dto.getProdName());
-			 psmt.setString(4, dto.getDescript());
-			 psmt.setString(5, dto.getCompany());
-			 psmt.setInt(6, dto.getPrice());
-			 psmt.setInt(7, dto.getDiscount());
-			 psmt.setInt(8, dto.getPoint());
-			 psmt.setInt(9, dto.getStock());
-			 psmt.setString(10, dto.getSeller());
-			 psmt.setInt(11, dto.getDelivery());
-			 psmt.setString(12, dto.getThumb1());
-			 psmt.setString(13, dto.getThumb2());
-			 psmt.setString(14, dto.getThumb3());
-			 psmt.setString(15, dto.getDetail());
-			 psmt.setString(16, dto.getStatus());
-			 psmt.setString(17, dto.getDuty());
-			 psmt.setString(18, dto.getReceipt());
-			 psmt.setString(19, dto.getBizType());
-			 psmt.setString(20, dto.getOrigin());
-			 psmt.setString(21, dto.getIp());
-			 psmt.setInt(22, dto.getProdNo());
-			 psmt.executeUpdate();
-			 close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
- 	public int removeProduct(String prodNo) {
+	
+	// public void updateProduct(KmProductDTO dto) {}
+ 	public int deleteProduct(int prodNo) {
  		int result = 0;
  		try {
 			conn = getConnection();
-			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_ISREMOVED);
-			psmt.setString(1, prodNo);
+			psmt = conn.prepareStatement(SQL.DELETE_PRODUCT);
+			psmt.setInt(1, prodNo);
 			result = psmt.executeUpdate();
 			close();
 		} catch (Exception e) {
@@ -408,6 +388,19 @@ public class KmProductDAO extends DBHelper {
 		 return result;
 		
 	}
+ 	// public void updateProduct(KmProductDTO dto) {}
+ 	public void admin_deleteProduct(String prodNo) {
+ 		try {
+ 			conn = getConnection();
+ 			psmt = conn.prepareStatement(SQL.DELETE_PRODUCT);
+ 			psmt.setString(1, prodNo);
+ 			psmt.executeUpdate();
+ 			close();
+ 		} catch (Exception e) {
+ 			logger.error("deleteFile - " + e.getMessage());
+ 		}
+ 		
+ 	}
 	
 	public int selectCountProductsTotal() {
 		int total = 0;
