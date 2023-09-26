@@ -22,26 +22,31 @@ public class CookieFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// 자동 로그인 체크여부에 따라 로그인 처리
 		
-
+		System.out.println("CookieFilter - doFilter");
+		
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		
 		Cookie[] cookies = httpRequest.getCookies(); // 쿠키 불러올때 httpRequest로 해야함(requestX)
 		
 		if(cookies != null) {
 			
-
+			logger.info("CookieFilter - doFilter ... 1 : " + cookies.length);
+			
 			for(Cookie cookie : cookies) {
 			
 				
-
+				logger.info("CookieFilter - doFilter ... 2 : " + cookie.getName());
+				
 				if(cookie.getName().equals("cid")) {
 					
 					String uid = cookie.getValue();
 					
-
+					logger.info("CookieFilter - doFilter ... 3 : " + uid);
+					
 					KmMemberDTO user = service.selectMemberByUid(uid); // cid 이름의 cookie의 value인 uid값으로 쿼리실행
 					
-
+					logger.info(user.toString());
+					
 					HttpSession session = httpRequest.getSession();
 					session.setAttribute("sessUser", user);
 				}

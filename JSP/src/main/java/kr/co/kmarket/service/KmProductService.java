@@ -165,11 +165,11 @@ public class KmProductService {
     }
 
 
-	public List<KmProductDTO> selectProductsSearch(String prodName, int start, String condition) {
-		return dao.selectProductsSearch(prodName,start, condition);
+	public List<KmProductDTO> selectProductsSearch(String prodName, int start) {
+		return dao.selectProductsSearch(prodName,start);
 	}
-	public int selectCountProductsSearch(String prodName, String condition) {
-        return dao.selectCountProductsSearch(prodName, condition);
+	public int selectCountProductsSearch(String prodName) {
+        return dao.selectCountProductsSearch(prodName);
     }
 	//파일 삭제 
 	public void deletefile(String path, String fileName) {
