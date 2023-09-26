@@ -45,36 +45,6 @@ public class LoginController extends HttpServlet{
 		
 		logger.debug(success);
 		
-		/*Cookie[] cookies = req.getCookies(); // getCookies라 배열로 나옴
-		
-		if(cookies != null) {
-		
-			for(Cookie cookie : cookies) {
-				
-				if(cookie.getName().equals("cid")) {
-					
-					String uid = cookie.getValue();
-					
-					KmMemberDTO user = service.selectMemberByUid(uid); // cid 이름의 cookie의 value인 uid값으로 쿼리실행
-					
-					HttpSession session = req.getSession();
-					session.setAttribute("sessUser", user);
-				}
-			}// for문 끝 , 밖에서 session 참조 못함
-		}
-		*/
-		 
-		
-		/*// 로그인 여부 할 필요가 있나?? 이렇게 확인하는 거 맞나??
-		HttpSession session = req.getSession();
-		KmMemberDTO user = (KmMemberDTO) session.getAttribute("sessUser");
-		
-		if(user != null) {
-			resp.sendRedirect("/JSP");
-			return;
-		}
-		*/
-		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/member/login.jsp");
 		dispatcher.forward(req, resp);
 	}
@@ -103,7 +73,8 @@ public class LoginController extends HttpServlet{
 				logger.debug("here3");
 				
 				Cookie autoCookie = new Cookie("cid", uid);
-				autoCookie.setMaxAge(60*3); 
+				autoCookie.setMaxAge(60*30); 
+				autoCookie.setPath("/"); // ★★★ 이렇게 하면 URL 전범위에서 쿠키 유효, 이게 없으면 LoginController가 속한 /member 범위에서만 유효
 				
 				logger.debug("here4 : " + autoCookie.getName());				
 				
