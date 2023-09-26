@@ -33,23 +33,34 @@ public class DeleteController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String no = req.getParameter("no");
 
-		 String prodNo = req.getParameter("prodNo");
-		 kpService.admin_deleteProduct(prodNo);
-//		 KmProductDTO dto = kpService.deletefile(prodNo);
-//		
-//		 List<String> file = KmProductDTO.getFile();
-//		 kpService.deleteProduct(prodNo);
-//		
-//		 if(file.size() != 0) {
-//			 String path = kpService.getFilePath(req);
-//			 for(String fileName : file) {
-//					kpService.deletefile(path, fileName);
-//				}
-//			}
-//			
-	//	resp.sendRedirect(ctxPath + "/admin/product/list.do?success=100");
-				
+		KmProductDTO dto = kpService.selectProduct(no);
+		// 파일 삭제용 이름 
+		List<String> file = dto.getFile();
+
+		// DB  remove
+		kpService.removeProduct(no);
+		
+		// 파일 삭제(디렉터리) 
+		if(file.size() != 0) {
+			String path = kpService.getCtxPath(req);
+			for(String fileName : file) {
+				kpService.deletefile(path, fileName);
 			}
+		}
+		
+		resp.sendRedirect(ctxPath + "/admin/product/list.do?success=200");
 	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String[] chks = req.getParameterValues("chk");
+
+		for(String no : chks) {
+			kpService.removeProduct(no);
+		}
+		
+		resp.sendRedirect(ctxPath + "/admin/product/list.do?success=200");
+	}
+}
 

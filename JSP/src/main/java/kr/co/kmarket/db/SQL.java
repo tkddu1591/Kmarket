@@ -59,9 +59,9 @@ public class SQL {
 	public static final List<String> SELECT_PRODUCTS_CATE_L10 = new ArrayList<>();
 	public static final String UPDATE_POINT = "UPDATE `km_member` SET `point`=point+? WHERE `uid`=?";
 	public static final String UPDATE_PRODUCT= "UPDATE `km_product` SET `sold`=sold+?, stock=stock-? WHERE `prodNo`=?";
-    public static final String UPDATE_PRODUCT_HIT = "UPDATE `km_product` SET `hit`=hit+1 WHERE `prodNo`=?";
-    public static final String SELECT_PRODUCT_SEARCH = "SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodName LIKE concat('%',?,'%') and stock>0 group by a.prodNo ORDER BY prodNo DESC Limit ?, 10;";
-	public static final String SELECT_PRODUCT_SEARCH_COUNT = "SELECT COUNT(prodNo) as count FROM Kmarket.km_product WHERE prodName LIKE concat('%',?,'%') and stock>0;";
+    public static final String UPDATE_PRODUCT_HIT = "UPDATE `km_product` SET `hit`=hit+1 WHERE `prodNo`=? ";
+    public static final String SELECT_PRODUCT_SEARCH = "SELECT a.*, avg(b.rating) as rating, c.level FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo JOIN km_member as c on a.seller=c.uid WHERE prodName LIKE concat('%',?,'%') and stock>0 AND `isRemoved` = 0 group by a.prodNo ORDER BY prodNo DESC Limit ?, 10;";
+	public static final String SELECT_PRODUCT_SEARCH_COUNT = "SELECT COUNT(prodNo) as count FROM Kmarket.km_product WHERE prodName LIKE concat('%',?,'%') and stock>0 AND `isRemoved` = 0;";
 
 
 
@@ -85,14 +85,14 @@ public class SQL {
 	public static void changeSelectProductCateL10(String condition, String sort, String cate2){
         SELECT_PRODUCTS_CATE_L10.clear();
         if(!sort.isEmpty()&& sort!=null) {
-        	SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+        	SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE prodCate1=? and prodCate2 = ? AND `isRemoved` = 0 and stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
         }else {
-        	SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product as a LEFT JOIN Kmarket.km_product_review WHERE "+condition+"=? and stock>0 ORDER BY prodNo DESC LIMIT ?, 10;");
+        	SELECT_PRODUCTS_CATE_L10.add("SELECT * FROM Kmarket.km_product as a LEFT JOIN Kmarket.km_product_review WHERE "+condition+"=? and stock>0 AND `isRemoved` = 0 ORDER BY prodNo DESC LIMIT ?, 10;");
         }
     }
 	public static void changeSelectProductCateL10(String condition, String sort){
         SELECT_PRODUCTS_CATE_L10.clear();
-        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
+        SELECT_PRODUCTS_CATE_L10.add("SELECT a.*, avg(b.rating) as rating FROM Kmarket.km_product as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE stock>0 AND `isRemoved` = 0 group by a.prodNo ORDER BY "+condition+" "+sort+", prodNo DESC LIMIT ?, 10;");
     }
 	/*
 	조건 입력시 - 조건에 해당하는 상품만 조회함.
@@ -112,9 +112,9 @@ public class SQL {
 
 
 
-	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` where stock>0;";
-	public static final String SELECT_PRODUCTS_COUNT_CATE12 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0;";
-	public static final String SELECT_PRODUCTS_COUNT_CATE1 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate2 = ? and stock>0;";
+	public static final String SELECT_PRODUCTS_COUNT_ALL = "	SELECT COUNT(*) FROM `km_product` where stock>0 AND `isRemoved` = 0;";
+	public static final String SELECT_PRODUCTS_COUNT_CATE12 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate1=? and prodCate2 = ? and stock>0 AND `isRemoved` = 0;";
+	public static final String SELECT_PRODUCTS_COUNT_CATE1 = "SELECT COUNT(prodNo) FROM Kmarket.km_product WHERE prodCate2 = ? and stock>0 AND `isRemoved` = 0;";
 
 
 	public final static String INSERT_PRODUCT = """
@@ -142,13 +142,14 @@ public class SQL {
 			`ip` =?,
 			`rdate` = NOW()""";
 	public final static String SELECT_PRODUCT				= "SELECT a.*, AVG(b.rating) as rating FROM `km_product` as a LEFT JOIN km_product_review as b on a.prodNo = b.prodNo WHERE a.`prodNo` =?";
-	public final static String SELECT_PRODUCTS_ALL_L10 			= "SELECT * FROM `km_product` WHERE `stock` > 0 LIMIT ?,10";
-	public final static String SELECT_PRODUCTS_CATE_L10_ADMIN 		= "SELECT * FROM `km_product` WHERE `stock` > 0 AND `cate`=? LIMIT ?,10";
-	public final static String SELECT_COUNT_PRODUCTS_ALL 	= "SELECT COUNT(*) `km_product` WHERE `stock` > 0";
-	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=?";
+	public final static String SELECT_PRODUCTS_ALL_L10 			= "SELECT * FROM `km_product` WHERE `stock` > 0 LIMIT ?,10 WHERE `isRemoved` = 0";
+	public final static String SELECT_PRODUCTS_CATE_L10_ADMIN 		= "SELECT * FROM `km_product` WHERE `stock` > 0 AND `cate`=? AND `isRemoved` = 0 LIMIT ?,10 ";
+	public final static String SELECT_COUNT_PRODUCTS_ALL 	= "SELECT COUNT(*) `km_product` WHERE `stock` > 0 AND `isRemoved` = 0";
+	public final static String SELECT_COUNT_PRODUCTS_CATE 	= "SELECT COUNT(*) `km_product` WEHRE `stock` > 0 AND `cate`=? AND `isRemoved` = 0";
 
 
 	public final static String DELETE_PRODUCT = "DELETE FROM `km_product` WHERE `prodNo`=?";
+	public final static String UPDATE_PRODUCT_ISREMOVED = "UPDATE `km_product` SET `isRemoved`=1, `thumb1`=null, `thumb2`=null, `thumb3`=null, `detail`=null WHERE `prodNo`=?";
 
 	//-----------------------------km_product_cart-----------------------
 
