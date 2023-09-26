@@ -175,7 +175,7 @@ public class SQL {
 			WHERE `prodNo`= ?
 			""";
 	public final static String DELETE_PRODUCT = "DELETE FROM `km_product` WHERE `prodNo`=?";
-	public final static String UPDATE_PRODUCT_ISREMOVED = "UPDATE `km_product` SET `isRemoved`=1, `thumb1`=null, `thumb2`=null, `thumb3`=null, `detail`=null WHERE `prodNo`=?";
+	public final static String UPDATE_PRODUCT_ISREMOVED = "UPDATE `km_product` SET `isRemoved`=1, `wdate`=NOW(), `thumb1`=null, `thumb2`=null, `thumb3`=null, `detail`=null WHERE `prodNo`=?";
 
 	//-----------------------------km_product_cart-----------------------
 
