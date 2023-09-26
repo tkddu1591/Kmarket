@@ -184,9 +184,9 @@
                             <td>${item.count}</td>
                             <td>${item.priceWithComma}</td>
 
-                            <td>${item.discount eq '0' ? '-' : item.discount+='%'}</td>
+                            <td>${item.discount}%</td>
 
-                            <td>${item.deliveryWithComma eq '0' ? '무료배송' : item.deliveryWithComma}</td>
+                            <td>${item.deliveryWithComma}</td>
                             <td><p>${item.totalWithComma}</p>
                                 <p>${item.point * item.count} P</p></td>
                         </tr>

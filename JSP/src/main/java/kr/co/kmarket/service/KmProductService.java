@@ -19,55 +19,51 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class KmProductService {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static KmProductService INSTANCE = new KmProductService();
 	private static KmProductDAO dao = KmProductDAO.getInstance();
 	private KmProductService(){}
 	public static KmProductService getInstance(){
-		return INSTANCE;
+	    return INSTANCE;
 	}
 
 	// 0912 상엽님
 	public List<KmProductDTO> selectKmProductsCateL10(KmProductCate2DTO kmProductCate2DTO, int start, String condition){
-		return dao.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
+	    return dao.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
 	}
 
 	public int selectKmProductsCountCate(int cate1, int cate2){
-		return dao.selectKmProductsCountCate(cate1, cate2);
+	    return dao.selectKmProductsCountCate(cate1, cate2);
 	}
 	public int selectKmProductsCountAll(){
 		return dao.selectKmProductsCountAll();
 	}
 
 	public List<KmProductDTO> selectProducts(String condition){
-		return dao.selectProducts(condition);
-	}
+        return dao.selectProducts(condition);
+    }
 
 	//0912 수현님
 
 	public void insertProduct(KmProductDTO dto) {
-		dao.insertProduct(dto);
+	    dao.insertProduct(dto);
 	}
 	public KmProductDTO selectProduct(String prodNo) {
-		return dao.selectProduct(prodNo);
+	    return dao.selectProduct(prodNo);
 	}
 	public List<KmProductDTO> selectProduct(int start) {
-		return dao.selectProducts(start);
+	    return dao.selectProducts(start);
 	}
 	public List<KmProductDTO> selectProducts(String cate, int start) {
-		return dao.selectProducts(cate, start);
+	    return dao.selectProducts(cate, start);
 	}
 	public void updateProduct(KmProductDTO dto) {
-		//  dao.updateProduct(dto); error떠서 주석했어요
+	   dao.updateProduct(dto);
 	}
-	public void deleteProduct(int prodNo) {
-		dao.deleteProduct(prodNo);
+	public void removeProduct(String prodNo) {
+	     dao.removeProduct(prodNo);
 	}
-	public void admin_deleteProduct(String prodNo) {
-		dao.admin_deleteProduct(prodNo);
-	}  // prodNo이라고 하면 에러나서 prodNumber라고 했는데 이거 맞아요?
-
 
 	public int selectCountProductsTotal() {
 		return dao.selectCountProductsTotal();
@@ -83,6 +79,12 @@ public class KmProductService {
 
 		ServletContext ctx = req.getServletContext();
 		String path = ctx.getRealPath("/thumb");
+		return path;
+	}
+	public String getCtxPath(HttpServletRequest req) {
+
+		ServletContext ctx = req.getServletContext();
+		String path = ctx.getRealPath("/");
 		return path;
 	}
 	// 파일명수정
@@ -101,8 +103,8 @@ public class KmProductService {
 
 		return sName;
 	}
-
-	//파일 업로드 - 경로 설정
+	
+	//파일 업로드 - 경로 설정 
 	public String renameToFile(HttpServletRequest req, String path, String oName, String cate1, String cate2) {
 
 		int i = oName.lastIndexOf(".");
@@ -110,10 +112,10 @@ public class KmProductService {
 
 		String uuid = UUID.randomUUID().toString();
 		String sName = uuid + ext;
-
+		
 		String origPathName = "/" + oName;
 		String newPathName =  "/" + cate1 + "/" + cate2 +"/"+sName;
-
+		
 		File f1 = new File(path + origPathName);
 		File f2 = new File(path + newPathName);
 		f1.renameTo(f2);
@@ -134,11 +136,11 @@ public class KmProductService {
 		MultipartRequest mr = null;
 
 		try {
-			mr = new MultipartRequest(req,
-					path,
-					maxSize,
-					"UTF-8",
-					new DefaultFileRenamePolicy());
+				mr = new MultipartRequest(req,
+												path,
+												maxSize,
+												"UTF-8",
+											new DefaultFileRenamePolicy());
 		} catch (IOException e) {
 			logger.error("uploadFile : " + e.getMessage());
 		}
@@ -152,25 +154,29 @@ public class KmProductService {
 			f.delete();
 			logger.debug("파일 삭제 : " + sName);
 		}
-	}
-
+		}
+	
 	public void updateProduct(int count, int prodNo) {
 		dao.updateProduct(count, prodNo);
 	}
 
-	public void updateProductHit(String prodNo) {
+    public void updateProductHit(String prodNo) {
 		dao.updateProductHit(prodNo);
-	}
-//	public List<String> deletefile(String path, String prodNo) {
-//		return dao.deletefile(path ,prodNo);
-//
-//	}
+    }
 
 
-	public List<KmProductDTO> selectProductsSearch(String prodName, int start, String condition) {
-		return dao.selectProductsSearch(prodName,start, condition);
+	public List<KmProductDTO> selectProductsSearch(String prodName, int start) {
+		return dao.selectProductsSearch(prodName,start);
 	}
-	public int selectCountProductsSearch(String prodName, String condition) {
-		return dao.selectCountProductsSearch(prodName, condition);
+	public int selectCountProductsSearch(String prodName) {
+        return dao.selectCountProductsSearch(prodName);
+    }
+	//파일 삭제 
+	public void deletefile(String path, String fileName) {
+		File f = new File(path + "/" + fileName);
+		if(f.exists()) {
+			f.delete();
+			logger.debug("파일 삭제 : " + fileName);
+		}
 	}
 }

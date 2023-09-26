@@ -29,7 +29,6 @@ public class OrderController extends HttpServlet {
         String[] descript = req.getParameterValues("descript");
         String[] thumb1 = req.getParameterValues("thumb1");
 
-
         String finalCount= null;
         String finalPrice= null;
         String finalDiscount= null;
@@ -97,7 +96,7 @@ public class OrderController extends HttpServlet {
             finalDiscount = String.format("%,d",(Integer.parseInt(finalDiscount)*Integer.parseInt(req.getParameter("price"))/100));
             finalPoint =    String.format("%,d",Integer.parseInt(req.getParameter("point")));
             finalDelivery =    String.format("%,d",Integer.parseInt(req.getParameter("delivery")));
-            finalTotal =    String.format("%,d",(Integer.parseInt(req.getParameter("total"))+Integer.parseInt(req.getParameter("delivery"))));
+            finalTotal =    String.format("%,d",Integer.parseInt(req.getParameter("total")));
             KmProductOrderItemDTO kmProductOrderItemDTO = new KmProductOrderItemDTO();
             kmProductOrderItemDTO.setProdNo(req.getParameter("prodNo"));
             kmProductOrderItemDTO.setCount(req.getParameter("count"));
@@ -108,7 +107,6 @@ public class OrderController extends HttpServlet {
             kmProductOrderItemDTO.setTotal(req.getParameter("total"));
             kmProductOrderItemDTO.setProdName(req.getParameter("prodName"));
             kmProductOrderItemDTO.setDescript(req.getParameter("descript"));
-            kmProductOrderItemDTO.setThumb1(req.getParameter("thumb1"));
             kmProductOrderItemDTOS.add(kmProductOrderItemDTO);
         }
 

@@ -8,8 +8,7 @@
         }
 
         //유저 로그인 확인 true는 로그인 flase는 비로그인
-        const isUser =
-        ${not empty sessUser}
+        const isUser = ${not empty sessUser}
 
         const num = $('input[name=num]')
 
@@ -88,49 +87,50 @@
             if (isUser == false) {
                 alert('로그인 후 이용 가능합니다.')
                 e.preventDefault()
-            } else {
-                if (!confirm('정말 장바구니에 담으시겠습니까?')) {
-                    return;
-                }
-                const params = new URLSearchParams({
-                    'prodNo': ${kmProduct.prodNo},
-                    'uid': '${sessUser.uid}',
-                    'count': parseInt(num.val()),
-                    'price': ${kmProduct.price},
-                    'discount': ${kmProduct.discount},
-                    'delivery': ${kmProduct.delivery},
-                    'total': newTotalPrice,
-                    'point': ${kmProduct.point},
-                    'cate1': ${kmProduct.prodCate1},
-                    'cate2': ${kmProduct.prodCate2},
-                });
-                fetch('${ctxPath}/product/view.do', {
-                    method: 'POST',
-                    body: params
+            }
+            else{
+            if (!confirm('정말 장바구니에 담으시겠습니까?')) {
+                return;
+            }
+            const params = new URLSearchParams({
+                'prodNo': ${kmProduct.prodNo},
+                'uid': '${sessUser.uid}',
+                'count': parseInt(num.val()),
+                'price': ${kmProduct.price},
+                'discount': ${kmProduct.discount},
+                'delivery': ${kmProduct.delivery},
+                'total': newTotalPrice,
+                'point': ${kmProduct.point},
+                'cate1': ${kmProduct.prodCate1},
+                'cate2': ${kmProduct.prodCate2},
+            });
+            fetch('${ctxPath}/product/view.do', {
+                method: 'POST',
+                body: params
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('data : ' + data);
+
+                    if (data.result > 0) {
+                        alert('장바구니에 담았습니다.');
+                    } else {
+                        alert('장바구니 담기가 실패 했습니다.');
+                    }
+
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log('data : ' + data);
-
-                        if (data.result > 0) {
-                            alert('장바구니에 담았습니다.');
-                        } else {
-                            alert('장바구니 담기가 실패 했습니다.');
-                        }
-
-                    })
             }
         })
 
         //상품평 보기
         const btn = document.querySelector('.rating > a')
-        if (btn != null) {
+        if(btn != null) {
             const review = document.querySelectorAll('.review')[0].offsetTop
             btn.addEventListener('click', function () {
                 window.scrollTo({top: review, behavior: "smooth"});
             })
             <c:if test="${not empty scrollDown}">
-            window.scrollTo({top: review, behavior: "smooth"});
+                window.scrollTo({top: review, behavior: "smooth"});
             </c:if>
         }
 
@@ -155,7 +155,7 @@
                 </p>
             </c:when>
             <c:when test="${cate1!= 0}">
-                <p>HOME > <span>${c1Name}</span></p>
+                <p>HOME > <span>${c1Name}</span></strong></p>
             </c:when>
             <c:otherwise>
             <p>상품목록
@@ -181,20 +181,15 @@
                     <p>${kmProduct.descript}</p>
 
                     <c:choose>
-                        <c:when test="${kmProduct.rating >= 4.5}"><h5 class="rating star5"><a
-                                href='javascript:void(0);'>상품평보기</a>
+                        <c:when test="${kmProduct.rating >= 4.5}"><h5 class="rating star5"><a href='javascript:void(0);'>상품평보기</a>
                         </h5></c:when>
-                        <c:when test="${kmProduct.rating >= 3.5}"><h5 class="rating star4"><a
-                                href='javascript:void(0);'>상품평보기</a>
+                        <c:when test="${kmProduct.rating >= 3.5}"><h5 class="rating star4"><a href='javascript:void(0);'>상품평보기</a>
                         </h5></c:when>
-                        <c:when test="${kmProduct.rating >= 2.5}"><h5 class="rating star3"><a
-                                href='javascript:void(0);'>상품평보기</a>
+                        <c:when test="${kmProduct.rating >= 2.5}"><h5 class="rating star3"><a href='javascript:void(0);'>상품평보기</a>
                         </h5></c:when>
-                        <c:when test="${kmProduct.rating >= 1.5}"><h5 class="rating star2"><a
-                                href='javascript:void(0);'>상품평보기</a>
+                        <c:when test="${kmProduct.rating >= 1.5}"><h5 class="rating star2"><a href='javascript:void(0);'>상품평보기</a>
                         </h5></c:when>
-                        <c:when test="${kmProduct.rating >= 0.5}"><h5 class="rating star1"><a
-                                href='javascript:void(0);'>상품평보기</a>
+                        <c:when test="${kmProduct.rating >= 0.5}"><h5 class="rating star1"><a href='javascript:void(0);'>상품평보기</a>
                         </h5></c:when>
                         <c:otherwise>
                             <h6>상품평이 없습니다.</h6>
@@ -260,7 +255,6 @@
                     <input type="hidden" name="point" value="${kmProduct.point}">
                     <input type="hidden" name="cate1" value="${cate1}">
                     <input type="hidden" name="cate2" value="${cate2}">
-                    <input type="hidden" name="thumb1" value="${kmProduct.thumb1}">
                     <input type="hidden" name="type" value="order">
                 </form>
             </div>
