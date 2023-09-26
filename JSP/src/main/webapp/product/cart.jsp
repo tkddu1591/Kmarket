@@ -90,6 +90,10 @@
                             totalCartDatas[i] += parseInt(termCartDatas[i]) * parseInt(termCartDatas[3]);
                             continue
                         }
+                        if(i==8){
+                            totalCartDatas[i] += parseInt(termCartDatas[i]) + parseInt(termCartDatas[6]);
+                            continue
+                        }
                         totalCartDatas[i] += parseInt(termCartDatas[i]);
                     }
                     totalCartDatas[3]++;
@@ -228,7 +232,7 @@
                                         <c:otherwise><td>-</td></c:otherwise>
                                     </c:choose>
                                     <c:choose>
-                                        <c:when test="${dto.point ne 0}"><td>${dto.priceWithComma}</td></c:when>
+                                        <c:when test="${dto.point ne 0}"><td>${dto.pointWithComma}</td></c:when>
                                         <c:otherwise><td>-</td></c:otherwise>
                                     </c:choose>
                                     <td>${dto.delivery eq 0 ? '무료배송':dto.deliveryWithComma+=' 원'} </td>
