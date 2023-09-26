@@ -21,6 +21,7 @@ public class DeleteController extends HttpServlet{
 		String no = req.getParameter("no");
 		
 		service.deleteCsFaq(no);
+		service.removeRelatedFaq(no);
 		
 
 		resp.sendRedirect("/JSP/admin/cs/faq/list.do?success=200");
@@ -31,6 +32,7 @@ public class DeleteController extends HttpServlet{
 
 		for(String no : chks) {
 			service.deleteCsFaq(no);
+			service.removeRelatedFaq(no);
 		}
 		
 		resp.sendRedirect("/JSP/admin/cs/faq/list.do?success=200");

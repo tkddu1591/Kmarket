@@ -36,4 +36,7 @@ public enum KmCsFaqService {
 	public void deleteCsFaq(String no) {
 		dao.deleteCsFaq(no);
 	}
+	public void removeRelatedFaq(String no) {
+		dao.removeRelatedFaq(no);
+	}
 }
