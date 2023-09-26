@@ -59,7 +59,7 @@ public class KmProductService {
 	    return dao.selectProducts(cate, start);
 	}
 	public void updateProduct(KmProductDTO dto) {
-	  //  dao.updateProduct(dto); error떠서 주석했어요
+	   dao.updateProduct(dto);
 	}
 	public void removeProduct(String prodNo) {
 	     dao.removeProduct(prodNo);
