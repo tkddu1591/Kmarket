@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="./../_header.jsp" %>
 <%@include file="./../_aside.jsp" %>
+<script src="${ctxPath}/admin/js/controllCsDelete.js"></script>
 <!-- <script>
 	const success =  new URL(location.href).searchParams.get('success');
 	

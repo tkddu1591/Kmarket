@@ -10,7 +10,7 @@
 			if(isEmailOk){
 				$('#formFindPass').submit();
 			}else{
-				alert('이메일 인증을 수행하셔야 합니다.');
+				alert('이메일 인증을 수행하십시오');
 			}
 		});
 	});
