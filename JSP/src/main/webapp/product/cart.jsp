@@ -226,7 +226,7 @@
                                         </article>
                                     </td>
                                     <td>${dto.count}</td>
-                                        <td>${dto.priceWithComma}</td>
+                                    <td>${dto.priceWithComma}</td>
                                     <c:choose>
                                         <c:when test="${dto.discount ne 0}"><td>${dto.discountWithComma}%</td></c:when>
                                         <c:otherwise><td>-</td></c:otherwise>

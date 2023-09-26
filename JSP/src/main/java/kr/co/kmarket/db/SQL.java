@@ -531,7 +531,6 @@ public class SQL {
 																 `relatedFaq`=? 
 																 WHERE `faqNo` = ?
 															""";
-	
 	public final static String UPDATE_CSFAQ_HIT		= """
 											UPDATE `km_cs_faq` SET 
 														 `hit` = `hit`+1 
@@ -545,11 +544,6 @@ public class SQL {
 						 `content` = ?
 						 WHERE `faqNo` = ?
 					""";
-	public final static String UPDATE_CSQNA_REMOVE_RELATEDFAQ = """
-			UPDATE `km_cs_faq` SET 
-						 `relatedFaq` = null
-						 WHERE `relatedFaq` = ?
-			""";
 	public static final String DELETE_CSFAQ = "DELETE FROM `km_cs_faq` WHERE `faqNo`=?";
 
 	// km_cs_faq_rate
@@ -575,11 +569,6 @@ public class SQL {
 	public final static String UPDATE_CSFAQRATE		= """
 												UPDATE `km_cs_faq_rate` SET 
 															 `rate` = ?
-															 WHERE `faqNo` = ? AND `uid`=?
-														""";
-
-	public final static String DELETE_CSFAQRATE		= """
-												DELETE FROM `km_cs_faq_rate` 
 															 WHERE `faqNo` = ? AND `uid`=?
 														""";
 }

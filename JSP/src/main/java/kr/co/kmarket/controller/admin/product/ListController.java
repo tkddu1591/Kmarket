@@ -22,9 +22,9 @@ import kr.co.kmarket.service.PageService;
 
 @WebServlet("/admin/product/list.do")
 public class ListController extends HttpServlet{
-	private static final long serialVersionUID = 5993656574541195493L;
+    private static final long serialVersionUID = 5993656574541195493L;
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
