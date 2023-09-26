@@ -73,7 +73,7 @@ public class ListController extends HttpServlet {
         if (search == null || search.equals("")) {
             total = kmProductService.selectKmProductsCountCate(kmProductCate2DTO.getCate1(), (kmProductCate2DTO.getCate2()));
         } else {
-            total = kmProductService.selectCountProductsSearch(search);
+            total = kmProductService.selectCountProductsSearch(search,"prodName");
         }
 
         // 마지막 페이지 번호
@@ -93,7 +93,7 @@ public class ListController extends HttpServlet {
         if (search == null || search.equals("")) {
             kmProducts = kmProductService.selectKmProductsCateL10(kmProductCate2DTO, start, condition);
         } else {
-            kmProducts = kmProductService.selectProductsSearch(search, start);
+            kmProducts = kmProductService.selectProductsSearch(search, start, "prodName");
         }
 
 

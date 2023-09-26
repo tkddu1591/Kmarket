@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 
 import kr.co.kmarket.dto.KmCsCate2DTO;
 import kr.co.kmarket.dto.KmCsFaqDTO;
-import kr.co.kmarket.service.KmCsCate2Service;
 import kr.co.kmarket.service.KmCsCateService;
 import kr.co.kmarket.service.KmCsFaqService;
 import kr.co.kmarket.service.PageService;

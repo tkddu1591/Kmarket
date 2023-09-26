@@ -513,7 +513,52 @@ public class KmProductDAO extends DBHelper {
 		return new String[]{st1, st2};
 	}
 
+	public void updateProduct(KmProductDTO dto) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_ADMIN);
+			psmt.setInt(1, dto.getProdCate1());
+			psmt.setInt(2, dto.getProdCate2());
+			psmt.setString(3, dto.getProdName());
+			psmt.setString(4, dto.getDescript());
+			psmt.setString(5, dto.getCompany());
+			psmt.setInt(6, dto.getPrice());
+			psmt.setInt(7, dto.getDiscount());
+			psmt.setInt(8, dto.getPoint());
+			psmt.setInt(9, dto.getStock());
+			psmt.setString(10, dto.getSeller());
+			psmt.setInt(11, dto.getDelivery());
+			psmt.setString(12, dto.getThumb1());
+			psmt.setString(13, dto.getThumb2());
+			psmt.setString(14, dto.getThumb3());
+			psmt.setString(15, dto.getDetail());
+			psmt.setString(16, dto.getStatus());
+			psmt.setString(17, dto.getDuty());
+			psmt.setString(18, dto.getReceipt());
+			psmt.setString(19, dto.getBizType());
+			psmt.setString(20, dto.getOrigin());
+			psmt.setString(21, dto.getIp());
+			psmt.setInt(22, dto.getProdNo());
+			psmt.executeUpdate();
+			close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public int removeProduct(String prodNo) {
+		int result = 0;
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_PRODUCT_ISREMOVED);
+			psmt.setString(1, prodNo);
+			result = psmt.executeUpdate();
+			close();
+		} catch (Exception e) {
+			logger.error("deleteFile - " + e.getMessage());
+		}
+		return result;
 
+	}
 	public void updateProduct(int count, int prodNo) {
 		conn = getConnection();
 		try {
