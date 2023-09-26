@@ -1,4 +1,17 @@
 
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema Kmarket
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Kmarket
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `Kmarket` DEFAULT CHARACTER SET utf8 ;
 USE `Kmarket` ;
 
@@ -84,7 +97,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cate2` (
   `cate1` TINYINT NOT NULL,
-  `cate2` INT NOT NULL,
+  `cate2` TINYINT NOT NULL,
   `c2Name` VARCHAR(20) NOT NULL,
   INDEX `fk_km_product_cate2_km_product_cate11_idx` (`cate1` ASC) VISIBLE,
   PRIMARY KEY (`cate1`, `cate2`),
@@ -102,7 +115,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product` (
   `prodNo` INT NOT NULL AUTO_INCREMENT,
   `prodCate1` TINYINT NOT NULL,
-  `prodCate2` INT NOT NULL,
+  `prodCate2` TINYINT NOT NULL,
   `prodName` VARCHAR(100) NOT NULL,
   `descript` VARCHAR(100) NOT NULL,
   `company` VARCHAR(100) NOT NULL,
@@ -116,19 +129,21 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product` (
   `hit` INT NULL DEFAULT 0,
   `score` TINYINT NULL DEFAULT 0,
   `review` INT NULL DEFAULT 0,
-  `thumb1` VARCHAR(255) NOT NULL,
-  `thumb2` VARCHAR(255) NOT NULL,
-  `thumb3` VARCHAR(255) NOT NULL,
-  `detail` VARCHAR(255) NOT NULL,
+  `thumb1` VARCHAR(255) NULL,
+  `thumb2` VARCHAR(255) NULL,
+  `thumb3` VARCHAR(255) NULL,
+  `detail` VARCHAR(255) NULL,
   `status` VARCHAR(20) NULL DEFAULT '새상품',
   `duty` VARCHAR(20) NULL DEFAULT '과세상품',
-  `receipt` VARCHAR(20)  NULL DEFAULT '신용카드 전표',
+  `receipt` VARCHAR(20) CHARACTER SET '발행가능' NULL DEFAULT '발행가능 - 신용카드 전표, 온라인 현금영수증',
   `bizType` VARCHAR(20) NULL DEFAULT '사업자 판매자',
   `origin` VARCHAR(20) NULL DEFAULT '상세설명참고',
   `ip` VARCHAR(20) NOT NULL,
-  `wdate` DATETIME NULL,
   `rdate` DATETIME NOT NULL,
+  `wdate` DATETIME NULL,
+  `isRemoved` TINYINT NULL DEFAULT 0,
   `etc1` INT NULL,
+  `etc2` INT NULL,
   `etc3` VARCHAR(10) NULL,
   `etc4` VARCHAR(20) NULL,
   `etc5` VARCHAR(30) NULL,
@@ -156,43 +171,6 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cart` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
-
--- -----------------------------------------------------
--- Table `Kmarket`.`km_product_cart_item`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cart_item` (
-  `cartNo` INT NOT NULL,
-  `uid` VARCHAR(20) NOT NULL,
-  `prodNo` INT NOT NULL,
-  `count` INT NOT NULL,
-  `price` INT NOT NULL,
-  `discount` INT NOT NULL,
-  `point` INT NOT NULL,
-  `delivery` INT NOT NULL,
-  `total` INT NOT NULL,
-  `rdate` DATETIME NOT NULL,
-  INDEX `fk_table1_km_product_cart1_idx` (`cartNo` ASC) VISIBLE,
-  INDEX `fk_km_product_cart_item_km_member1_idx` (`uid` ASC) VISIBLE,
-  INDEX `fk_km_product_cart_item_km_product1_idx` (`prodNo` ASC) VISIBLE,
-  CONSTRAINT `fk_table1_km_product_cart1`
-    FOREIGN KEY (`cartNo`)
-    REFERENCES `Kmarket`.`km_product_cart` (`cartNo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_km_product_cart_item_km_member1`
-    FOREIGN KEY (`uid`)
-    REFERENCES `Kmarket`.`km_member` (`uid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_km_product_cart_item_km_product1`
-    FOREIGN KEY (`prodNo`)
-    REFERENCES `Kmarket`.`km_product` (`prodNo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 
 -- -----------------------------------------------------
@@ -279,8 +257,6 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_review` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-# cs 게시판 추가 
-
 
 -- -----------------------------------------------------
 -- Table `Kmarket`.`km_cs_cate1`
@@ -309,7 +285,6 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_cate2` (
 ENGINE = InnoDB;
 
 
-
 -- -----------------------------------------------------
 -- Table `Kmarket`.`km_cs_qna`
 -- -----------------------------------------------------
@@ -327,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_qna` (
   `ordNo` INT NULL,
   `prodNo` INT NULL,
   `parent` INT NULL,
-  `answerComplete` TINYINT NULL,
+  `answerComplete` TINYINT NULL COMMENT '0 : 답변X, 1  : 검토중, 2: 답변 완료',
   `regip` VARCHAR(100) NOT NULL,
   `rdate` DATETIME NOT NULL,
   INDEX `fk_table1_km_cs_cate21_idx` (`cate2` ASC, `cate1` ASC) VISIBLE,
@@ -393,7 +368,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_faq_rate` (
   `faqNo` INT NOT NULL,
   `uid` VARCHAR(20) NOT NULL,
-  `rate` TINYINT NOT NULL,
+  `rate` TINYINT NOT NULL COMMENT '0:help_y, 1:help_n',
   INDEX `fk_table1_km_cs_faq1_idx` (`faqNo` ASC) VISIBLE,
   PRIMARY KEY (`faqNo`, `uid`),
   INDEX `fk_table1_km_member2_idx` (`uid` ASC) VISIBLE,
@@ -436,6 +411,46 @@ CREATE TABLE IF NOT EXISTS `Kmarket`.`km_cs_notice` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Kmarket`.`km_product_cart_item`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Kmarket`.`km_product_cart_item` (
+  `cartNo` INT NOT NULL,
+  `uid` VARCHAR(20) NOT NULL,
+  `prodNo` INT NOT NULL,
+  `count` INT NOT NULL,
+  `price` INT NOT NULL,
+  `discount` INT NOT NULL,
+  `point` INT NOT NULL,
+  `delivery` INT NOT NULL,
+  `total` INT NOT NULL,
+  `rdate` DATETIME NOT NULL,
+  INDEX `fk_table1_km_product_cart1_idx` (`cartNo` ASC) VISIBLE,
+  INDEX `fk_km_product_cart_item_km_member1_idx` (`uid` ASC) VISIBLE,
+  INDEX `fk_km_product_cart_item_km_product1_idx` (`prodNo` ASC) VISIBLE,
+  CONSTRAINT `fk_table1_km_product_cart1`
+    FOREIGN KEY (`cartNo`)
+    REFERENCES `Kmarket`.`km_product_cart` (`cartNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_km_product_cart_item_km_member1`
+    FOREIGN KEY (`uid`)
+    REFERENCES `Kmarket`.`km_member` (`uid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_km_product_cart_item_km_product1`
+    FOREIGN KEY (`prodNo`)
+    REFERENCES `Kmarket`.`km_product` (`prodNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 ALTER TABLE `km_product` auto_increment = 1000000;
