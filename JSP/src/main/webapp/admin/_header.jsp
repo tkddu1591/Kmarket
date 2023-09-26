@@ -21,7 +21,7 @@
     <div id="admin-wrapper">
         <header>
             <div>
-                <a href="${ctxPath}/admin/index.html" class="logo"><img src="${ctxPath}/admin/img/admin_logo.png" alt="admin_logo"/></a>
+                <a href="${ctxPath}/admin/index.do" class="logo"><img src="${ctxPath}/admin/img/admin_logo.png" alt="admin_logo"/></a>
                 <p>
                 
 	            	<c:if test="${sessUser eq null}">
