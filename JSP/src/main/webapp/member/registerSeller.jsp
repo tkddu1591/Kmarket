@@ -6,6 +6,15 @@
 	 - Context Root 경로 전역변수 
 	 - _header.jsp 5줄 참고
 -->
+<script>
+	//auto hyphen
+	const hypenTel = (target) => {
+		target.value = target.value
+				.replace(/[^0-9]/g, '')
+				.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
+
+</script>
 <script src="${ctxPath}/member/js/zipcode.js"></script> <!-- script link가 아니라 src임 -->
 <script src="${ctxPath}/member/js/validation.js"></script>
 <script src="${ctxPath}/member/js/checkUser.js"></script>
@@ -123,7 +132,7 @@
 							<tr>
 								<th><span class="essential">*</span>휴대폰</th>
 								<td>
-									<input type="text" name="km_hp" maxlength="13" placeholder="휴대폰번호 입력" required /> <!-- 중복체크하기 위해 name="km_hp" 로 설정 -->
+									<input type="text" name="km_hp" oninput="hypenTel(this)" maxlength="13" placeholder="휴대폰번호 입력" required /> <!-- 중복체크하기 위해 name="km_hp" 로 설정 -->
 									<span class="msgHp">&nbsp;&nbsp;-포함 13자리를 입력하세요.</span>
 									<span id="resultHp"></span>
 								</td>
