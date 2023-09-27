@@ -7,7 +7,7 @@
             auth="Container"
             type="javax.sql.DataSource"
             driverClassName="com.mysql.cj.jdbc.Driver"
-            url="jdbc:mysql://13.236.85.117:3306/Kmarket"
+            url="jdbc:mysql://13.55.243.21:3306/Kmarket"
             username="kmarket"
             password="Kmarket01!"
             maxActive="13"

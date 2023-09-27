@@ -413,23 +413,23 @@
             <div class="paging">
             <span class="prev">
                 <c:if test="${pageGroupStart > 1}">
-                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}&"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=1&prodNo=${kmProduct.prodNo}&scrollDown=1"
                        class="start">처음으로</a>
-                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupStart - 1}&prodNo=${kmProduct.prodNo}&scrollDown=1"
                        class="prev">이전</a>
                 </c:if>
             </span>
                 <span class="num">
                 <c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
-                   <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}"
+                   <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${i}&prodNo=${kmProduct.prodNo}&scrollDown=1"
                       class="num ${currentPage == i?'on':'off'}">${i}</a>
                 </c:forEach>
             </span>
                 <span class="next">
                 <c:if test="${pageGroupEnd < lastPageNum}">
-                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupEnd + 1}&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${pageGroupEnd + 1}&prodNo=${kmProduct.prodNo}&scrollDown=1"
                        class="next">다음</a>
-                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${lastPageNum}&prodNo=${kmProduct.prodNo}"
+                    <a href="${ctxPath}/product/view.do?cate1=${kmProduct.prodCate1}&cate2=${kmProduct.prodCate2}&pg=${lastPageNum}&prodNo=${kmProduct.prodNo}&scrollDown=1"
                        class="last">마지막</a>
                 </c:if>
             </span>
