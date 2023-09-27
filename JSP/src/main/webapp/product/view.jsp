@@ -126,6 +126,7 @@
         const btn = document.querySelector('.rating > a')
         if(btn != null) {
             const review = document.querySelectorAll('.review')[0].offsetTop
+            console.log(review)
             btn.addEventListener('click', function () {
                 window.scrollTo({top: review, behavior: "smooth"});
             })
