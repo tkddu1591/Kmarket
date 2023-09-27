@@ -6,9 +6,9 @@ const ctx = '${ctxPath}';
 </script>
     <section id="admin-product-register">
         <nav>
-            <h3>자주묻는질문 등록</h3>
+            <h3>자주묻는질문 조회</h3>
             <p>
-                HOME > 고객센터 > <strong>자주묻는질문 등록</strong>
+                HOME > 고객센터 > <strong>자주묻는질문</strong>
             </p>
         </nav>
         <!-- 상품등록 컨텐츠 시작 -->

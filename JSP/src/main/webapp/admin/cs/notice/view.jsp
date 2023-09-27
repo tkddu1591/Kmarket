@@ -7,7 +7,7 @@ const ctx = '${ctxPath}';
 <script src="${ctxPath}/cs/js/setType1Category.js"></script>
     <section id="admin-product-register">
         <nav>
-            <h3>공지사항 등록</h3>
+            <h3>공지사항 조회</h3>
             <p>
                 HOME > 고객센터 > <strong>공지사항</strong>
             </p>
