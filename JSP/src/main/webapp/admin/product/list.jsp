@@ -27,7 +27,7 @@ alert('상품이 정상적으로 수정되었습니다.');
     <!-- 상품목록 컨텐츠 시작 -->
     <section>
 
-        <form action="${ctxPath}/admin/product/list.do" method="post" id="adminListForm">
+        <form action="${ctxPath}/admin/product/delete.do" method="post" id="adminListForm">
             <div>
                 <select name="condition">
                     <option value="63" <c:if test="${condition eq '63'}">selected</c:if> >상품명</option>
