@@ -1,9 +1,9 @@
 <component name="libraryTable">
-  <library name="catalina">
+  <library name="jsp-api">
     <CLASSES>
-      <root url="jar://$USER_HOME$/tomcat/lib/catalina.jar!/" />
-      <root url="jar://$USER_HOME$/tomcat/lib/servlet-api.jar!/" />
       <root url="jar://$USER_HOME$/tomcat/lib/jsp-api.jar!/" />
+      <root url="jar://$USER_HOME$/tomcat/lib/servlet-api.jar!/" />
+      <root url="jar://$USER_HOME$/tomcat/lib/catalina.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

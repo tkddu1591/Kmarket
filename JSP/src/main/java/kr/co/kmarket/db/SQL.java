@@ -213,7 +213,7 @@ public class SQL {
 
 	//--------------------------km_product_review------------------------------
 	public static final String SELECT_PRODUCT_REVIEWS_L5 = "SELECT * FROM km_product_review where prodNo=? ORDER BY revNo DESC LIMIT ?,5;";
-	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT COUNT(revNo) FROM Kmarket.km_product_review WHERE prodNo = ?;";
+	public static final String SELECT_COUNT_REVIEWS_PNO = "SELECT review FROM Kmarket.km_product WHERE prodNo = ?;";
 
 
 	//--------------------------km_cs_qna------------------------------

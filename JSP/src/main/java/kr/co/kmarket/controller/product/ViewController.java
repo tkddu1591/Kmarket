@@ -77,17 +77,18 @@ public class ViewController extends HttpServlet {
         // 전체 게시물 갯수
         int total = kmProductReviewService.selectKmProductReviewsCount(Integer.parseInt(prodNo));
 
+        logger.info(String.valueOf(total));
         // 마지막 페이지 번호
-        int lastPageNum = pageService.getLastPageNum(total);
+        int lastPageNum = pageService.getLastPageNumReview(total);
 
         // 페이지 그룹 start, end 번호
-        int[] result = pageService.getPageGroupNum(currentPage, lastPageNum);
+        int[] result = pageService.getPageGroupNumReview(currentPage, lastPageNum);
 
         // 페이지 시작번호
-        int pageStartNum = pageService.getPageStartNum(total, currentPage);
+        int pageStartNum = pageService.getPageStartNumReview(total, currentPage);
 
         // 시작 인덱스
-        int start = pageService.getStartNum(currentPage);
+        int start = pageService.getStartNumReview(currentPage);
 
         // 현재 페이지 게시물 조회
         List<KmProductReviewDTO> kmProductReviews = kmProductReviewService.selectKmProductReviews(prodNo, start);
