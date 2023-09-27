@@ -133,6 +133,8 @@ public class CompleteController extends HttpServlet {
             kmProductOrderItemService.insertKmProductOrderItem(kmProductOrderItemDTO);
 
             KmProductService kmProductService = KmProductService.getInstance();
+
+            //km_product stock 감소-----------------------
             kmProductService.updateProduct(kmProductOrderItemDTO.getCount(), kmProductOrderItemDTO.getProdNo());
 
         }
@@ -145,7 +147,6 @@ public class CompleteController extends HttpServlet {
         kmProductCartService.deleteCarts(ordUid);
         //km_cart_delete 완료------------------------
 
-        //km_product hit 추가-----------------------
 
         //km_member point 변화
         KmMemberService memberService = KmMemberService.instance;

@@ -51,6 +51,9 @@ public class OrderController extends HttpServlet {
                 // 7: point,
                 // 8: total,
                 // 9: rDate
+                // 10: thumb1
+                // 11: prodName
+                // 12: descript
 
                 finalCount =  req.getParameter("finalCount");
                 finalPrice =  req.getParameter("finalPrice");
@@ -59,7 +62,7 @@ public class OrderController extends HttpServlet {
                 finalDelivery =  req.getParameter("finalDelivery");
                 finalTotal =  req.getParameter("finalTotal");
                 KmProductOrderItemDTO kmProductOrderItemDTO = new KmProductOrderItemDTO();
-                String[] cartItemData = kmProductDTO.toString().split(",", 10);
+                String[] cartItemData = kmProductDTO.toString().split(",", 13);
                 kmProductOrderItemDTO.setProdNo(Integer.parseInt(cartItemData[2]));
                 kmProductOrderItemDTO.setCount(Integer.parseInt(cartItemData[3]));
                 kmProductOrderItemDTO.setPrice(Integer.parseInt(cartItemData[4]));
@@ -67,9 +70,9 @@ public class OrderController extends HttpServlet {
                 kmProductOrderItemDTO.setDelivery(Integer.parseInt(cartItemData[6]));
                 kmProductOrderItemDTO.setPoint(Integer.parseInt(cartItemData[7]));
                 kmProductOrderItemDTO.setTotal(Integer.parseInt(cartItemData[8]));
-                kmProductOrderItemDTO.setProdName(prodName[i]);
-                kmProductOrderItemDTO.setDescript(descript[i]);
-                kmProductOrderItemDTO.setThumb1(thumb1[i]);
+                kmProductOrderItemDTO.setProdName((cartItemData[11]));
+                kmProductOrderItemDTO.setDescript((cartItemData[12]));
+                kmProductOrderItemDTO.setThumb1((cartItemData[10]));
                 kmProductOrderItemDTOS.add(kmProductOrderItemDTO);
                 i++;
             }
