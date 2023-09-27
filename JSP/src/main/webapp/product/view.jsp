@@ -256,6 +256,7 @@
                     <input type="hidden" name="point" value="${kmProduct.point}">
                     <input type="hidden" name="cate1" value="${cate1}">
                     <input type="hidden" name="cate2" value="${cate2}">
+                    <input type="hidden" name="thumb1" value="${kmProduct.thumb1}">
                     <input type="hidden" name="type" value="order">
                 </form>
             </div>

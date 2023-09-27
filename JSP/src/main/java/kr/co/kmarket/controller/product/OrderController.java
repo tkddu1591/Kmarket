@@ -110,6 +110,7 @@ public class OrderController extends HttpServlet {
             kmProductOrderItemDTO.setTotal(req.getParameter("total"));
             kmProductOrderItemDTO.setProdName(req.getParameter("prodName"));
             kmProductOrderItemDTO.setDescript(req.getParameter("descript"));
+            kmProductOrderItemDTO.setThumb1(req.getParameter("thumb1"));
             kmProductOrderItemDTOS.add(kmProductOrderItemDTO);
         }
 
