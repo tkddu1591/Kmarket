@@ -12,6 +12,9 @@
         // 7: point,
         // 8: total,
         // 9: rDate
+        // 10: thumb1
+        // 11: prodName
+        // 12: descript
 
         //id 사용시 check 박스 사용
 
