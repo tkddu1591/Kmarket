@@ -6,12 +6,12 @@ const ctx = '${ctxPath}';
 </script>
 <script src="${ctxPath}/admin/js/setQnaView.js"></script>
     <section id="admin-product-register">
-        <nav>
-            <h3>자주묻는질문 등록</h3>
-            <p>
-                HOME > 고객센터 > <strong>자주묻는질문 등록</strong>
-            </p>
-        </nav>
+	    <nav>
+	        <h3>문의하기 조회</h3>
+	        <p>
+	            HOME > 고객센터 > <strong>문의하기</strong>
+	        </p>
+	    </nav>
         <!-- 상품등록 컨텐츠 시작 -->
         <article>
 		    	<!-- <input type="hidden" name="seller" value="${sessUser.uid}"> -->
