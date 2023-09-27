@@ -77,13 +77,11 @@ public class LoginController extends HttpServlet{
 			
 			session.setAttribute("sessUser", user); 
 			
-			logger.debug("here1");
 			
 			// 컨텍스트 경로 전역변수를 이용한 리다이렉트
 			resp.sendRedirect(ctxPath); // session은 브라우저 켜져 있는 한 유지되므로 index.jsp에서 sessUser속성을 표현언어로 참조할 수 있는 것 / 위에서 ctxPath 생성해주고 이렇게 쓸수도 있네
 			
 		}else {
-			logger.debug("here2");
 			
 			resp.sendRedirect(ctxPath+"/member/login.do?success=100");
 		}

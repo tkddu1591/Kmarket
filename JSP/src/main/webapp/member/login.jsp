@@ -2,8 +2,8 @@
 <%@ include file="./_header.jsp" %>
 <script>
     $(document).ready(function(){
-        const success = ${success};
-        if(success == 200){
+        const success = ${success}; // 파라미터를 이렇게 받을 수도 있네
+        if(success == 200){ // LogoutController 에서 redirect로 login.do?success=200 했을 때 이 success 값을 변수로 지정하고 if문 진행
             alert('정상적으로 로그아웃 되었습니다.');
         } else if(success == 102){
             alert('관리자로 로그인해주세요.');
