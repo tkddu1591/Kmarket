@@ -46,7 +46,7 @@ public class KmMemberDAO extends DBHelper{
 	}
 	
 	public KmMemberDTO selectMember(String uid, String pass) {
-		KmMemberDTO dto = new KmMemberDTO();
+		KmMemberDTO dto = null;
 		
 		try {
 			conn = getConnection();
@@ -56,6 +56,7 @@ public class KmMemberDAO extends DBHelper{
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
+				dto = new KmMemberDTO();
 				dto.setUid(rs.getString(1));
 				dto.setPass(rs.getString(2));
 				dto.setName(rs.getString(3));
