@@ -32,8 +32,7 @@
 
         <!-- 정렬 메뉴 -->
 
-        <c:if test="${not empty KmProductDTOS}">
-            <c:if test="${not empty cate1}">
+        <c:if test="${not empty KmProductDTOS &&cate1!=0 && not empty cate1}">
                 <ul class="sort">
                     <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=11"
                            class="${condition eq '11' ? 'on' : ''}">판매많은순</a></li>
@@ -48,7 +47,6 @@
                     <li><a href="${ctxPath}/product/list.do?cate1=${cate1}&cate2=${cate2}&condition=51"
                            class="${condition eq '51' ? 'on' : ''}">최근등록순</a></li>
                 </ul>
-            </c:if>
         </c:if>
         <!-- 상품목록 -->
         <table border="0">
